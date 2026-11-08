@@ -25,7 +25,8 @@ local function sequence(values: { number }): () -> number
 	return nextValue
 end
 
-local AXE = { tier = 1, damage = 5 }
+-- Tier 0 matches the Tree and Bush minimum, so no tier bonus applies and one hit deals exactly 5.
+local AXE = { tier = 0, damage = 5 }
 
 return {
 	["newDefs validates definitions"] = function()

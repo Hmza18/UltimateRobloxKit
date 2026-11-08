@@ -40,7 +40,7 @@ local PlacementClient = {}
 
 function PlacementClient.new(options: Options): Client
 	local settings: { [string]: any } = table.clone(PlacementConfig)
-	for key, value in options.config or {} do
+	for key, value in pairs(options.config or {}) do
 		settings[key] = value
 	end
 	local config = PlacementLogic.resolveConfig(settings)

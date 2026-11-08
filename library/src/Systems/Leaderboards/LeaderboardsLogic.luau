@@ -56,13 +56,13 @@ function LeaderboardsLogic.rank(entries: { Entry }, options: RankOptions?): { Ra
 	local previousScore: number? = nil
 	local previousRank = 0
 	for index, entry in ranked do
-		if ties == "ordinal" then
-			entry.rank = index
-		elseif previousScore ~= nil and entry.score == previousScore then
+		local tied = ties ~= "ordinal" and previousScore ~= nil and entry.score == previousScore
+		if tied then
 			entry.rank = previousRank
 		elseif ties == "dense" then
 			entry.rank = previousRank + 1
 		else
+			-- "ordinal" and "competition": the rank is the position in the sorted list.
 			entry.rank = index
 		end
 		previousScore = entry.score

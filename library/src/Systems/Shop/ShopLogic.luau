@@ -98,7 +98,7 @@ function ShopLogic.newCatalog(inputs: { ItemInput }): Catalog
 		local maxQuantity = input.maxQuantity or ShopLogic.DEFAULT_MAX_QUANTITY
 		assert(isCount(maxQuantity), "invalid maxQuantity for " .. id)
 		local sales: { Sale } = {}
-		for _, sale in input.sales or {} do
+		for _, sale in ipairs(input.sales or {}) do
 			assert(isFinite(sale.discount) and sale.discount >= 0 and sale.discount <= 1, "invalid discount for " .. id)
 			table.insert(sales, { discount = sale.discount, startsAt = sale.startsAt, endsAt = sale.endsAt })
 		end

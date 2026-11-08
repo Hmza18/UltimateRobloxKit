@@ -90,13 +90,13 @@ function InputClient.new(options: Options): Client
 	local function bindAll()
 		for action, def in map do
 			local inputs: { EnumItem } = {}
-			for _, name in def.keyboard or {} do
+			for _, name in ipairs(def.keyboard or {}) do
 				local item = toInput(name)
 				if item then
 					table.insert(inputs, item)
 				end
 			end
-			for _, name in def.gamepad or {} do
+			for _, name in ipairs(def.gamepad or {}) do
 				local item = toInput(name)
 				if item then
 					table.insert(inputs, item)
@@ -112,7 +112,7 @@ function InputClient.new(options: Options): Client
 				triggered:Fire(action, state.Name, inputObject)
 				return if sink then Enum.ContextActionResult.Sink else Enum.ContextActionResult.Pass
 			end
-			local priority = def.priority or Enum.ContextActionPriority.Default.Value
+			local priority = def.priority or Enum.ContextActionPriority.Medium.Value
 			local bound = bindName(action)
 			ContextActionService:BindActionAtPriority(bound, handler, touch ~= nil, priority, table.unpack(inputs))
 			if touch then

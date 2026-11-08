@@ -84,7 +84,19 @@ return {
 	end,
 
 	["README documents every tag and attribute"] = function()
-		local path = if fs.isFile("src/UI/README.md") then "src/UI/README.md" else "../src/UI/README.md"
+		-- A documentation check for the kit repository. In a game project the README sits elsewhere
+		-- (src/shared/Urk/UI/README.md), and it only needs checking once, in the kit's own CI.
+		local candidates = { "src/UI/README.md", "../src/UI/README.md", "src/shared/Urk/UI/README.md" }
+		local path: string? = nil
+		for _, candidate in candidates do
+			if fs.isFile(candidate) then
+				path = candidate
+				break
+			end
+		end
+		if path == nil then
+			return
+		end
 		local readme = fs.readFile(path)
 		for name, def in TagSpec.tags do
 			t.truthy(string.find(readme, "`" .. name .. "`", 1, true) ~= nil, "README is missing tag " .. name)

@@ -122,7 +122,8 @@ function Notifications.normalize(input: any, config: Config, now: number, id: nu
 	local typeDef = config.types[kind]
 	local priority = if isFinite(input.priority) then input.priority else typeDef.priority
 	local duration = if isFinite(input.duration) and input.duration >= 0 then input.duration else typeDef.duration
-	local key = if type(input.key) == "string" then input.key else kind .. "\0" .. (title or "") .. "\0" .. text
+	local titleText: string = if type(title) == "string" then title else ""
+	local key = if type(input.key) == "string" then input.key else kind .. "\0" .. titleText .. "\0" .. text
 	local note: Notification = {
 		id = id,
 		kind = kind,

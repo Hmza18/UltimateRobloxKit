@@ -84,7 +84,7 @@ function ToastService.new(context: any)
 	local function makeView(): View
 		local frame = Create.new("Frame", {
 			Name = "Toast",
-			Size = UDim2.new(1, 0, 0, 0),
+			Size = UDim2.fromScale(1, 0),
 			AutomaticSize = Enum.AutomaticSize.Y,
 			BorderSizePixel = 0,
 			Visible = false,
@@ -144,7 +144,7 @@ function ToastService.new(context: any)
 		local close = Create.new("TextButton", {
 			Name = "Close",
 			AnchorPoint = Vector2.new(1, 0),
-			Position = UDim2.new(1, 0, 0, 0),
+			Position = UDim2.fromScale(1, 0),
 			Size = UDim2.fromOffset(20, 20),
 			BackgroundTransparency = 1,
 			Text = "X",

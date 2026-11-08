@@ -34,7 +34,7 @@ Prioritized from the V2 gap analysis ([research-v2.md](research-v2.md)) and the 
 | P2-15 | darklua-bundled `UltimateRobloxKit.rbxm` attached to GitHub releases | S | CI already builds the `.rbxm` artifact |
 | P2-17 | Doctor: detect stale pins against the latest releases, `wally.lock` drift and Foreman or Aftman manifests | S | |
 | P2-20 | Nevermore-style ServiceBag dependency injection as an architecture option | M | Binder is done |
-| UI-next | Make the full-library type check blocking once it is clean, and add a Studio playtest checklist per UrkUI component | S | The type check currently runs report-only |
+| UI-next | Clear the 153 luau-lsp findings (mostly adapters), make the full type check blocking, and add Studio playtest checklists per UrkUI component | M | The blocking luau-analyze check on all 48 pure modules already passes |
 
 ## Not planned
 

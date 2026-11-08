@@ -343,10 +343,15 @@ function ZonesLogic.updateRaw(state: State, raw: { [any]: { [string]: boolean } 
 	local delay = state.settings.leaveDelay
 	for key in keys do
 		local inside = raw[key] or {}
-		local record = state.records[key]
-		if record == nil then
-			record = { zones = {}, primary = nil }
-			state.records[key] = record
+		local existing = state.records[key]
+		local record: Record
+		if existing == nil then
+			-- `primary` is optional, so it is left out rather than set to a literal nil.
+			local fresh: Record = { zones = {} }
+			record = fresh
+			state.records[key] = fresh
+		else
+			record = existing
 		end
 		local candidates: { [string]: boolean } = {}
 		for id in inside do

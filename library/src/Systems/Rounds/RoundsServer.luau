@@ -51,7 +51,7 @@ end
 function RoundsServer.new(options: Options?): Service
 	local opts: Options = options or {}
 	local settings: { [string]: any } = table.clone(RoundsConfig)
-	for key, value in opts.config or {} do
+	for key, value in pairs(opts.config or {}) do
 		settings[key] = value
 	end
 	local config = RoundsLogic.resolveConfig(settings)

@@ -128,7 +128,8 @@ function IconCatalog.search(query: string, limit: number?): { string }
 	if q == "" then
 		return {}
 	end
-	local scored: { { name: string, score: number } } = {}
+	type Scored = { name: string, score: number }
+	local scored: { Scored } = {}
 	for _, entry in allEntries do
 		local score = 0
 		if entry.name == q then
@@ -150,7 +151,7 @@ function IconCatalog.search(query: string, limit: number?): { string }
 			table.insert(scored, { name = entry.name, score = score })
 		end
 	end
-	table.sort(scored, function(a, b)
+	table.sort(scored, function(a: Scored, b: Scored): boolean
 		if a.score ~= b.score then
 			return a.score > b.score
 		end

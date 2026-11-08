@@ -53,7 +53,7 @@ end
 function QuestsServer.new(options: Options): Service
 	assert(type(options.grantReward) == "function", "QuestsServer needs options.grantReward")
 	local settings: { [string]: any } = table.clone(QuestsConfig)
-	for key, value in options.config or {} do
+	for key, value in pairs(options.config or {}) do
 		settings[key] = value
 	end
 	local catalog = QuestsLogic.newCatalog(options.definitions)
@@ -166,7 +166,7 @@ function QuestsServer.new(options: Options): Service
 		end
 		local state = QuestsLogic.deserialize(saved, catalog)
 		states[player] = state
-		for _, questId in options.autoStart or {} do
+		for _, questId in ipairs(options.autoStart or {}) do
 			QuestsLogic.start(catalog, state, questId, clock(), config)
 		end
 		sync(player)

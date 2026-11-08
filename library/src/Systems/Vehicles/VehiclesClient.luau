@@ -56,7 +56,7 @@ end
 
 function VehiclesClient.new(overrides: { [string]: any }?): Client
 	local settings: { [string]: any } = table.clone(VehiclesConfig)
-	for key, value in overrides or {} do
+	for key, value in pairs(overrides or {}) do
 		settings[key] = value
 	end
 	local config = VehiclesLogic.resolveConfig(settings)

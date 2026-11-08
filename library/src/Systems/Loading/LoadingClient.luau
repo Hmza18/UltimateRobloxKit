@@ -33,7 +33,7 @@ local LoadingClient = {}
 function LoadingClient.start(options: Options?): Handle
 	local opts: Options = options or {}
 	local settings: { [string]: any } = table.clone(LoadingConfig)
-	for key, value in opts.config or {} do
+	for key, value in pairs(opts.config or {}) do
 		settings[key] = value
 	end
 	local config = LoadingLogic.resolveConfig(settings)

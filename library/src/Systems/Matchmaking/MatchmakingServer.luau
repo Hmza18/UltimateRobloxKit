@@ -55,7 +55,7 @@ end
 function MatchmakingServer.new(options: Options): Service
 	assert(type(options.placeId) == "number", "MatchmakingServer needs options.placeId")
 	local settings: { [string]: any } = table.clone(MatchmakingConfig)
-	for key, value in options.config or {} do
+	for key, value in pairs(options.config or {}) do
 		settings[key] = value
 	end
 	local serverId = if game.JobId ~= "" then game.JobId else "studio"
