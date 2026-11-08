@@ -3,12 +3,14 @@
 --
 --   local Icons = require(path.to.Icons)
 --   Icons.configure({ sheets = { "rbxassetid://111", "rbxassetid://222" } })
---   Icons.apply(imageLabel, "coin", { color = Color3.fromRGB(255, 200, 40) })
+--   Icons.apply(imageLabel, "coin", { color = Color3.fromRGB(255, 200, 40) })  -- tintable white glyph
+--   Icons.apply(imageLabel, "coin", { style = "color" })                       -- illustrated coin-color
+--   Icons.apply(imageLabel, "egg-legendary")                                   -- a colour variant
 --   local label = Icons.create("settings", { size = 32 })
 
 local IconCatalog = require("./IconCatalog")
 
-export type Options = { color: Color3?, size: number?, transparency: number? }
+export type Options = { color: Color3?, size: number?, transparency: number?, style: string? }
 export type IconProps = { Image: string, ImageRectOffset: Vector2, ImageRectSize: Vector2 }
 
 local Icons = {}
@@ -18,6 +20,8 @@ Icons.has = IconCatalog.has
 Icons.search = IconCatalog.search
 Icons.list = IconCatalog.list
 Icons.categories = IconCatalog.categories
+Icons.styled = IconCatalog.styled
+Icons.variants = IconCatalog.variants
 
 local warned: { [string]: boolean } = {}
 
@@ -46,7 +50,8 @@ function Icons.get(name: string): IconProps?
 end
 
 function Icons.apply(label: ImageLabel | ImageButton, name: string, options: Options?): boolean
-	local props = Icons.get(name)
+	local resolved = IconCatalog.styled(name, if options then options.style else nil)
+	local props = Icons.get(resolved)
 	if not props then
 		return false
 	end
@@ -54,6 +59,11 @@ function Icons.apply(label: ImageLabel | ImageButton, name: string, options: Opt
 	label.ImageRectOffset = props.ImageRectOffset
 	label.ImageRectSize = props.ImageRectSize
 	label.ScaleType = Enum.ScaleType.Fit
+	-- Illustrated icons carry their own colours; reset any tint left by a previous glyph.
+	local entry = IconCatalog.resolve(resolved)
+	if entry and entry.style == "color" then
+		label.ImageColor3 = Color3.new(1, 1, 1)
+	end
 	if options then
 		if options.color then
 			label.ImageColor3 = options.color

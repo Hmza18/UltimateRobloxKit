@@ -31,7 +31,12 @@ class IconCatalogTests(unittest.TestCase):
 
     def test_metadata_and_license(self):
         self.assertEqual(self.cat["license"], "MIT")
-        self.assertGreaterEqual(len(self.cat["icons"]), 80)
+        self.assertGreaterEqual(len(self.cat["icons"]), 250)
+        styles = {i["style"] for i in self.cat["icons"]}
+        self.assertEqual(styles, {"glyph", "color"})
+        glyphs = {i["name"] for i in self.cat["icons"] if i["style"] == "glyph"}
+        for g in glyphs:
+            self.assertIn(f"{g}-color", {i["name"] for i in self.cat["icons"]}, "every glyph has an illustrated version")
         self.assertTrue((ROOT / "assets/icons/LICENSE.md").exists())
 
     def test_names_categories_tags(self):
@@ -59,7 +64,7 @@ class IconCatalogTests(unittest.TestCase):
 
     def test_luau_data_matches_catalog(self):
         text = (ROOT / "library/src/Icons/IconData.luau").read_text()
-        rows = re.findall(r'name = "([^"]+)", category = "([^"]+)".*?sheet = (\d+), x = (\d+), y = (\d+)', text)
+        rows = re.findall(r'name = "([^"]+)", base = "[^"]+", style = "[^"]+", category = "([^"]+)".*?sheet = (\d+), x = (\d+), y = (\d+)', text)
         self.assertEqual([(r[0], r[1], int(r[2]), int(r[3]), int(r[4])) for r in rows],
                          [(i["name"], i["category"], i["sheet"], i["x"], i["y"]) for i in self.cat["icons"]])
 
@@ -67,6 +72,25 @@ class IconCatalogTests(unittest.TestCase):
     def test_build_is_reproducible(self):
         out = subprocess.run([sys.executable, str(ROOT / "tools/icons/build_icons.py"), "--check"], capture_output=True, text=True)
         self.assertEqual(out.returncode, 0, out.stdout + out.stderr)
+
+    @unittest.skipUnless(HAS_PIL, "Pillow not installed")
+    def test_style_validator(self):
+        spec = importlib.util.spec_from_file_location("validate_icon", ROOT / "tools/icons/validate_icon.py")
+        v = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(v)
+        for i in self.cat["icons"]:
+            with self.subTest(icon=i["name"]):
+                r = v.check(ICONS / "png" / f"{i['name']}.png", glyph=i["style"] == "glyph")
+                self.assertEqual([k for k, x in r.items() if not x["ok"]], [])
+        from PIL import Image, ImageDraw
+        with tempfile.TemporaryDirectory() as tmp:
+            bad = Path(tmp) / "bad.png"
+            img = Image.new("RGBA", (256, 256), (240, 240, 240, 255))  # baked background
+            ImageDraw.Draw(img).rectangle([10, 10, 90, 90], fill=(200, 200, 200, 255))  # off-centre, no outline
+            img.save(bad)
+            r = v.check(bad)
+            failed = {k for k, x in r.items() if not x["ok"]}
+            self.assertTrue({"transparent", "outline"} <= failed, failed)
 
     @unittest.skipUnless(HAS_PIL, "Pillow not installed")
     def test_importer_normalises_and_protects(self):

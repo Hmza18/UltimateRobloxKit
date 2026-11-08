@@ -49,6 +49,34 @@ function IconCatalog.has(name: string): boolean
 	return IconCatalog.resolve(name) ~= nil
 end
 
+-- The name to use for a style: "color" prefers the illustrated "<name>-color" when it exists,
+-- "glyph" strips a "-color" suffix. Anything else returns the name unchanged.
+function IconCatalog.styled(name: string, style: string?): string
+	local key = IconCatalog.normalize(name)
+	if style == "color" then
+		local colored = key .. "-color"
+		if string.sub(key, -6) ~= "-color" and IconCatalog.resolve(colored) ~= nil then
+			return colored
+		end
+	elseif style == "glyph" and string.sub(key, -6) == "-color" then
+		return string.sub(key, 1, -7)
+	end
+	return key
+end
+
+-- Every variant name sharing a base glyph, e.g. "egg" -> { "egg", "egg-color", "egg-epic", ... }.
+function IconCatalog.variants(base: string): { string }
+	local key = IconCatalog.normalize(base)
+	local names: { string } = {}
+	for _, entry in allEntries do
+		if entry.name == key or entry.base == key then
+			table.insert(names, entry.name)
+		end
+	end
+	table.sort(names)
+	return names
+end
+
 -- Add an imported pack. Its names must not clash with icons already registered.
 function IconCatalog.register(pack: Pack)
 	local id = pack.pack or "custom"
@@ -107,10 +135,11 @@ function IconCatalog.rect(name: string): Rect?
 	}
 end
 
-function IconCatalog.list(category: string?): { string }
+function IconCatalog.list(category: string?, style: string?): { string }
 	local names: { string } = {}
 	for _, entry in allEntries do
-		if category == nil or entry.category == category then
+		local styleMatches = style == nil or (entry.style or "glyph") == style
+		if styleMatches and (category == nil or entry.category == category) then
 			table.insert(names, entry.name)
 		end
 	end
