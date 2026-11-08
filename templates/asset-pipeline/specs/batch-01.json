@@ -1,0 +1,10 @@
+{
+  "batch": "batch-01",
+  "assets": [
+    {"name": "Crate", "generator": "crate", "size": [2, 2, 2], "colors": {"wood": "#D08A3E", "wood_end": "#A9692B"}},
+    {"name": "TrafficCone", "generator": "traffic_cone", "size": [1.2, 1.2, 1.8], "colors": {"cone": "#FF7A1A", "stripe": "#F5F5F5", "base": "#2B2B2B"}},
+    {"name": "Bench", "generator": "bench", "size": [5, 1.8, 2.8], "colors": {"wood": "#B5733A", "frame": "#3A3F47"}},
+    {"name": "LampPost", "generator": "lamp_post", "size": [1.2, 1.2, 9], "colors": {"base": "#2F3640", "pole": "#3D4652", "lamp": "#2F3640", "glow": "#FFE08A"}},
+    {"name": "Coin", "generator": "coin_pickup", "size": [2, 0.4, 2], "colors": {"rim": "#E0A800", "face": "#FFD23F"}}
+  ]
+}
