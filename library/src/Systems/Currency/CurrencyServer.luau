@@ -127,6 +127,20 @@ function CurrencyServer.new(config: Config)
 		return result
 	end
 
+	-- Spends several currencies at once, all or nothing. Returns true when charged.
+	function server:spendMany(player: Player, costs: { [string]: number }, sink: string?): boolean
+		local wallet = wallets[player]
+		if wallet == nil then
+			return false
+		end
+		local result = CurrencyLogic.spendMany(currencyConfig, wallet, costs, sink, os.time())
+		if not result.ok then
+			return false
+		end
+		server:setWallet(player, result.wallet)
+		return true
+	end
+
 	function server:loadPlayer(player: Player)
 		local wallet = CurrencyLogic.newWallet(currencyConfig)
 		if store then

@@ -1,5 +1,6 @@
-# Wally package manifest. Run `wally install` after adding dependencies, then map the
-# generated Packages folder in default.project.json (see README.md).
+# Wally package manifest. `python3 urk.py packages --project .` adds pinned Fusion, Promise and
+# ProfileStore (a server-realm package, so it goes under [server-dependencies]), maps Packages and
+# ServerPackages in default.project.json and runs `wally install`.
 [package]
 name = "your-scope/your-game"
 version = "0.1.0"
@@ -7,8 +8,5 @@ registry = "https://github.com/UpliftGames/wally-index"
 realm = "shared"
 
 [dependencies]
-# ProfileStore is recommended for production player data. Check wally.run for the
-# current package name and version before uncommenting, for example:
-# ProfileStore = "lm-loleris/profilestore@1.0.3"
 
 [server-dependencies]

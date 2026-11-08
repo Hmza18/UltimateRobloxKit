@@ -5,7 +5,7 @@ license: MIT
 metadata:
   category: orchestration
   version: 1.0.0
-  triggers: [plan the game, project plan, plan the architecture, architecture choice, which architecture, roadmap for my game, plan.md, scope the project, milestones, planning]
+  triggers: [plan the game, project plan, plan the architecture, architecture choice, which architecture, roadmap for my game, plan.md, scope the project, milestones, planning, complete game, whole game, generate a game, game from a description, generate a complete, from a short description, urk generate]
   depends: [kit-conventions]
 ---
 

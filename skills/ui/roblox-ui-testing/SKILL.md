@@ -5,7 +5,7 @@ license: MIT
 metadata:
   category: ui
   version: 1.0.0
-  triggers: [test the ui, ui tests, visual regression, ui snapshot, spec fixtures, playground checklist, gamepad-only test, ui test plan, ui interaction, test our ui]
+  triggers: [test the ui, ui tests, visual regression, ui snapshot, spec fixtures, playground checklist, gamepad-only test, ui test plan, ui interaction, test our ui, screenshot my ui, compare with the reference, compare it with the reference, score the ui]
   depends: [gameplay-testing]
 ---
 

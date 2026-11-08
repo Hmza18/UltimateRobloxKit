@@ -852,7 +852,14 @@
     "plan.md",
     "scope the project",
     "milestones",
-    "planning"
+    "planning",
+    "complete game",
+    "whole game",
+    "generate a game",
+    "game from a description",
+    "generate a complete",
+    "from a short description",
+    "urk generate"
    ],
    "depends": [
     "kit-conventions"
@@ -1009,6 +1016,11 @@
     "dropper",
     "conveyor",
     "egg hatch",
+    "hatching",
+    "eggs",
+    "pets",
+    "rarities",
+    "world unlock",
     "pet system",
     "plot claim",
     "idle earnings",
@@ -1233,7 +1245,11 @@
     "gamepad-only test",
     "ui test plan",
     "ui interaction",
-    "test our ui"
+    "test our ui",
+    "screenshot my ui",
+    "compare with the reference",
+    "compare it with the reference",
+    "score the ui"
    ],
    "depends": [
     "gameplay-testing"
