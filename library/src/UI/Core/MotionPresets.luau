@@ -20,7 +20,8 @@ local MotionPresets = {}
 
 MotionPresets.PROPERTIES = table.freeze({ "scale", "rotation", "offsetY", "transparency" })
 
-local REST: Sample = table.freeze({ scale = 1, rotation = 0, offsetY = 0, transparency = 0 })
+local REST: Sample = { scale = 1, rotation = 0, offsetY = 0, transparency = 0 }
+table.freeze(REST)
 MotionPresets.REST = REST
 
 local PRESETS: { [string]: Preset } = {

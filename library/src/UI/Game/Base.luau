@@ -48,10 +48,7 @@ export type Spec = {
 local Base = {}
 
 local function merge(defaults: { [string]: any }?, props: { [string]: any }?): { [string]: any }
-	local merged: { [string]: any } = {}
-	for key, value in pairs(defaults or {}) do
-		merged[key] = value
-	end
+	local merged: { [string]: any } = if defaults then table.clone(defaults) else {}
 	for key, value in pairs(props or {}) do
 		merged[key] = value
 	end

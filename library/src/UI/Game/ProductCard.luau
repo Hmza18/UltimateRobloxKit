@@ -73,18 +73,18 @@ local LAYOUTS: { [string]: Layout } = {
 	},
 }
 
-local function place(instance: GuiObject, box: Box)
-	instance.Position = box.position
-	instance.Size = box.size
-	instance.AnchorPoint = box.anchor
+local function place(instance: GuiObject, area: Box)
+	instance.Position = area.position
+	instance.Size = area.size
+	instance.AnchorPoint = area.anchor
 end
 
-local function text(object: any, parent: Instance, box: Box, value: string, options: GameText.TextOptions)
+local function text(object: any, parent: Instance, area: Box, value: string, options: GameText.TextOptions)
 	local label = Instance.new("TextLabel")
 	label.Name = "Text"
 	label.BackgroundTransparency = 1
 	label.ZIndex = 2
-	place(label, box)
+	place(label, area)
 	options.text = value
 	GameText.decorate(label, object.style, options, object.parts)
 	label.Parent = parent

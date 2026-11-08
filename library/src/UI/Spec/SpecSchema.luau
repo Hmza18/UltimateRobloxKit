@@ -122,7 +122,7 @@ SpecSchema.RULES = {
 	colorPattern = "^#%x%x%x%x%x%x$",
 	imagePattern = "^rbx%a*://.+$",
 	-- Readability limits in characters (UI rule: short titles read at phone size).
-	maxLength = ({
+	maxLength = {
 		title = 60,
 		subtitle = 90,
 		heading = 60,
@@ -137,7 +137,7 @@ SpecSchema.RULES = {
 		amount = 24,
 		option = 24,
 		note = 200,
-	} :: { [string]: number }),
+	} :: { [string]: number },
 }
 
 local RULES = SpecSchema.RULES
@@ -1162,9 +1162,10 @@ function SpecSchema.walk(spec: any, visit: (element: any, path: string) -> ())
 			local here = index(path, i)
 			if type(element) == "table" then
 				visit(element, here)
-				walkList(element.items, join(here, "items"))
-				if type(element.button) == "table" then
-					visit(element.button, join(here, "button"))
+				local node = element :: any
+				walkList(node.items, join(here, "items"))
+				if type(node.button) == "table" then
+					visit(node.button, join(here, "button"))
 				end
 			end
 		end
