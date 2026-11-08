@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "blender": {
+      "command": "bash",
+      "args": [".claude/ultimate-roblox-kit/integrations/blender/blender_mcp_server.sh"],
+      "env": {
+        "DISABLE_TELEMETRY": "true",
+        "BLENDER_MCP_DISABLE_TELEMETRY": "true",
+        "MCP_DISABLE_TELEMETRY": "true"
+      }
+    },
+    "Roblox_Studio": {
+      "command": "/Applications/RobloxStudio.app/Contents/MacOS/StudioMCP",
+      "args": []
+    }
+  }
+}

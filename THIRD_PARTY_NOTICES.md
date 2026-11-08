@@ -1,0 +1,15 @@
+# Third-party notices
+
+This repository contains no third-party source code. Third-party material reaches a project only when you run a fetch, and each such fetch carries its own license:
+
+| Component | How it arrives | License | Notice |
+|---|---|---|---|
+| EL4CTEO/blender-skills (https://github.com/EL4CTEO/blender-skills) | `scripts/install/third_party.py install el4cteo-blender-skills` | MIT | `UPSTREAM_LICENSE` copied into each installed skill |
+| WojciechJelen/roblox-dev-kit (https://github.com/WojciechJelen/roblox-dev-kit) | `third_party.py install roblox-dev-kit` | MIT | same |
+| gogolumo/rbsmithy-roblox-claude-skill (https://github.com/gogolumo/rbsmithy-roblox-claude-skill) | `third_party.py install rbsmithy` | MIT | same |
+| zriptic/roclicks-skills (https://github.com/zriptic/roclicks-skills) | `third_party.py install roclicks-skills` | MIT | same |
+| ahujasid/mcp-for-blender (https://github.com/ahujasid/mcp-for-blender) | `integrations/blender/setup_blender_mcp.sh` (pip, pinned commit) | MIT | in the installed package; upstream also has TERMS_AND_CONDITIONS.md |
+
+Tools pinned in templates (Rojo, Wally, Selene, StyLua, Lune, luau-lsp, Rokit) are downloaded by Rokit under their own MIT or MPL-2.0 licenses and are not redistributed.
+
+The kit's own code and documentation are MIT licensed (see `LICENSE`). Code under `tools/rbxasset/` was written for the repository owner's supermarket project and is included under the same MIT license.
