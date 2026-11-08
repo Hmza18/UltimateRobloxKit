@@ -70,7 +70,9 @@ local function removeFromOrder(state: State, key: any)
 end
 
 local function defaultDestroy(object: any, _key: any)
-	local destroyable = (type(object) == "table" and type(object.Destroy) == "function") or typeof(object) == "Instance"
+	-- typeof works for Roblox Instances without naming the Instance type, which Lune and luau-analyze lack.
+	local kind = typeof(object)
+	local destroyable = (kind == "table" and type(object.Destroy) == "function") or kind == "Instance"
 	if destroyable then
 		object:Destroy()
 	end
@@ -87,7 +89,8 @@ local function teardown(state: State, key: any, object: any, announced: boolean)
 			firstError = tostring(err)
 		end
 	end
-	local ok, err = pcall(hooks.destroy or defaultDestroy, object, key)
+	local destroy: (any, any) -> () = hooks.destroy or defaultDestroy
+	local ok, err = pcall(destroy, object, key)
 	if not ok and firstError == nil then
 		firstError = tostring(err)
 	end

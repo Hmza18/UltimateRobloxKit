@@ -143,7 +143,13 @@ function Matchmaking.restore(queue: Queue, ticket: Ticket): (boolean, string?)
 	if not isFinite(ticket.enqueuedAt) then
 		return false, "enqueuedAt must be a number"
 	end
-	local ok, reason = Matchmaking.enqueue(queue, ticket, ticket.enqueuedAt)
+	local input: TicketInput = {
+		id = ticket.id,
+		players = ticket.players,
+		skill = ticket.skill,
+		bucket = ticket.bucket,
+	}
+	local ok, reason = Matchmaking.enqueue(queue, input, ticket.enqueuedAt)
 	return ok, reason
 end
 
@@ -206,7 +212,8 @@ end
 local function fillTeams(config: Config, anchor: Ticket, others: { Ticket }): ({ Team }, { Ticket }, number)
 	local teams: { Team } = {}
 	for _ = 1, config.teamCount do
-		table.insert(teams, { players = {}, count = 0 })
+		local team: Team = { players = {}, count = 0 }
+		table.insert(teams, team)
 	end
 	local sorted = table.clone(others)
 	table.sort(sorted, function(a: Ticket, b: Ticket): boolean

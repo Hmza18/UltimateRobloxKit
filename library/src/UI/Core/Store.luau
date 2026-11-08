@@ -76,8 +76,9 @@ function Store.new(initial: { [string]: any }?, options: Options?): Store
 					local ok, err = pcall(subscription.listener, newValue, oldValue, subscription.path)
 					if not ok then
 						local message = tostring(err)
-						if onError then
-							onError(message)
+						local handler = onError
+						if handler then
+							handler(message)
 						elseif firstError == nil then
 							firstError = message
 						end
