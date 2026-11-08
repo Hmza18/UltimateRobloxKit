@@ -346,8 +346,10 @@ function ZonesLogic.updateRaw(state: State, raw: { [any]: { [string]: boolean } 
 		local existing = state.records[key]
 		local record: Record
 		if existing == nil then
-			record = { zones = {}, primary = nil }
-			state.records[key] = record
+			-- `primary` is optional, so it is left out rather than set to a literal nil.
+			local fresh: Record = { zones = {} }
+			record = fresh
+			state.records[key] = fresh
 		else
 			record = existing
 		end
