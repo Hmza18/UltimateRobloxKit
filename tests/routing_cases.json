@@ -214,7 +214,7 @@
   {
    "task": "Add a coin icon and import my icon pack",
    "expect": [
-    "game-icons"
+    "roblox-icon-design"
    ]
   },
   {
@@ -222,6 +222,75 @@
    "workflow": "gameplay-system",
    "expect": [
     "component-library"
+   ]
+  },
+  {
+   "task": "Create a premium pet simulator shop with Robux buttons",
+   "workflow": "shop",
+   "expect": [
+    "roblox-shop-builder",
+    "roblox-ui-generator"
+   ]
+  },
+  {
+   "task": "Make a HUD with currency counters, level progress and teleport buttons",
+   "workflow": "ui",
+   "expect": [
+    "roblox-ui-generator"
+   ]
+  },
+  {
+   "task": "Design the look of our UI with a consistent theme and design tokens",
+   "expect": [
+    "roblox-design-system"
+   ]
+  },
+  {
+   "task": "Audit our menus for usability and visual problems",
+   "expect": [
+    "roblox-ui-audit"
+   ]
+  },
+  {
+   "task": "The UI lags on low-end phones",
+   "expect": [
+    "roblox-ui-performance"
+   ]
+  },
+  {
+   "task": "Prepare and upload UI sprite sheets",
+   "expect": [
+    "roblox-asset-pipeline"
+   ]
+  },
+  {
+   "task": "Test our shop UI interactions and layout",
+   "expect": [
+    "roblox-ui-testing"
+   ]
+  },
+  {
+   "task": "Recreate this reference screenshot as an original UI",
+   "expect": [
+    "roblox-reference-recreation"
+   ]
+  },
+  {
+   "task": "Make the inventory screen work on mobile and console",
+   "expect": [
+    "roblox-responsive-layout"
+   ]
+  },
+  {
+   "task": "Add a button hover and pop-in animation",
+   "expect": [
+    "roblox-animation"
+   ]
+  },
+  {
+   "task": "Draw new cartoon icons in the same style",
+   "expect": [
+    "roblox-icon-design"
    ]
   }
  ]

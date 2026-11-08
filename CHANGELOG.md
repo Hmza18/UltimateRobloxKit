@@ -2,6 +2,22 @@
 
 All notable changes are listed here. Versions follow semantic versioning; the installer records the version in each project's manifest.
 
+## 0.3.0 (2026-11-08)
+
+UI generation and illustrated icons.
+
+- **Design tokens:** a single source in `design/tokens/styles.json` (styles cartoon, midnight and pastel, with `extends`). It generates `Style/StyleTokens.luau` and feeds the Python validator and previewer.
+- **Game components (19):** GameText, Panel (gradient, outline, checker pattern, gloss, shadow), CartoonButton, IconButton, Badge, ProductCard, PromoBanner, GameWindow, Section, Grid, CurrencyCounter, LevelBar, ProgressBar, Timer, Toggle, Slider, Dropdown, RarityFrame and RewardPopup. Also `PurchaseBridge` (client prompts only; the server grants).
+- **Motion:** 20 presets as pure data, plus `Motion.play`. Reduced motion is respected.
+- **TextFit:** readable text that never goes below the style minimum.
+- **Screen specs:** a JSON format with `SpecSchema.luau` and an identical Python twin (shared parity fixtures), `Spec/Builder.luau` and 16 ready screens. `UrkUI.buildScreen(spec)`.
+- **CLI and tools:** `urk.py ui list | new | validate | preview | tokens`. The preview renderer embeds OFL fonts and icons and works offline, and `capture_server.py` saves PNG screenshots from previews.
+- **Studio playground:** `library/examples/playground`, showing shop, HUD, inventory, rewards, icons, animations, components and themes with live property editing.
+- **Icons:** 272 in total. There are 26 new glyphs (social, status, economy and gameplay), illustrated `-color` versions of every glyph, and 36 colour variants (rarity eggs, gem tiers, medals and more). Icons are auto-centred and size-normalized, and `validate_icon.py` checks the style. Icon sheet positions changed, so re-upload the sheets.
+- **Skills:** 11 new UI skills, `roblox-animation` extended with UI motion, and `game-icons` merged into `roblox-icon-design`, for 61 in total. A new `shop` workflow, and workflow priority for ties.
+- **Dashboard:** illustrated icons, a style filter and a Screens tab.
+- **Fonts:** Lilita One and Fredoka (SIL OFL) for offline previews.
+
 ## 0.2.0 (2026-11-08)
 
 Major expansion.

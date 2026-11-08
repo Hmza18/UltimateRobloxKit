@@ -1,0 +1,129 @@
+{
+  "spec": 1,
+  "id": "Achievements",
+  "kind": "window",
+  "style": "cartoon",
+  "description": "Achievement list with an overall progress bar, per-row progress and claim buttons.",
+  "window": {
+    "title": "ACHIEVEMENTS",
+    "headerPalette": "gold",
+    "sizeClass": "md"
+  },
+  "body": [
+    {
+      "type": "row",
+      "gap": "sm",
+      "items": [
+        {
+          "type": "text",
+          "text": "12 of 40 unlocked",
+          "size": "label"
+        },
+        {
+          "type": "progress",
+          "id": "achTotal",
+          "bind": "Achievements.Unlocked",
+          "value": 12,
+          "max": 40,
+          "palette": "gold"
+        }
+      ]
+    },
+    {
+      "type": "listRow",
+      "id": "firstHatch",
+      "icon": "egg-color",
+      "title": "FIRST HATCH",
+      "subtitle": "Hatch your very first egg",
+      "palette": "green",
+      "progress": {
+        "value": 1,
+        "max": 1,
+        "palette": "gold"
+      },
+      "value": "DONE",
+      "button": {
+        "id": "firstHatchClaim",
+        "text": "CLAIM",
+        "kind": "buy",
+        "action": "Fire:ClaimAchievement,firstHatch"
+      }
+    },
+    {
+      "type": "listRow",
+      "id": "collector",
+      "icon": "paw-color",
+      "title": "PET COLLECTOR",
+      "subtitle": "Own 50 different pets",
+      "palette": "purple",
+      "progress": {
+        "value": 37,
+        "max": 50,
+        "palette": "blue"
+      },
+      "value": "37/50"
+    },
+    {
+      "type": "listRow",
+      "id": "millionaire",
+      "icon": "coins-color",
+      "title": "MILLIONAIRE",
+      "subtitle": "Earn 1,000,000 coins in total",
+      "palette": "gold",
+      "progress": {
+        "value": 1000000,
+        "max": 1000000,
+        "palette": "gold"
+      },
+      "value": "DONE",
+      "button": {
+        "id": "millionaireClaim",
+        "text": "CLAIM",
+        "kind": "buy",
+        "action": "Fire:ClaimAchievement,millionaire"
+      }
+    },
+    {
+      "type": "listRow",
+      "id": "rebirthMaster",
+      "icon": "level-up-color",
+      "title": "REBIRTH MASTER",
+      "subtitle": "Rebirth 25 times",
+      "palette": "teal",
+      "progress": {
+        "value": 12,
+        "max": 25,
+        "palette": "blue"
+      },
+      "value": "12/25"
+    },
+    {
+      "type": "listRow",
+      "id": "secretFinder",
+      "icon": "question-color",
+      "title": "SECRET FINDER",
+      "subtitle": "Hatch a secret pet",
+      "palette": "gray",
+      "progress": {
+        "value": 0,
+        "max": 1,
+        "palette": "blue"
+      },
+      "value": "0/1"
+    },
+    {
+      "type": "listRow",
+      "id": "speedDemon",
+      "icon": "speed-color",
+      "title": "SPEED DEMON",
+      "subtitle": "Max out walk speed",
+      "palette": "red",
+      "progress": {
+        "value": 4,
+        "max": 10,
+        "palette": "blue"
+      },
+      "value": "4/10"
+    }
+  ]
+}

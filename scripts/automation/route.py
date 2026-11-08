@@ -53,7 +53,7 @@ def route(task: str, skills=None, workflows=None):
         score = sum(1 for k in wf["keywords"] if has(t, k))
         if score >= wf.get("min_matches", 1):
             matched.append((score, wf))
-    matched.sort(key=lambda x: -x[0])
+    matched.sort(key=lambda x: (-x[0], -x[1].get("priority", 1)))
     scores = {}
     for name, s in skills.items():
         sc = sum(4 if " " in trig.strip() else 3 for trig in s["triggers"] if has(t, trig))

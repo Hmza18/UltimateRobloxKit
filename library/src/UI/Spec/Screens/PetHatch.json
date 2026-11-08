@@ -1,0 +1,149 @@
+{
+  "spec": 1,
+  "id": "PetHatch",
+  "kind": "window",
+  "style": "cartoon",
+  "description": "Egg shop: six eggs with coin, gem and Robux prices, and open x1, x3 and auto buttons.",
+  "window": {
+    "title": "HATCH EGGS",
+    "headerPalette": "purple",
+    "sizeClass": "lg"
+  },
+  "body": [
+    {
+      "type": "text",
+      "text": "Pick an egg, then open one, three or turn on auto hatch.",
+      "size": "label"
+    },
+    {
+      "type": "grid",
+      "columns": {
+        "phone": 2,
+        "tablet": 3,
+        "desktop": 3
+      },
+      "cellAspect": 1.3,
+      "items": [
+        {
+          "type": "product",
+          "id": "basicEgg",
+          "palette": "green",
+          "icon": "egg-color",
+          "title": "BASIC EGG",
+          "price": {
+            "kind": "currency",
+            "amount": 250,
+            "currency": "coin-color"
+          },
+          "subtitle": "Common to Rare"
+        },
+        {
+          "type": "product",
+          "id": "forestEgg",
+          "palette": "teal",
+          "icon": "leaf-color",
+          "title": "FOREST EGG",
+          "price": {
+            "kind": "currency",
+            "amount": 1500,
+            "currency": "coin-color"
+          },
+          "subtitle": "Uncommon to Epic"
+        },
+        {
+          "type": "product",
+          "id": "lavaEgg",
+          "palette": "red",
+          "icon": "fire-color",
+          "title": "LAVA EGG",
+          "price": {
+            "kind": "currency",
+            "amount": 12000,
+            "currency": "coin-color"
+          },
+          "subtitle": "Rare to Legendary",
+          "rarity": "rare"
+        },
+        {
+          "type": "product",
+          "id": "frostEgg",
+          "palette": "blue",
+          "icon": "snowflake-color",
+          "title": "FROST EGG",
+          "price": {
+            "kind": "currency",
+            "amount": 75000,
+            "currency": "coin-color"
+          },
+          "subtitle": "Epic to Mythic",
+          "rarity": "epic"
+        },
+        {
+          "type": "product",
+          "id": "cosmicEgg",
+          "palette": "purple",
+          "icon": "rocket-color",
+          "title": "COSMIC EGG",
+          "price": {
+            "kind": "currency",
+            "amount": 250,
+            "currency": "gem-color"
+          },
+          "subtitle": "Double mythic chance",
+          "rarity": "mythic",
+          "badge": {
+            "kind": "new"
+          }
+        },
+        {
+          "type": "product",
+          "id": "goldenEgg",
+          "palette": "gold",
+          "icon": "crown-color",
+          "title": "GOLDEN EGG",
+          "price": {
+            "kind": "robux",
+            "amount": 149,
+            "productId": 0
+          },
+          "subtitle": "Secret pets live here!",
+          "rarity": "legendary",
+          "badge": {
+            "kind": "best"
+          }
+        }
+      ]
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "row",
+      "gap": "md",
+      "items": [
+        {
+          "type": "button",
+          "id": "open1",
+          "text": "OPEN x1",
+          "kind": "buy",
+          "action": "Fire:Hatch,1"
+        },
+        {
+          "type": "button",
+          "id": "open3",
+          "text": "OPEN x3",
+          "kind": "primary",
+          "action": "Fire:Hatch,3"
+        },
+        {
+          "type": "button",
+          "id": "openAuto",
+          "text": "AUTO",
+          "kind": "gift",
+          "icon": "refresh-color",
+          "action": "Fire:Hatch,auto"
+        }
+      ]
+    }
+  ]
+}

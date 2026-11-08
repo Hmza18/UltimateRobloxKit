@@ -12,4 +12,6 @@ This repository contains no third-party source code. Third-party material reache
 
 Tools pinned in templates (Rojo, Wally, Selene, StyLua, Lune, luau-lsp, Rokit) are downloaded by Rokit under their own MIT or MPL-2.0 licenses and are not redistributed.
 
+Fonts in `assets/fonts/` (Lilita One by Juan Montoreano, and Fredoka) are licensed under the SIL Open Font License 1.1. Each licence text sits beside its font. They are used to render HTML previews; Roblox games use Roblox's built-in fonts.
+
 The kit's own code and documentation are MIT licensed (see `LICENSE`). Code under `tools/rbxasset/` was written for the repository owner's supermarket project and is included under the same MIT license.

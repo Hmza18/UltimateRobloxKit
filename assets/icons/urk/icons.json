@@ -13,7 +13,8 @@
   "status",
   "interface",
   "items",
-  "stats"
+  "stats",
+  "social"
  ],
  "sheets": [
   {
@@ -23,11 +24,25 @@
   {
    "file": "sheet-2.png",
    "assetId": null
+  },
+  {
+   "file": "sheet-3.png",
+   "assetId": null
+  },
+  {
+   "file": "sheet-4.png",
+   "assetId": null
+  },
+  {
+   "file": "sheet-5.png",
+   "assetId": null
   }
  ],
  "icons": [
   {
    "name": "cash",
+   "base": "cash",
+   "style": "glyph",
    "category": "currency",
    "tags": [
     "money",
@@ -43,6 +58,8 @@
   },
   {
    "name": "coin",
+   "base": "coin",
+   "style": "glyph",
    "category": "currency",
    "tags": [
     "money",
@@ -58,6 +75,8 @@
   },
   {
    "name": "coins",
+   "base": "coins",
+   "style": "glyph",
    "category": "currency",
    "tags": [
     "money",
@@ -72,6 +91,8 @@
   },
   {
    "name": "gem",
+   "base": "gem",
+   "style": "glyph",
    "category": "currency",
    "tags": [
     "diamond",
@@ -85,12 +106,15 @@
    "h": 128
   },
   {
-   "name": "ticket",
+   "name": "gem-stack",
+   "base": "gem-stack",
+   "style": "glyph",
    "category": "currency",
    "tags": [
-    "token",
-    "pass",
-    "event"
+    "gems",
+    "diamonds",
+    "premium",
+    "pile"
    ],
    "sheet": 1,
    "x": 512,
@@ -99,11 +123,14 @@
    "h": 128
   },
   {
-   "name": "token",
+   "name": "money-bag",
+   "base": "money-bag",
+   "style": "glyph",
    "category": "currency",
    "tags": [
-    "chip",
-    "credit"
+    "sack",
+    "loot",
+    "cash"
    ],
    "sheet": 1,
    "x": 640,
@@ -112,12 +139,14 @@
    "h": 128
   },
   {
-   "name": "chest",
-   "category": "rewards",
+   "name": "ticket",
+   "base": "ticket",
+   "style": "glyph",
+   "category": "currency",
    "tags": [
-    "treasure",
-    "loot",
-    "box"
+    "token",
+    "pass",
+    "event"
    ],
    "sheet": 1,
    "x": 768,
@@ -126,7 +155,72 @@
    "h": 128
   },
   {
+   "name": "token",
+   "base": "token",
+   "style": "glyph",
+   "category": "currency",
+   "tags": [
+    "chip",
+    "credit"
+   ],
+   "sheet": 1,
+   "x": 896,
+   "y": 0,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "wallet",
+   "base": "wallet",
+   "style": "glyph",
+   "category": "currency",
+   "tags": [
+    "money",
+    "purse",
+    "balance"
+   ],
+   "sheet": 1,
+   "x": 0,
+   "y": 128,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "badge",
+   "base": "badge",
+   "style": "glyph",
+   "category": "rewards",
+   "tags": [
+    "rosette",
+    "award",
+    "ribbon"
+   ],
+   "sheet": 1,
+   "x": 128,
+   "y": 128,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "chest",
+   "base": "chest",
+   "style": "glyph",
+   "category": "rewards",
+   "tags": [
+    "treasure",
+    "loot",
+    "box"
+   ],
+   "sheet": 1,
+   "x": 256,
+   "y": 128,
+   "w": 128,
+   "h": 128
+  },
+  {
    "name": "crown",
+   "base": "crown",
+   "style": "glyph",
    "category": "rewards",
    "tags": [
     "vip",
@@ -135,13 +229,32 @@
     "rank"
    ],
    "sheet": 1,
-   "x": 896,
-   "y": 0,
+   "x": 384,
+   "y": 128,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "event",
+   "base": "event",
+   "style": "glyph",
+   "category": "rewards",
+   "tags": [
+    "special",
+    "limited",
+    "calendar",
+    "star"
+   ],
+   "sheet": 1,
+   "x": 512,
+   "y": 128,
    "w": 128,
    "h": 128
   },
   {
    "name": "gift",
+   "base": "gift",
+   "style": "glyph",
    "category": "rewards",
    "tags": [
     "present",
@@ -149,13 +262,15 @@
     "daily"
    ],
    "sheet": 1,
-   "x": 0,
+   "x": 640,
    "y": 128,
    "w": 128,
    "h": 128
   },
   {
    "name": "level-up",
+   "base": "level-up",
+   "style": "glyph",
    "category": "rewards",
    "tags": [
     "arrow",
@@ -163,13 +278,15 @@
     "xp"
    ],
    "sheet": 1,
-   "x": 128,
+   "x": 768,
    "y": 128,
    "w": 128,
    "h": 128
   },
   {
    "name": "medal",
+   "base": "medal",
+   "style": "glyph",
    "category": "rewards",
    "tags": [
     "badge",
@@ -177,13 +294,32 @@
     "award"
    ],
    "sheet": 1,
-   "x": 256,
+   "x": 896,
    "y": 128,
    "w": 128,
    "h": 128
   },
   {
+   "name": "rebirth",
+   "base": "rebirth",
+   "style": "glyph",
+   "category": "rewards",
+   "tags": [
+    "prestige",
+    "reset",
+    "restart",
+    "cycle"
+   ],
+   "sheet": 1,
+   "x": 0,
+   "y": 256,
+   "w": 128,
+   "h": 128
+  },
+  {
    "name": "star",
+   "base": "star",
+   "style": "glyph",
    "category": "rewards",
    "tags": [
     "favorite",
@@ -191,13 +327,15 @@
     "level"
    ],
    "sheet": 1,
-   "x": 384,
-   "y": 128,
+   "x": 128,
+   "y": 256,
    "w": 128,
    "h": 128
   },
   {
    "name": "trophy",
+   "base": "trophy",
+   "style": "glyph",
    "category": "rewards",
    "tags": [
     "win",
@@ -206,65 +344,75 @@
     "leaderboard"
    ],
    "sheet": 1,
-   "x": 512,
-   "y": 128,
+   "x": 256,
+   "y": 256,
    "w": 128,
    "h": 128
   },
   {
    "name": "arrow-down",
+   "base": "arrow-down",
+   "style": "glyph",
    "category": "actions",
    "tags": [
     "down",
     "lower"
    ],
    "sheet": 1,
-   "x": 640,
-   "y": 128,
+   "x": 384,
+   "y": 256,
    "w": 128,
    "h": 128
   },
   {
    "name": "arrow-left",
+   "base": "arrow-left",
+   "style": "glyph",
    "category": "actions",
    "tags": [
     "back",
     "previous"
    ],
    "sheet": 1,
-   "x": 768,
-   "y": 128,
+   "x": 512,
+   "y": 256,
    "w": 128,
    "h": 128
   },
   {
    "name": "arrow-right",
+   "base": "arrow-right",
+   "style": "glyph",
    "category": "actions",
    "tags": [
     "next",
     "forward"
    ],
    "sheet": 1,
-   "x": 896,
-   "y": 128,
+   "x": 640,
+   "y": 256,
    "w": 128,
    "h": 128
   },
   {
    "name": "arrow-up",
+   "base": "arrow-up",
+   "style": "glyph",
    "category": "actions",
    "tags": [
     "up",
     "raise"
    ],
    "sheet": 1,
-   "x": 0,
+   "x": 768,
    "y": 256,
    "w": 128,
    "h": 128
   },
   {
    "name": "check",
+   "base": "check",
+   "style": "glyph",
    "category": "actions",
    "tags": [
     "confirm",
@@ -273,13 +421,15 @@
     "tick"
    ],
    "sheet": 1,
-   "x": 128,
+   "x": 896,
    "y": 256,
    "w": 128,
    "h": 128
   },
   {
    "name": "close",
+   "base": "close",
+   "style": "glyph",
    "category": "actions",
    "tags": [
     "x",
@@ -287,26 +437,30 @@
     "dismiss"
    ],
    "sheet": 1,
-   "x": 256,
-   "y": 256,
+   "x": 0,
+   "y": 384,
    "w": 128,
    "h": 128
   },
   {
    "name": "download",
+   "base": "download",
+   "style": "glyph",
    "category": "actions",
    "tags": [
     "save",
     "get"
    ],
    "sheet": 1,
-   "x": 384,
-   "y": 256,
+   "x": 128,
+   "y": 384,
    "w": 128,
    "h": 128
   },
   {
    "name": "edit",
+   "base": "edit",
+   "style": "glyph",
    "category": "actions",
    "tags": [
     "pencil",
@@ -314,99 +468,19 @@
     "write"
    ],
    "sheet": 1,
-   "x": 512,
-   "y": 256,
-   "w": 128,
-   "h": 128
-  },
-  {
-   "name": "expand",
-   "category": "actions",
-   "tags": [
-    "fullscreen",
-    "maximize"
-   ],
-   "sheet": 1,
-   "x": 640,
-   "y": 256,
-   "w": 128,
-   "h": 128
-  },
-  {
-   "name": "filter",
-   "category": "actions",
-   "tags": [
-    "sort",
-    "funnel"
-   ],
-   "sheet": 1,
-   "x": 768,
-   "y": 256,
-   "w": 128,
-   "h": 128
-  },
-  {
-   "name": "menu",
-   "category": "actions",
-   "tags": [
-    "hamburger",
-    "list",
-    "more"
-   ],
-   "sheet": 1,
-   "x": 896,
-   "y": 256,
-   "w": 128,
-   "h": 128
-  },
-  {
-   "name": "minus",
-   "category": "actions",
-   "tags": [
-    "remove",
-    "less",
-    "decrease"
-   ],
-   "sheet": 1,
-   "x": 0,
-   "y": 384,
-   "w": 128,
-   "h": 128
-  },
-  {
-   "name": "more",
-   "category": "actions",
-   "tags": [
-    "dots",
-    "ellipsis",
-    "options"
-   ],
-   "sheet": 1,
-   "x": 128,
-   "y": 384,
-   "w": 128,
-   "h": 128
-  },
-  {
-   "name": "pause",
-   "category": "actions",
-   "tags": [
-    "stop",
-    "wait"
-   ],
-   "sheet": 1,
    "x": 256,
    "y": 384,
    "w": 128,
    "h": 128
   },
   {
-   "name": "play",
+   "name": "expand",
+   "base": "expand",
+   "style": "glyph",
    "category": "actions",
    "tags": [
-    "start",
-    "resume",
-    "go"
+    "fullscreen",
+    "maximize"
    ],
    "sheet": 1,
    "x": 384,
@@ -415,12 +489,13 @@
    "h": 128
   },
   {
-   "name": "plus",
+   "name": "filter",
+   "base": "filter",
+   "style": "glyph",
    "category": "actions",
    "tags": [
-    "add",
-    "more",
-    "increase"
+    "sort",
+    "funnel"
    ],
    "sheet": 1,
    "x": 512,
@@ -429,12 +504,14 @@
    "h": 128
   },
   {
-   "name": "refresh",
+   "name": "menu",
+   "base": "menu",
+   "style": "glyph",
    "category": "actions",
    "tags": [
-    "reload",
-    "retry",
-    "restart"
+    "hamburger",
+    "list",
+    "more"
    ],
    "sheet": 1,
    "x": 640,
@@ -443,12 +520,14 @@
    "h": 128
   },
   {
-   "name": "search",
+   "name": "minus",
+   "base": "minus",
+   "style": "glyph",
    "category": "actions",
    "tags": [
-    "find",
-    "magnifier",
-    "zoom"
+    "remove",
+    "less",
+    "decrease"
    ],
    "sheet": 1,
    "x": 768,
@@ -457,12 +536,14 @@
    "h": 128
   },
   {
-   "name": "settings",
+   "name": "more",
+   "base": "more",
+   "style": "glyph",
    "category": "actions",
    "tags": [
-    "gear",
-    "options",
-    "preferences"
+    "dots",
+    "ellipsis",
+    "options"
    ],
    "sheet": 1,
    "x": 896,
@@ -471,12 +552,13 @@
    "h": 128
   },
   {
-   "name": "share",
+   "name": "pause",
+   "base": "pause",
+   "style": "glyph",
    "category": "actions",
    "tags": [
-    "send",
-    "export",
-    "link"
+    "stop",
+    "wait"
    ],
    "sheet": 1,
    "x": 0,
@@ -485,12 +567,14 @@
    "h": 128
   },
   {
-   "name": "trash",
+   "name": "play",
+   "base": "play",
+   "style": "glyph",
    "category": "actions",
    "tags": [
-    "delete",
-    "remove",
-    "bin"
+    "start",
+    "resume",
+    "go"
    ],
    "sheet": 1,
    "x": 128,
@@ -499,7 +583,138 @@
    "h": 128
   },
   {
+   "name": "plus",
+   "base": "plus",
+   "style": "glyph",
+   "category": "actions",
+   "tags": [
+    "add",
+    "more",
+    "increase"
+   ],
+   "sheet": 1,
+   "x": 256,
+   "y": 512,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "refresh",
+   "base": "refresh",
+   "style": "glyph",
+   "category": "actions",
+   "tags": [
+    "reload",
+    "retry",
+    "restart"
+   ],
+   "sheet": 1,
+   "x": 384,
+   "y": 512,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "search",
+   "base": "search",
+   "style": "glyph",
+   "category": "actions",
+   "tags": [
+    "find",
+    "magnifier",
+    "zoom"
+   ],
+   "sheet": 1,
+   "x": 512,
+   "y": 512,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "settings",
+   "base": "settings",
+   "style": "glyph",
+   "category": "actions",
+   "tags": [
+    "gear",
+    "options",
+    "preferences"
+   ],
+   "sheet": 1,
+   "x": 640,
+   "y": 512,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "share",
+   "base": "share",
+   "style": "glyph",
+   "category": "actions",
+   "tags": [
+    "send",
+    "export",
+    "link"
+   ],
+   "sheet": 1,
+   "x": 768,
+   "y": 512,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "trash",
+   "base": "trash",
+   "style": "glyph",
+   "category": "actions",
+   "tags": [
+    "delete",
+    "remove",
+    "bin"
+   ],
+   "sheet": 1,
+   "x": 896,
+   "y": 512,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "equipped",
+   "base": "equipped",
+   "style": "glyph",
+   "category": "status",
+   "tags": [
+    "worn",
+    "selected",
+    "badge"
+   ],
+   "sheet": 1,
+   "x": 0,
+   "y": 640,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "error",
+   "base": "error",
+   "style": "glyph",
+   "category": "status",
+   "tags": [
+    "fail",
+    "wrong",
+    "cross",
+    "circle"
+   ],
+   "sheet": 1,
+   "x": 128,
+   "y": 640,
+   "w": 128,
+   "h": 128
+  },
+  {
    "name": "info",
+   "base": "info",
+   "style": "glyph",
    "category": "status",
    "tags": [
     "help",
@@ -508,12 +723,30 @@
    ],
    "sheet": 1,
    "x": 256,
-   "y": 512,
+   "y": 640,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "loading",
+   "base": "loading",
+   "style": "glyph",
+   "category": "status",
+   "tags": [
+    "spinner",
+    "wait",
+    "busy"
+   ],
+   "sheet": 1,
+   "x": 384,
+   "y": 640,
    "w": 128,
    "h": 128
   },
   {
    "name": "lock",
+   "base": "lock",
+   "style": "glyph",
    "category": "status",
    "tags": [
     "locked",
@@ -521,13 +754,15 @@
     "private"
    ],
    "sheet": 1,
-   "x": 384,
-   "y": 512,
+   "x": 512,
+   "y": 640,
    "w": 128,
    "h": 128
   },
   {
    "name": "question",
+   "base": "question",
+   "style": "glyph",
    "category": "status",
    "tags": [
     "help",
@@ -535,26 +770,47 @@
     "faq"
    ],
    "sheet": 1,
-   "x": 512,
-   "y": 512,
+   "x": 640,
+   "y": 640,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "success",
+   "base": "success",
+   "style": "glyph",
+   "category": "status",
+   "tags": [
+    "done",
+    "ok",
+    "tick",
+    "circle"
+   ],
+   "sheet": 1,
+   "x": 768,
+   "y": 640,
    "w": 128,
    "h": 128
   },
   {
    "name": "unlock",
+   "base": "unlock",
+   "style": "glyph",
    "category": "status",
    "tags": [
     "unlocked",
     "open"
    ],
    "sheet": 1,
-   "x": 640,
-   "y": 512,
+   "x": 896,
+   "y": 640,
    "w": 128,
    "h": 128
   },
   {
    "name": "warning",
+   "base": "warning",
+   "style": "glyph",
    "category": "status",
    "tags": [
     "alert",
@@ -562,13 +818,32 @@
     "danger"
    ],
    "sheet": 1,
-   "x": 768,
-   "y": 512,
+   "x": 0,
+   "y": 768,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "backpack",
+   "base": "backpack",
+   "style": "glyph",
+   "category": "interface",
+   "tags": [
+    "inventory",
+    "bag",
+    "items",
+    "storage"
+   ],
+   "sheet": 1,
+   "x": 128,
+   "y": 768,
    "w": 128,
    "h": 128
   },
   {
    "name": "bag",
+   "base": "bag",
+   "style": "glyph",
    "category": "interface",
    "tags": [
     "inventory",
@@ -576,26 +851,30 @@
     "items"
    ],
    "sheet": 1,
-   "x": 896,
-   "y": 512,
+   "x": 256,
+   "y": 768,
    "w": 128,
    "h": 128
   },
   {
    "name": "bell",
+   "base": "bell",
+   "style": "glyph",
    "category": "interface",
    "tags": [
     "notification",
     "alert"
    ],
    "sheet": 1,
-   "x": 0,
-   "y": 640,
+   "x": 384,
+   "y": 768,
    "w": 128,
    "h": 128
   },
   {
    "name": "calendar",
+   "base": "calendar",
+   "style": "glyph",
    "category": "interface",
    "tags": [
     "date",
@@ -603,13 +882,15 @@
     "event"
    ],
    "sheet": 1,
-   "x": 128,
-   "y": 640,
+   "x": 512,
+   "y": 768,
    "w": 128,
    "h": 128
   },
   {
    "name": "camera",
+   "base": "camera",
+   "style": "glyph",
    "category": "interface",
    "tags": [
     "photo",
@@ -617,13 +898,15 @@
     "view"
    ],
    "sheet": 1,
-   "x": 256,
-   "y": 640,
+   "x": 640,
+   "y": 768,
    "w": 128,
    "h": 128
   },
   {
    "name": "chat",
+   "base": "chat",
+   "style": "glyph",
    "category": "interface",
    "tags": [
     "message",
@@ -631,13 +914,15 @@
     "speech"
    ],
    "sheet": 1,
-   "x": 384,
-   "y": 640,
+   "x": 768,
+   "y": 768,
    "w": 128,
    "h": 128
   },
   {
    "name": "clock",
+   "base": "clock",
+   "style": "glyph",
    "category": "interface",
    "tags": [
     "time",
@@ -645,13 +930,31 @@
     "wait"
    ],
    "sheet": 1,
-   "x": 512,
-   "y": 640,
+   "x": 896,
+   "y": 768,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "codes",
+   "base": "codes",
+   "style": "glyph",
+   "category": "interface",
+   "tags": [
+    "redeem",
+    "promo",
+    "twitter"
+   ],
+   "sheet": 1,
+   "x": 0,
+   "y": 896,
    "w": 128,
    "h": 128
   },
   {
    "name": "eye",
+   "base": "eye",
+   "style": "glyph",
    "category": "interface",
    "tags": [
     "view",
@@ -659,13 +962,15 @@
     "show"
    ],
    "sheet": 1,
-   "x": 640,
-   "y": 640,
+   "x": 128,
+   "y": 896,
    "w": 128,
    "h": 128
   },
   {
    "name": "flag",
+   "base": "flag",
+   "style": "glyph",
    "category": "interface",
    "tags": [
     "goal",
@@ -673,13 +978,15 @@
     "checkpoint"
    ],
    "sheet": 1,
-   "x": 768,
-   "y": 640,
+   "x": 256,
+   "y": 896,
    "w": 128,
    "h": 128
   },
   {
    "name": "gamepad",
+   "base": "gamepad",
+   "style": "glyph",
    "category": "interface",
    "tags": [
     "controller",
@@ -687,13 +994,15 @@
     "input"
    ],
    "sheet": 1,
-   "x": 896,
-   "y": 640,
+   "x": 384,
+   "y": 896,
    "w": 128,
    "h": 128
   },
   {
    "name": "home",
+   "base": "home",
+   "style": "glyph",
    "category": "interface",
    "tags": [
     "house",
@@ -701,13 +1010,15 @@
     "main"
    ],
    "sheet": 1,
-   "x": 0,
-   "y": 768,
+   "x": 512,
+   "y": 896,
    "w": 128,
    "h": 128
   },
   {
    "name": "keyboard",
+   "base": "keyboard",
+   "style": "glyph",
    "category": "interface",
    "tags": [
     "keys",
@@ -715,13 +1026,15 @@
     "pc"
    ],
    "sheet": 1,
-   "x": 128,
-   "y": 768,
+   "x": 640,
+   "y": 896,
    "w": 128,
    "h": 128
   },
   {
    "name": "leaderboard",
+   "base": "leaderboard",
+   "style": "glyph",
    "category": "interface",
    "tags": [
     "ranking",
@@ -729,13 +1042,15 @@
     "top"
    ],
    "sheet": 1,
-   "x": 256,
-   "y": 768,
+   "x": 768,
+   "y": 896,
    "w": 128,
    "h": 128
   },
   {
    "name": "mail",
+   "base": "mail",
+   "style": "glyph",
    "category": "interface",
    "tags": [
     "inbox",
@@ -743,83 +1058,160 @@
     "message"
    ],
    "sheet": 1,
-   "x": 384,
-   "y": 768,
+   "x": 896,
+   "y": 896,
    "w": 128,
    "h": 128
   },
   {
    "name": "map",
+   "base": "map",
+   "style": "glyph",
    "category": "interface",
    "tags": [
     "world",
     "travel",
     "location"
    ],
-   "sheet": 1,
-   "x": 512,
-   "y": 768,
+   "sheet": 2,
+   "x": 0,
+   "y": 0,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "megaphone",
+   "base": "megaphone",
+   "style": "glyph",
+   "category": "interface",
+   "tags": [
+    "announce",
+    "news",
+    "shout"
+   ],
+   "sheet": 2,
+   "x": 128,
+   "y": 0,
    "w": 128,
    "h": 128
   },
   {
    "name": "music",
+   "base": "music",
+   "style": "glyph",
    "category": "interface",
    "tags": [
     "song",
     "note",
     "audio"
    ],
-   "sheet": 1,
-   "x": 640,
-   "y": 768,
+   "sheet": 2,
+   "x": 256,
+   "y": 0,
    "w": 128,
    "h": 128
   },
   {
    "name": "mute",
+   "base": "mute",
+   "style": "glyph",
    "category": "interface",
    "tags": [
     "sound",
     "off",
     "silent"
    ],
-   "sheet": 1,
-   "x": 768,
-   "y": 768,
+   "sheet": 2,
+   "x": 384,
+   "y": 0,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "news",
+   "base": "news",
+   "style": "glyph",
+   "category": "interface",
+   "tags": [
+    "updates",
+    "changelog",
+    "paper"
+   ],
+   "sheet": 2,
+   "x": 512,
+   "y": 0,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "notification",
+   "base": "notification",
+   "style": "glyph",
+   "category": "interface",
+   "tags": [
+    "alert",
+    "badge",
+    "bell",
+    "dot"
+   ],
+   "sheet": 2,
+   "x": 640,
+   "y": 0,
    "w": 128,
    "h": 128
   },
   {
    "name": "pin",
+   "base": "pin",
+   "style": "glyph",
    "category": "interface",
    "tags": [
     "location",
     "marker",
     "waypoint"
    ],
-   "sheet": 1,
+   "sheet": 2,
+   "x": 768,
+   "y": 0,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "profile",
+   "base": "profile",
+   "style": "glyph",
+   "category": "interface",
+   "tags": [
+    "player",
+    "card",
+    "account"
+   ],
+   "sheet": 2,
    "x": 896,
-   "y": 768,
+   "y": 0,
    "w": 128,
    "h": 128
   },
   {
    "name": "quest",
+   "base": "quest",
+   "style": "glyph",
    "category": "interface",
    "tags": [
     "scroll",
     "mission",
     "task"
    ],
-   "sheet": 1,
+   "sheet": 2,
    "x": 0,
-   "y": 896,
+   "y": 128,
    "w": 128,
    "h": 128
   },
   {
    "name": "shop",
+   "base": "shop",
+   "style": "glyph",
    "category": "interface",
    "tags": [
     "store",
@@ -827,14 +1219,32 @@
     "buy",
     "market"
    ],
-   "sheet": 1,
+   "sheet": 2,
    "x": 128,
-   "y": 896,
+   "y": 128,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "stopwatch",
+   "base": "stopwatch",
+   "style": "glyph",
+   "category": "interface",
+   "tags": [
+    "timer",
+    "countdown",
+    "speedrun"
+   ],
+   "sheet": 2,
+   "x": 256,
+   "y": 128,
    "w": 128,
    "h": 128
   },
   {
    "name": "target",
+   "base": "target",
+   "style": "glyph",
    "category": "interface",
    "tags": [
     "aim",
@@ -842,42 +1252,80 @@
     "objective",
     "quest"
    ],
-   "sheet": 1,
-   "x": 256,
-   "y": 896,
+   "sheet": 2,
+   "x": 384,
+   "y": 128,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "teleport",
+   "base": "teleport",
+   "style": "glyph",
+   "category": "interface",
+   "tags": [
+    "portal",
+    "travel",
+    "warp"
+   ],
+   "sheet": 2,
+   "x": 512,
+   "y": 128,
    "w": 128,
    "h": 128
   },
   {
    "name": "touch",
+   "base": "touch",
+   "style": "glyph",
    "category": "interface",
    "tags": [
     "tap",
     "mobile",
     "finger"
    ],
-   "sheet": 1,
-   "x": 384,
-   "y": 896,
+   "sheet": 2,
+   "x": 640,
+   "y": 128,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "trade",
+   "base": "trade",
+   "style": "glyph",
+   "category": "interface",
+   "tags": [
+    "swap",
+    "exchange",
+    "arrows"
+   ],
+   "sheet": 2,
+   "x": 768,
+   "y": 128,
    "w": 128,
    "h": 128
   },
   {
    "name": "user",
+   "base": "user",
+   "style": "glyph",
    "category": "interface",
    "tags": [
     "player",
     "profile",
     "account"
    ],
-   "sheet": 1,
-   "x": 512,
-   "y": 896,
+   "sheet": 2,
+   "x": 896,
+   "y": 128,
    "w": 128,
    "h": 128
   },
   {
    "name": "users",
+   "base": "users",
+   "style": "glyph",
    "category": "interface",
    "tags": [
     "friends",
@@ -885,14 +1333,16 @@
     "group",
     "team"
    ],
-   "sheet": 1,
-   "x": 640,
-   "y": 896,
+   "sheet": 2,
+   "x": 0,
+   "y": 256,
    "w": 128,
    "h": 128
   },
   {
    "name": "volume",
+   "base": "volume",
+   "style": "glyph",
    "category": "interface",
    "tags": [
     "sound",
@@ -900,28 +1350,32 @@
     "speaker",
     "on"
    ],
-   "sheet": 1,
-   "x": 768,
-   "y": 896,
+   "sheet": 2,
+   "x": 128,
+   "y": 256,
    "w": 128,
    "h": 128
   },
   {
    "name": "axe",
+   "base": "axe",
+   "style": "glyph",
    "category": "items",
    "tags": [
     "chop",
     "wood",
     "tool"
    ],
-   "sheet": 1,
-   "x": 896,
-   "y": 896,
+   "sheet": 2,
+   "x": 256,
+   "y": 256,
    "w": 128,
    "h": 128
   },
   {
    "name": "block",
+   "base": "block",
+   "style": "glyph",
    "category": "items",
    "tags": [
     "build",
@@ -930,26 +1384,47 @@
     "voxel"
    ],
    "sheet": 2,
-   "x": 0,
-   "y": 0,
+   "x": 384,
+   "y": 256,
    "w": 128,
    "h": 128
   },
   {
    "name": "bomb",
+   "base": "bomb",
+   "style": "glyph",
    "category": "items",
    "tags": [
     "explosive",
     "tnt"
    ],
    "sheet": 2,
-   "x": 128,
-   "y": 0,
+   "x": 512,
+   "y": 256,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "boost",
+   "base": "boost",
+   "style": "glyph",
+   "category": "items",
+   "tags": [
+    "x2",
+    "multiplier",
+    "double",
+    "potion"
+   ],
+   "sheet": 2,
+   "x": 640,
+   "y": 256,
    "w": 128,
    "h": 128
   },
   {
    "name": "bow",
+   "base": "bow",
+   "style": "glyph",
    "category": "items",
    "tags": [
     "archery",
@@ -957,13 +1432,15 @@
     "weapon"
    ],
    "sheet": 2,
-   "x": 256,
-   "y": 0,
+   "x": 768,
+   "y": 256,
    "w": 128,
    "h": 128
   },
   {
    "name": "car",
+   "base": "car",
+   "style": "glyph",
    "category": "items",
    "tags": [
     "vehicle",
@@ -971,13 +1448,15 @@
     "transport"
    ],
    "sheet": 2,
-   "x": 384,
-   "y": 0,
+   "x": 896,
+   "y": 256,
    "w": 128,
    "h": 128
   },
   {
    "name": "dice",
+   "base": "dice",
+   "style": "glyph",
    "category": "items",
    "tags": [
     "random",
@@ -986,13 +1465,15 @@
     "luck"
    ],
    "sheet": 2,
-   "x": 512,
-   "y": 0,
+   "x": 0,
+   "y": 384,
    "w": 128,
    "h": 128
   },
   {
    "name": "egg",
+   "base": "egg",
+   "style": "glyph",
    "category": "items",
    "tags": [
     "pet",
@@ -1000,13 +1481,31 @@
     "spawn"
    ],
    "sheet": 2,
-   "x": 640,
-   "y": 0,
+   "x": 128,
+   "y": 384,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "egg-cracked",
+   "base": "egg-cracked",
+   "style": "glyph",
+   "category": "items",
+   "tags": [
+    "hatch",
+    "pet",
+    "open"
+   ],
+   "sheet": 2,
+   "x": 256,
+   "y": 384,
    "w": 128,
    "h": 128
   },
   {
    "name": "hammer",
+   "base": "hammer",
+   "style": "glyph",
    "category": "items",
    "tags": [
     "build",
@@ -1014,13 +1513,15 @@
     "craft"
    ],
    "sheet": 2,
-   "x": 768,
-   "y": 0,
+   "x": 384,
+   "y": 384,
    "w": 128,
    "h": 128
   },
   {
    "name": "key",
+   "base": "key",
+   "style": "glyph",
    "category": "items",
    "tags": [
     "unlock",
@@ -1028,13 +1529,15 @@
     "access"
    ],
    "sheet": 2,
-   "x": 896,
-   "y": 0,
+   "x": 512,
+   "y": 384,
    "w": 128,
    "h": 128
   },
   {
    "name": "magnet",
+   "base": "magnet",
+   "style": "glyph",
    "category": "items",
    "tags": [
     "attract",
@@ -1042,13 +1545,15 @@
     "pickup"
    ],
    "sheet": 2,
-   "x": 0,
-   "y": 128,
+   "x": 640,
+   "y": 384,
    "w": 128,
    "h": 128
   },
   {
    "name": "paw",
+   "base": "paw",
+   "style": "glyph",
    "category": "items",
    "tags": [
     "pet",
@@ -1056,13 +1561,31 @@
     "companion"
    ],
    "sheet": 2,
-   "x": 128,
-   "y": 128,
+   "x": 768,
+   "y": 384,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "pet",
+   "base": "pet",
+   "style": "glyph",
+   "category": "items",
+   "tags": [
+    "animal",
+    "companion",
+    "cat"
+   ],
+   "sheet": 2,
+   "x": 896,
+   "y": 384,
    "w": 128,
    "h": 128
   },
   {
    "name": "pickaxe",
+   "base": "pickaxe",
+   "style": "glyph",
    "category": "items",
    "tags": [
     "mine",
@@ -1071,13 +1594,15 @@
     "resource"
    ],
    "sheet": 2,
-   "x": 256,
-   "y": 128,
+   "x": 0,
+   "y": 512,
    "w": 128,
    "h": 128
   },
   {
    "name": "potion",
+   "base": "potion",
+   "style": "glyph",
    "category": "items",
    "tags": [
     "health",
@@ -1086,13 +1611,33 @@
     "consumable"
    ],
    "sheet": 2,
-   "x": 384,
-   "y": 128,
+   "x": 128,
+   "y": 512,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "power-up",
+   "base": "power-up",
+   "style": "glyph",
+   "category": "items",
+   "tags": [
+    "ability",
+    "upgrade",
+    "boost",
+    "star",
+    "arrow"
+   ],
+   "sheet": 2,
+   "x": 256,
+   "y": 512,
    "w": 128,
    "h": 128
   },
   {
    "name": "puzzle",
+   "base": "puzzle",
+   "style": "glyph",
    "category": "items",
    "tags": [
     "piece",
@@ -1100,13 +1645,15 @@
     "plugin"
    ],
    "sheet": 2,
-   "x": 512,
-   "y": 128,
+   "x": 384,
+   "y": 512,
    "w": 128,
    "h": 128
   },
   {
    "name": "rocket",
+   "base": "rocket",
+   "style": "glyph",
    "category": "items",
    "tags": [
     "launch",
@@ -1114,13 +1661,15 @@
     "speed"
    ],
    "sheet": 2,
-   "x": 640,
-   "y": 128,
+   "x": 512,
+   "y": 512,
    "w": 128,
    "h": 128
   },
   {
    "name": "shield",
+   "base": "shield",
+   "style": "glyph",
    "category": "items",
    "tags": [
     "defense",
@@ -1128,13 +1677,15 @@
     "protect"
    ],
    "sheet": 2,
-   "x": 768,
-   "y": 128,
+   "x": 640,
+   "y": 512,
    "w": 128,
    "h": 128
   },
   {
    "name": "sword",
+   "base": "sword",
+   "style": "glyph",
    "category": "items",
    "tags": [
     "weapon",
@@ -1143,13 +1694,15 @@
     "melee"
    ],
    "sheet": 2,
-   "x": 896,
-   "y": 128,
+   "x": 768,
+   "y": 512,
    "w": 128,
    "h": 128
   },
   {
    "name": "wrench",
+   "base": "wrench",
+   "style": "glyph",
    "category": "items",
    "tags": [
     "repair",
@@ -1158,13 +1711,15 @@
     "settings"
    ],
    "sheet": 2,
-   "x": 0,
-   "y": 256,
+   "x": 896,
+   "y": 512,
    "w": 128,
    "h": 128
   },
   {
    "name": "energy",
+   "base": "energy",
+   "style": "glyph",
    "category": "stats",
    "tags": [
     "power",
@@ -1173,13 +1728,15 @@
     "bolt"
    ],
    "sheet": 2,
-   "x": 128,
-   "y": 256,
+   "x": 0,
+   "y": 640,
    "w": 128,
    "h": 128
   },
   {
    "name": "fire",
+   "base": "fire",
+   "style": "glyph",
    "category": "stats",
    "tags": [
     "flame",
@@ -1187,13 +1744,15 @@
     "hot"
    ],
    "sheet": 2,
-   "x": 256,
-   "y": 256,
+   "x": 128,
+   "y": 640,
    "w": 128,
    "h": 128
   },
   {
    "name": "health",
+   "base": "health",
+   "style": "glyph",
    "category": "stats",
    "tags": [
     "hp",
@@ -1201,13 +1760,15 @@
     "life"
    ],
    "sheet": 2,
-   "x": 384,
-   "y": 256,
+   "x": 256,
+   "y": 640,
    "w": 128,
    "h": 128
   },
   {
    "name": "health-plus",
+   "base": "health-plus",
+   "style": "glyph",
    "category": "stats",
    "tags": [
     "heal",
@@ -1215,13 +1776,15 @@
     "medkit"
    ],
    "sheet": 2,
-   "x": 512,
-   "y": 256,
+   "x": 384,
+   "y": 640,
    "w": 128,
    "h": 128
   },
   {
    "name": "leaf",
+   "base": "leaf",
+   "style": "glyph",
    "category": "stats",
    "tags": [
     "nature",
@@ -1230,13 +1793,15 @@
     "grow"
    ],
    "sheet": 2,
-   "x": 640,
-   "y": 256,
+   "x": 512,
+   "y": 640,
    "w": 128,
    "h": 128
   },
   {
    "name": "skull",
+   "base": "skull",
+   "style": "glyph",
    "category": "stats",
    "tags": [
     "death",
@@ -1244,13 +1809,15 @@
     "hazard"
    ],
    "sheet": 2,
-   "x": 768,
-   "y": 256,
+   "x": 640,
+   "y": 640,
    "w": 128,
    "h": 128
   },
   {
    "name": "snowflake",
+   "base": "snowflake",
+   "style": "glyph",
    "category": "stats",
    "tags": [
     "ice",
@@ -1259,13 +1826,15 @@
     "winter"
    ],
    "sheet": 2,
-   "x": 896,
-   "y": 256,
+   "x": 768,
+   "y": 640,
    "w": 128,
    "h": 128
   },
   {
    "name": "speed",
+   "base": "speed",
+   "style": "glyph",
    "category": "stats",
    "tags": [
     "fast",
@@ -1273,13 +1842,15 @@
     "boots"
    ],
    "sheet": 2,
-   "x": 0,
-   "y": 384,
+   "x": 896,
+   "y": 640,
    "w": 128,
    "h": 128
   },
   {
    "name": "strength",
+   "base": "strength",
+   "style": "glyph",
    "category": "stats",
    "tags": [
     "power",
@@ -1288,13 +1859,15 @@
     "damage"
    ],
    "sheet": 2,
-   "x": 128,
-   "y": 384,
+   "x": 0,
+   "y": 768,
    "w": 128,
    "h": 128
   },
   {
    "name": "water",
+   "base": "water",
+   "style": "glyph",
    "category": "stats",
    "tags": [
     "drop",
@@ -1302,13 +1875,15 @@
     "rain"
    ],
    "sheet": 2,
-   "x": 256,
-   "y": 384,
+   "x": 128,
+   "y": 768,
    "w": 128,
    "h": 128
   },
   {
    "name": "xp",
+   "base": "xp",
+   "style": "glyph",
    "category": "stats",
    "tags": [
     "experience",
@@ -1316,8 +1891,2587 @@
     "progress"
    ],
    "sheet": 2,
+   "x": 256,
+   "y": 768,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "group",
+   "base": "group",
+   "style": "glyph",
+   "category": "social",
+   "tags": [
+    "clan",
+    "guild",
+    "team"
+   ],
+   "sheet": 2,
+   "x": 384,
+   "y": 768,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "invite",
+   "base": "invite",
+   "style": "glyph",
+   "category": "social",
+   "tags": [
+    "add",
+    "friend",
+    "user",
+    "plus"
+   ],
+   "sheet": 2,
+   "x": 512,
+   "y": 768,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "party",
+   "base": "party",
+   "style": "glyph",
+   "category": "social",
+   "tags": [
+    "group",
+    "celebrate",
+    "event",
+    "confetti"
+   ],
+   "sheet": 2,
+   "x": 640,
+   "y": 768,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "cash-color",
+   "base": "cash",
+   "style": "color",
+   "category": "currency",
+   "tags": [
+    "money",
+    "bill",
+    "dollar",
+    "banknote"
+   ],
+   "sheet": 2,
+   "x": 768,
+   "y": 768,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "coin-color",
+   "base": "coin",
+   "style": "color",
+   "category": "currency",
+   "tags": [
+    "money",
+    "gold",
+    "cash",
+    "currency"
+   ],
+   "sheet": 2,
+   "x": 896,
+   "y": 768,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "coin-silver",
+   "base": "coin",
+   "style": "color",
+   "category": "currency",
+   "tags": [
+    "money",
+    "gold",
+    "cash",
+    "currency",
+    "silver"
+   ],
+   "sheet": 2,
+   "x": 0,
+   "y": 896,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "coin-bronze",
+   "base": "coin",
+   "style": "color",
+   "category": "currency",
+   "tags": [
+    "money",
+    "gold",
+    "cash",
+    "currency",
+    "bronze"
+   ],
+   "sheet": 2,
+   "x": 128,
+   "y": 896,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "coins-color",
+   "base": "coins",
+   "style": "color",
+   "category": "currency",
+   "tags": [
+    "money",
+    "stack",
+    "gold"
+   ],
+   "sheet": 2,
+   "x": 256,
+   "y": 896,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "gem-color",
+   "base": "gem",
+   "style": "color",
+   "category": "currency",
+   "tags": [
+    "diamond",
+    "premium",
+    "jewel"
+   ],
+   "sheet": 2,
+   "x": 384,
+   "y": 896,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "gem-red",
+   "base": "gem",
+   "style": "color",
+   "category": "currency",
+   "tags": [
+    "diamond",
+    "premium",
+    "jewel",
+    "red"
+   ],
+   "sheet": 2,
+   "x": 512,
+   "y": 896,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "gem-green",
+   "base": "gem",
+   "style": "color",
+   "category": "currency",
+   "tags": [
+    "diamond",
+    "premium",
+    "jewel",
+    "green"
+   ],
+   "sheet": 2,
+   "x": 640,
+   "y": 896,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "gem-blue",
+   "base": "gem",
+   "style": "color",
+   "category": "currency",
+   "tags": [
+    "diamond",
+    "premium",
+    "jewel",
+    "blue"
+   ],
+   "sheet": 2,
+   "x": 768,
+   "y": 896,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "gem-purple",
+   "base": "gem",
+   "style": "color",
+   "category": "currency",
+   "tags": [
+    "diamond",
+    "premium",
+    "jewel",
+    "purple"
+   ],
+   "sheet": 2,
+   "x": 896,
+   "y": 896,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "gem-pink",
+   "base": "gem",
+   "style": "color",
+   "category": "currency",
+   "tags": [
+    "diamond",
+    "premium",
+    "jewel",
+    "pink"
+   ],
+   "sheet": 3,
+   "x": 0,
+   "y": 0,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "gem-gold",
+   "base": "gem",
+   "style": "color",
+   "category": "currency",
+   "tags": [
+    "diamond",
+    "premium",
+    "jewel",
+    "gold"
+   ],
+   "sheet": 3,
+   "x": 128,
+   "y": 0,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "gem-stack-color",
+   "base": "gem-stack",
+   "style": "color",
+   "category": "currency",
+   "tags": [
+    "gems",
+    "diamonds",
+    "premium",
+    "pile"
+   ],
+   "sheet": 3,
+   "x": 256,
+   "y": 0,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "money-bag-color",
+   "base": "money-bag",
+   "style": "color",
+   "category": "currency",
+   "tags": [
+    "sack",
+    "loot",
+    "cash"
+   ],
+   "sheet": 3,
+   "x": 384,
+   "y": 0,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "ticket-color",
+   "base": "ticket",
+   "style": "color",
+   "category": "currency",
+   "tags": [
+    "token",
+    "pass",
+    "event"
+   ],
+   "sheet": 3,
+   "x": 512,
+   "y": 0,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "ticket-gold",
+   "base": "ticket",
+   "style": "color",
+   "category": "currency",
+   "tags": [
+    "token",
+    "pass",
+    "event",
+    "gold"
+   ],
+   "sheet": 3,
+   "x": 640,
+   "y": 0,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "token-color",
+   "base": "token",
+   "style": "color",
+   "category": "currency",
+   "tags": [
+    "chip",
+    "credit"
+   ],
+   "sheet": 3,
+   "x": 768,
+   "y": 0,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "wallet-color",
+   "base": "wallet",
+   "style": "color",
+   "category": "currency",
+   "tags": [
+    "money",
+    "purse",
+    "balance"
+   ],
+   "sheet": 3,
+   "x": 896,
+   "y": 0,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "badge-color",
+   "base": "badge",
+   "style": "color",
+   "category": "rewards",
+   "tags": [
+    "rosette",
+    "award",
+    "ribbon"
+   ],
+   "sheet": 3,
+   "x": 0,
+   "y": 128,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "chest-color",
+   "base": "chest",
+   "style": "color",
+   "category": "rewards",
+   "tags": [
+    "treasure",
+    "loot",
+    "box"
+   ],
+   "sheet": 3,
+   "x": 128,
+   "y": 128,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "chest-gold",
+   "base": "chest",
+   "style": "color",
+   "category": "rewards",
+   "tags": [
+    "treasure",
+    "loot",
+    "box",
+    "gold"
+   ],
+   "sheet": 3,
+   "x": 256,
+   "y": 128,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "chest-purple",
+   "base": "chest",
+   "style": "color",
+   "category": "rewards",
+   "tags": [
+    "treasure",
+    "loot",
+    "box",
+    "purple"
+   ],
+   "sheet": 3,
+   "x": 384,
+   "y": 128,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "crown-color",
+   "base": "crown",
+   "style": "color",
+   "category": "rewards",
+   "tags": [
+    "vip",
+    "king",
+    "premium",
+    "rank"
+   ],
+   "sheet": 3,
+   "x": 512,
+   "y": 128,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "event-color",
+   "base": "event",
+   "style": "color",
+   "category": "rewards",
+   "tags": [
+    "special",
+    "limited",
+    "calendar",
+    "star"
+   ],
+   "sheet": 3,
+   "x": 640,
+   "y": 128,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "gift-color",
+   "base": "gift",
+   "style": "color",
+   "category": "rewards",
+   "tags": [
+    "present",
+    "reward",
+    "daily"
+   ],
+   "sheet": 3,
+   "x": 768,
+   "y": 128,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "level-up-color",
+   "base": "level-up",
+   "style": "color",
+   "category": "rewards",
+   "tags": [
+    "arrow",
+    "upgrade",
+    "xp"
+   ],
+   "sheet": 3,
+   "x": 896,
+   "y": 128,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "medal-color",
+   "base": "medal",
+   "style": "color",
+   "category": "rewards",
+   "tags": [
+    "badge",
+    "achievement",
+    "award"
+   ],
+   "sheet": 3,
+   "x": 0,
+   "y": 256,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "medal-gold",
+   "base": "medal",
+   "style": "color",
+   "category": "rewards",
+   "tags": [
+    "badge",
+    "achievement",
+    "award",
+    "gold"
+   ],
+   "sheet": 3,
+   "x": 128,
+   "y": 256,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "medal-silver",
+   "base": "medal",
+   "style": "color",
+   "category": "rewards",
+   "tags": [
+    "badge",
+    "achievement",
+    "award",
+    "silver"
+   ],
+   "sheet": 3,
+   "x": 256,
+   "y": 256,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "medal-bronze",
+   "base": "medal",
+   "style": "color",
+   "category": "rewards",
+   "tags": [
+    "badge",
+    "achievement",
+    "award",
+    "bronze"
+   ],
+   "sheet": 3,
+   "x": 384,
+   "y": 256,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "rebirth-color",
+   "base": "rebirth",
+   "style": "color",
+   "category": "rewards",
+   "tags": [
+    "prestige",
+    "reset",
+    "restart",
+    "cycle"
+   ],
+   "sheet": 3,
+   "x": 512,
+   "y": 256,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "star-color",
+   "base": "star",
+   "style": "color",
+   "category": "rewards",
+   "tags": [
+    "favorite",
+    "rating",
+    "level"
+   ],
+   "sheet": 3,
+   "x": 640,
+   "y": 256,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "trophy-color",
+   "base": "trophy",
+   "style": "color",
+   "category": "rewards",
+   "tags": [
+    "win",
+    "achievement",
+    "cup",
+    "leaderboard"
+   ],
+   "sheet": 3,
+   "x": 768,
+   "y": 256,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "trophy-silver",
+   "base": "trophy",
+   "style": "color",
+   "category": "rewards",
+   "tags": [
+    "win",
+    "achievement",
+    "cup",
+    "leaderboard",
+    "silver"
+   ],
+   "sheet": 3,
+   "x": 896,
+   "y": 256,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "trophy-bronze",
+   "base": "trophy",
+   "style": "color",
+   "category": "rewards",
+   "tags": [
+    "win",
+    "achievement",
+    "cup",
+    "leaderboard",
+    "bronze"
+   ],
+   "sheet": 3,
+   "x": 0,
+   "y": 384,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "arrow-down-color",
+   "base": "arrow-down",
+   "style": "color",
+   "category": "actions",
+   "tags": [
+    "down",
+    "lower"
+   ],
+   "sheet": 3,
+   "x": 128,
+   "y": 384,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "arrow-left-color",
+   "base": "arrow-left",
+   "style": "color",
+   "category": "actions",
+   "tags": [
+    "back",
+    "previous"
+   ],
+   "sheet": 3,
+   "x": 256,
+   "y": 384,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "arrow-right-color",
+   "base": "arrow-right",
+   "style": "color",
+   "category": "actions",
+   "tags": [
+    "next",
+    "forward"
+   ],
+   "sheet": 3,
    "x": 384,
    "y": 384,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "arrow-up-color",
+   "base": "arrow-up",
+   "style": "color",
+   "category": "actions",
+   "tags": [
+    "up",
+    "raise"
+   ],
+   "sheet": 3,
+   "x": 512,
+   "y": 384,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "check-color",
+   "base": "check",
+   "style": "color",
+   "category": "actions",
+   "tags": [
+    "confirm",
+    "ok",
+    "done",
+    "tick"
+   ],
+   "sheet": 3,
+   "x": 640,
+   "y": 384,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "close-color",
+   "base": "close",
+   "style": "color",
+   "category": "actions",
+   "tags": [
+    "x",
+    "cancel",
+    "dismiss"
+   ],
+   "sheet": 3,
+   "x": 768,
+   "y": 384,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "download-color",
+   "base": "download",
+   "style": "color",
+   "category": "actions",
+   "tags": [
+    "save",
+    "get"
+   ],
+   "sheet": 3,
+   "x": 896,
+   "y": 384,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "edit-color",
+   "base": "edit",
+   "style": "color",
+   "category": "actions",
+   "tags": [
+    "pencil",
+    "rename",
+    "write"
+   ],
+   "sheet": 3,
+   "x": 0,
+   "y": 512,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "expand-color",
+   "base": "expand",
+   "style": "color",
+   "category": "actions",
+   "tags": [
+    "fullscreen",
+    "maximize"
+   ],
+   "sheet": 3,
+   "x": 128,
+   "y": 512,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "filter-color",
+   "base": "filter",
+   "style": "color",
+   "category": "actions",
+   "tags": [
+    "sort",
+    "funnel"
+   ],
+   "sheet": 3,
+   "x": 256,
+   "y": 512,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "menu-color",
+   "base": "menu",
+   "style": "color",
+   "category": "actions",
+   "tags": [
+    "hamburger",
+    "list",
+    "more"
+   ],
+   "sheet": 3,
+   "x": 384,
+   "y": 512,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "minus-color",
+   "base": "minus",
+   "style": "color",
+   "category": "actions",
+   "tags": [
+    "remove",
+    "less",
+    "decrease"
+   ],
+   "sheet": 3,
+   "x": 512,
+   "y": 512,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "more-color",
+   "base": "more",
+   "style": "color",
+   "category": "actions",
+   "tags": [
+    "dots",
+    "ellipsis",
+    "options"
+   ],
+   "sheet": 3,
+   "x": 640,
+   "y": 512,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "pause-color",
+   "base": "pause",
+   "style": "color",
+   "category": "actions",
+   "tags": [
+    "stop",
+    "wait"
+   ],
+   "sheet": 3,
+   "x": 768,
+   "y": 512,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "play-color",
+   "base": "play",
+   "style": "color",
+   "category": "actions",
+   "tags": [
+    "start",
+    "resume",
+    "go"
+   ],
+   "sheet": 3,
+   "x": 896,
+   "y": 512,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "plus-color",
+   "base": "plus",
+   "style": "color",
+   "category": "actions",
+   "tags": [
+    "add",
+    "more",
+    "increase"
+   ],
+   "sheet": 3,
+   "x": 0,
+   "y": 640,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "refresh-color",
+   "base": "refresh",
+   "style": "color",
+   "category": "actions",
+   "tags": [
+    "reload",
+    "retry",
+    "restart"
+   ],
+   "sheet": 3,
+   "x": 128,
+   "y": 640,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "search-color",
+   "base": "search",
+   "style": "color",
+   "category": "actions",
+   "tags": [
+    "find",
+    "magnifier",
+    "zoom"
+   ],
+   "sheet": 3,
+   "x": 256,
+   "y": 640,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "settings-color",
+   "base": "settings",
+   "style": "color",
+   "category": "actions",
+   "tags": [
+    "gear",
+    "options",
+    "preferences"
+   ],
+   "sheet": 3,
+   "x": 384,
+   "y": 640,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "share-color",
+   "base": "share",
+   "style": "color",
+   "category": "actions",
+   "tags": [
+    "send",
+    "export",
+    "link"
+   ],
+   "sheet": 3,
+   "x": 512,
+   "y": 640,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "trash-color",
+   "base": "trash",
+   "style": "color",
+   "category": "actions",
+   "tags": [
+    "delete",
+    "remove",
+    "bin"
+   ],
+   "sheet": 3,
+   "x": 640,
+   "y": 640,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "equipped-color",
+   "base": "equipped",
+   "style": "color",
+   "category": "status",
+   "tags": [
+    "worn",
+    "selected",
+    "badge"
+   ],
+   "sheet": 3,
+   "x": 768,
+   "y": 640,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "error-color",
+   "base": "error",
+   "style": "color",
+   "category": "status",
+   "tags": [
+    "fail",
+    "wrong",
+    "cross",
+    "circle"
+   ],
+   "sheet": 3,
+   "x": 896,
+   "y": 640,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "info-color",
+   "base": "info",
+   "style": "color",
+   "category": "status",
+   "tags": [
+    "help",
+    "about",
+    "details"
+   ],
+   "sheet": 3,
+   "x": 0,
+   "y": 768,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "loading-color",
+   "base": "loading",
+   "style": "color",
+   "category": "status",
+   "tags": [
+    "spinner",
+    "wait",
+    "busy"
+   ],
+   "sheet": 3,
+   "x": 128,
+   "y": 768,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "lock-color",
+   "base": "lock",
+   "style": "color",
+   "category": "status",
+   "tags": [
+    "locked",
+    "secure",
+    "private"
+   ],
+   "sheet": 3,
+   "x": 256,
+   "y": 768,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "question-color",
+   "base": "question",
+   "style": "color",
+   "category": "status",
+   "tags": [
+    "help",
+    "unknown",
+    "faq"
+   ],
+   "sheet": 3,
+   "x": 384,
+   "y": 768,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "success-color",
+   "base": "success",
+   "style": "color",
+   "category": "status",
+   "tags": [
+    "done",
+    "ok",
+    "tick",
+    "circle"
+   ],
+   "sheet": 3,
+   "x": 512,
+   "y": 768,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "unlock-color",
+   "base": "unlock",
+   "style": "color",
+   "category": "status",
+   "tags": [
+    "unlocked",
+    "open"
+   ],
+   "sheet": 3,
+   "x": 640,
+   "y": 768,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "warning-color",
+   "base": "warning",
+   "style": "color",
+   "category": "status",
+   "tags": [
+    "alert",
+    "caution",
+    "danger"
+   ],
+   "sheet": 3,
+   "x": 768,
+   "y": 768,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "backpack-color",
+   "base": "backpack",
+   "style": "color",
+   "category": "interface",
+   "tags": [
+    "inventory",
+    "bag",
+    "items",
+    "storage"
+   ],
+   "sheet": 3,
+   "x": 896,
+   "y": 768,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "bag-color",
+   "base": "bag",
+   "style": "color",
+   "category": "interface",
+   "tags": [
+    "inventory",
+    "backpack",
+    "items"
+   ],
+   "sheet": 3,
+   "x": 0,
+   "y": 896,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "bell-color",
+   "base": "bell",
+   "style": "color",
+   "category": "interface",
+   "tags": [
+    "notification",
+    "alert"
+   ],
+   "sheet": 3,
+   "x": 128,
+   "y": 896,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "calendar-color",
+   "base": "calendar",
+   "style": "color",
+   "category": "interface",
+   "tags": [
+    "date",
+    "daily",
+    "event"
+   ],
+   "sheet": 3,
+   "x": 256,
+   "y": 896,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "camera-color",
+   "base": "camera",
+   "style": "color",
+   "category": "interface",
+   "tags": [
+    "photo",
+    "screenshot",
+    "view"
+   ],
+   "sheet": 3,
+   "x": 384,
+   "y": 896,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "chat-color",
+   "base": "chat",
+   "style": "color",
+   "category": "interface",
+   "tags": [
+    "message",
+    "talk",
+    "speech"
+   ],
+   "sheet": 3,
+   "x": 512,
+   "y": 896,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "clock-color",
+   "base": "clock",
+   "style": "color",
+   "category": "interface",
+   "tags": [
+    "time",
+    "timer",
+    "wait"
+   ],
+   "sheet": 3,
+   "x": 640,
+   "y": 896,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "codes-color",
+   "base": "codes",
+   "style": "color",
+   "category": "interface",
+   "tags": [
+    "redeem",
+    "promo",
+    "twitter"
+   ],
+   "sheet": 3,
+   "x": 768,
+   "y": 896,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "eye-color",
+   "base": "eye",
+   "style": "color",
+   "category": "interface",
+   "tags": [
+    "view",
+    "visible",
+    "show"
+   ],
+   "sheet": 3,
+   "x": 896,
+   "y": 896,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "flag-color",
+   "base": "flag",
+   "style": "color",
+   "category": "interface",
+   "tags": [
+    "goal",
+    "finish",
+    "checkpoint"
+   ],
+   "sheet": 4,
+   "x": 0,
+   "y": 0,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "gamepad-color",
+   "base": "gamepad",
+   "style": "color",
+   "category": "interface",
+   "tags": [
+    "controller",
+    "console",
+    "input"
+   ],
+   "sheet": 4,
+   "x": 128,
+   "y": 0,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "home-color",
+   "base": "home",
+   "style": "color",
+   "category": "interface",
+   "tags": [
+    "house",
+    "lobby",
+    "main"
+   ],
+   "sheet": 4,
+   "x": 256,
+   "y": 0,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "keyboard-color",
+   "base": "keyboard",
+   "style": "color",
+   "category": "interface",
+   "tags": [
+    "keys",
+    "input",
+    "pc"
+   ],
+   "sheet": 4,
+   "x": 384,
+   "y": 0,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "leaderboard-color",
+   "base": "leaderboard",
+   "style": "color",
+   "category": "interface",
+   "tags": [
+    "ranking",
+    "podium",
+    "top"
+   ],
+   "sheet": 4,
+   "x": 512,
+   "y": 0,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "mail-color",
+   "base": "mail",
+   "style": "color",
+   "category": "interface",
+   "tags": [
+    "inbox",
+    "letter",
+    "message"
+   ],
+   "sheet": 4,
+   "x": 640,
+   "y": 0,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "map-color",
+   "base": "map",
+   "style": "color",
+   "category": "interface",
+   "tags": [
+    "world",
+    "travel",
+    "location"
+   ],
+   "sheet": 4,
+   "x": 768,
+   "y": 0,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "megaphone-color",
+   "base": "megaphone",
+   "style": "color",
+   "category": "interface",
+   "tags": [
+    "announce",
+    "news",
+    "shout"
+   ],
+   "sheet": 4,
+   "x": 896,
+   "y": 0,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "music-color",
+   "base": "music",
+   "style": "color",
+   "category": "interface",
+   "tags": [
+    "song",
+    "note",
+    "audio"
+   ],
+   "sheet": 4,
+   "x": 0,
+   "y": 128,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "mute-color",
+   "base": "mute",
+   "style": "color",
+   "category": "interface",
+   "tags": [
+    "sound",
+    "off",
+    "silent"
+   ],
+   "sheet": 4,
+   "x": 128,
+   "y": 128,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "news-color",
+   "base": "news",
+   "style": "color",
+   "category": "interface",
+   "tags": [
+    "updates",
+    "changelog",
+    "paper"
+   ],
+   "sheet": 4,
+   "x": 256,
+   "y": 128,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "notification-color",
+   "base": "notification",
+   "style": "color",
+   "category": "interface",
+   "tags": [
+    "alert",
+    "badge",
+    "bell",
+    "dot"
+   ],
+   "sheet": 4,
+   "x": 384,
+   "y": 128,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "pin-color",
+   "base": "pin",
+   "style": "color",
+   "category": "interface",
+   "tags": [
+    "location",
+    "marker",
+    "waypoint"
+   ],
+   "sheet": 4,
+   "x": 512,
+   "y": 128,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "profile-color",
+   "base": "profile",
+   "style": "color",
+   "category": "interface",
+   "tags": [
+    "player",
+    "card",
+    "account"
+   ],
+   "sheet": 4,
+   "x": 640,
+   "y": 128,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "quest-color",
+   "base": "quest",
+   "style": "color",
+   "category": "interface",
+   "tags": [
+    "scroll",
+    "mission",
+    "task"
+   ],
+   "sheet": 4,
+   "x": 768,
+   "y": 128,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "shop-color",
+   "base": "shop",
+   "style": "color",
+   "category": "interface",
+   "tags": [
+    "store",
+    "cart",
+    "buy",
+    "market"
+   ],
+   "sheet": 4,
+   "x": 896,
+   "y": 128,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "stopwatch-color",
+   "base": "stopwatch",
+   "style": "color",
+   "category": "interface",
+   "tags": [
+    "timer",
+    "countdown",
+    "speedrun"
+   ],
+   "sheet": 4,
+   "x": 0,
+   "y": 256,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "target-color",
+   "base": "target",
+   "style": "color",
+   "category": "interface",
+   "tags": [
+    "aim",
+    "goal",
+    "objective",
+    "quest"
+   ],
+   "sheet": 4,
+   "x": 128,
+   "y": 256,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "teleport-color",
+   "base": "teleport",
+   "style": "color",
+   "category": "interface",
+   "tags": [
+    "portal",
+    "travel",
+    "warp"
+   ],
+   "sheet": 4,
+   "x": 256,
+   "y": 256,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "touch-color",
+   "base": "touch",
+   "style": "color",
+   "category": "interface",
+   "tags": [
+    "tap",
+    "mobile",
+    "finger"
+   ],
+   "sheet": 4,
+   "x": 384,
+   "y": 256,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "trade-color",
+   "base": "trade",
+   "style": "color",
+   "category": "interface",
+   "tags": [
+    "swap",
+    "exchange",
+    "arrows"
+   ],
+   "sheet": 4,
+   "x": 512,
+   "y": 256,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "user-color",
+   "base": "user",
+   "style": "color",
+   "category": "interface",
+   "tags": [
+    "player",
+    "profile",
+    "account"
+   ],
+   "sheet": 4,
+   "x": 640,
+   "y": 256,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "users-color",
+   "base": "users",
+   "style": "color",
+   "category": "interface",
+   "tags": [
+    "friends",
+    "party",
+    "group",
+    "team"
+   ],
+   "sheet": 4,
+   "x": 768,
+   "y": 256,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "volume-color",
+   "base": "volume",
+   "style": "color",
+   "category": "interface",
+   "tags": [
+    "sound",
+    "audio",
+    "speaker",
+    "on"
+   ],
+   "sheet": 4,
+   "x": 896,
+   "y": 256,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "axe-color",
+   "base": "axe",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "chop",
+    "wood",
+    "tool"
+   ],
+   "sheet": 4,
+   "x": 0,
+   "y": 384,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "block-color",
+   "base": "block",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "build",
+    "cube",
+    "placement",
+    "voxel"
+   ],
+   "sheet": 4,
+   "x": 128,
+   "y": 384,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "bomb-color",
+   "base": "bomb",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "explosive",
+    "tnt"
+   ],
+   "sheet": 4,
+   "x": 256,
+   "y": 384,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "boost-color",
+   "base": "boost",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "x2",
+    "multiplier",
+    "double",
+    "potion"
+   ],
+   "sheet": 4,
+   "x": 384,
+   "y": 384,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "boost-green",
+   "base": "boost",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "x2",
+    "multiplier",
+    "double",
+    "potion",
+    "green"
+   ],
+   "sheet": 4,
+   "x": 512,
+   "y": 384,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "boost-purple",
+   "base": "boost",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "x2",
+    "multiplier",
+    "double",
+    "potion",
+    "purple"
+   ],
+   "sheet": 4,
+   "x": 640,
+   "y": 384,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "bow-color",
+   "base": "bow",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "archery",
+    "ranged",
+    "weapon"
+   ],
+   "sheet": 4,
+   "x": 768,
+   "y": 384,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "car-color",
+   "base": "car",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "vehicle",
+    "drive",
+    "transport"
+   ],
+   "sheet": 4,
+   "x": 896,
+   "y": 384,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "dice-color",
+   "base": "dice",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "random",
+    "chance",
+    "roll",
+    "luck"
+   ],
+   "sheet": 4,
+   "x": 0,
+   "y": 512,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "egg-color",
+   "base": "egg",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "pet",
+    "hatch",
+    "spawn"
+   ],
+   "sheet": 4,
+   "x": 128,
+   "y": 512,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "egg-common",
+   "base": "egg",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "pet",
+    "hatch",
+    "spawn",
+    "common"
+   ],
+   "sheet": 4,
+   "x": 256,
+   "y": 512,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "egg-uncommon",
+   "base": "egg",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "pet",
+    "hatch",
+    "spawn",
+    "uncommon"
+   ],
+   "sheet": 4,
+   "x": 384,
+   "y": 512,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "egg-rare",
+   "base": "egg",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "pet",
+    "hatch",
+    "spawn",
+    "rare"
+   ],
+   "sheet": 4,
+   "x": 512,
+   "y": 512,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "egg-epic",
+   "base": "egg",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "pet",
+    "hatch",
+    "spawn",
+    "epic"
+   ],
+   "sheet": 4,
+   "x": 640,
+   "y": 512,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "egg-legendary",
+   "base": "egg",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "pet",
+    "hatch",
+    "spawn",
+    "legendary"
+   ],
+   "sheet": 4,
+   "x": 768,
+   "y": 512,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "egg-mythic",
+   "base": "egg",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "pet",
+    "hatch",
+    "spawn",
+    "mythic"
+   ],
+   "sheet": 4,
+   "x": 896,
+   "y": 512,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "egg-cracked-color",
+   "base": "egg-cracked",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "hatch",
+    "pet",
+    "open"
+   ],
+   "sheet": 4,
+   "x": 0,
+   "y": 640,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "hammer-color",
+   "base": "hammer",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "build",
+    "tool",
+    "craft"
+   ],
+   "sheet": 4,
+   "x": 128,
+   "y": 640,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "key-color",
+   "base": "key",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "unlock",
+    "door",
+    "access"
+   ],
+   "sheet": 4,
+   "x": 256,
+   "y": 640,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "key-silver",
+   "base": "key",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "unlock",
+    "door",
+    "access",
+    "silver"
+   ],
+   "sheet": 4,
+   "x": 384,
+   "y": 640,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "key-blue",
+   "base": "key",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "unlock",
+    "door",
+    "access",
+    "blue"
+   ],
+   "sheet": 4,
+   "x": 512,
+   "y": 640,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "magnet-color",
+   "base": "magnet",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "attract",
+    "collect",
+    "pickup"
+   ],
+   "sheet": 4,
+   "x": 640,
+   "y": 640,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "paw-color",
+   "base": "paw",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "pet",
+    "animal",
+    "companion"
+   ],
+   "sheet": 4,
+   "x": 768,
+   "y": 640,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "pet-color",
+   "base": "pet",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "animal",
+    "companion",
+    "cat"
+   ],
+   "sheet": 4,
+   "x": 896,
+   "y": 640,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "pet-orange",
+   "base": "pet",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "animal",
+    "companion",
+    "cat",
+    "orange"
+   ],
+   "sheet": 4,
+   "x": 0,
+   "y": 768,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "pet-gray",
+   "base": "pet",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "animal",
+    "companion",
+    "cat",
+    "gray"
+   ],
+   "sheet": 4,
+   "x": 128,
+   "y": 768,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "pet-pink",
+   "base": "pet",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "animal",
+    "companion",
+    "cat",
+    "pink"
+   ],
+   "sheet": 4,
+   "x": 256,
+   "y": 768,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "pickaxe-color",
+   "base": "pickaxe",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "mine",
+    "dig",
+    "tool",
+    "resource"
+   ],
+   "sheet": 4,
+   "x": 384,
+   "y": 768,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "potion-color",
+   "base": "potion",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "health",
+    "heal",
+    "flask",
+    "consumable"
+   ],
+   "sheet": 4,
+   "x": 512,
+   "y": 768,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "potion-red",
+   "base": "potion",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "health",
+    "heal",
+    "flask",
+    "consumable",
+    "red"
+   ],
+   "sheet": 4,
+   "x": 640,
+   "y": 768,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "potion-green",
+   "base": "potion",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "health",
+    "heal",
+    "flask",
+    "consumable",
+    "green"
+   ],
+   "sheet": 4,
+   "x": 768,
+   "y": 768,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "potion-blue",
+   "base": "potion",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "health",
+    "heal",
+    "flask",
+    "consumable",
+    "blue"
+   ],
+   "sheet": 4,
+   "x": 896,
+   "y": 768,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "potion-yellow",
+   "base": "potion",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "health",
+    "heal",
+    "flask",
+    "consumable",
+    "yellow"
+   ],
+   "sheet": 4,
+   "x": 0,
+   "y": 896,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "power-up-color",
+   "base": "power-up",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "ability",
+    "upgrade",
+    "boost",
+    "star",
+    "arrow"
+   ],
+   "sheet": 4,
+   "x": 128,
+   "y": 896,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "puzzle-color",
+   "base": "puzzle",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "piece",
+    "module",
+    "plugin"
+   ],
+   "sheet": 4,
+   "x": 256,
+   "y": 896,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "rocket-color",
+   "base": "rocket",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "launch",
+    "boost",
+    "speed"
+   ],
+   "sheet": 4,
+   "x": 384,
+   "y": 896,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "shield-color",
+   "base": "shield",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "defense",
+    "armor",
+    "protect"
+   ],
+   "sheet": 4,
+   "x": 512,
+   "y": 896,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "shield-red",
+   "base": "shield",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "defense",
+    "armor",
+    "protect",
+    "red"
+   ],
+   "sheet": 4,
+   "x": 640,
+   "y": 896,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "shield-green",
+   "base": "shield",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "defense",
+    "armor",
+    "protect",
+    "green"
+   ],
+   "sheet": 4,
+   "x": 768,
+   "y": 896,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "shield-gold",
+   "base": "shield",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "defense",
+    "armor",
+    "protect",
+    "gold"
+   ],
+   "sheet": 4,
+   "x": 896,
+   "y": 896,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "sword-color",
+   "base": "sword",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "weapon",
+    "attack",
+    "combat",
+    "melee"
+   ],
+   "sheet": 5,
+   "x": 0,
+   "y": 0,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "wrench-color",
+   "base": "wrench",
+   "style": "color",
+   "category": "items",
+   "tags": [
+    "repair",
+    "fix",
+    "tool",
+    "settings"
+   ],
+   "sheet": 5,
+   "x": 128,
+   "y": 0,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "energy-color",
+   "base": "energy",
+   "style": "color",
+   "category": "stats",
+   "tags": [
+    "power",
+    "stamina",
+    "lightning",
+    "bolt"
+   ],
+   "sheet": 5,
+   "x": 256,
+   "y": 0,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "fire-color",
+   "base": "fire",
+   "style": "color",
+   "category": "stats",
+   "tags": [
+    "flame",
+    "burn",
+    "hot"
+   ],
+   "sheet": 5,
+   "x": 384,
+   "y": 0,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "health-color",
+   "base": "health",
+   "style": "color",
+   "category": "stats",
+   "tags": [
+    "hp",
+    "heart",
+    "life"
+   ],
+   "sheet": 5,
+   "x": 512,
+   "y": 0,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "health-plus-color",
+   "base": "health-plus",
+   "style": "color",
+   "category": "stats",
+   "tags": [
+    "heal",
+    "regenerate",
+    "medkit"
+   ],
+   "sheet": 5,
+   "x": 640,
+   "y": 0,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "leaf-color",
+   "base": "leaf",
+   "style": "color",
+   "category": "stats",
+   "tags": [
+    "nature",
+    "plant",
+    "eco",
+    "grow"
+   ],
+   "sheet": 5,
+   "x": 768,
+   "y": 0,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "skull-color",
+   "base": "skull",
+   "style": "color",
+   "category": "stats",
+   "tags": [
+    "death",
+    "danger",
+    "hazard"
+   ],
+   "sheet": 5,
+   "x": 896,
+   "y": 0,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "snowflake-color",
+   "base": "snowflake",
+   "style": "color",
+   "category": "stats",
+   "tags": [
+    "ice",
+    "cold",
+    "freeze",
+    "winter"
+   ],
+   "sheet": 5,
+   "x": 0,
+   "y": 128,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "speed-color",
+   "base": "speed",
+   "style": "color",
+   "category": "stats",
+   "tags": [
+    "fast",
+    "run",
+    "boots"
+   ],
+   "sheet": 5,
+   "x": 128,
+   "y": 128,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "strength-color",
+   "base": "strength",
+   "style": "color",
+   "category": "stats",
+   "tags": [
+    "power",
+    "muscle",
+    "attack",
+    "damage"
+   ],
+   "sheet": 5,
+   "x": 256,
+   "y": 128,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "water-color",
+   "base": "water",
+   "style": "color",
+   "category": "stats",
+   "tags": [
+    "drop",
+    "liquid",
+    "rain"
+   ],
+   "sheet": 5,
+   "x": 384,
+   "y": 128,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "xp-color",
+   "base": "xp",
+   "style": "color",
+   "category": "stats",
+   "tags": [
+    "experience",
+    "level",
+    "progress"
+   ],
+   "sheet": 5,
+   "x": 512,
+   "y": 128,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "group-color",
+   "base": "group",
+   "style": "color",
+   "category": "social",
+   "tags": [
+    "clan",
+    "guild",
+    "team"
+   ],
+   "sheet": 5,
+   "x": 640,
+   "y": 128,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "invite-color",
+   "base": "invite",
+   "style": "color",
+   "category": "social",
+   "tags": [
+    "add",
+    "friend",
+    "user",
+    "plus"
+   ],
+   "sheet": 5,
+   "x": 768,
+   "y": 128,
+   "w": 128,
+   "h": 128
+  },
+  {
+   "name": "party-color",
+   "base": "party",
+   "style": "color",
+   "category": "social",
+   "tags": [
+    "group",
+    "celebrate",
+    "event",
+    "confetti"
+   ],
+   "sheet": 5,
+   "x": 896,
+   "y": 128,
    "w": 128,
    "h": 128
   }

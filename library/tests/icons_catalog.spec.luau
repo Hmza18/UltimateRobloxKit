@@ -90,6 +90,17 @@ return {
 			})
 		end)
 	end,
+	["illustrated styles and variants resolve"] = function()
+		t.equal(IconCatalog.styled("coin", "color"), "coin-color")
+		t.equal(IconCatalog.styled("coin-color", "glyph"), "coin")
+		t.equal(IconCatalog.styled("coin", nil), "coin")
+		t.equal(IconCatalog.styled("not-an-icon", "color"), "not-an-icon")
+		local eggs = IconCatalog.variants("egg")
+		t.truthy(table.find(eggs, "egg-legendary") ~= nil)
+		t.truthy(table.find(eggs, "egg-color") ~= nil)
+		t.truthy(#IconCatalog.list(nil, "color") >= 100)
+		t.truthy(#IconCatalog.list(nil, "glyph") >= 100)
+	end,
 	["list filters by category"] = function()
 		local currency = IconCatalog.list("currency")
 		t.truthy(table.find(currency, "gem") ~= nil)

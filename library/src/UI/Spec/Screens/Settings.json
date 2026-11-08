@@ -1,0 +1,111 @@
+{
+  "spec": 1,
+  "id": "Settings",
+  "kind": "window",
+  "style": "cartoon",
+  "description": "Settings: audio sliders, gameplay toggles, interface dropdowns and a reset button.",
+  "window": {
+    "title": "SETTINGS",
+    "headerPalette": "gray",
+    "sizeClass": "md"
+  },
+  "body": [
+    {
+      "type": "heading",
+      "text": "AUDIO"
+    },
+    {
+      "type": "slider",
+      "id": "music",
+      "label": "Music volume",
+      "value": 0.6,
+      "min": 0,
+      "max": 1,
+      "step": 0.05,
+      "bind": "Settings.Music"
+    },
+    {
+      "type": "slider",
+      "id": "sfx",
+      "label": "Sound effects",
+      "value": 0.8,
+      "min": 0,
+      "max": 1,
+      "step": 0.05,
+      "bind": "Settings.Sfx"
+    },
+    {
+      "type": "heading",
+      "text": "GAMEPLAY"
+    },
+    {
+      "type": "toggle",
+      "id": "showPets",
+      "label": "Show other players' pets",
+      "value": true,
+      "bind": "Settings.ShowPets"
+    },
+    {
+      "type": "toggle",
+      "id": "autoEquip",
+      "label": "Auto-equip best pets",
+      "value": true,
+      "bind": "Settings.AutoEquip"
+    },
+    {
+      "type": "toggle",
+      "id": "lowGraphics",
+      "label": "Low graphics mode",
+      "value": false,
+      "bind": "Settings.LowGraphics"
+    },
+    {
+      "type": "heading",
+      "text": "INTERFACE"
+    },
+    {
+      "type": "dropdown",
+      "id": "uiSize",
+      "label": "Interface size",
+      "options": [
+        "Small",
+        "Medium",
+        "Large"
+      ],
+      "value": "Medium",
+      "bind": "Settings.UiSize"
+    },
+    {
+      "type": "dropdown",
+      "id": "language",
+      "label": "Language",
+      "options": [
+        "English",
+        "Español",
+        "Português",
+        "Français",
+        "Deutsch"
+      ],
+      "value": "English",
+      "bind": "Settings.Language"
+    },
+    {
+      "type": "toggle",
+      "id": "reducedMotion",
+      "label": "Reduce motion",
+      "value": false,
+      "bind": "Settings.ReducedMotion"
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "button",
+      "id": "resetSettings",
+      "text": "RESET TO DEFAULT",
+      "kind": "danger",
+      "icon": "refresh-color",
+      "action": "Fire:ResetSettings"
+    }
+  ]
+}

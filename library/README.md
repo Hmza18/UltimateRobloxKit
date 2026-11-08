@@ -19,7 +19,9 @@ Modules are copied to `src/shared/Urk/` with their dependencies and tests. Edits
 | Module | What it gives you |
 |---|---|
 | [UI](src/UI/README.md) | UrkUI: tag- and attribute-driven panels, buttons, data binding, tabs, tooltips, toasts, context menus, drag and drop, themes, responsive layouts, gamepad navigation, localisation, animation, and code components |
-| [Icons](src/Icons/) | 92 original MIT icons as tintable sprite sheets, with search, aliases and imported packs (see `assets/icons/`) |
+| [Game components](src/UI/Game/README.md) | Cartoon or simulator game UI: windows, product cards, promo banners, buttons, badges, counters, timers, controls, reward popups and purchase bridge. Styled from design tokens |
+| [Screen specs](src/UI/Spec/README.md) | JSON screen specs, validation and `Builder.build(spec)`, with 16 ready screens |
+| [Icons](src/Icons/) | 272 original MIT icons (glyphs, illustrated and variants) as sprite sheets, with search, aliases and imported packs (see `assets/icons/`) |
 | Util | Signal, Trove (cleanup), RateLimiter (token bucket), Validate (remote argument checks) |
 
 ### Items and economy

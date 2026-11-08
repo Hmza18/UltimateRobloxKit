@@ -9,6 +9,8 @@
   python3 urk.py doctor --project ~/games/MyGame
   python3 urk.py check ~/games/MyGame                        # validate an installed project
   python3 urk.py icons search coin
+  python3 urk.py ui new PetSimShop --name MyShop --project ~/games/MyGame   # screen from a spec
+  python3 urk.py ui preview path/to/MyShop.json --open                    # HTML preview of a spec
   python3 urk.py dashboard [--open]                          # local HTML dashboard
   python3 urk.py upgrade --project ~/games/MyGame            # safe update of skills and modules
   python3 urk.py uninstall --project ~/games/MyGame
@@ -151,6 +153,8 @@ def main(argv=None):
         return run("install", ["--target", project, "--uninstall", *(["--dry-run"] if "--dry-run" in rest else [])], check=False)
     elif cmd == "icons":
         return icons(rest)
+    elif cmd == "ui":
+        return subprocess.run([PY, str(ROOT / "tools/ui/ui_cli.py"), *rest]).returncode
     elif cmd == "dashboard":
         code = run("dashboard", [a for a in rest if a != "--open"], check=False)
         if code == 0 and "--open" in rest:

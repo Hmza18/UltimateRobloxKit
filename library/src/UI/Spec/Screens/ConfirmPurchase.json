@@ -1,0 +1,44 @@
+{
+  "spec": 1,
+  "id": "ConfirmPurchase",
+  "kind": "popup",
+  "style": "cartoon",
+  "description": "Purchase confirmation for a gamepass with its perks listed.",
+  "popup": {
+    "variant": "confirm",
+    "title": "TRIPLE HATCH",
+    "message": "Open three eggs at once, forever. Buy it now?",
+    "icon": "egg-color",
+    "palette": "purple",
+    "price": {
+      "kind": "robux",
+      "amount": 249,
+      "gamePassId": 0
+    },
+    "confirmText": "BUY",
+    "cancelText": "NOT NOW"
+  },
+  "body": [
+    {
+      "type": "listRow",
+      "id": "perkThree",
+      "icon": "check-color",
+      "title": "Open 3 eggs at once",
+      "palette": "green"
+    },
+    {
+      "type": "listRow",
+      "id": "perkAuto",
+      "icon": "check-color",
+      "title": "Works with Auto Hatch",
+      "palette": "green"
+    },
+    {
+      "type": "listRow",
+      "id": "perkForever",
+      "icon": "check-color",
+      "title": "Yours forever, on every server",
+      "palette": "green"
+    }
+  ]
+}

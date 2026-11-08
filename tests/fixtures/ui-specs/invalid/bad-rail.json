@@ -1,0 +1,13 @@
+{
+ "spec": 1,
+ "id": "Bad",
+ "kind": "hud",
+ "style": "cartoon",
+ "rails": {
+  "middle": [
+   {
+    "type": "divider"
+   }
+  ]
+ }
+}

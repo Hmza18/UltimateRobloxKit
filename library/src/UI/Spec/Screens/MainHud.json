@@ -1,0 +1,201 @@
+{
+  "spec": 1,
+  "id": "MainHud",
+  "kind": "hud",
+  "style": "cartoon",
+  "description": "Main simulator HUD: menu rail, currencies, level bar, event timer and a quick bar.",
+  "rails": {
+    "left": [
+      {
+        "type": "grid",
+        "columns": 2,
+        "cellAspect": 1.2,
+        "gap": "sm",
+        "items": [
+          {
+            "type": "iconButton",
+            "id": "shop",
+            "icon": "shop-color",
+            "label": "Shop",
+            "palette": "orange",
+            "action": "OpenPanel:Shop",
+            "badge": {
+              "kind": "new"
+            }
+          },
+          {
+            "type": "iconButton",
+            "id": "pets",
+            "icon": "paw-color",
+            "label": "Pets",
+            "palette": "purple",
+            "action": "OpenPanel:Pets"
+          },
+          {
+            "type": "iconButton",
+            "id": "codes",
+            "icon": "ticket-color",
+            "label": "Codes",
+            "palette": "teal",
+            "action": "OpenPanel:Codes"
+          },
+          {
+            "type": "iconButton",
+            "id": "gifts",
+            "icon": "gift-color",
+            "label": "Gifts",
+            "palette": "pink",
+            "action": "OpenPanel:Gifts",
+            "badge": {
+              "kind": "attention"
+            }
+          },
+          {
+            "type": "iconButton",
+            "id": "rebirth",
+            "icon": "refresh-color",
+            "label": "Rebirth",
+            "palette": "green",
+            "action": "OpenPanel:Rebirth"
+          },
+          {
+            "type": "iconButton",
+            "id": "trade",
+            "icon": "users-color",
+            "label": "Trade",
+            "palette": "blue",
+            "action": "OpenPanel:Trade"
+          },
+          {
+            "type": "iconButton",
+            "id": "quests",
+            "icon": "quest-color",
+            "label": "Quests",
+            "palette": "yellow",
+            "action": "OpenPanel:Quests"
+          },
+          {
+            "type": "iconButton",
+            "id": "settings",
+            "icon": "settings-color",
+            "label": "Settings",
+            "palette": "gray",
+            "action": "OpenPanel:Settings"
+          }
+        ]
+      }
+    ],
+    "topLeft": [
+      {
+        "type": "currency",
+        "id": "gems",
+        "icon": "gem-color",
+        "bind": "Stats.Gems",
+        "value": 0,
+        "palette": "purple",
+        "plus": true,
+        "action": "OpenPanel:Shop"
+      }
+    ],
+    "topRight": [
+      {
+        "type": "text",
+        "text": "EVENT ENDS IN",
+        "size": "caption"
+      },
+      {
+        "type": "timer",
+        "id": "eventTimer",
+        "seconds": 1800,
+        "format": "clock",
+        "icon": "clock-color"
+      }
+    ],
+    "right": [
+      {
+        "type": "iconButton",
+        "id": "boosts",
+        "icon": "energy-color",
+        "label": "Boosts",
+        "palette": "gold",
+        "action": "OpenPanel:Boosts",
+        "badge": {
+          "kind": "attention"
+        }
+      },
+      {
+        "type": "iconButton",
+        "id": "leaderboard",
+        "icon": "leaderboard-color",
+        "label": "Top",
+        "palette": "teal",
+        "action": "OpenPanel:Leaderboard"
+      }
+    ],
+    "bottom": [
+      {
+        "type": "currency",
+        "id": "cash",
+        "icon": "cash-color",
+        "bind": "Stats.Cash",
+        "value": 0,
+        "palette": "green",
+        "plus": true,
+        "action": "OpenPanel:Shop"
+      },
+      {
+        "type": "level",
+        "id": "level",
+        "bind": "Stats.Level",
+        "level": 1,
+        "value": 0,
+        "max": 100
+      }
+    ],
+    "bottomLeft": [
+      {
+        "type": "row",
+        "gap": "sm",
+        "align": "left",
+        "items": [
+          {
+            "type": "iconButton",
+            "id": "slot1",
+            "icon": "sword-color",
+            "label": "1",
+            "palette": "red",
+            "action": "Fire:Equip,1",
+            "shape": "square"
+          },
+          {
+            "type": "iconButton",
+            "id": "slot2",
+            "icon": "pickaxe-color",
+            "label": "2",
+            "palette": "orange",
+            "action": "Fire:Equip,2",
+            "shape": "square"
+          },
+          {
+            "type": "iconButton",
+            "id": "slot3",
+            "icon": "potion-color",
+            "label": "3",
+            "palette": "purple",
+            "action": "Fire:Equip,3",
+            "shape": "square"
+          },
+          {
+            "type": "iconButton",
+            "id": "slot4",
+            "icon": "bomb-color",
+            "label": "4",
+            "palette": "gray",
+            "action": "Fire:Equip,4",
+            "shape": "square"
+          }
+        ]
+      }
+    ]
+  }
+}

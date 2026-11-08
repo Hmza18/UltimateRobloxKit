@@ -1,0 +1,157 @@
+{
+  "spec": 1,
+  "id": "Leaderboard",
+  "kind": "window",
+  "style": "cartoon",
+  "description": "Weekly leaderboard: category tabs, top ten with crown and medals, and the player's own rank.",
+  "window": {
+    "title": "LEADERBOARD",
+    "headerPalette": "teal",
+    "sizeClass": "md"
+  },
+  "body": [
+    {
+      "type": "row",
+      "gap": "sm",
+      "align": "left",
+      "items": [
+        {
+          "type": "button",
+          "id": "topCash",
+          "text": "TOP CASH",
+          "kind": "primary",
+          "action": "Fire:Tab,topCash"
+        },
+        {
+          "type": "button",
+          "id": "topPets",
+          "text": "TOP PETS",
+          "kind": "neutral",
+          "action": "Fire:Tab,topPets"
+        },
+        {
+          "type": "button",
+          "id": "topRebirths",
+          "text": "REBIRTHS",
+          "kind": "neutral",
+          "action": "Fire:Tab,topRebirths"
+        }
+      ]
+    },
+    {
+      "type": "row",
+      "gap": "sm",
+      "align": "left",
+      "items": [
+        {
+          "type": "text",
+          "text": "Resets in",
+          "size": "caption"
+        },
+        {
+          "type": "timer",
+          "id": "boardReset",
+          "seconds": 259200,
+          "format": "short",
+          "icon": "clock-color"
+        }
+      ]
+    },
+    {
+      "type": "listRow",
+      "id": "rank1",
+      "rank": 1,
+      "icon": "crown-color",
+      "title": "PixelPanda",
+      "value": "48.2M",
+      "palette": "gold"
+    },
+    {
+      "type": "listRow",
+      "id": "rank2",
+      "rank": 2,
+      "icon": "medal-color",
+      "title": "NovaKnight",
+      "value": "39.7M",
+      "palette": "gray"
+    },
+    {
+      "type": "listRow",
+      "id": "rank3",
+      "rank": 3,
+      "icon": "medal-color",
+      "title": "MangoRush",
+      "value": "31.0M",
+      "palette": "orange"
+    },
+    {
+      "type": "listRow",
+      "id": "rank4",
+      "rank": 4,
+      "icon": "user-color",
+      "title": "ZipZapZoe",
+      "value": "22.4M"
+    },
+    {
+      "type": "listRow",
+      "id": "rank5",
+      "rank": 5,
+      "icon": "user-color",
+      "title": "CaptainKiwi",
+      "value": "18.9M"
+    },
+    {
+      "type": "listRow",
+      "id": "rank6",
+      "rank": 6,
+      "icon": "user-color",
+      "title": "LunaBytes",
+      "value": "15.3M"
+    },
+    {
+      "type": "listRow",
+      "id": "rank7",
+      "rank": 7,
+      "icon": "user-color",
+      "title": "TurboTaco",
+      "value": "12.8M"
+    },
+    {
+      "type": "listRow",
+      "id": "rank8",
+      "rank": 8,
+      "icon": "user-color",
+      "title": "FrostFang",
+      "value": "9.6M"
+    },
+    {
+      "type": "listRow",
+      "id": "rank9",
+      "rank": 9,
+      "icon": "user-color",
+      "title": "BlockyBella",
+      "value": "7.1M"
+    },
+    {
+      "type": "listRow",
+      "id": "rank10",
+      "rank": 10,
+      "icon": "user-color",
+      "title": "SirHops",
+      "value": "5.5M"
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "listRow",
+      "id": "me",
+      "rank": 128,
+      "icon": "star-color",
+      "title": "YOU",
+      "subtitle": "Earn 1.2M more to reach the top 100",
+      "value": "84.2K",
+      "palette": "blue"
+    }
+  ]
+}

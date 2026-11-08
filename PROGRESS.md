@@ -1,5 +1,20 @@
 # Progress
 
+## 0.3.0: UI generation (`feat/ui-generation`)
+
+| Area | Item | Verified |
+|---|---|---|
+| Design tokens | `design/tokens/styles.json` generates `StyleTokens.luau` (cartoon, midnight, pastel) | Python: the generator is current, every style resolves, and the outline-vs-palette contrast is at least 3:1. Lune: Style specs (in CI) |
+| Game components | 19 components and PurchaseBridge | Selene, StyLua and Lune for the pure parts (MotionPresets, TextFit, Style) in CI. Components: NOT playtested in Studio |
+| Screen specs | SpecSchema, Python twin, 16 screens, Builder | All 16 screens and the shared fixtures pass both validators (Python locally, Lune in CI). Builder: NOT run in Studio |
+| Previews | `urk.py ui preview`, `capture_server.py` | All 16 screens rendered and captured in a browser and reviewed by eye (`docs/images/ui/`). Fixed during review: grid overflow, timer format, owned cards, popup buttons, divider collapse. These are HTML approximations, not Roblox renders |
+| Icons | 272 icons, illustrated style, variants, auto-alignment, validator | All 272 pass `validate_icon.py`; the build is reproducible; sheets inspected by eye |
+| Skills | 11 new, roblox-animation extended, game-icons merged | `test_skills`, 43 routing cases, catalog current |
+| Playground | `library/examples/playground` | Written against the real framework; NOT run in Studio |
+
+CI on PR #4 (final commit): Selene 0 errors and 0 warnings, StyLua clean, strict luau-analyze clean on 52 pure modules, **637 of 637 Lune specs**. The library `.rbxm`, every template place and a project with every module (UI included) build with Rojo. Kit tests pass on Linux (Python 3.9 and 3.12), Windows and macOS; the Blender 4.2 pipeline passes. The first CI run found 3 Selene warnings, 1 StyLua diff and 2 strict-type errors, all fixed. The report-only luau-lsp check prints 383 lines (down from 454), mostly in 0.2.0 system adapters; it is still item 1 below.
+
+
 Status of the V2 expansion (`feat/v2-expansion`, version 0.2.0). Each item's "Verified" column says how it was checked. "CI" means the GitHub Actions run on the pull request; local checks ran on macOS with Python 3.9 and Blender 5.2.3. Luau tools are not installed locally, so every Luau result comes from CI (PR #3 runs, 2026-11-08).
 
 ## Completed

@@ -609,10 +609,10 @@ def _(p):
 
 @icon("bomb", "items", "explosive tnt")
 def _(p):
-    p.circle(44, 58, 34)
-    p.rect(58, 18, 74, 32, 3)
-    p.arc(78, 20, 10, 180, 300, 5)
-    p.star(86, 10, 8, 3, 4)
+    p.circle(44, 60, 32)
+    p.rect(56, 22, 72, 36, 3)
+    p.arc(76, 24, 9, 180, 300, 5)
+    p.star(84, 14, 7, 3, 4)
 
 
 @icon("hammer", "items", "build tool craft")
@@ -623,8 +623,8 @@ def _(p):
 
 @icon("pickaxe", "items", "mine dig tool resource")
 def _(p):
-    p.arc(50, 64, 46, 215, 325, 10)
-    p.line([(50, 22), (50, 92)], 10)
+    p.arc(50, 66, 42, 215, 325, 10)
+    p.line([(50, 28), (50, 92)], 10)
 
 
 @icon("axe", "items", "chop wood tool")
@@ -786,3 +786,211 @@ def _(p):
     p.rect(38, 74, 43, 88)
     p.rect(48, 74, 53, 88)
     p.rect(58, 74, 62, 88)
+
+
+# ---------------------------------------------------------------- V2 additions (economy, social, status, gameplay)
+@icon("wallet", "currency", "money purse balance")
+def _(p):
+    p.rect(8, 26, 86, 84, 10)
+    p.rect(14, 14, 70, 32, 6)
+    p.cut().rect(58, 44, 94, 66, 8)
+    p.ink().circle(70, 55, 5)
+
+
+@icon("money-bag", "currency", "sack loot cash")
+def _(p):
+    p.ellipse(50, 62, 36, 30)
+    p.poly([(34, 30), (66, 30), (58, 40), (42, 40)])
+    p.ellipse(50, 22, 14, 9)
+    p.cut().rect(46, 46, 54, 80, 3)
+    p.rect(38, 52, 62, 58, 2)
+    p.rect(38, 68, 62, 74, 2)
+
+
+@icon("gem-stack", "currency", "gems diamonds premium pile")
+def _(p):
+    # Two gems side by side and one in front, separated by cut lines so they read as three.
+    for cx, cy, k in ((30, 40, 0.62), (70, 40, 0.62), (50, 62, 0.78)):
+        p.ink().poly([(cx - 30 * k, cy - 8 * k), (cx - 16 * k, cy - 26 * k), (cx + 16 * k, cy - 26 * k),
+                      (cx + 30 * k, cy - 8 * k), (cx, cy + 30 * k)])
+    p.cut().line([(28, 46), (50, 30), (72, 46)], 3)
+
+
+@icon("boost", "items", "x2 multiplier double potion")
+def _(p):
+    p.rect(8, 22, 92, 78, 18)
+    p.cut().line([(22, 38), (40, 62)], 8)
+    p.line([(40, 38), (22, 62)], 8)
+    p.arc(64, 42, 9, 200, 380, 7)
+    p.line([(72, 46), (54, 64), (76, 64)], 7)
+
+
+@icon("egg-cracked", "items", "hatch pet open")
+def _(p):
+    p.ellipse(50, 60, 32, 34)
+    p.cut().line([(18, 48), (32, 40), (42, 50), (54, 38), (66, 50), (82, 42)], 5)
+    p.ink().poly([(22, 34), (34, 12), (46, 28), (56, 10), (66, 26), (78, 30), (70, 36), (30, 36)])
+
+
+@icon("pet", "items", "animal companion cat")
+def _(p):
+    p.ellipse(50, 58, 36, 32)
+    p.poly([(18, 44), (22, 12), (42, 32)])
+    p.poly([(82, 44), (78, 12), (58, 32)])
+    p.cut().circle(38, 56, 6)
+    p.circle(62, 56, 6)
+    p.poly([(44, 68), (56, 68), (50, 74)])
+
+
+@icon("power-up", "items", "ability upgrade boost star arrow")
+def _(p):
+    p.circle(50, 50, 42)
+    p.cut().poly([(50, 18), (78, 50), (60, 50), (60, 80), (40, 80), (40, 50), (22, 50)])
+
+
+@icon("megaphone", "interface", "announce news shout")
+def _(p):
+    p.poly([(10, 38), (30, 38), (78, 12), (78, 88), (30, 62), (10, 62)])
+    p.rect(22, 60, 38, 88, 4)
+    p.cut().rect(16, 44, 28, 56)
+
+
+@icon("news", "interface", "updates changelog paper")
+def _(p):
+    p.rect(10, 14, 90, 88, 8)
+    p.cut().rect(20, 24, 80, 40, 3)
+    for y in (50, 62, 74):
+        p.rect(20, y, 80, y + 5, 2)
+
+
+@icon("teleport", "interface", "portal travel warp")
+def _(p):
+    p.ellipse(50, 50, 34, 44)
+    p.cut().ellipse(50, 50, 22, 32)
+    p.ink().ellipse(50, 50, 12, 18)
+
+
+@icon("trade", "interface", "swap exchange arrows")
+def _(p):
+    p.line([(16, 34), (78, 34)], 11)
+    p.poly([(70, 18), (92, 34), (70, 50)])
+    p.line([(84, 66), (22, 66)], 11)
+    p.poly([(30, 50), (8, 66), (30, 82)])
+
+
+@icon("backpack", "interface", "inventory bag items storage")
+def _(p):
+    p.rect(18, 22, 82, 92, 16)
+    p.arc(50, 22, 14, 180, 360, 8)
+    p.cut().rect(30, 52, 70, 76, 6)
+    p.ink().rect(44, 56, 56, 64, 2)
+
+
+@icon("profile", "interface", "player card account")
+def _(p):
+    p.rect(8, 18, 92, 82, 10)
+    p.cut().circle(32, 44, 11)
+    p.d.pieslice([17 * p.s, 54 * p.s, 47 * p.s, 84 * p.s], 180, 360, fill=0)
+    p.rect(56, 36, 82, 42, 2)
+    p.rect(56, 50, 82, 56, 2)
+    p.rect(56, 64, 74, 70, 2)
+
+
+@icon("invite", "social", "add friend user plus")
+def _(p):
+    p.circle(40, 32, 18)
+    p.d.pieslice([8 * p.s, 54 * p.s, 72 * p.s, 118 * p.s], 180, 360, fill=255)
+    p.rect(68, 34, 80, 70, 3)
+    p.rect(56, 46, 92, 58, 3)
+
+
+@icon("party", "social", "group celebrate event confetti")
+def _(p):
+    p.poly([(12, 90), (34, 30), (72, 68)])
+    p.circle(70, 20, 6)
+    p.circle(86, 40, 5)
+    p.rect(52, 10, 58, 26, 2)
+    p.rect(80, 56, 94, 62, 2)
+
+
+@icon("group", "social", "clan guild team")
+def _(p):
+    p.poly([(50, 8), (88, 22), (84, 58), (50, 92), (16, 58), (12, 22)])
+    p.cut().circle(50, 38, 10)
+    p.d.pieslice([32 * p.s, 50 * p.s, 68 * p.s, 86 * p.s], 180, 360, fill=0)
+
+
+@icon("success", "status", "done ok tick circle")
+def _(p):
+    p.circle(50, 50, 42)
+    p.cut().line([(28, 52), (44, 66), (72, 36)], 10)
+
+
+@icon("error", "status", "fail wrong cross circle")
+def _(p):
+    p.circle(50, 50, 42)
+    p.cut().line([(34, 34), (66, 66)], 10)
+    p.line([(66, 34), (34, 66)], 10)
+
+
+@icon("equipped", "status", "worn selected badge")
+def _(p):
+    p.rect(10, 10, 90, 90, 20)
+    p.cut().rect(22, 22, 78, 78, 12)
+    p.ink().line([(30, 52), (44, 64), (70, 38)], 10)
+
+
+@icon("loading", "status", "spinner wait busy")
+def _(p):
+    for i in range(8):
+        a = math.radians(i * 45 - 90)
+        r = 4 + i * 0.9
+        p.circle(50 + 34 * math.cos(a), 50 + 34 * math.sin(a), r)
+
+
+@icon("stopwatch", "interface", "timer countdown speedrun")
+def _(p):
+    p.ring(50, 56, 36, 10)
+    p.rect(42, 8, 58, 18, 3)
+    p.line([(50, 56), (50, 34)], 8)
+    p.line([(76, 26), (84, 18)], 8)
+
+
+@icon("badge", "rewards", "rosette award ribbon")
+def _(p):
+    p.poly([(30, 56), (22, 94), (38, 86), (46, 94), (46, 60)])
+    p.poly([(70, 56), (78, 94), (62, 86), (54, 94), (54, 60)])
+    p.star(50, 40, 34, 26, 12)
+    p.cut().circle(50, 40, 18)
+
+
+@icon("event", "rewards", "special limited calendar star")
+def _(p):
+    p.rect(10, 18, 90, 90, 10)
+    p.rect(26, 8, 34, 26, 3)
+    p.rect(66, 8, 74, 26, 3)
+    p.cut().star(50, 58, 24, 11)
+
+
+@icon("notification", "interface", "alert badge bell dot")
+def _(p):
+    p.poly([(24, 70), (26, 40), (38, 22), (60, 22), (72, 40), (74, 70), (84, 78), (14, 78)])
+    p.circle(48, 86, 7)
+    p.circle(78, 22, 16)
+    p.cut().rect(75, 12, 81, 26, 2)
+    p.circle(78, 31, 3)
+
+
+@icon("rebirth", "rewards", "prestige reset restart cycle")
+def _(p):
+    p.arc(50, 50, 32, -40, 250, 12)
+    p.poly([(62, 4), (86, 22), (56, 32)])
+    p.star(50, 52, 14, 6)
+
+
+@icon("codes", "interface", "redeem promo twitter")
+def _(p):
+    p.rect(6, 26, 94, 74, 14)
+    p.cut()
+    for x in (22, 40, 58, 76):
+        p.rect(x - 6, 42, x + 6, 58, 3)

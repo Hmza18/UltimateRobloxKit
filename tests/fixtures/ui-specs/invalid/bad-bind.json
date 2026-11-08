@@ -1,0 +1,27 @@
+{
+ "spec": 1,
+ "id": "Bad",
+ "kind": "window",
+ "style": "cartoon",
+ "window": {
+  "title": "SHOP"
+ },
+ "body": [
+  {
+   "type": "product",
+   "id": "a",
+   "palette": "purple",
+   "title": "A",
+   "price": {
+    "kind": "robux",
+    "amount": 5,
+    "productId": 0
+   }
+  },
+  {
+   "type": "currency",
+   "icon": "coin-color",
+   "bind": "Stats..Cash"
+  }
+ ]
+}

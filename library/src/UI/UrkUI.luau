@@ -169,6 +169,28 @@ UrkUI.Components = setmetatable({}, {
 	end,
 })
 
+-- Game-style layer (docs/architecture/ui-generation.md). Style and MotionPresets are pure data.
+-- Game components and the screen builder load on first use, so plain UrkUI users pay nothing.
+UrkUI.Style = require("./Style/Style")
+UrkUI.MotionPresets = require("./Core/MotionPresets")
+UrkUI.Game = setmetatable({}, {
+	__index = function(cache: any, name: string): any
+		local module = (require("./Game/Game") :: any)[name]
+		rawset(cache, name, module)
+		return module
+	end,
+})
+
+-- Builds a screen from a spec (a table or a ModuleScript of a Spec/Screens/*.json file).
+function UrkUI.buildScreen(spec: any, options: { [string]: any }?): any
+	local Builder = require("./Spec/Builder") :: any
+	local opts = options or {}
+	if opts.store == nil then
+		opts.store = UrkUI.store
+	end
+	return Builder.build(spec, opts)
+end
+
 -- Signals that exist before start, so game code can connect early.
 UrkUI.Intent = Signal.new() -- (name, args, source) from the Fire action and components
 UrkUI.Dropped = Signal.new() -- (payload, target, targetId) from UrkDraggable drops

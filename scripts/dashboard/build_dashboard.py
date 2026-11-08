@@ -57,6 +57,21 @@ def icons():
     return cat
 
 
+def screens():
+    out = []
+    for f in sorted((ROOT / "library/src/UI/Spec/Screens").glob("*.json")):
+        spec = json.loads(f.read_text())
+
+        def count(node):
+            if isinstance(node, dict):
+                return (1 if "type" in node else 0) + sum(count(v) for v in node.values())
+            if isinstance(node, list):
+                return sum(count(v) for v in node)
+            return 0
+        out.append({"name": f.stem, "kind": spec.get("kind", "?"), "description": spec.get("description", ""), "elements": count(spec)})
+    return out
+
+
 def capture(args):
     try:
         out = subprocess.run([sys.executable, *args], capture_output=True, text=True, timeout=60)
@@ -78,6 +93,7 @@ def main(argv=None):
         "workflows": json.loads((ROOT / "catalog/workflows.json").read_text())["workflows"],
         "library": library_modules(),
         "templates": templates(),
+        "screens": screens(),
         "icons": icons(),
         "agents": sorted(p.stem for p in (ROOT / ".claude/agents").glob("*.md")),
         "commands": sorted(p.stem for p in (ROOT / ".claude/commands").glob("*.md")),
