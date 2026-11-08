@@ -257,11 +257,11 @@ local function slotSize(ctx: Ctx, element: any, slot: string, count: number): (U
 		end
 		return UDim2.fromScale(1, 0), true
 	end
-	local fixed = FIXED_SIZE[kind]
+	local fixed: Vector2? = FIXED_SIZE[kind]
 	if kind == "product" and element.layout == "wide" then
 		fixed = nil
 	end
-	if fixed ~= nil then
+	if fixed then
 		return UDim2.fromOffset(fixed.X, fixed.Y), false
 	end
 	local height = FULL_HEIGHT[kind]

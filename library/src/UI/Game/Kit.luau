@@ -147,9 +147,11 @@ end
 -- Returns false when nothing could be shown, so callers can fall back to text.
 function Kit.icon(label: ImageLabel | ImageButton, icon: string?, image: string?): boolean
 	if image and image ~= "" then
-		label.Image = if string.find(image, "^%d+$") then "rbxassetid://" .. image else image
-		label.ImageRectSize = Vector2.zero
-		label.ScaleType = Enum.ScaleType.Fit
+		-- ImageLabel and ImageButton share these properties; the cast lets strict mode write through the union.
+		local target = label :: any
+		target.Image = if string.find(image, "^%d+$") then "rbxassetid://" .. image else image
+		target.ImageRectSize = Vector2.zero
+		target.ScaleType = Enum.ScaleType.Fit
 		return true
 	end
 	if icon == nil or icon == "" then
