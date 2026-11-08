@@ -1,5 +1,19 @@
 # Progress
 
+## 0.4.0: ecosystem upgrade (`feat/ecosystem-v4`)
+
+| Area | Item | Verified |
+|---|---|---|
+| Systems | Pets, Rebirth, Upgrades, Worlds, Boosts, Trading, VFX, WorldGen (pure, with specs) | Lune 676/676, Selene, StyLua, strict luau-analyze on each new pure module, Rojo build (local, at CI pins). CI run: see the PR |
+| Server adapters | PetsServer, ProgressionServer, TradingServer, PlayerState, VFXClient, WorldGenBuilder | Lint, format, Rojo build. NOT playtested in Studio |
+| Integrations | Wally overlay, ProfileStoreAdapter, FusionBridge | Real `wally install` and Rojo build on a generated project; FusionBridge spec with the real Store and a fake Fusion. ProfileStoreAdapter: NOT run in Roblox |
+| Licensed art | Kenney icons (203) and UI Pack 2.0 | CC0 licence files beside each pack; per-file hashes in PROVENANCE.md; catalogs register in Lune; previews reviewed by eye |
+| Generator | `urk generate`, six genres | Four genres generated and passed Lune, Selene, StyLua and Rojo |
+| Tools | economy sim, asset registry, visual extract and compare, audit, build, memory, release, skills eval | `tests/test_v4_tools.py` (23 tests) |
+| 3D | LOD1, LOD2, collision hull with QA | Blender 5.2.3 locally; test added for Blender 4.2 in CI |
+| Routing | evaluation with held-out sets, description fallback | Tuned 100%, held-out 50% and 40% (reported, not hidden) |
+| Dashboard | five new centres | All 13 tabs rendered in a browser |
+
 ## 0.3.0: UI generation (`feat/ui-generation`)
 
 | Area | Item | Verified |

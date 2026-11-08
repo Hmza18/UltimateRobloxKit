@@ -97,15 +97,33 @@ CONTEXT: dict = {}
 
 
 def tests_for(files):
-    """Specs whose requires point at any of the copied library files."""
+    """Specs that test the copied files and need nothing else from the library.
+
+    A spec is copied when at least one of its library requires is installed and every one of them
+    is, so a spec never fails in a project just because it also covers a module that was not added.
+    """
     wanted = set(files)
     out = []
     for spec in sorted(LIB_TESTS.glob("*.spec.luau")):
-        for req in REQUIRE.findall(spec.read_text(encoding="utf-8")):
-            if req.startswith("../src/") and resolve(spec, req) in wanted:
-                out.append(spec)
-                break
+        libs = [resolve(spec, req) for req in REQUIRE.findall(spec.read_text(encoding="utf-8")) if req.startswith("../src/")]
+        if libs and all(path in wanted for path in libs):
+            out.append(spec)
     return out
+
+
+# Generated data modules keep one entry per line on purpose; StyLua must not reflow them.
+GENERATED = ("Icons/IconData.luau", "UI/Style/StyleTokens.luau")
+
+
+def ignore_generated(project: Path, dest: Path, installed) -> None:
+    rels = [f"{dest.relative_to(project).as_posix()}/{g}" for g in GENERATED if g in installed]
+    if not rels:
+        return
+    path = project / ".styluaignore"
+    lines = path.read_text().splitlines() if path.exists() else []
+    missing = [r for r in rels if r not in lines]
+    if missing:
+        path.write_text("\n".join(lines + missing) + "\n")
 
 
 def main(argv=None):
@@ -194,6 +212,7 @@ def main(argv=None):
     if not a.dry_run:
         dest.mkdir(parents=True, exist_ok=True)
         lock_path.write_text(json.dumps(lock, indent=1, sort_keys=True) + "\n")
+        ignore_generated(project, dest, lock["files"])
     print(f"{'Would install' if a.dry_run else 'Installed'} {', '.join(lock['modules']) or 'nothing'} in {dest}")
     if not a.dry_run and not a.remove:
         print('Require from ReplicatedStorage, e.g. require(ReplicatedStorage.Shared.Urk.Systems.Inventory.InventoryServer).')

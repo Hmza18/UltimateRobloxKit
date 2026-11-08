@@ -15,6 +15,16 @@
   python3 urk.py upgrade --project ~/games/MyGame            # safe update of skills and modules
   python3 urk.py uninstall --project ~/games/MyGame
   python3 urk.py test                                        # kit's own test suite
+  python3 urk.py generate "pet simulator with 3 worlds" --name PetLand --out ~/games/PetLand
+  python3 urk.py packages --project ~/games/MyGame           # Fusion, Promise, ProfileStore via Wally
+  python3 urk.py economy sim tools/economy/examples/pet-sim.json   # balance check before launch
+  python3 urk.py assets search coin | dupes | suggest "gold coin" | <batch.json> --out build/x
+  python3 urk.py ui extract ref.png | ui compare ref.png capture.png   # visual UI loop
+  python3 urk.py audit --project ~/games/MyGame              # security and licence audit
+  python3 urk.py build --project ~/games/MyGame              # lint, test and rojo build
+  python3 urk.py skills list | search <words> | eval         # skills and routing accuracy
+  python3 urk.py memory add decision "Coins never drop on death" --project ~/games/MyGame
+  python3 urk.py release check --project ~/games/MyGame      # release gate; never publishes
 
 Every subcommand wraps a script you can also run directly; `urk.py <cmd> --help` shows its options.
 Profiles pick skill categories: full, code, assets, ui, design.
@@ -35,6 +45,10 @@ SCRIPTS = {
     "check": "scripts/validate/check_project.py", "test": "scripts/validate/run_all.py",
     "third-party": "scripts/install/third_party.py", "dashboard": "scripts/dashboard/build_dashboard.py",
     "assets": "scripts/export/asset_batch.py", "package": "scripts/export/package_batch.py",
+    "generate": "scripts/automation/generate_game.py", "packages": "scripts/automation/packages.py",
+    "audit": "scripts/validate/audit.py", "build": "scripts/validate/build.py", "skills": "scripts/automation/skills.py",
+    "memory": "scripts/automation/memory.py", "release": "scripts/validate/release.py",
+    "registry": "tools/assets/registry.py", "economy": "tools/economy/economy_sim.py",
 }
 PROFILES = {
     "full": None,
@@ -160,6 +174,16 @@ def main(argv=None):
         if code == 0 and "--open" in rest:
             webbrowser.open((ROOT / "dashboard" / "index.html").as_uri())
         return code
+    elif cmd == "assets" and rest and rest[0] in ("scan", "search", "suggest", "dupes"):
+        return run("registry", rest, check=False)
+    elif cmd == "economy":
+        if rest and rest[0] == "sim":
+            rest = rest[1:]
+        return run("economy", rest or ["--help"], check=False)
+    elif cmd == "generate":
+        if not rest or rest[0].startswith("-"):
+            return run("generate", rest or ["--help"], check=False)
+        return run("generate", rest, check=False)
     elif cmd == "version":
         print((ROOT / "VERSION").read_text().strip())
     elif cmd in SCRIPTS:

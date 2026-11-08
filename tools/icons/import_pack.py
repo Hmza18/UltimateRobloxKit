@@ -98,6 +98,7 @@ def main(argv=None):
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--luau", type=Path, help="where to write the Luau catalog module")
     ap.add_argument("--prefix", default="", help="prefix every icon name, e.g. 'bbb-' to avoid clashes")
+    ap.add_argument("--suffix", default="", help="suffix every icon name, e.g. '-color' for an illustrated set")
     ap.add_argument("--tint", choices=["white"], help="recolour glyphs to white for theming")
     ap.add_argument("--allow-commit", action="store_true", help="do not write a .gitignore beside the files")
     a = ap.parse_args(argv)
@@ -116,9 +117,9 @@ def main(argv=None):
             sheets.append(Image.new("RGBA", (SHEET, SHEET), (0, 0, 0, 0)))
         x, y = (slot % (SHEET // CELL)) * CELL, (slot // (SHEET // CELL)) * CELL
         sheets[s].alpha_composite(fit(path, a.tint), (x, y))
-        entries.append({"name": a.prefix + name, "category": category, "sheet": s + 1, "x": x, "y": y,
+        entries.append({"name": a.prefix + name + a.suffix, "category": category, "sheet": s + 1, "x": x, "y": y,
                         "file": str(path.relative_to(a.source_dir.expanduser()))})
-        hashes.append(f"| {a.prefix + name} | `{path.name}` | {hashlib.sha256(path.read_bytes()).hexdigest()[:16]} |")
+        hashes.append(f"| {a.prefix + name + a.suffix} | `{path.name}` | {hashlib.sha256(path.read_bytes()).hexdigest()[:16]} |")
     for i, sheet in enumerate(sheets, 1):
         sheet.save(a.out / f"sheet-{i}.png", optimize=True)
     preview = Image.new("RGBA", (min(len(entries), 12) * 72, ((len(entries) + 11) // 12) * 72), (32, 35, 42, 255))

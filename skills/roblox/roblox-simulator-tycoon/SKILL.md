@@ -5,7 +5,7 @@ license: MIT
 metadata:
   category: roblox
   version: 1.0.0
-  triggers: [simulator, tycoon, rebirth, dropper, conveyor, egg hatch, pet system, plot claim, idle earnings, clicker]
+  triggers: [simulator, tycoon, rebirth, dropper, conveyor, egg hatch, hatching, eggs, pets, rarities, world unlock, pet system, plot claim, idle earnings, clicker]
   depends: [roblox-inventory-economy, roblox-data-persistence, roblox-security-anti-exploit, monetization-economy-design]
 ---
 

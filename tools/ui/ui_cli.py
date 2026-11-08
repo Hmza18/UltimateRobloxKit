@@ -6,6 +6,8 @@
   python3 urk.py ui validate path/to/MyShop.json [more.json]
   python3 urk.py ui preview path/to/MyShop.json [-o out.html] [--open]
   python3 urk.py ui tokens [--check]                          # regenerate StyleTokens.luau
+  python3 urk.py ui extract reference.png                     # palette, outline, layout hints for a spec
+  python3 urk.py ui compare reference.png capture.png --diff d.png   # rubric score (see visual.py)
 
 `new` copies a built-in screen into <project>/src/shared/UrkScreens/<Name>.json (Rojo makes it a
 ModuleScript), sets its id, and writes <project>/src/client/Screens/<Name>.client.luau, a LocalScript
@@ -45,7 +47,7 @@ if not UrkUI.store then
 end
 
 local screen = Builder.build(spec, {{ parent = Players.LocalPlayer:WaitForChild("PlayerGui"), store = UrkUI.store }})
-screen.Intent:Connect(function(name: string, args: any, elementId: string?)
+screen.Intent:Connect(function(name: string, _args: any, elementId: string?)
 	-- Purchases are prompted by Game/PurchaseBridge and granted only on the server (Systems/Shop).
 	-- Handle game-specific intents here, e.g. send "Buy" to your server remote.
 	print("[{name}]", name, elementId)
@@ -113,6 +115,10 @@ def cmd_tokens(a):
 
 
 def main(argv=None):
+    argv = list(sys.argv[1:] if argv is None else argv)
+    if argv and argv[0] in ("extract", "compare"):
+        # Visual loop tools live in visual.py (needs Pillow); pass straight through.
+        return subprocess.run([sys.executable, str(HERE / "visual.py"), *argv]).returncode
     ap = argparse.ArgumentParser(prog="urk.py ui", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("list")

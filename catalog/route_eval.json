@@ -1,0 +1,322 @@
+{
+ "about": "Routing evaluation. `cases` were used while tuning triggers (in-sample); `heldout` were written afterwards and are never tuned against, so their score is the honest one. Run `python3 urk.py skills eval`. `heldout2` was written after the description fallback was added and was never used to change anything.",
+ "cases": [
+  {
+   "task": "Create 20 supermarket products with packaging",
+   "expect": [
+    "product-packaging-assets"
+   ]
+  },
+  {
+   "task": "Build a pet hatching system with eggs and rarities",
+   "expect": [
+    "roblox-simulator-tycoon"
+   ]
+  },
+  {
+   "task": "Players can trade pets with each other",
+   "expect": [
+    "roblox-security-anti-exploit"
+   ]
+  },
+  {
+   "task": "Add rebirths that reset coins and give a multiplier",
+   "expect": [
+    "roblox-simulator-tycoon"
+   ]
+  },
+  {
+   "task": "Save player data with session locking",
+   "expect": [
+    "roblox-data-persistence"
+   ]
+  },
+  {
+   "task": "Make a shop UI with Robux buttons and a featured starter pack",
+   "expect": [
+    "roblox-shop-builder"
+   ]
+  },
+  {
+   "task": "Recreate the look of this reference screenshot as a Roblox UI",
+   "expect": [
+    "roblox-reference-recreation"
+   ]
+  },
+  {
+   "task": "Design a set of cartoon icons for coins, gems and eggs",
+   "expect": [
+    "roblox-icon-design"
+   ]
+  },
+  {
+   "task": "Export my Blender model to Roblox as FBX",
+   "expect": [
+    "blender-roblox-export"
+   ]
+  },
+  {
+   "task": "Reduce triangles and make LODs for these props",
+   "expect": [
+    "mesh-optimization-lod"
+   ]
+  },
+  {
+   "task": "Unwrap UVs and pack a texture atlas",
+   "expect": [
+    "uv-texture-atlas"
+   ]
+  },
+  {
+   "task": "Build a map with zones, paths and a spawn area",
+   "expect": [
+    "map-world-building"
+   ]
+  },
+  {
+   "task": "Add particle effects for hatching and level up",
+   "expect": [
+    "roblox-vfx"
+   ]
+  },
+  {
+   "task": "Set up Rojo, Selene and StyLua for my project",
+   "expect": [
+    "roblox-toolchain-doctor"
+   ]
+  },
+  {
+   "task": "Fix the error in my Output window: attempt to index nil",
+   "expect": [
+    "luau-debugging"
+   ]
+  },
+  {
+   "task": "Write unit tests for my economy logic with Lune",
+   "expect": [
+    "roblox-testing-debugging"
+   ]
+  },
+  {
+   "task": "Balance the economy so the first rebirth takes 30 minutes",
+   "expect": [
+    "monetization-economy-design"
+   ]
+  },
+  {
+   "task": "Add daily quests and achievements",
+   "expect": [
+    "roblox-quests-progression"
+   ]
+  },
+  {
+   "task": "Make the UI work on phones and consoles",
+   "expect": [
+    "roblox-responsive-layout"
+   ]
+  },
+  {
+   "task": "Audit my game for exploits and insecure remotes",
+   "expect": [
+    "roblox-security-anti-exploit"
+   ]
+  },
+  {
+   "task": "Find free CC0 sound effects and textures",
+   "expect": [
+    "asset-sourcing-licensing"
+   ]
+  },
+  {
+   "task": "Deliver the approved products in license folders",
+   "expect": [
+    "license-folder-delivery"
+   ]
+  },
+  {
+   "task": "Generate a complete tycoon game from a short description",
+   "expect": [
+    "roblox-project-planner"
+   ]
+  },
+  {
+   "task": "Improve performance, my game lags on mobile",
+   "expect": [
+    "roblox-performance"
+   ]
+  },
+  {
+   "task": "Add NPC shoppers that walk to the shelves",
+   "expect": [
+    "roblox-npc-ai"
+   ]
+  },
+  {
+   "task": "Teleport players between places and a lobby",
+   "expect": [
+    "roblox-teleport-matchmaking"
+   ]
+  },
+  {
+   "task": "Publish an update and plan a weekend event",
+   "expect": [
+    "roblox-publishing-liveops"
+   ]
+  },
+  {
+   "task": "Add an inventory with stacking items and equipment",
+   "expect": [
+    "roblox-inventory-economy"
+   ]
+  },
+  {
+   "task": "Make a loading screen and settings menu",
+   "expect": [
+    "roblox-ui-systems"
+   ]
+  },
+  {
+   "task": "Rig a character and add walk animations",
+   "expect": [
+    "characters-rigging"
+   ]
+  },
+  {
+   "task": "Use Fusion for my UI and ProfileStore for data",
+   "expect": [
+    "urk-ui-framework",
+    "roblox-data-persistence"
+   ]
+  },
+  {
+   "task": "Screenshot my UI and compare it with the reference, then improve it",
+   "expect": [
+    "roblox-ui-testing"
+   ]
+  }
+ ],
+ "heldout": [
+  {
+   "task": "Make coins spin and bob when they spawn on the floor",
+   "expect": [
+    "roblox-vfx"
+   ]
+  },
+  {
+   "task": "My DataStore keeps throttling, how should I queue saves",
+   "expect": [
+    "roblox-data-persistence"
+   ]
+  },
+  {
+   "task": "Add a fishing minigame with a rod and a catch meter",
+   "expect": [
+    "game-design-core"
+   ]
+  },
+  {
+   "task": "Low poly crates and barrels for a dock",
+   "expect": [
+    "modular-buildings-props"
+   ]
+  },
+  {
+   "task": "Gamepass for double coins and a VIP room",
+   "expect": [
+    "monetization-economy-design"
+   ]
+  },
+  {
+   "task": "Camera that follows the player in a top down view",
+   "expect": [
+    "roblox-camera-input"
+   ]
+  },
+  {
+   "task": "Make background music and footstep sounds",
+   "expect": [
+    "roblox-audio"
+   ]
+  },
+  {
+   "task": "Lighting for a spooky night map with fog",
+   "expect": [
+    "lighting-atmosphere"
+   ]
+  },
+  {
+   "task": "Cars players can drive with physics",
+   "expect": [
+    "roblox-physics-interactions"
+   ]
+  },
+  {
+   "task": "Leaderboard of the richest players across servers",
+   "expect": [
+    "roblox-inventory-economy"
+   ]
+  }
+ ],
+ "heldout2": [
+  {
+   "task": "Sword combat with hit detection and a cooldown",
+   "expect": [
+    "roblox-physics-interactions"
+   ]
+  },
+  {
+   "task": "Give new players a tutorial with arrows pointing to the shop",
+   "expect": [
+    "roblox-ui-systems"
+   ]
+  },
+  {
+   "task": "Make a stylized low poly tree pack for my forest",
+   "expect": [
+    "stylized-asset-design"
+   ]
+  },
+  {
+   "task": "Prevent speed hacks and teleport exploits",
+   "expect": [
+    "roblox-security-anti-exploit"
+   ]
+  },
+  {
+   "task": "Spawn enemies in waves with a round timer",
+   "expect": [
+    "roblox-npc-ai"
+   ]
+  },
+  {
+   "task": "Procedurally generate a dungeon layout",
+   "expect": [
+    "roblox-procedural-generation"
+   ]
+  },
+  {
+   "task": "Bake a texture for my Blender mesh and check the UV seams",
+   "expect": [
+    "uv-texture-atlas"
+   ]
+  },
+  {
+   "task": "Show a toast notification when a quest completes",
+   "expect": [
+    "roblox-ui-systems"
+   ]
+  },
+  {
+   "task": "Check whether my machine is ready for Rojo and Studio MCP",
+   "expect": [
+    "roblox-toolchain-doctor"
+   ]
+  },
+  {
+   "task": "Weekly limited time event with exclusive pets",
+   "expect": [
+    "roblox-publishing-liveops"
+   ]
+  }
+ ]
+}

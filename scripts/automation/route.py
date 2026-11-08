@@ -43,6 +43,31 @@ def has(text_n: str, phrase: str) -> bool:
     return normalise(phrase) in text_n
 
 
+# Words too common in skill descriptions to say anything about a task.
+STOPWORDS = set("""a an and are as at be by can do for from game games get has have how i in into is it its make
+my of on or our so that the their them then this to up use used using want we what when where which while who
+why will with you your roblox studio player players add build create need should new""".split())
+
+
+def description_scores(task: str, skills) -> dict:
+    """Fallback when no trigger matches: overlap between task words and each skill's name and description.
+
+    Matches on the skill name count double. Only words of 4+ letters that are not stopwords count, and a
+    skill needs a score of 2 (one name word, or two description words), so one generic word never decides.
+    """
+    words = {stem(w) for w in re.findall(r"[a-z0-9]+", task.lower()) if len(w) >= 4 and w not in STOPWORDS}
+    out = {}
+    for name, s in skills.items():
+        if name == "roblox-kit-router":
+            continue
+        name_words = {stem(w) for w in name.split("-")}
+        desc_words = {stem(w) for w in re.findall(r"[a-z0-9]+", s["description"].lower())}
+        score = sum(2 if w in name_words else 1 for w in words & (desc_words | name_words))
+        if score >= 2:
+            out[name] = score
+    return out
+
+
 def route(task: str, skills=None, workflows=None):
     skills = skills or discover()
     if workflows is None:
@@ -71,6 +96,9 @@ def route(task: str, skills=None, workflows=None):
         if n not in chosen and (len(chosen) < MAX_SKILLS or extra < MAX_EXTRA):
             chosen.append(n)
             extra += 1
+    if not chosen:
+        fallback = description_scores(task, skills)
+        chosen = [n for n, _ in sorted(fallback.items(), key=lambda kv: (-kv[1], kv[0]))[:3]]
     if not chosen:
         chosen = ["roblox-kit-router"] if "roblox-kit-router" in skills else []
     full = with_dependencies(chosen, skills, depth=1)

@@ -1,0 +1,144 @@
+{
+  "currency": "Coins",
+  "income": {
+    "base": 1,
+    "per": "click",
+    "clicksPerSecond": [
+      2,
+      6
+    ]
+  },
+  "upgrades": [
+    {
+      "name": "Power",
+      "cost": {
+        "kind": "exponential",
+        "base": 25,
+        "growth": 1.45
+      },
+      "maxLevel": 35,
+      "effect": {
+        "stat": "income",
+        "perLevel": 0.5
+      }
+    },
+    {
+      "name": "Multiplier",
+      "cost": {
+        "kind": "exponential",
+        "base": 1500,
+        "growth": 2.4
+      },
+      "maxLevel": 12,
+      "effect": {
+        "stat": "income",
+        "mode": "multiply",
+        "perLevel": 0.25
+      },
+      "requires": {
+        "Power": 5
+      }
+    }
+  ],
+  "rebirth": {
+    "currency": "Coins",
+    "cost": {
+      "kind": "exponential",
+      "base": 300000,
+      "growth": 3
+    },
+    "multiplierPerRebirth": 0.5,
+    "reset": [
+      "Coins",
+      "upgrades"
+    ],
+    "waitFactor": 1.0,
+    "maxRebirths": 30
+  },
+  "worlds": [
+    {
+      "name": "Spawn"
+    },
+    {
+      "name": "Forest",
+      "cost": 5000,
+      "multiplier": 1.5
+    },
+    {
+      "name": "Desert",
+      "cost": 60000,
+      "multiplier": 2.5
+    },
+    {
+      "name": "Volcano",
+      "cost": 2000000,
+      "multiplier": 4,
+      "rebirths": 2
+    }
+  ],
+  "eggs": [
+    {
+      "name": "Basic",
+      "cost": 150,
+      "entries": [
+        {
+          "pet": "Dog",
+          "weight": 85,
+          "multiplier": 0.2
+        },
+        {
+          "pet": "Cat",
+          "weight": 14,
+          "multiplier": 0.6
+        },
+        {
+          "pet": "Dragon",
+          "weight": 1,
+          "multiplier": 3
+        }
+      ]
+    },
+    {
+      "name": "Forest",
+      "cost": 4000,
+      "entries": [
+        {
+          "pet": "Fox",
+          "weight": 80,
+          "multiplier": 1
+        },
+        {
+          "pet": "Owl",
+          "weight": 19,
+          "multiplier": 2.5
+        },
+        {
+          "pet": "Unicorn",
+          "weight": 1,
+          "multiplier": 10
+        }
+      ]
+    }
+  ],
+  "equipSlots": 3,
+  "session": {
+    "hours": 1.5
+  },
+  "limits": {
+    "wallMinutes": 20
+  },
+  "targets": {
+    "world Forest": [
+      3,
+      20
+    ],
+    "rebirth 1": [
+      15,
+      60
+    ],
+    "world Volcano": [
+      30,
+      90
+    ]
+  }
+}

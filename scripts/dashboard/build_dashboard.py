@@ -6,7 +6,10 @@ no network, no external scripts). Open it in a browser, or run `python3 urk.py d
 
 Tabs: Skills (search, filter, dependencies, route a task), Workflows, Library (modules and READMEs),
 Icons (search, tint, light/dark, copy Luau), Templates (command builder), Install (command builder for
-setup/install/add), Environment (doctor + project check captured at build time; rebuild to refresh).
+setup/install/add), Environment (doctor + project check captured at build time; rebuild to refresh),
+Project (memory, game plan, check, generator command), UI Playground (every built-in screen with its
+preview thumbnail and commands), Assets (registry summary, licences, duplicates, pack previews), Agents
+(each agent's role and skills), Tests (routing eval with held-out sets, economy example, kit audit).
 Data comes from the same files the CLI uses, so the dashboard never disagrees with the tools.
 """
 from __future__ import annotations
@@ -15,6 +18,7 @@ import argparse
 import base64
 import html
 import json
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -72,9 +76,89 @@ def screens():
     return out
 
 
+def thumb(path: Path, width: int = 360) -> str | None:
+    """Small base64 JPEG/PNG preview so the single-file dashboard stays light. Needs Pillow."""
+    try:
+        from PIL import Image
+    except ImportError:
+        return None
+    import io
+    with Image.open(path) as im:
+        im = im.convert("RGB")
+        im.thumbnail((width, width))
+        buf = io.BytesIO()
+        im.save(buf, "JPEG", quality=78)
+    return base64.b64encode(buf.getvalue()).decode()
+
+
+def ui_playground():
+    out = []
+    for s in screens():
+        img = ROOT / "docs/images/ui" / f"{s['name']}.png"
+        out.append({**s, "thumb": thumb(img) if img.exists() else None})
+    return out
+
+
+def agents():
+    out = []
+    for f in sorted((ROOT / ".claude/agents").glob("*.md")):
+        text = f.read_text(encoding="utf-8")
+        desc = next((ln.split(":", 1)[1].strip() for ln in text.splitlines() if ln.startswith("description:")), "")
+        body = text.split("---", 2)[-1]
+        skills = sorted(set(re.findall(r"`([a-z0-9-]+)`", body)) & {p.parent.name for p in (ROOT / "skills").glob("*/*/SKILL.md")})
+        out.append({"name": f.stem, "description": desc, "skills": skills})
+    return out
+
+
+def asset_library():
+    sys.path.insert(0, str(ROOT / "tools" / "assets"))
+    import registry  # noqa: E402
+    reg = registry.scan([ROOT / "assets", ROOT / "examples"])
+    kinds, licences = {}, {}
+    for e in reg["assets"]:
+        kinds[e["kind"]] = kinds.get(e["kind"], 0) + 1
+        key = (e["licence"] or "none found").split(" (")[0]
+        licences[key] = licences.get(key, 0) + 1
+    d = registry.dupes(reg, 2)
+    packs = []
+    for prev in sorted((ROOT / "assets").glob("**/preview*.png")):
+        packs.append({"path": prev.relative_to(ROOT).as_posix(), "thumb": thumb(prev, 420)})
+    return {"count": reg["count"], "kinds": kinds, "licences": licences, "identical": len(d["exact"]),
+            "similar": len(d["similar"]), "packs": packs}
+
+
+def tests_centre():
+    sys.path.insert(0, str(ROOT / "scripts" / "automation"))
+    import skills as skills_cli  # noqa: E402
+    data = json.loads((ROOT / "catalog/route_eval.json").read_text())
+    routing = {k: {kk: v[kk] for kk in ("cases", "accuracy", "meanSkillsLoaded", "meanTokensLoaded")}
+               for k, v in (("tuned", skills_cli.evaluate(data["cases"])), ("heldout", skills_cli.evaluate(data.get("heldout", []))),
+                            ("heldout2", skills_cli.evaluate(data.get("heldout2", []))))}
+    import tempfile
+    with tempfile.TemporaryDirectory() as tmp:
+        econ_out, audit_out = Path(tmp) / "economy.json", Path(tmp) / "audit.json"
+        subprocess.run([sys.executable, str(ROOT / "tools/economy/economy_sim.py"), str(ROOT / "tools/economy/examples/pet-sim.json"),
+                        "--players", "10", "--json", str(econ_out)], capture_output=True, timeout=300)
+        subprocess.run([sys.executable, str(ROOT / "scripts/validate/audit.py"), "--kit", "--json", str(audit_out)],
+                       capture_output=True, timeout=300)
+        economy = json.loads(econ_out.read_text()) if econ_out.exists() else None
+        audit = json.loads(audit_out.read_text()) if audit_out.exists() else None
+    return {"routing": routing, "economy": economy, "audit": audit["counts"] if audit else None,
+            "specs": len(list((ROOT / "library/tests").glob("*.spec.luau"))), "pyTests": len(list((ROOT / "tests").glob("test_*.py")))}
+
+
+def project_centre(project: Path | None):
+    if not project:
+        return None
+    mem = subprocess.run([sys.executable, str(ROOT / "scripts/automation/memory.py"), "context", "--project", str(project)],
+                         capture_output=True, text=True).stdout
+    plan = project / "GAME_PLAN.md"
+    return {"memory": mem, "plan": plan.read_text(encoding="utf-8") if plan.exists() else None}
+
+
 def capture(args):
     try:
-        out = subprocess.run([sys.executable, *args], capture_output=True, text=True, timeout=60)
+        out = subprocess.run([sys.executable, *args], capture_output=True, text=True, timeout=120)
         return json.loads(out.stdout)
     except (OSError, subprocess.TimeoutExpired, json.JSONDecodeError):
         return None
@@ -100,6 +184,11 @@ def main(argv=None):
         "doctor": capture([str(ROOT / "scripts/install/doctor.py"), "--json"] + (["--project", str(a.project)] if a.project else [])),
         "check": capture([str(ROOT / "scripts/validate/check_project.py"), str(a.project), "--json"]) if a.project else None,
         "project": str(a.project) if a.project else None,
+        "projectCentre": project_centre(a.project),
+        "playground": ui_playground(),
+        "assetLibrary": asset_library(),
+        "agentsInfo": agents(),
+        "tests": tests_centre(),
     }
     template = (Path(__file__).parent / "template.html").read_text(encoding="utf-8")
     page = template.replace("/*__URK_DATA__*/null", json.dumps(data).replace("</", "<\\/"))

@@ -2,11 +2,12 @@
 
 A Roblox development ecosystem for Claude Code and compatible AI coding agents:
 
-- **61 skills**, a router that loads only the skills a task needs, and 9 subagents
-- **A Luau library**: 27 game systems and UrkUI, a tag-based UI framework
+- **67 skills**, a router that loads only the skills a task needs (measured on held-out tasks), and 13 subagents
+- **A Luau library**: 36 game systems (including pets and eggs, rebirths, upgrades, worlds, boosts, trading, VFX tiers and world layouts) and UrkUI, a tag-based UI framework
 - **A game-style UI generator**: describe a screen and get a working Luau interface built from a validated spec, a 19-component cartoon kit, and design tokens
-- **272 original icons** (118 glyphs, 118 illustrated, 36 colour variants) and an asset pipeline that builds Roblox-ready models in Blender
-- **Tooling**: Rojo game templates, a local dashboard, and one `urk` command to set up, extend, check and remove the kit in any project
+- **272 original icons** plus **203 CC0 Kenney icons** and the Kenney UI Pack, and an asset pipeline that builds Roblox-ready models with LODs and collision hulls in Blender
+- **A game generator**: `urk generate "supermarket simulator with 50 products"` assembles a project that builds and passes its tests
+- **Tooling**: Rojo templates, Wally packages (Fusion, Promise, ProfileStore), an economy simulator, an asset registry, a visual UI scoring loop, security audit, release gate, project memory, a dashboard, and one `urk` command for all of it
 
 ![Screens generated from the kit's built-in specs](docs/images/ui/screens-gallery.png)
 
@@ -20,19 +21,19 @@ A Roblox development ecosystem for Claude Code and compatible AI coding agents:
 
 | Area | Contents |
 |---|---|
-| **Luau library** (`library/`) | 27 systems: inventory and hotbar, pickup, equipment, crafting, resources, shop, currency, save data, settings, quests, achievements, daily rewards, leaderboards, NPC, dialogue, zones, checkpoints, vehicles, placement, binder, rounds, teams, matchmaking, notifications, loading, input, analytics. Pure rules are tested with Lune; server-authoritative adapters. [Index](library/README.md) |
+| **Luau library** (`library/`) | 36 systems: pets and eggs, rebirth, upgrades, worlds, boosts, trading, progression, VFX, world generation, inventory and hotbar, pickup, equipment, crafting, resources, shop, currency, save data, settings, quests, achievements, daily rewards, leaderboards, NPC, dialogue, zones, checkpoints, vehicles, placement, binder, rounds, teams, matchmaking, notifications, loading, input, analytics. Pure rules are tested with Lune; server-authoritative adapters. [Index](library/README.md) |
 | **UrkUI** (`library/src/UI/`) | Tag- and attribute-driven UI: panels, actions, live data binding, tabs, tooltips, toasts, context menus, drag and drop, components, dark/light/high-contrast themes, phone-to-console layouts, gamepad navigation, localisation, animation. [Reference](library/src/UI/README.md) |
 | **UI generation** (`library/src/UI/{Style,Game,Spec}`) | Design tokens (`design/tokens/styles.json`, styles cartoon, midnight and pastel), 19 game components (GameWindow, ProductCard, PromoBanner, CartoonButton, Badge, CurrencyCounter, LevelBar, Timer, Toggle, Slider, Dropdown, RewardPopup and more), 20 motion presets, text fitting, 16 ready screen specs (shops, HUD, daily rewards, inventory, pets, upgrades, quests, achievements, settings, leaderboard, profile, trading, popups), a validated spec format and a builder. `urk.py ui new / validate / preview`. [Architecture](docs/architecture/ui-generation.md) |
 | **Icons** (`assets/icons/`) | 272 original MIT icons: tintable glyphs, illustrated cartoon versions with thick outlines and highlights, and rarity or colour variants. Includes sprite sheets, a catalog, auto-alignment, a style validator, a gallery, a Luau API, and an importer for packs you download under their own licence |
-| **Skills** (`skills/`) | 61 skills in 9 categories, including 12 for UI: design, generator, icon design, shop builder, animation, responsive layout, design system, audit, performance, asset pipeline, testing and reference recreation. [Catalog](docs/references/skill-catalog.md) |
-| **Orchestration** | `roblox-kit-router`, `roblox-project-planner`, `catalog/workflows.json`, and `route.py`, a deterministic router tested against 32 example tasks |
-| **Agents and commands** (`.claude/`) | 9 subagents with file-ownership rules ([cooperation](docs/architecture/agent-cooperation.md)) and 6 `/urk-*` slash commands |
-| **`urk` CLI and dashboard** | `urk.py setup | new | add | check | upgrade | uninstall | icons | dashboard`, and a self-contained HTML dashboard for browsing skills, systems, icons and templates and building commands |
+| **Skills** (`skills/`) | 67 skills in 9 categories, including 12 for UI: design, generator, icon design, shop builder, animation, responsive layout, design system, audit, performance, asset pipeline, testing and reference recreation. [Catalog](docs/references/skill-catalog.md) |
+| **Orchestration** | `roblox-kit-router`, `roblox-project-planner`, `catalog/workflows.json`, and `route.py`, a deterministic router evaluated on 32 tuned and 20 held-out tasks (`urk skills eval`) |
+| **Agents and commands** (`.claude/`) | 13 subagents with file-ownership rules ([cooperation](docs/architecture/agent-cooperation.md)) and 6 `/urk-*` slash commands |
+| **`urk` CLI and dashboard** | `urk.py setup | new | add | generate | packages | check | build | audit | release | economy | assets | ui | skills | memory | upgrade | uninstall | icons | dashboard`, and a self-contained HTML dashboard with Project, UI Playground, Assets, Agents and Tests centres |
 | **Security** | Backdoor scanner for scripts and models (`scripts/security/`), checksum-pinned CI tools, a secrets scan |
 | **Asset pipeline** | `tools/rbxasset` (73 parameterized generators, UV atlas, safe areas, Blender-free validation) and `scripts/blender` (build, FBX/OBJ/GLB export, re-import check, renders), plus QA, contact sheets, approval gates and the `handoff/License<N>` delivery format, with the 51 approved supermarket objects as references |
 | **Templates** (`templates/`) | Rojo projects with pinned tools (starter game, simulator, tycoon, obby, UI kit), plus an asset-pipeline layout |
-| **Integrations** | Blender MCP (isolated, telemetry off), Roblox Studio MCP config, environment doctor, pinned third-party skill fetcher |
-| **Validation** | Python suite plus about 520 Lune specs; CI on Linux, Windows and macOS runs Blender 4.2, Selene, StyLua, luau-analyze, Lune and Rojo builds |
+| **Integrations** | Wally packages and bridges (`ProfileStoreAdapter`, `FusionBridge`), Blender MCP (isolated, telemetry off), Roblox Studio MCP config, environment doctor, pinned third-party skill fetcher |
+| **Validation** | Python suite plus about 680 Lune specs; CI on Linux, Windows and macOS runs Blender 4.2, Selene, StyLua, luau-analyze, Lune and Rojo builds |
 
 ## Quick start
 
@@ -63,7 +64,7 @@ More: [Quick start](docs/getting-started/quick-start.md) · [Beginner setup](doc
 
 ## How skill selection works
 
-Claude Code reads every installed skill's short description and activates the ones that match. With 61 skills, the kit adds a second layer so context stays small:
+Claude Code reads every installed skill's short description and activates the ones that match. With 67 skills, the kit adds a second layer so context stays small:
 
 1. The `roblox-kit-router` skill holds a one-line index of every skill and ten workflow recipes.
 2. `route.py` maps a task to a workflow and to trigger matches, then adds only direct dependencies. "Create 20 supermarket products" loads 10 skills, not 61.
@@ -95,19 +96,29 @@ See [Agent architecture](docs/architecture/agent-architecture.md).
 | Deliver an approved batch | `python3 scripts/export/package_batch.py build/props --license 12 --dest handoff` |
 | Fetch reviewed third-party skills | `python3 scripts/install/third_party.py list` |
 | Run all kit checks | `python3 scripts/validate/run_all.py` |
+| Generate a whole game | `python3 urk.py generate "pet simulator with 3 worlds and 24 pets" --name PetLand --out <dir>` |
+| Add Fusion, Promise, ProfileStore | `python3 urk.py packages --project <dir>` |
+| Lint, test and build a game | `python3 urk.py build --project <dir>` |
+| Security and licence audit | `python3 urk.py audit --project <dir>` |
+| Release gate (never publishes) | `python3 urk.py release check --project <dir>` |
+| Balance an economy | `python3 urk.py economy sim tools/economy/examples/pet-sim.json` |
+| Reuse an asset | `python3 urk.py assets scan`, then `assets suggest "gold coin"` or `assets dupes` |
+| Match a UI to a reference | `python3 urk.py ui extract ref.png`, then `ui compare ref.png capture.png --diff d.png` |
+| Measure routing | `python3 urk.py skills eval` |
+| Project memory | `python3 urk.py memory add decision "..." --project <dir>` |
 
 ## Documentation
 
 - Getting started: [quick start](docs/getting-started/quick-start.md), [beginner setup](docs/getting-started/beginner-setup.md), [advanced setup](docs/getting-started/advanced-setup.md), [installation](docs/getting-started/installation.md)
-- Workflows: [UI quick start: a shop in five commands](docs/workflows/ui-quickstart.md), [new game](docs/workflows/new-game.md), [Blender assets](docs/workflows/blender-assets.md), [asset export](docs/workflows/asset-export.md), [Roblox Studio](docs/workflows/roblox-studio.md), [Studio validation](docs/workflows/studio-validation.md), [MCP integration](docs/workflows/mcp-integration.md), [templates](docs/workflows/templates.md), [skill usage examples](docs/workflows/skill-examples.md)
+- Workflows: [generate a game](docs/workflows/generate-game.md), [UI quick start: a shop in five commands](docs/workflows/ui-quickstart.md), [new game](docs/workflows/new-game.md), [Blender assets](docs/workflows/blender-assets.md), [asset export](docs/workflows/asset-export.md), [Roblox Studio](docs/workflows/roblox-studio.md), [Studio validation](docs/workflows/studio-validation.md), [MCP integration](docs/workflows/mcp-integration.md), [templates](docs/workflows/templates.md), [skill usage examples](docs/workflows/skill-examples.md)
 - Architecture: [blueprint](docs/architecture/BLUEPRINT.md), [agent architecture](docs/architecture/agent-architecture.md), [repository layout](docs/architecture/repository-layout.md), [skill format](docs/architecture/skill-format.md)
 - Library: [index](library/README.md), [UrkUI](library/src/UI/README.md), [Game components](library/src/UI/Game/README.md), [screen specs](library/src/UI/Spec/README.md), [playground](library/examples/playground/README.md), [UI generation architecture](docs/architecture/ui-generation.md), [conventions](docs/architecture/library-conventions.md), [icon licences](assets/icons/LICENSE.md)
 - Reference: [roadmap](docs/references/roadmap.md), [research V2](docs/references/research-v2.md), [skill catalog](docs/references/skill-catalog.md), [repository evaluation](docs/references/repository-evaluation.md), [recovered supermarket pipeline](docs/references/recovered-supermarket-pipeline.md), [validation status](docs/references/validation-status.md)
-- [Troubleshooting](docs/troubleshooting/README.md) · [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) · [Sources](SOURCES.md) · [Third-party notices](THIRD_PARTY_NOTICES.md) · [Changelog](CHANGELOG.md)
+- [Troubleshooting](docs/troubleshooting/README.md) · [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) · [Sources](SOURCES.md) · [Third-party notices](THIRD_PARTY_NOTICES.md) · [Third-party resources](THIRD_PARTY_RESOURCES.md) · [Changelog](CHANGELOG.md)
 
 ## What is and is not verified
 
-Automated tests cover the installer, `urk` CLI, router, skill structure, links, geometry kit, icons, scanner, third-party fetcher and Blender pipeline (Blender 5.2.3 locally and 4.2 LTS in CI). In CI they also cover the library's pure logic (Lune), lint, format and Rojo builds. **Library adapters, UrkUI runtime behaviour, Roblox Studio import and Studio MCP were not exercised**, because Studio was not available on the build machine. Those workflows are documented as manual procedures, and the scripts report them as `NEEDS MANUAL REVIEW`. Details: [validation status](docs/references/validation-status.md).
+Automated tests cover the installer, `urk` CLI, router, skill structure, links, geometry kit, icons, scanner, third-party fetcher, game generator, economy simulator, asset registry, visual scoring, audit, memory and release tools, and the Blender pipeline including LODs and collision hulls (Blender 5.2.3 locally and 4.2 LTS in CI). In CI they also cover the library's pure logic (Lune), lint, format and Rojo builds. **Library adapters (including the new Pets, Progression and Trading servers, VFXClient and WorldGenBuilder), UrkUI runtime behaviour, Roblox Studio import, Studio MCP and Studio screenshots were not exercised**, because Studio was not available on the build machine. Those workflows are documented as manual procedures, and the scripts report them as `NEEDS MANUAL REVIEW`. Details: [validation status](docs/references/validation-status.md).
 
 ## License
 

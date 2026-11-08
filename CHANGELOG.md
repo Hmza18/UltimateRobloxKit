@@ -2,6 +2,21 @@
 
 All notable changes are listed here. Versions follow semantic versioning; the installer records the version in each project's manifest.
 
+## 0.4.0 (2026-11-08)
+
+Ecosystem upgrade: simulator systems, licensed art, integrations, a game generator and tools that measure.
+
+- **New systems** (pure Logic with Lune specs, plus server adapters): Pets (weighted eggs, rarity, pity, luck, equip, fuse, lock, odds), Rebirth, Upgrades, Worlds, Boosts (extend, refresh and stack), Trading (versioned offers, countdown, re-check at settle, atomic swap), `ProgressionServer` (rebirth, upgrades, worlds and boosts on one record), VFX presets with low, medium and high tiers and an emitter budget, and deterministic WorldGen layouts with a Studio builder. `Util/PlayerState` shares load, save and remotes. `CurrencyServer:spendMany` was added.
+- **Integrations:** `urk packages` installs pinned Fusion 0.3.0, Promise 4.0.0 and ProfileStore 1.0.3 with Wally. `ProfileStoreAdapter` gives every system a section of one profile; `FusionBridge` binds UrkUI's Store to Fusion values.
+- **CC0 art:** Kenney Game Icons and Expansion (186 glyphs, 17 coloured) as registrable icon packs, and Kenney UI Pack 2.0 (sprites, sounds, fonts), each with licence and provenance. `import_pack.py` gained `--suffix`.
+- **Visual UI loop:** `urk ui extract` (accent palettes, outline weight, layout hints) and `urk ui compare` (scored rubric with a diff image). Skill `roblox-visual-ui-loop`, agent `urk-visual-ui`.
+- **Game generator:** `urk generate "<sentence>"` for simulator, pet, collection, incremental, tycoon and obby games. It writes GameConfig, server wiring, screens, an asset plan, a config spec, an economy report and GAME_PLAN.md. Four genres were generated and passed Lune, Selene, StyLua and Rojo.
+- **Tools:** `urk economy sim` (seeded greedy players, walls, pacing, overflow), `urk assets scan | search | suggest | dupes` (registry with licences and near-duplicate images), `--lod` in the asset batch (LOD1, LOD2 and a convex collision hull, with QA), `urk audit` (remote validation, client-trusted amounts, loadstring, require by id, secrets, licences), `urk build`, `urk memory`, `urk release check | notes` (never publishes) and `urk skills list | search | show | eval`.
+- **Routing:** an evaluation with 32 tuned cases and two held-out sets of 10. The router got a description-overlap fallback. Results: tuned 100%, held-out 50% and 40%, reported as is.
+- **Skills and agents:** six new skills (visual UI loop, game generator, economy balancing, release management, simulator systems, asset registry), for 67 in total, and four new agents (visual UI, game generator, economy balancer, release manager), for 13. `kit-conventions` now reads project memory.
+- **Dashboard:** Project, UI Playground, Assets, Agents and Tests centres.
+- **Fixes:** `add_module` copies a library spec only when all of its library requires are installed, and writes `.styluaignore` for generated modules. The screen script template no longer leaves an unused parameter.
+
 ## 0.3.0 (2026-11-08)
 
 UI generation and illustrated icons.

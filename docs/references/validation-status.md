@@ -18,6 +18,21 @@ What has been proven, how, and what has not. Updated 2026-11-08 for version 0.1.
 | 11 | Secrets and unsafe installs | Token pattern scan; no download piped into a shell; shell scripts use strict mode; third-party fetch tested against a local repository (pinned commit, short SHA refused, no overwrite, link-only refused) | PASS |
 | 12 | Documentation | Every README command was run during development, except the Rokit, Rojo, Studio and Blender MCP steps, which need tools that were not installed here | Partial (stated) |
 
+## 0.4.0 checks (2026-11-08, macOS, local toolchain at the CI pins)
+
+| Check | How | Result |
+|---|---|---|
+| Library | Selene 0.32.0, StyLua 2.6.0, `luau-analyze --mode=strict` on every new pure module, Lune 0.11.1 (676 specs), Rojo 7.7.1 build | PASS |
+| New systems | Lune specs for Pets, Rebirth, Upgrades, Boosts, Worlds, Trading, VFX, WorldGen, FusionBridge (fake Fusion with the real Store) and the Kenney pack catalogs | PASS |
+| Server adapters | PetsServer, ProgressionServer, TradingServer, VFXClient, WorldGenBuilder, ProfileStoreAdapter: lint, format and Rojo build only | NOT RUN in Roblox (needs Studio) |
+| Wally overlay | `urk packages` on a generated project, then a real `wally install` (Fusion 0.3.0, Promise 4.0.0, ProfileStore 1.0.3) and a Rojo build with Packages mapped | PASS |
+| Game generator | Four genres (supermarket simulator with 50 products, pet, obby, tycoon) generated, then Lune (project and kit specs), Selene, StyLua and Rojo build in each | PASS |
+| LOD and collision | `asset_batch.py --lod` in Blender 5.2.3: LOD triangle counts drop, bounds kept, hull at most 256 triangles and encloses the mesh (barrel volume ratio 1.005) | PASS locally; added to the Blender 4.2 CI test |
+| Visual scoring | Self-comparison scores 100; an unrelated image scores under 70; extraction finds the shop's red, teal and purple accents | PASS (tests) |
+| Routing | `urk skills eval`: 32 tuned cases 100%, held-out 50% (10 cases, informed the fallback), held-out2 40% (10 untouched cases) | Reported as measured |
+| Audit | Kit audit: 0 HIGH. The insecure fixture triggers client-trusted amount, unvalidated remote, loadstring and require by id | PASS |
+| Dashboard | Built with a generated project; all 13 tabs rendered in a browser with no script errors | PASS (visual check) |
+
 ## Visual inspection
 
 The contact sheet in `docs/images/example-props.png` was inspected by eye.
@@ -27,7 +42,8 @@ CI found three real problems on its first run, all fixed: a StyLua formatting di
 ## Not verified
 
 - Live skill activation inside a new Claude Code session. Routing is tested through its deterministic twin, `route.py`.
-- Roblox Studio import, Studio MCP and Open Cloud publishing.
+- Roblox Studio import, Studio MCP, Studio screenshots for the visual loop, and Open Cloud publishing.
+- The 0.4 server adapters and builders in a live game.
 - Blender MCP through this kit's own launcher. The same setup was exercised in the source project on 2026-11-06.
 - Luau behaviour inside Roblox: Lune tests cover pure logic only, and server and client code needs a Studio playtest.
 - Windows PowerShell wrapper (`install.ps1`) beyond what CI's Windows job runs, which is the Python installer itself.
