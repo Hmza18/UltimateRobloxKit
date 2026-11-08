@@ -1,14 +1,14 @@
 # Progress
 
-Status of the V2 expansion (`feat/v2-expansion`, version 0.2.0). Each item's "Verified" column says how it was checked. "CI" means the GitHub Actions run on the pull request; local checks ran on macOS with Python 3.9 and Blender 5.2.3. Luau tools are not installed locally, so every Luau result comes from CI.
+Status of the V2 expansion (`feat/v2-expansion`, version 0.2.0). Each item's "Verified" column says how it was checked. "CI" means the GitHub Actions run on the pull request; local checks ran on macOS with Python 3.9 and Blender 5.2.3. Luau tools are not installed locally, so every Luau result comes from CI (PR #3 runs, 2026-11-08).
 
 ## Completed
 
 | Area | Item | Verified |
 |---|---|---|
-| UI | UrkUI framework: 18 tags, 11 built-in actions, Store binding, 10 components, themes, responsive, gamepad, localisation, motion | Pure Core modules: 119 Lune specs in CI. Runtime, Behaviours and Components: NOT playtested in Studio |
+| UI | UrkUI framework: 18 tags, 11 built-in actions, Store binding, 10 components, themes, responsive, gamepad, localisation, motion | Pure Core modules pass their Lune specs and strict luau-analyze in CI; all UI files pass Selene and StyLua. Runtime, Behaviours and Components: NOT playtested in Studio |
 | Icons | 92 original icons, sprite sheets, catalog, Luau API, gallery, importer | Python tests (reproducible build, geometry, importer); Lune catalog spec in CI; preview inspected by eye in dark and light |
-| Library | 27 systems with READMEs | Pure Logic: about 400 Lune specs in CI. Adapters: NOT playtested in Studio |
+| Library | 27 systems with READMEs | CI: Selene 0 errors / 0 warnings, StyLua clean, strict luau-analyze clean on 48 pure modules, **511 of 511 Lune specs pass** (40 spec files), Rojo builds `UltimateRobloxKit.rbxm`. A game project with every module added by `urk add` also builds and passes. Adapters: NOT playtested in Studio |
 | CLI | `urk.py` setup, new, add, check, upgrade, uninstall, icons, dashboard | `tests/test_urk_cli.py` (10 cases) locally and on Linux, Windows and macOS in CI |
 | Dashboard | Self-contained HTML | Built and used in a browser: router, icon search, phone-width layout fixed and rechecked |
 | Security | Backdoor scanner (Python and Lune), fixtures | Python tests locally; Lune scan of a Rojo-built binary model in CI |
@@ -18,11 +18,21 @@ Status of the V2 expansion (`feat/v2-expansion`, version 0.2.0). Each item's "Ve
 | Research | 66 candidates, gap analysis, roadmap | Licences read from the repos' LICENSE files; Wally names checked against the registry |
 | Icon pack request | BuiltByBit Free Icon Pack (54420): licence could not be verified (bot protection on builtbybit.com), so nothing was redistributed; a local import path was built instead | Documented in `assets/icons/LICENSE.md` |
 
+## CI history for the new Luau code
+
+The first CI run on PR #2 was the first time the Luau tools saw this code, and PR #2 was merged before it passed. PR #3 then fixed:
+- 2 Selene errors and 8 warnings
+- 34 strict-typing problems: 24 union-iteration loops and 10 other errors
+- 2 specs that asserted the wrong expected value
+- 1 spec that depended on the kit's folder layout
+
+All blocking checks pass on PR #3.
+
 ## Remaining (in order)
 
 See [docs/references/roadmap.md](docs/references/roadmap.md) for details and effort estimates.
 
-1. Fix anything the first CI run finds in the new Luau code (format, lint, strict types, specs), then make the full type check blocking.
+1. Clear the report-only full type check: luau-lsp with Roblox definitions reports 153 issues, mostly in adapters (Analytics, UI Runtime, Binder, Quests). Many are the newer solver's strictness on `pcall` over function unions and nil comparisons. Then make the check blocking.
 2. Studio playtest pass over UrkUI and each system adapter, using the checklists in each README. This needs Studio and a person.
 3. Real Wally dependencies: a packages overlay with ProfileStore and Roblox Jest, plus a ProfileStore store adapter.
 4. Opt-in in-engine CI through rocale-cli (needs an Open Cloud key and a test place from you).
