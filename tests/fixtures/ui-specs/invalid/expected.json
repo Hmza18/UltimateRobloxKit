@@ -1,0 +1,50 @@
+{
+ "missing-title": [
+  "body[1].title"
+ ],
+ "bad-palette": [
+  "body[1].palette"
+ ],
+ "robux-without-ids": [
+  "body[1].price"
+ ],
+ "negative-product-id": [
+  "body[1].price.productId"
+ ],
+ "duplicate-ids": [
+  "body[2].id"
+ ],
+ "bad-columns": [
+  "body[2].columns.phone"
+ ],
+ "unknown-type": [
+  "body[2].type"
+ ],
+ "long-title": [
+  "body[1].title"
+ ],
+ "bad-bind": [
+  "body[2].bind"
+ ],
+ "bad-rail": [
+  "rails.middle"
+ ],
+ "bad-day-state": [
+  "body[2].state"
+ ],
+ "currency-price-no-icon": [
+  "body[1].price.currency"
+ ],
+ "unknown-field": [
+  "body[1].colour"
+ ],
+ "bad-kind": [
+  "kind"
+ ],
+ "unknown-style": [
+  "style"
+ ],
+ "empty-body": [
+  "body"
+ ]
+}

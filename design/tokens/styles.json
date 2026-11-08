@@ -1,0 +1,99 @@
+{
+  "_doc": "Single source of truth for UrkUI game styles. tools/ui/build_tokens.py generates library/src/UI/Style/StyleTokens.luau from this file, and the spec previewer reads it directly. Colours are #RRGGBB, sizes are pixels at 1x scale (UIScale scales them), durations are seconds.",
+  "version": 1,
+  "styles": {
+    "cartoon": {
+      "description": "Bright simulator style: chunky outlined type, thick dark outlines, gradient panels, colour-coded cards.",
+      "fonts": {
+        "title": "FredokaOne",
+        "body": "FredokaOne",
+        "number": "LuckiestGuy",
+        "fallback": "GothamBlack"
+      },
+      "text": { "display": 44, "title": 32, "heading": 24, "label": 18, "caption": 14, "price": 20, "minimum": 12 },
+      "textStroke": { "color": "#1B1530", "thickness": 3, "smallThickness": 2 },
+      "outline": { "color": "#1B1530", "thin": 2, "regular": 3, "thick": 4, "heavy": 6 },
+      "radius": { "sm": 8, "md": 14, "lg": 20, "xl": 28, "pill": 999 },
+      "spacing": { "xs": 4, "sm": 8, "md": 12, "lg": 16, "xl": 24, "xxl": 32 },
+      "shadow": { "offsetY": 4, "transparency": 0.55, "color": "#000000" },
+      "gloss": { "transparency": 0.78, "heightFraction": 0.45 },
+      "pattern": { "kind": "checker", "transparency": 0.88, "cell": 24 },
+      "surfaces": {
+        "window": { "top": "#FFFFFF", "bottom": "#EEF1F8", "text": "#1B1530" },
+        "inset": { "top": "#F3F5FB", "bottom": "#E2E6F2", "text": "#1B1530" },
+        "dark": { "top": "#2A2F4A", "bottom": "#1C2036", "text": "#FFFFFF" }
+      },
+      "palette": {
+        "red":    { "top": "#FF5A5A", "bottom": "#E62E3A", "text": "#FFFFFF" },
+        "orange": { "top": "#FFB347", "bottom": "#FF8A1F", "text": "#FFFFFF" },
+        "yellow": { "top": "#FFE45C", "bottom": "#F7C21B", "text": "#FFFFFF" },
+        "green":  { "top": "#7CF05A", "bottom": "#2FC33A", "text": "#FFFFFF" },
+        "teal":   { "top": "#5CF2D6", "bottom": "#22C7B4", "text": "#FFFFFF" },
+        "blue":   { "top": "#5AB8FF", "bottom": "#2C7BEA", "text": "#FFFFFF" },
+        "purple": { "top": "#B98CFF", "bottom": "#7A4DE8", "text": "#FFFFFF" },
+        "pink":   { "top": "#FF7AC8", "bottom": "#F0399E", "text": "#FFFFFF" },
+        "gold":   { "top": "#FFE07A", "bottom": "#F2A900", "text": "#FFFFFF" },
+        "gray":   { "top": "#C9D0DE", "bottom": "#9AA4B8", "text": "#FFFFFF" }
+      },
+      "buttons": {
+        "buy":     { "palette": "green" },
+        "robux":   { "palette": "green", "icon": "robux" },
+        "gift":    { "palette": "purple", "icon": "gift" },
+        "close":   { "palette": "red", "icon": "close" },
+        "primary": { "palette": "blue" },
+        "danger":  { "palette": "red" },
+        "neutral": { "palette": "gray" },
+        "price":   { "surface": "dark", "icon": "token" }
+      },
+      "badges": {
+        "sale":      { "palette": "red", "shape": "pill" },
+        "bonus":     { "palette": "yellow", "shape": "pill" },
+        "attention": { "palette": "red", "shape": "circle", "text": "!" },
+        "new":       { "palette": "blue", "shape": "pill" },
+        "best":      { "palette": "gold", "shape": "ribbon" }
+      },
+      "rarity": {
+        "common":    { "color": "#B8C1D1" },
+        "uncommon":  { "color": "#4CD964" },
+        "rare":      { "color": "#3D8BFF" },
+        "epic":      { "color": "#A855F7" },
+        "legendary": { "color": "#FFB020" },
+        "mythic":    { "color": "#FF3B6B" },
+        "secret":    { "color": "#FFFFFF", "rainbow": true }
+      },
+      "motion": {
+        "hoverScale": 1.06, "pressScale": 0.92, "popOvershoot": 1.12,
+        "fast": 0.1, "normal": 0.18, "slow": 0.32, "count": 0.6, "reveal": 0.9
+      },
+      "sizes": {
+        "card":   { "width": 150, "height": 150 },
+        "banner": { "height": 110 },
+        "hudButton": { "size": 64 },
+        "icon":   { "sm": 24, "md": 40, "lg": 72, "xl": 110 }
+      }
+    },
+    "midnight": {
+      "description": "Dark premium store variant of cartoon (same components, darker window and neon palette).",
+      "extends": "cartoon",
+      "surfaces": {
+        "window": { "top": "#2B2F52", "bottom": "#1B1E38", "text": "#FFFFFF" },
+        "inset": { "top": "#23284A", "bottom": "#191C34", "text": "#FFFFFF" },
+        "dark": { "top": "#12142A", "bottom": "#0B0D1C", "text": "#FFFFFF" }
+      },
+      "outline": { "color": "#05060F" },
+      "pattern": { "kind": "diamond", "transparency": 0.92, "cell": 28 }
+    },
+    "pastel": {
+      "description": "Soft variant for cosy games: lighter palette, thinner outlines.",
+      "extends": "cartoon",
+      "outline": { "color": "#3B2E5A", "regular": 2, "thick": 3, "heavy": 4 },
+      "palette": {
+        "red":    { "top": "#FF9AA2", "bottom": "#F26D7D", "text": "#FFFFFF" },
+        "green":  { "top": "#B5EAD7", "bottom": "#7FD1AE", "text": "#2B2240" },
+        "blue":   { "top": "#A0CFFF", "bottom": "#6FAEF0", "text": "#FFFFFF" },
+        "purple": { "top": "#D7C2FF", "bottom": "#B497F0", "text": "#FFFFFF" },
+        "yellow": { "top": "#FFF1A8", "bottom": "#FFD966", "text": "#3B2E5A" }
+      }
+    }
+  }
+}

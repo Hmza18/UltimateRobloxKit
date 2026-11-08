@@ -1,0 +1,31 @@
+{
+  "spec": 1,
+  "id": "FixturePetShop",
+  "kind": "window",
+  "style": "cartoon",
+  "window": { "title": "SHOP", "headerPalette": "red", "sizeClass": "lg" },
+  "body": [
+    { "type": "banner", "id": "starter", "palette": "teal", "icon": "star-color", "title": "STARTER PACK",
+      "subtitle": "A great offer you can't refuse!", "price": { "kind": "robux", "amount": 29, "productId": 0 } },
+    { "type": "divider" },
+    { "type": "grid", "columns": { "phone": 3, "tablet": 3, "desktop": 3 }, "items": [
+      { "type": "product", "id": "tripleHatch", "palette": "purple", "icon": "egg-epic", "title": "TRIPLE HATCH",
+        "price": { "kind": "robux", "amount": 29, "gamePassId": 0 } },
+      { "type": "product", "id": "autoHatch", "palette": "blue", "icon": "egg-legendary", "title": "AUTO HATCH",
+        "price": { "kind": "robux", "amount": 29, "gamePassId": 0 } },
+      { "type": "product", "id": "extraPet", "palette": "orange", "icon": "pet-orange", "title": "EXTRA PET",
+        "price": { "kind": "robux", "amount": 29, "gamePassId": 0 }, "badge": { "kind": "attention" } }
+    ] },
+    { "type": "divider" },
+    { "type": "grid", "columns": { "phone": 3, "tablet": 3, "desktop": 3 }, "items": [
+      { "type": "product", "id": "gems10", "palette": "yellow", "icon": "gem-color", "title": "10 GEMS",
+        "price": { "kind": "robux", "amount": 9, "productId": 0 } },
+      { "type": "product", "id": "gems50", "palette": "yellow", "icon": "gem-stack-color", "title": "50 GEMS",
+        "price": { "kind": "robux", "amount": 49, "productId": 0 }, "badge": { "kind": "bonus", "text": "+15%" } },
+      { "type": "product", "id": "gems100", "palette": "yellow", "icon": "money-bag-color", "title": "100 GEMS",
+        "price": { "kind": "robux", "amount": 99, "productId": 0 }, "badge": { "kind": "best", "text": "BEST" } }
+    ] },
+    { "type": "banner", "id": "x2cash", "palette": "green", "icon": "cash-color", "title": "X2 CASH",
+      "subtitle": "Double the money you earn", "price": { "kind": "robux", "amount": 199, "gamePassId": 0 } }
+  ]
+}
