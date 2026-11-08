@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(python3 scripts/validate/run_all.py:*)",
+      "Bash(python3 scripts/automation/route.py:*)",
+      "Bash(python3 scripts/automation/build_catalog.py:*)",
+      "Bash(python3 scripts/install/doctor.py:*)",
+      "Bash(python3 -m unittest:*)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)"
+    ]
+  }
+}
