@@ -119,6 +119,9 @@ class InstallerTests(unittest.TestCase):
                               "Create 20 supermarket products"], capture_output=True, text=True, check=True)
         r = json.loads(out.stdout)
         self.assertIn("batch-asset-production", r["load_order"])
+        # Running the script wrote __pycache__; uninstall must still leave nothing behind.
+        run("--target", str(self.root), "--uninstall")
+        self.assertEqual(files(self.root), [])
 
 
 if __name__ == "__main__":

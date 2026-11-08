@@ -56,12 +56,14 @@ function Responsive.attach(gui: Instance): (UIScale, () -> ())
 	local workspaceConnection = workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(watchCamera)
 	watchCamera()
 
-	return scale, function()
+	local function cleanup()
 		workspaceConnection:Disconnect()
 		if cameraConnection then
 			cameraConnection:Disconnect()
 		end
 	end
+
+	return scale, cleanup
 end
 
 return Responsive

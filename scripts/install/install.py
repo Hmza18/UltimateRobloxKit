@@ -229,6 +229,11 @@ def uninstall(claude: Path, dry: bool, force: bool):
         log.append(f"remove  {rel}")
         if not dry:
             p.unlink()
+    # Running installed scripts creates __pycache__ folders the manifest never listed; they belong to the kit.
+    for cache in sorted((claude / SUPPORT_DIR).rglob("__pycache__")) if (claude / SUPPORT_DIR).exists() else []:
+        log.append(f"remove  {cache.relative_to(root).as_posix()}/")
+        if not dry:
+            shutil.rmtree(cache, ignore_errors=True)
     for rel in sorted({str(Path(r).parent) for r in manifest["files"]}, key=len, reverse=True):
         d = root / rel
         while not dry and d != claude and d.is_dir() and not any(d.iterdir()):
