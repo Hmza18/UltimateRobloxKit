@@ -22,7 +22,7 @@ local NotificationsServer = {}
 
 function NotificationsServer.new(overrides: { [string]: any }?): Service
 	local settings: { [string]: any } = table.clone(NotificationsConfig)
-	for key, value in overrides or {} do
+	for key, value in pairs(overrides or {}) do
 		settings[key] = value
 	end
 	local config = NotificationsLogic.resolveConfig(settings)

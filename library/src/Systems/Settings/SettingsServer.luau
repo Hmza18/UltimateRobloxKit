@@ -46,7 +46,7 @@ end
 function SettingsServer.new(options: Options?): Service
 	local opts: Options = options or {}
 	local settings: { [string]: any } = table.clone(SettingsConfig)
-	for key, value in opts.config or {} do
+	for key, value in pairs(opts.config or {}) do
 		settings[key] = value
 	end
 	local schema: SettingsLogic.Schema = opts.schema or (SettingsConfig.schema :: any)

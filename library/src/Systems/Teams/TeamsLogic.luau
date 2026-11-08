@@ -43,7 +43,7 @@ end
 
 function Teams.size(state: State, team: string): number
 	local count = 0
-	for _ in state.members[team] or {} do
+	for _ in pairs(state.members[team] or {}) do
 		count += 1
 	end
 	return count
@@ -51,7 +51,7 @@ end
 
 function Teams.totalSkill(state: State, team: string): number
 	local total = 0
-	for _, skill in state.members[team] or {} do
+	for _, skill in pairs(state.members[team] or {}) do
 		total += skill
 	end
 	return total
@@ -64,7 +64,7 @@ end
 -- Sorted member ids of a team.
 function Teams.membersOf(state: State, team: string): { string }
 	local ids: { string } = {}
-	for playerId in state.members[team] or {} do
+	for playerId in pairs(state.members[team] or {}) do
 		table.insert(ids, playerId)
 	end
 	table.sort(ids)

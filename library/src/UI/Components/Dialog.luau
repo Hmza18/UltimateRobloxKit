@@ -47,7 +47,7 @@ function Dialog.confirm(props: Props)
 	Create.new("TextLabel", {
 		Name = "Title",
 		BackgroundTransparency = 1,
-		Size = UDim2.new(1, 0, 0, 0),
+		Size = UDim2.fromScale(1, 0),
 		AutomaticSize = Enum.AutomaticSize.Y,
 		Text = props.title,
 		TextWrapped = true,
@@ -61,7 +61,7 @@ function Dialog.confirm(props: Props)
 		Create.new("TextLabel", {
 			Name = "Message",
 			BackgroundTransparency = 1,
-			Size = UDim2.new(1, 0, 0, 0),
+			Size = UDim2.fromScale(1, 0),
 			AutomaticSize = Enum.AutomaticSize.Y,
 			Text = props.message,
 			TextWrapped = true,

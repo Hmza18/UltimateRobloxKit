@@ -67,7 +67,7 @@ end
 function NPC.newMachine(def: MachineDef, ctx: any?): Machine
 	assert(type(def) == "table" and type(def.states) == "table", "machine needs states")
 	assert(def.states[def.initial] ~= nil, "initial state must exist")
-	for _, transition in def.transitions or {} do
+	for _, transition in ipairs(def.transitions or {}) do
 		assert(transition.from == "*" or def.states[transition.from] ~= nil, "unknown state " .. transition.from)
 		assert(def.states[transition.to] ~= nil, "unknown state " .. tostring(transition.to))
 	end

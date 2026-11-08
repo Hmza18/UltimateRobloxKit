@@ -48,7 +48,7 @@ function InventoryGrid.new(props: Props)
 	local width = columns * cell + (columns - 1) * gap
 	local root = Create.new("ScrollingFrame", {
 		Name = "InventoryGrid",
-		Size = props.size or UDim2.new(0, width + 12, 0, cell * 4 + gap * 3),
+		Size = props.size or UDim2.fromOffset(width + 12, cell * 4 + gap * 3),
 		CanvasSize = UDim2.new(0, 0, 0, 0),
 		AutomaticCanvasSize = Enum.AutomaticSize.Y,
 		ScrollBarThickness = 6,
