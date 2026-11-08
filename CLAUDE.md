@@ -16,7 +16,10 @@ This repository is the kit's source. Projects receive it through `scripts/instal
 
 | Path | What |
 |---|---|
-| `skills/` | 44 skills; `orchestration/roblox-kit-router` is the entry point |
+| `skills/` | 51 skills; `orchestration/roblox-kit-router` is the entry point |
+| `library/` | Luau library: 27 systems, UrkUI, Icons, Util. Follow `docs/architecture/library-conventions.md`; specs in `library/tests/` |
+| `assets/icons/`, `tools/icons/` | URK Icons and their generator; rebuild with `tools/icons/build_icons.py` |
+| `urk.py` | single CLI over all scripts |
 | `catalog/` | `workflows.json` (hand-written) and `skills.json` (generated) |
 | `.claude/agents`, `.claude/commands` | Subagents and `/urk-*` commands (canonical, copied by the installer) |
 | `scripts/install` | installer, doctor, third-party fetcher |
