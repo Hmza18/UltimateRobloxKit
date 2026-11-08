@@ -1,6 +1,6 @@
 ---
 name: procedural-mesh-generation
-description: Generates closed, low-poly, UV-mapped meshes from parameters with the kit's Blender-free mesh kit (tools/rbxasset) - lofts, lathes, extrusions, rounded blocks, multi-shell props - and 50 ready generators for props, furniture, nature, containers and packaging. Use when creating any model from code, adding a new generator, or making many variants of a shape.
+description: Generates closed, low-poly, UV-mapped meshes from parameters with the kit's Blender-free mesh kit (tools/rbxasset) - lofts, lathes, extrusions, rounded blocks, multi-shell props - and 73 ready generators for props, furniture, nature, containers and packaging. Use when creating any model from code, adding a new generator, or making many variants of a shape.
 license: MIT
 metadata:
   category: modeling
@@ -20,7 +20,7 @@ Asset name, generator, size `[width X, depth Y, height Z]` in studs, optional `p
 ## Workflow
 
 1. List generators: `python3 -c "import sys; sys.path.insert(0,'$URK/tools'); from rbxasset.generators import REGISTRY; print(sorted(REGISTRY))"`.
-   Props: crate, barrel, shelf_unit, table, bench, lamp_post, traffic_cone, coin_pickup, stylized_tree, rock, wall_panel, floor_tile. Containers: bottle, can, canister, cup_tub, jar, jug_household, food_can, salt_canister, ribbed_bottle, noodle_cup, fish_tub. Packaging: carton_box, bag_gusset, pillow_bag, paper_sack, sliced_loaf_bag, pouch_pillow, wrapper_bar, wrapper_block, tray_lidded, gable_carton, cheese_block, egg_carton. Electronics and soft goods: phone, tv_flat, console_box, game_case, headset, flat_box, bread_loaf, paper_rolls, pet_toy_bone, lollipop, clothing_shirt, clothing_pants, handbag, sunglasses, watch.
+   Props: crate, barrel, shelf_unit, table, bench, lamp_post, traffic_cone, coin_pickup, stylized_tree, rock, wall_panel, floor_tile. Containers: bottle, can, canister, cup_tub, jar, jug_household, food_can, salt_canister, ribbed_bottle, noodle_cup, fish_tub. Packaging: carton_box, bag_gusset, pillow_bag, paper_sack, sliced_loaf_bag, pouch_pillow, wrapper_bar, wrapper_block, tray_lidded, gable_carton, cheese_block, egg_carton. Electronics and soft goods: phone, tv_flat, console_box, game_case, headset, flat_box, bread_loaf, paper_rolls, pet_toy_bone, lollipop, clothing_shirt, clothing_pants, handbag, sunglasses, watch. Plus 23 more from the approved supermarket products (soda_can, shake_bottle, oval_bottle, bleach_jug, standup_pouch, puffy_pouch, crimped_pet_bag, litter_box, wrapped_bar, domed_lollipop, folded_tee, folded_jeans, hobo_bag, diver_watch, gaming_headset and others); the list command shows all. Each one's approved use is in `license-folder-delivery`'s reference table.
 2. Use one in a batch spec (see `batch-asset-production`), or build directly:
    ```python
    import sys; sys.path.insert(0, "tools")

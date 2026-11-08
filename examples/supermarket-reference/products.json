@@ -1,0 +1,600 @@
+{
+ "_doc": "Geometry of the 51 owner-approved supermarket products, grouped by handoff License<batch>. Builds shape references with flat colours (the original label art is not included). Build one license: python3 scripts/export/asset_batch.py examples/supermarket-reference/products.json --license-group 1 --out build/ref1",
+ "licenses": {
+  "License1": [
+   {
+    "name": "TamsCereal",
+    "generator": "carton_box",
+    "size": [
+     0.81,
+     0.3,
+     1.16
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   },
+   {
+    "name": "SalsSlicedBread",
+    "generator": "sliced_loaf_bag",
+    "size": [
+     0.74,
+     0.5,
+     1.25
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   },
+   {
+    "name": "Pasta",
+    "generator": "pillow_bag",
+    "size": [
+     0.8,
+     0.5,
+     1.1
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   },
+   {
+    "name": "SUSUsSugar",
+    "generator": "carton_box",
+    "size": [
+     0.51,
+     0.38,
+     0.72
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   },
+   {
+    "name": "BlueFlour",
+    "generator": "paper_sack",
+    "size": [
+     0.76,
+     0.55,
+     1.15
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   }
+  ],
+  "License2": [
+   {
+    "name": "SalsSalt",
+    "generator": "salt_canister",
+    "size": [
+     0.51,
+     0.51,
+     0.9
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   },
+   {
+    "name": "CookingOil",
+    "generator": "ribbed_bottle",
+    "size": [
+     0.49,
+     0.49,
+     1.42
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   },
+   {
+    "name": "MezzaBeans",
+    "generator": "food_can",
+    "size": [
+     0.56,
+     0.56,
+     0.78
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   },
+   {
+    "name": "InstantNoodles",
+    "generator": "noodle_cup",
+    "size": [
+     0.665,
+     0.61,
+     0.78
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   },
+   {
+    "name": "SwordFish",
+    "generator": "fish_tub",
+    "size": [
+     0.59,
+     0.59,
+     0.95
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   }
+  ],
+  "License3": [
+   {
+    "name": "OrangeJuice",
+    "generator": "gable_carton",
+    "size": [
+     0.78,
+     0.77,
+     1.45
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   },
+   {
+    "name": "AppleJuice",
+    "generator": "gable_carton",
+    "size": [
+     0.78,
+     0.77,
+     1.45
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   },
+   {
+    "name": "Milk",
+    "generator": "gable_carton",
+    "size": [
+     0.78,
+     0.77,
+     1.45
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   },
+   {
+    "name": "CheddarCheese",
+    "generator": "cheese_block",
+    "size": [
+     0.82,
+     0.5,
+     0.4
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   },
+   {
+    "name": "Eggs",
+    "generator": "egg_carton",
+    "size": [
+     1.08,
+     0.78,
+     0.5
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   }
+  ],
+  "License4": [
+   {
+    "name": "BasmatyRice",
+    "generator": "basmati_bag",
+    "size": [
+     0.82,
+     0.5,
+     1.3
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   },
+   {
+    "name": "RoughRuffs",
+    "generator": "folded_pet_bag",
+    "size": [
+     0.53,
+     0.36,
+     1.17
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   },
+   {
+    "name": "DeliciousMeows",
+    "generator": "crimped_pet_bag",
+    "size": [
+     0.53,
+     0.36,
+     1.17
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   },
+   {
+    "name": "KongsPuppyToy",
+    "generator": "plush_toy_card",
+    "size": [
+     0.78,
+     0.58,
+     1.35
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   },
+   {
+    "name": "PoopyPads",
+    "generator": "litter_box",
+    "size": [
+     1.5,
+     1.27,
+     1.3
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   }
+  ],
+  "License5": [
+   {
+    "name": "SmirkChocolateBar",
+    "generator": "wrapped_bar",
+    "size": [
+     0.86,
+     0.2,
+     0.3
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   },
+   {
+    "name": "FluffysMarshmellows",
+    "generator": "clear_bag",
+    "size": [
+     0.84,
+     0.4,
+     1.16
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   },
+   {
+    "name": "CharliesSwirlyPop",
+    "generator": "domed_lollipop",
+    "size": [
+     0.8,
+     0.26,
+     1.32
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   },
+   {
+    "name": "CornyCandy",
+    "generator": "standup_pouch",
+    "size": [
+     0.8,
+     0.46,
+     1.26
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   },
+   {
+    "name": "WandWs",
+    "generator": "puffy_pouch",
+    "size": [
+     0.7,
+     0.22,
+     0.62
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   }
+  ],
+  "License6": [
+   {
+    "name": "SodasCola",
+    "generator": "soda_can",
+    "size": [
+     0.55,
+     0.55,
+     0.99
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   },
+   {
+    "name": "EloCitrus",
+    "generator": "soda_can",
+    "size": [
+     0.55,
+     0.55,
+     0.99
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   },
+   {
+    "name": "AlpineDew",
+    "generator": "soda_can",
+    "size": [
+     0.55,
+     0.55,
+     0.99
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   },
+   {
+    "name": "ChocolateMuscleMilk",
+    "generator": "shake_bottle",
+    "size": [
+     0.48,
+     0.48,
+     1.38
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   },
+   {
+    "name": "VanillaMuscleMilk",
+    "generator": "shake_bottle",
+    "size": [
+     0.48,
+     0.48,
+     1.38
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   }
+  ],
+  "License7": [
+   {
+    "name": "MangoMuscleMilk",
+    "generator": "shake_bottle",
+    "size": [
+     0.48,
+     0.48,
+     1.38
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   },
+   {
+    "name": "FrozenChicken",
+    "generator": "shrink_bag",
+    "size": [
+     0.64,
+     0.53,
+     1.15
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   },
+   {
+    "name": "FrozenPizza",
+    "generator": "carton_box",
+    "size": [
+     1.1,
+     0.14,
+     1.1
+    ],
+    "layout": "guide",
+    "max_tris": 450,
+    "params": {
+     "flap": false
+    }
+   },
+   {
+    "name": "FrozenFries",
+    "generator": "pillow_bag",
+    "size": [
+     0.66,
+     0.4,
+     1.25
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   },
+   {
+    "name": "HashBrowns",
+    "generator": "pillow_bag",
+    "size": [
+     0.84,
+     0.3,
+     1.0
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   }
+  ],
+  "License8": [
+   {
+    "name": "IceCream",
+    "generator": "carton_box",
+    "size": [
+     0.85,
+     0.51,
+     0.95
+    ],
+    "layout": "guide",
+    "max_tris": 450,
+    "params": {
+     "flap": false
+    }
+   },
+   {
+    "name": "Bleach",
+    "generator": "bleach_jug",
+    "size": [
+     0.9,
+     0.71,
+     1.44
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   },
+   {
+    "name": "Shampoo",
+    "generator": "oval_bottle",
+    "size": [
+     0.6,
+     0.35,
+     1.36
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   },
+   {
+    "name": "DishSoap",
+    "generator": "waist_bottle",
+    "size": [
+     0.6,
+     0.31,
+     1.18
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   },
+   {
+    "name": "Detergent",
+    "generator": "pillow_bag",
+    "size": [
+     0.66,
+     0.5,
+     1.2
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   }
+  ],
+  "License9": [
+   {
+    "name": "ToiletPaper",
+    "generator": "paper_pack",
+    "size": [
+     0.69,
+     0.69,
+     0.9
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   },
+   {
+    "name": "SungsTV",
+    "generator": "carton_box",
+    "size": [
+     3.4,
+     0.5,
+     2.2
+    ],
+    "layout": "guide",
+    "max_tris": 450,
+    "params": {
+     "flap": false
+    }
+   },
+   {
+    "name": "MyPhone",
+    "generator": "flat_box",
+    "size": [
+     1.5,
+     0.8,
+     0.3
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   },
+   {
+    "name": "Ybox",
+    "generator": "carton_box",
+    "size": [
+     1.5,
+     0.95,
+     1.3
+    ],
+    "layout": "guide",
+    "max_tris": 450,
+    "params": {
+     "flap": false
+    }
+   },
+   {
+    "name": "FourthKnight",
+    "generator": "game_case",
+    "size": [
+     0.85,
+     0.1275,
+     1.088
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   }
+  ],
+  "License10": [
+   {
+    "name": "IronSeriesHeadsets",
+    "generator": "gaming_headset",
+    "size": [
+     1.15,
+     0.6273,
+     1.2545
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   },
+   {
+    "name": "LucciShirt",
+    "generator": "folded_tee",
+    "size": [
+     0.67,
+     0.81,
+     0.14
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   },
+   {
+    "name": "LucciPants",
+    "generator": "folded_jeans",
+    "size": [
+     0.67,
+     0.83,
+     0.16
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   },
+   {
+    "name": "LVHandbag",
+    "generator": "hobo_bag",
+    "size": [
+     0.64,
+     0.34,
+     1.03
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   },
+   {
+    "name": "ChannelSunglasses",
+    "generator": "statement_shades",
+    "size": [
+     0.63,
+     0.12,
+     0.21
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   }
+  ],
+  "License11": [
+   {
+    "name": "RoluxWatch",
+    "generator": "diver_watch",
+    "size": [
+     0.64,
+     0.57,
+     0.53
+    ],
+    "layout": "guide",
+    "max_tris": 450
+   }
+  ]
+ }
+}

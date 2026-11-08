@@ -10,13 +10,15 @@ The kit started from a real production: 51 stylized supermarket products for a R
 | `pipeline/atlas.py` (MaxRects packer, guide 0.75/0.25 layout) | `tools/rbxasset/atlas.py` | Unchanged |
 | `pipeline/safe_area.py` (printable areas from geometry) | `tools/rbxasset/safe_area.py` | Unchanged |
 | `pipeline/grid.py` (display grid) | `tools/rbxasset/grid.py` | Unchanged |
-| `pipeline/generators/` packaging, vessels, cartons, round, electronics, soft goods (38 generators) | `tools/rbxasset/generators/` | Unchanged. Added a fallback in `build()` for proportions a generator was not tuned for |
+| `pipeline/generators/` (all 11 modules, 61 generators) | `tools/rbxasset/generators/` | Unchanged. `build()` now validates and falls back to stretching for proportions a generator was not tuned for |
+| `data/products.json` (51 approved products) | `examples/supermarket-reference/products.json`, `skills/modeling/license-folder-delivery/references/approved-products.md` | Geometry, sizes, grids and generators only; prices and label art left out |
+| Guide section "Blender → Roblox pipeline" (reference sizes, product size rule, model rules) | `license-folder-delivery/references/roblox-reference-sizes.md` | Restated as measurements; the guide itself is not published |
 | None | `tools/rbxasset/generators/props.py` | New: 12 environment prop generators written for the kit |
 | `pipeline/stage_blender.py` (build object, materials, render camera, measure, OBJ and FBX export) | `scripts/blender/build_asset.py` | Generalised to any asset. Added GLB export. Renders use EEVEE for speed |
 | `pipeline/stage_verify_export.py` (OBJ and FBX re-import) | `scripts/blender/verify_export.py` | Adds GLB. Compares all formats |
 | `pipeline/stage_qa.py` (28 product checks plus OCR) | `scripts/export/asset_batch.py` QA (14 automated and 2 manual checks) | Product-specific checks (brand text OCR, shelf fit, guide UV regions) were not carried over. The geometry, transform, UV and export checks were |
 | `pipeline/run_product.py` batch gate and `--approve` | `asset_batch.py --status/--approve`, `package_batch.py` | Same rule: nothing is packaged until approved |
-| `tools/make_handoff.py` (License zips) | `scripts/export/package_batch.py` | Generic destination; keeps the `_versions` archive rule |
+| `tools/make_handoff.py` (License zips) | `scripts/export/package_batch.py --license N` and the `license-folder-delivery` skill | Same layout and `_FBX`/`_OBJ` names, `_previous` archive and byte-for-byte zip check; optional `_GLB` added |
 | `tools/contact_sheet.py` | `contact_sheet()` in `asset_batch.py` | Same idea, needs Pillow |
 | `tools/studio_manifest.py` and `tools/roblox/StudioAssetTest.luau` | `scripts/export/studio_check.py` | Rewritten as a read-only generated checker |
 | `tools/start_blender_mcp.sh`, `tools/blender_mcp_server.sh`, `tests/test_blender_mcp.py` | `integrations/blender/` | Paths made project-relative; pinned pip install replaces the local clone |
@@ -37,6 +39,7 @@ The kit started from a real production: 51 stylized supermarket products for a R
 | roblox-studio-asset-tester, roblox-import-validation | roblox-studio-mcp |
 | supermarket-modeling-standards, supermarket-product-catalog, display-grid-calculator, original-brand-generator | product-packaging-assets |
 | (style direction from LESSONS.md) | stylized-asset-design |
+| (handoff format from make_handoff.py, product data, guide pipeline section) | license-folder-delivery |
 
 ### Third-party skills installed there (19)
 
@@ -56,6 +59,6 @@ EL4CTEO/blender-skills (13), WojciechJelen/roblox-dev-kit (blender-to-roblox, ro
 - **Chat history** from the earlier sessions is not accessible. Everything here comes from files.
 - **The 30 brand-specific packaging templates** (`pipeline/packaging/*.py`, about 6,000 lines) and the brand JSON files. They encode that game's fictional brands; reusing them would copy one game's art into every game.
 - **OCR legibility checks** (`tools/ocr.swift`, macOS Vision). They are macOS-only and tied to label templates.
-- **The guide document** (`references/original/Supermarket_Modeler_Guide_CLAUDE.md`). It is the client's document, so the kit restates only general rules.
+- **The full guide document** (`references/original/Supermarket_Modeler_Guide_CLAUDE.md`, 2,541 lines). It describes the unreleased game's design and systems, and this repository is public, so only its reusable modeling measurements and rules were restated.
 - **The delivered models and textures.** Those are the game's assets, not tooling.
 - **Studio validation results.** None exist: Studio was never available to that project.

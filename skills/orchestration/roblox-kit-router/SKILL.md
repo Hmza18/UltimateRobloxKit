@@ -36,7 +36,7 @@ Defined in `$URK/catalog/workflows.json`. Summary:
 |---|---|---|
 | new-game | "build a simulator / tycoon / obby / RPG" | game-design-core, roblox-architecture, roblox-toolchain-doctor, roblox-data-persistence, roblox-networking, roblox-ui-systems, roblox-testing-debugging, roblox-publishing-liveops |
 | gameplay-system | one feature: inventory, shop, quests, NPCs | roblox-architecture, roblox-networking, roblox-security-anti-exploit plus the feature skill |
-| asset-batch | "make 20 products / props / models" | batch-asset-production, procedural-mesh-generation, uv-texture-atlas, stylized-asset-design, blender-roblox-export, asset-qa-validation |
+| asset-batch | "make 20 products / props / models" | batch-asset-production, procedural-mesh-generation, uv-texture-atlas, stylized-asset-design, blender-roblox-export, asset-qa-validation, license-folder-delivery |
 | environment | maps, terrain, lighting, buildings | map-world-building, lighting-atmosphere, modular-buildings-props, roblox-performance |
 | ui | HUD, menus, shop screens | roblox-ui-systems, game-art-presentation |
 | character | creatures, rigs, animation | characters-rigging, roblox-animation, blender-roblox-export |
@@ -47,7 +47,7 @@ Defined in `$URK/catalog/workflows.json`. Summary:
 
 ## Example
 
-"Create 20 supermarket products" → `asset-batch`, plus `product-packaging-assets` from its triggers. Steps: spec file → `scripts/export/asset_batch.py` in batches of five → look at the contact sheet → stop for the user's approval → next batch.
+"Create 20 supermarket products" → `asset-batch`, plus `product-packaging-assets` from its triggers. Steps: spec file → `scripts/export/asset_batch.py` in batches of five → look at the contact sheet → stop for the user's approval → `package_batch.py --license N` into `handoff/License<N>` → next batch. Size new objects from `license-folder-delivery`'s approved references.
 
 ## Skill index
 
@@ -74,6 +74,7 @@ Defined in `$URK/catalog/workflows.json`. Summary:
 - `asset-qa-validation`: Quality gate for 3D assets before delivery - automated checks (closed manifold mesh, outward normals, triangle budget, exact size, bottom-centre...
 - `asset-sourcing-licensing`: Finding and safely using external assets and code - Creator Store models, CC0 sources (Poly Haven, ambientCG, Kenney), fonts, sounds, GitHub...
 - `batch-asset-production`: Runs asset production at scale - batch spec files, the asset_batch.py pipeline (layout, Blender build, exports, re-import, QA, contact sheet),...
+- `license-folder-delivery`: The License folder structure used to deliver approved Roblox 3D objects - handoff/License<N>/<Asset>/ with <Asset>_FBX.fbx, <Asset>_OBJ.obj, .mtl,...
 - `modular-buildings-props`: Modular building kits, furniture, interiors, street furniture, vehicles and decorative props for Roblox - stud-grid modules, pivots that snap,...
 - `procedural-mesh-generation`: Generates closed, low-poly, UV-mapped meshes from parameters with the kit's Blender-free mesh kit (tools/rbxasset) - lofts, lathes, extrusions,...
 - `product-packaging-assets`: Shop and supermarket product assets - picking the right container or packaging generator, original fictional brands, label layout inside safe...

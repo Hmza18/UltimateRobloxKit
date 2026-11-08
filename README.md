@@ -1,6 +1,6 @@
 # UltimateRobloxKit
 
-A reusable Roblox development toolkit for Claude Code and compatible AI coding agents. It provides 43 consolidated skills, a router that loads only the skills a task needs, subagents and slash commands, Rojo game templates, a tested procedural 3D asset pipeline for Blender, and an installer that can add the kit to any project and remove it cleanly.
+A reusable Roblox development toolkit for Claude Code and compatible AI coding agents. It provides 44 consolidated skills, a router that loads only the skills a task needs, subagents and slash commands, Rojo game templates, a tested procedural 3D asset pipeline for Blender, and an installer that can add the kit to any project and remove it cleanly.
 
 ![Assets built by the kit's pipeline in Blender](docs/images/example-props.png)
 
@@ -10,13 +10,13 @@ A reusable Roblox development toolkit for Claude Code and compatible AI coding a
 
 | Area | Contents |
 |---|---|
-| **Skills** (`skills/`) | 43 skills in 9 categories: Roblox engineering (19), toolchain (2), Blender (4), modeling (8), environments (2), UI (2), gameplay design (2), production (2), orchestration (2). [Catalog](docs/references/skill-catalog.md) |
-| **Orchestration** | `roblox-kit-router` skill, `catalog/workflows.json` recipes, and `scripts/automation/route.py`, a deterministic router tested against 23 example tasks |
+| **Skills** (`skills/`) | 44 skills in 9 categories: Roblox engineering (19), toolchain (2), Blender (4), modeling (9), environments (2), UI (2), gameplay design (2), production (2), orchestration (2). [Catalog](docs/references/skill-catalog.md) |
+| **Orchestration** | `roblox-kit-router` skill, `catalog/workflows.json` recipes, and `scripts/automation/route.py`, a deterministic router tested against 25 example tasks |
 | **Agents and commands** (`.claude/`) | 6 subagents (architect, Luau engineer, asset pipeline, QA reviewer, game designer, world builder) and 6 `/urk-*` slash commands |
-| **Asset pipeline** | `tools/rbxasset` (50 parameterized generators, UV atlas, safe areas, Blender-free validation) and `scripts/blender` (build, FBX/OBJ/GLB export, re-import check, renders), plus QA, contact sheets and approval gates |
+| **Asset pipeline** | `tools/rbxasset` (73 parameterized generators, UV atlas, safe areas, Blender-free validation) and `scripts/blender` (build, FBX/OBJ/GLB export, re-import check, renders), plus QA, contact sheets, approval gates and the `handoff/License<N>` delivery format, with the 51 approved supermarket objects as references |
 | **Templates** (`templates/`) | Rojo projects with pinned tools (starter game, simulator, tycoon, obby, UI kit), plus an asset-pipeline layout |
 | **Integrations** | Blender MCP (isolated, telemetry off), Roblox Studio MCP config, environment doctor, pinned third-party skill fetcher |
-| **Validation** | 37+ unit tests, plus CI on Linux, Windows and macOS that also runs Blender 4.2 and the Luau toolchain |
+| **Validation** | 46 unit tests, plus CI on Linux, Windows and macOS that also runs Blender 4.2 and the Luau toolchain |
 
 ## Quick start
 
@@ -45,7 +45,7 @@ More: [Quick start](docs/getting-started/quick-start.md) · [Beginner setup](doc
 
 ## How skill selection works
 
-Claude Code reads every installed skill's short description and activates the ones that match. With 43 skills, the kit adds a second layer so context stays small:
+Claude Code reads every installed skill's short description and activates the ones that match. With 44 skills, the kit adds a second layer so context stays small:
 
 1. The `roblox-kit-router` skill holds a one-line index of every skill and ten workflow recipes.
 2. `route.py` maps a task to a workflow and to trigger matches, then adds only direct dependencies. "Create 20 supermarket products" loads 9 skills, not 43.
@@ -65,6 +65,7 @@ See [Agent architecture](docs/architecture/agent-architecture.md).
 | Route a task | `python3 scripts/automation/route.py "<task>"` |
 | New game from a template | `python3 scripts/automation/new_project.py --template simulator --name MyGame --out <dir>` |
 | Build an asset batch | `python3 scripts/export/asset_batch.py examples/asset-batch/props.json --out build/props` |
+| Deliver an approved batch | `python3 scripts/export/package_batch.py build/props --license 12 --dest handoff` |
 | Fetch reviewed third-party skills | `python3 scripts/install/third_party.py list` |
 | Run all kit checks | `python3 scripts/validate/run_all.py` |
 

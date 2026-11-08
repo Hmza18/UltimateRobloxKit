@@ -6,7 +6,7 @@ Everything the kit learned from, and how each source was used. "Copy" means file
 
 | Source | Used for |
 |---|---|
-| Roblox Supermarket 3D asset pipeline (private project, 2026-10 to 2026-11) | `tools/rbxasset/` (meshkit, atlas, safe_area, grid, 50 generators), the Blender build, export and verify stages, QA checks, approval-gate workflow, and the modeling skills. Written for the user, so relicensed here under MIT. See [docs/references/recovered-supermarket-pipeline.md](docs/references/recovered-supermarket-pipeline.md). |
+| Roblox Supermarket 3D asset pipeline (private project, 2026-10 to 2026-11) | `tools/rbxasset/` (meshkit, atlas, safe_area, grid, 61 generators; the 51 approved products as reference specs), the License<N> delivery format, the Blender build, export and verify stages, QA checks, approval-gate workflow, and the modeling skills. Written for the user, so relicensed here under MIT. See [docs/references/recovered-supermarket-pipeline.md](docs/references/recovered-supermarket-pipeline.md). |
 
 ## Reviewed third-party repositories
 

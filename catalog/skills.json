@@ -58,7 +58,8 @@
    "depends": [
     "procedural-mesh-generation",
     "asset-qa-validation",
-    "kit-conventions"
+    "kit-conventions",
+    "license-folder-delivery"
    ]
   },
   {
@@ -197,6 +198,27 @@
    "depends": []
   },
   {
+   "name": "license-folder-delivery",
+   "category": "modeling",
+   "path": "skills/modeling/license-folder-delivery",
+   "description": "The License folder structure used to deliver approved Roblox 3D objects - handoff/License<N>/<Asset>/ with <Asset>_FBX.fbx, <Asset>_OBJ.obj, .mtl, .png, _Image.png and .blend, plus a verified License<N>.zip - together with the 51 owner-approved supermarket objects as size and shape references and Roblox reference sizes for walls, fixtures and products. Use when packaging or handing off 3D assets, naming delivery folders, or when sizing or choosing a shape for a new Roblox object by referencing earlier approved work.",
+   "triggers": [
+    "license folder",
+    "license1",
+    "handoff",
+    "deliver assets",
+    "delivery zip",
+    "reference object",
+    "approved models",
+    "reference size",
+    "_fbx"
+   ],
+   "depends": [
+    "batch-asset-production",
+    "procedural-mesh-generation"
+   ]
+  },
+  {
    "name": "lighting-atmosphere",
    "category": "environments",
    "path": "skills/environments/lighting-atmosphere",
@@ -333,7 +355,7 @@
    "name": "procedural-mesh-generation",
    "category": "modeling",
    "path": "skills/modeling/procedural-mesh-generation",
-   "description": "Generates closed, low-poly, UV-mapped meshes from parameters with the kit's Blender-free mesh kit (tools/rbxasset) - lofts, lathes, extrusions, rounded blocks, multi-shell props - and 50 ready generators for props, furniture, nature, containers and packaging. Use when creating any model from code, adding a new generator, or making many variants of a shape.",
+   "description": "Generates closed, low-poly, UV-mapped meshes from parameters with the kit's Blender-free mesh kit (tools/rbxasset) - lofts, lathes, extrusions, rounded blocks, multi-shell props - and 73 ready generators for props, furniture, nature, containers and packaging. Use when creating any model from code, adding a new generator, or making many variants of a shape.",
    "triggers": [
     "procedural mesh",
     "generator",

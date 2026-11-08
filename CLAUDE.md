@@ -16,7 +16,7 @@ This repository is the kit's source. Projects receive it through `scripts/instal
 
 | Path | What |
 |---|---|
-| `skills/` | 43 skills; `orchestration/roblox-kit-router` is the entry point |
+| `skills/` | 44 skills; `orchestration/roblox-kit-router` is the entry point |
 | `catalog/` | `workflows.json` (hand-written) and `skills.json` (generated) |
 | `.claude/agents`, `.claude/commands` | Subagents and `/urk-*` commands (canonical, copied by the installer) |
 | `scripts/install` | installer, doctor, third-party fetcher |

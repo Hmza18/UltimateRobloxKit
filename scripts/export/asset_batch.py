@@ -119,6 +119,8 @@ def main(argv=None):
     ap.add_argument("batch", nargs="?", help="batch spec JSON")
     ap.add_argument("--out", help="output folder")
     ap.add_argument("--only", nargs="*", help="asset names to (re)build")
+    ap.add_argument("--license-group", type=int, metavar="N",
+                    help="for specs grouped as {\"licenses\": {\"License<N>\": [...]}}, build License<N>")
     ap.add_argument("--skip-blender", action="store_true", help="layout and texture only")
     ap.add_argument("--no-renders", action="store_true")
     ap.add_argument("--blender", help="path to Blender (default: auto-detect)")
@@ -145,6 +147,11 @@ def main(argv=None):
         ap.error("batch spec and --out are required")
 
     batch = json.loads(Path(a.batch).read_text())
+    if "licenses" in batch:
+        key = f"License{a.license_group}"
+        if a.license_group is None or key not in batch["licenses"]:
+            ap.error(f"this spec is grouped by license; pass --license-group N (one of {', '.join(batch['licenses'])})")
+        batch = {"batch": key, "assets": batch["licenses"][key]}
     out = Path(a.out).resolve()
     out.mkdir(parents=True, exist_ok=True)
     blender = None if a.skip_blender else (a.blender or find_blender())

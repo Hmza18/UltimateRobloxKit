@@ -6,7 +6,7 @@ metadata:
   category: modeling
   version: 1.0.0
   triggers: [batch, asset pack, many models, 20 products, prop pack, handoff, approval, rebuild asset]
-  depends: [procedural-mesh-generation, asset-qa-validation, kit-conventions]
+  depends: [procedural-mesh-generation, asset-qa-validation, kit-conventions, license-folder-delivery]
 ---
 
 # Batch asset production
@@ -31,7 +31,7 @@ Full example: `$URK/examples/asset-batch/props.json`. Template project: `$URK/te
 4. Look at `contact_sheet.png` (needs Pillow: `pip install pillow`) and each `views/` folder.
 5. Show the user the images and the QA summary. **Stop.** Do not start the next batch until they approve this one in chat.
 6. Record approval: `python3 $URK/scripts/export/asset_batch.py --approve <Asset> build/<batch>` for each approved asset.
-7. Package: `python3 $URK/scripts/export/package_batch.py build/<batch> --zip dist/<batch>.zip` copies approved assets only, with FBX, OBJ, MTL, GLB, PNG, `.blend` and preview.
+7. Package in the user's License format (default): `python3 $URK/scripts/export/package_batch.py build/<batch> --license <N> --dest handoff` → `handoff/License<N>/` and a verified `License<N>.zip`; see `license-folder-delivery`. A plain folder and zip: `--dest dist/<batch> --zip dist/<batch>.zip`. Both copy approved assets only.
 8. Before rebuilding an approved asset, move its folder to `build/<batch>/_versions/<timestamp>/` (the packager refuses to overwrite).
 
 ## Validation
