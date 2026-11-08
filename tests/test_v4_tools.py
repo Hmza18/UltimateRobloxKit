@@ -171,6 +171,15 @@ class PackagesTests(unittest.TestCase):
         self.assertIn('Fusion = "elttob/fusion@0.3.0"', shared)
         self.assertEqual(text, self.pk.update_manifest(text, list(self.pk.PACKAGES), "My Game"), "idempotent")
 
+    def test_manifest_ignores_section_names_in_comments(self):
+        template = (ROOT / "templates/starter-game/wally.toml").read_text()
+        text = self.pk.update_manifest(template, list(self.pk.PACKAGES), "x")
+        for line in text.splitlines():
+            if "=" in line and not line.lstrip().startswith("#"):
+                self.assertNotIn(")", line, f"package line spliced into a comment: {line}")
+        server = text.split("\n[server-dependencies]\n")[1]
+        self.assertIn('ProfileStore = "lm-loleris/profilestore@1.0.3"', server)
+
     def test_project_mapping_keeps_existing_entries(self):
         project = {"tree": {"$className": "DataModel", "ReplicatedStorage": {"$className": "ReplicatedStorage", "Shared": {"$path": "src/shared"}}}}
         out = self.pk.update_project(project, True, True)

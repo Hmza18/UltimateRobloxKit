@@ -49,9 +49,9 @@ def update_manifest(text: str, chosen: list[str], game: str) -> str:
         existing = re.search(rf'^{pkg["alias"]}\s*=.*$', text, flags=re.M)
         if existing:
             text = text[:existing.start()] + line + text[existing.end():]
-        elif header in text:
-            i = text.index(header) + len(header)
-            text = text[:i] + "\n" + line + text[i:]
+        elif (m := re.search(rf"^{re.escape(header)}[ \t]*$", text, flags=re.M)):
+            # Only a real section header at the start of a line, never the same words in a comment.
+            text = text[:m.end()] + "\n" + line + text[m.end():]
         else:
             text = text.rstrip("\n") + f"\n\n{header}\n{line}\n"
     return text if text.endswith("\n") else text + "\n"

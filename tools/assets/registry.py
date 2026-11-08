@@ -121,7 +121,7 @@ def scan(roots: list[Path]) -> dict:
                 continue
             data = path.read_bytes()
             base = ROOT if path.is_relative_to(ROOT) else root
-            entry = {"path": str(path.relative_to(base)), "kind": kind, "bytes": len(data),
+            entry = {"path": path.relative_to(base).as_posix(), "kind": kind, "bytes": len(data),
                      "sha256": hashlib.sha256(data).hexdigest(), "tags": tags_for(path, root),
                      "licence": licence_for(path, root)}
             if kind == "image":
