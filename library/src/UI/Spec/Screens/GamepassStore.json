@@ -1,0 +1,133 @@
+{
+  "spec": 1,
+  "id": "GamepassStore",
+  "kind": "window",
+  "style": "cartoon",
+  "description": "Gamepass store: a discounted bundle banner and six giftable gamepasses, one already owned.",
+  "window": {
+    "title": "GAMEPASSES",
+    "headerPalette": "purple",
+    "sizeClass": "lg"
+  },
+  "body": [
+    {
+      "type": "banner",
+      "id": "ultimateBundle",
+      "palette": "gold",
+      "icon": "crown-color",
+      "title": "ULTIMATE BUNDLE",
+      "subtitle": "Every gamepass below in one pack",
+      "price": {
+        "kind": "robux",
+        "amount": 1499,
+        "gamePassId": 0
+      },
+      "badge": {
+        "kind": "sale",
+        "text": "-40%"
+      }
+    },
+    {
+      "type": "grid",
+      "columns": {
+        "phone": 2,
+        "tablet": 3,
+        "desktop": 3
+      },
+      "cellAspect": 1.35,
+      "items": [
+        {
+          "type": "product",
+          "id": "doubleCoins",
+          "palette": "yellow",
+          "icon": "coins-color",
+          "title": "x2 COINS",
+          "price": {
+            "kind": "robux",
+            "amount": 299,
+            "gamePassId": 0
+          },
+          "subtitle": "Every coin counts twice",
+          "gift": true,
+          "badge": {
+            "kind": "best"
+          }
+        },
+        {
+          "type": "product",
+          "id": "doubleLuck",
+          "palette": "green",
+          "icon": "star-color",
+          "title": "x2 LUCK",
+          "price": {
+            "kind": "robux",
+            "amount": 349,
+            "gamePassId": 0
+          },
+          "subtitle": "Rare pets hatch twice as often",
+          "gift": true
+        },
+        {
+          "type": "product",
+          "id": "fastHatch",
+          "palette": "purple",
+          "icon": "egg-color",
+          "title": "FAST HATCH",
+          "price": {
+            "kind": "robux",
+            "amount": 199,
+            "gamePassId": 0
+          },
+          "subtitle": "Eggs open in half the time",
+          "gift": true
+        },
+        {
+          "type": "product",
+          "id": "bigStorage",
+          "palette": "blue",
+          "icon": "bag-color",
+          "title": "+100 STORAGE",
+          "price": {
+            "kind": "robux",
+            "amount": 149,
+            "gamePassId": 0
+          },
+          "subtitle": "Keep more pets and tools",
+          "gift": true,
+          "owned": true
+        },
+        {
+          "type": "product",
+          "id": "teleport",
+          "palette": "teal",
+          "icon": "map-color",
+          "title": "TELEPORT",
+          "price": {
+            "kind": "robux",
+            "amount": 249,
+            "gamePassId": 0
+          },
+          "subtitle": "Jump to any unlocked world",
+          "gift": true,
+          "badge": {
+            "kind": "new"
+          }
+        },
+        {
+          "type": "product",
+          "id": "autoCollect",
+          "palette": "orange",
+          "icon": "magnet-color",
+          "title": "AUTO COLLECT",
+          "price": {
+            "kind": "robux",
+            "amount": 399,
+            "gamePassId": 0
+          },
+          "subtitle": "Coins fly to you on their own",
+          "gift": true
+        }
+      ]
+    }
+  ]
+}

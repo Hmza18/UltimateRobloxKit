@@ -1,0 +1,153 @@
+{
+  "spec": 1,
+  "id": "Trading",
+  "kind": "window",
+  "style": "cartoon",
+  "description": "Trade window: both offers side by side, a safety note, and add, cancel and accept buttons.",
+  "window": {
+    "title": "TRADE",
+    "headerPalette": "green",
+    "sizeClass": "lg"
+  },
+  "body": [
+    {
+      "type": "row",
+      "gap": "md",
+      "items": [
+        {
+          "type": "heading",
+          "text": "YOUR OFFER"
+        },
+        {
+          "type": "heading",
+          "text": "THEIR OFFER"
+        }
+      ]
+    },
+    {
+      "type": "row",
+      "gap": "md",
+      "items": [
+        {
+          "type": "grid",
+          "columns": {
+            "phone": 2,
+            "tablet": 3,
+            "desktop": 3
+          },
+          "cellAspect": 1.2,
+          "gap": "sm",
+          "items": [
+            {
+              "type": "product",
+              "id": "mineLavaCat",
+              "palette": "red",
+              "icon": "fire-color",
+              "title": "LAVA CAT",
+              "price": {
+                "kind": "free"
+              },
+              "rarity": "rare",
+              "owned": true
+            },
+            {
+              "type": "product",
+              "id": "mineFrostFox",
+              "palette": "teal",
+              "icon": "snowflake-color",
+              "title": "FROST FOX",
+              "price": {
+                "kind": "free"
+              },
+              "rarity": "epic",
+              "owned": true
+            },
+            {
+              "type": "product",
+              "id": "mineLuck",
+              "palette": "green",
+              "icon": "potion-color",
+              "title": "LUCK POTION",
+              "price": {
+                "kind": "free"
+              },
+              "rarity": "uncommon",
+              "owned": true
+            }
+          ]
+        },
+        {
+          "type": "grid",
+          "columns": {
+            "phone": 2,
+            "tablet": 3,
+            "desktop": 3
+          },
+          "cellAspect": 1.2,
+          "gap": "sm",
+          "items": [
+            {
+              "type": "product",
+              "id": "theirStormOwl",
+              "palette": "purple",
+              "icon": "energy-color",
+              "title": "STORM OWL",
+              "price": {
+                "kind": "free"
+              },
+              "rarity": "legendary",
+              "owned": true
+            },
+            {
+              "type": "product",
+              "id": "theirGems",
+              "palette": "blue",
+              "icon": "gem-color",
+              "title": "250 GEMS",
+              "price": {
+                "kind": "free"
+              },
+              "rarity": "common",
+              "owned": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "text": "Both players must accept. Items are swapped by the server.",
+      "size": "caption"
+    },
+    {
+      "type": "row",
+      "gap": "md",
+      "items": [
+        {
+          "type": "button",
+          "id": "addItem",
+          "text": "ADD ITEM",
+          "kind": "primary",
+          "icon": "plus-color",
+          "action": "Fire:TradeAdd"
+        },
+        {
+          "type": "button",
+          "id": "cancelTrade",
+          "text": "CANCEL",
+          "kind": "danger",
+          "icon": "close-color",
+          "action": "Fire:TradeCancel"
+        },
+        {
+          "type": "button",
+          "id": "acceptTrade",
+          "text": "ACCEPT",
+          "kind": "buy",
+          "icon": "check-color",
+          "action": "Fire:TradeAccept"
+        }
+      ]
+    }
+  ]
+}

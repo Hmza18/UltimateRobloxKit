@@ -1,0 +1,161 @@
+{
+  "spec": 1,
+  "id": "Upgrades",
+  "kind": "window",
+  "style": "cartoon",
+  "description": "Upgrade list: six stat rows with level progress and coin-priced upgrade buttons.",
+  "window": {
+    "title": "UPGRADES",
+    "headerPalette": "green",
+    "sizeClass": "md"
+  },
+  "body": [
+    {
+      "type": "row",
+      "gap": "sm",
+      "items": [
+        {
+          "type": "currency",
+          "id": "coins",
+          "icon": "coin-color",
+          "bind": "Stats.Coins",
+          "value": 0,
+          "palette": "yellow"
+        }
+      ]
+    },
+    {
+      "type": "listRow",
+      "id": "walkSpeed",
+      "icon": "speed-color",
+      "title": "WALK SPEED",
+      "subtitle": "+2 speed per level",
+      "value": "Lv 4/10",
+      "progress": {
+        "value": 4,
+        "max": 10,
+        "palette": "blue"
+      },
+      "button": {
+        "text": "UPGRADE",
+        "kind": "buy",
+        "price": {
+          "kind": "currency",
+          "amount": 1200,
+          "currency": "coin-color"
+        },
+        "id": "walkSpeedBuy"
+      }
+    },
+    {
+      "type": "listRow",
+      "id": "backpack",
+      "icon": "bag-color",
+      "title": "BACKPACK SIZE",
+      "subtitle": "+25 storage per level",
+      "value": "Lv 7/20",
+      "progress": {
+        "value": 7,
+        "max": 20,
+        "palette": "blue"
+      },
+      "button": {
+        "text": "UPGRADE",
+        "kind": "buy",
+        "price": {
+          "kind": "currency",
+          "amount": 3400,
+          "currency": "coin-color"
+        },
+        "id": "backpackBuy"
+      }
+    },
+    {
+      "type": "listRow",
+      "id": "petLuck",
+      "icon": "star-color",
+      "title": "PET LUCK",
+      "subtitle": "+5% rare hatch chance per level",
+      "value": "Lv 2/10",
+      "progress": {
+        "value": 2,
+        "max": 10,
+        "palette": "blue"
+      },
+      "button": {
+        "text": "UPGRADE",
+        "kind": "buy",
+        "price": {
+          "kind": "currency",
+          "amount": 9000,
+          "currency": "coin-color"
+        },
+        "id": "petLuckBuy"
+      }
+    },
+    {
+      "type": "listRow",
+      "id": "cashMulti",
+      "icon": "cash-color",
+      "title": "CASH MULTIPLIER",
+      "subtitle": "+10% coins from every source",
+      "value": "Lv 9/25",
+      "progress": {
+        "value": 9,
+        "max": 25,
+        "palette": "blue"
+      },
+      "button": {
+        "text": "UPGRADE",
+        "kind": "buy",
+        "price": {
+          "kind": "currency",
+          "amount": 15500,
+          "currency": "coin-color"
+        },
+        "id": "cashMultiBuy"
+      }
+    },
+    {
+      "type": "listRow",
+      "id": "magnetRange",
+      "icon": "magnet-color",
+      "title": "MAGNET RANGE",
+      "subtitle": "Collect coins from further away",
+      "value": "Lv 3/8",
+      "progress": {
+        "value": 3,
+        "max": 8,
+        "palette": "blue"
+      },
+      "button": {
+        "text": "UPGRADE",
+        "kind": "buy",
+        "price": {
+          "kind": "currency",
+          "amount": 2200,
+          "currency": "coin-color"
+        },
+        "id": "magnetRangeBuy"
+      }
+    },
+    {
+      "type": "listRow",
+      "id": "jumpPower",
+      "icon": "rocket-color",
+      "title": "JUMP POWER",
+      "subtitle": "Reach the floating islands",
+      "value": "Lv 5/5",
+      "progress": {
+        "value": 5,
+        "max": 5,
+        "palette": "gold"
+      },
+      "button": {
+        "text": "MAXED",
+        "kind": "neutral",
+        "id": "jumpPowerBuy"
+      }
+    }
+  ]
+}

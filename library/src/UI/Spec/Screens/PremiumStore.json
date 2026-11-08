@@ -1,0 +1,188 @@
+{
+  "spec": 1,
+  "id": "PremiumStore",
+  "kind": "window",
+  "style": "cartoon",
+  "description": "Premium store: six giftable gamepass cards with attention badges and three bonus coin packs.",
+  "window": {
+    "title": "STORE",
+    "headerPalette": "purple",
+    "sizeClass": "lg"
+  },
+  "body": [
+    {
+      "type": "heading",
+      "text": "GAMEPASSES"
+    },
+    {
+      "type": "grid",
+      "columns": {
+        "phone": 2,
+        "tablet": 3,
+        "desktop": 3
+      },
+      "cellAspect": 1.35,
+      "items": [
+        {
+          "type": "product",
+          "id": "vip",
+          "palette": "gold",
+          "icon": "crown-color",
+          "title": "VIP",
+          "price": {
+            "kind": "robux",
+            "amount": 499,
+            "gamePassId": 0
+          },
+          "subtitle": "Gold name, chat tag and +25% cash",
+          "gift": true,
+          "badge": {
+            "kind": "attention"
+          }
+        },
+        {
+          "type": "product",
+          "id": "luckyDice",
+          "palette": "teal",
+          "icon": "dice-color",
+          "title": "LUCKY DICE",
+          "price": {
+            "kind": "robux",
+            "amount": 299,
+            "gamePassId": 0
+          },
+          "subtitle": "Roll twice and keep the best",
+          "gift": true,
+          "badge": {
+            "kind": "attention"
+          }
+        },
+        {
+          "type": "product",
+          "id": "superSpeed",
+          "palette": "red",
+          "icon": "speed-color",
+          "title": "SUPER SPEED",
+          "price": {
+            "kind": "robux",
+            "amount": 199,
+            "gamePassId": 0
+          },
+          "subtitle": "Run 50% faster everywhere",
+          "gift": true
+        },
+        {
+          "type": "product",
+          "id": "coinMagnet",
+          "palette": "blue",
+          "icon": "magnet-color",
+          "title": "COIN MAGNET",
+          "price": {
+            "kind": "robux",
+            "amount": 149,
+            "gamePassId": 0
+          },
+          "subtitle": "Pull coins from twice as far",
+          "gift": true
+        },
+        {
+          "type": "product",
+          "id": "jetpack",
+          "palette": "orange",
+          "icon": "rocket-color",
+          "title": "JETPACK",
+          "price": {
+            "kind": "robux",
+            "amount": 399,
+            "gamePassId": 0
+          },
+          "subtitle": "Fly over every obstacle",
+          "gift": true,
+          "badge": {
+            "kind": "new"
+          }
+        },
+        {
+          "type": "product",
+          "id": "safeShield",
+          "palette": "green",
+          "icon": "shield-color",
+          "title": "SAFE SHIELD",
+          "price": {
+            "kind": "robux",
+            "amount": 99,
+            "gamePassId": 0
+          },
+          "subtitle": "No knockback in the lobby",
+          "gift": true
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "COIN PACKS"
+    },
+    {
+      "type": "grid",
+      "columns": {
+        "phone": 2,
+        "tablet": 3,
+        "desktop": 3
+      },
+      "cellAspect": 1.3,
+      "items": [
+        {
+          "type": "product",
+          "id": "coinsSmall",
+          "palette": "green",
+          "icon": "coin-color",
+          "title": "HANDFUL OF COINS",
+          "price": {
+            "kind": "robux",
+            "amount": 99,
+            "productId": 0
+          },
+          "subtitle": "+15% Bonus",
+          "badge": {
+            "kind": "bonus",
+            "text": "+15%"
+          }
+        },
+        {
+          "type": "product",
+          "id": "coinsMedium",
+          "palette": "blue",
+          "icon": "coins-color",
+          "title": "BAG OF COINS",
+          "price": {
+            "kind": "robux",
+            "amount": 399,
+            "productId": 0
+          },
+          "subtitle": "+50% Bonus",
+          "badge": {
+            "kind": "bonus",
+            "text": "+50%"
+          }
+        },
+        {
+          "type": "product",
+          "id": "coinsLarge",
+          "palette": "gold",
+          "icon": "chest-color",
+          "title": "CHEST OF COINS",
+          "price": {
+            "kind": "robux",
+            "amount": 999,
+            "productId": 0
+          },
+          "subtitle": "+100% Bonus",
+          "badge": {
+            "kind": "best",
+            "text": "+100%"
+          }
+        }
+      ]
+    }
+  ]
+}

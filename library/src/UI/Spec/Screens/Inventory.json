@@ -1,0 +1,236 @@
+{
+  "spec": 1,
+  "id": "Inventory",
+  "kind": "window",
+  "style": "cartoon",
+  "description": "Inventory: category tabs, storage bar and a grid of pets, tools and boosts with every rarity.",
+  "window": {
+    "title": "INVENTORY",
+    "headerPalette": "blue",
+    "sizeClass": "lg"
+  },
+  "body": [
+    {
+      "type": "row",
+      "gap": "sm",
+      "align": "left",
+      "items": [
+        {
+          "type": "button",
+          "id": "all",
+          "text": "ALL",
+          "kind": "primary",
+          "action": "Fire:Tab,all"
+        },
+        {
+          "type": "button",
+          "id": "petsTab",
+          "text": "PETS",
+          "kind": "neutral",
+          "action": "Fire:Tab,petsTab"
+        },
+        {
+          "type": "button",
+          "id": "toolsTab",
+          "text": "TOOLS",
+          "kind": "neutral",
+          "action": "Fire:Tab,toolsTab"
+        },
+        {
+          "type": "button",
+          "id": "boostsTab",
+          "text": "BOOSTS",
+          "kind": "neutral",
+          "action": "Fire:Tab,boostsTab"
+        }
+      ]
+    },
+    {
+      "type": "row",
+      "gap": "sm",
+      "align": "left",
+      "items": [
+        {
+          "type": "text",
+          "text": "Storage",
+          "size": "caption"
+        },
+        {
+          "type": "progress",
+          "id": "storage",
+          "bind": "Inventory.Count",
+          "value": 18,
+          "max": 50,
+          "palette": "blue"
+        }
+      ]
+    },
+    {
+      "type": "grid",
+      "columns": {
+        "phone": 3,
+        "tablet": 4,
+        "desktop": 5
+      },
+      "cellAspect": 1.25,
+      "gap": "sm",
+      "items": [
+        {
+          "type": "product",
+          "id": "petBubbleDog",
+          "palette": "blue",
+          "icon": "paw-color",
+          "title": "BUBBLE DOG",
+          "price": {
+            "kind": "free"
+          },
+          "subtitle": "x1.2 coins",
+          "rarity": "common",
+          "owned": true
+        },
+        {
+          "type": "product",
+          "id": "petLeafBunny",
+          "palette": "green",
+          "icon": "leaf-color",
+          "title": "LEAF BUNNY",
+          "price": {
+            "kind": "free"
+          },
+          "subtitle": "x1.5 coins",
+          "rarity": "uncommon",
+          "owned": true
+        },
+        {
+          "type": "product",
+          "id": "petLavaCat",
+          "palette": "red",
+          "icon": "fire-color",
+          "title": "LAVA CAT",
+          "price": {
+            "kind": "free"
+          },
+          "subtitle": "x2 coins",
+          "rarity": "rare",
+          "owned": true
+        },
+        {
+          "type": "product",
+          "id": "petFrostFox",
+          "palette": "teal",
+          "icon": "snowflake-color",
+          "title": "FROST FOX",
+          "price": {
+            "kind": "free"
+          },
+          "subtitle": "x3.5 coins",
+          "rarity": "epic",
+          "owned": true
+        },
+        {
+          "type": "product",
+          "id": "petStormOwl",
+          "palette": "purple",
+          "icon": "energy-color",
+          "title": "STORM OWL",
+          "price": {
+            "kind": "free"
+          },
+          "subtitle": "x6 coins",
+          "rarity": "legendary",
+          "owned": true
+        },
+        {
+          "type": "product",
+          "id": "petCosmicWhale",
+          "palette": "pink",
+          "icon": "star-color",
+          "title": "COSMIC WHALE",
+          "price": {
+            "kind": "free"
+          },
+          "subtitle": "x12 coins",
+          "rarity": "mythic",
+          "owned": true,
+          "badge": {
+            "kind": "new"
+          }
+        },
+        {
+          "type": "product",
+          "id": "petShadowDragon",
+          "palette": "gray",
+          "icon": "skull-color",
+          "title": "???",
+          "price": {
+            "kind": "free"
+          },
+          "subtitle": "x40 coins",
+          "rarity": "secret",
+          "owned": true
+        },
+        {
+          "type": "product",
+          "id": "toolGoldPick",
+          "palette": "gold",
+          "icon": "pickaxe-color",
+          "title": "GOLD PICKAXE",
+          "price": {
+            "kind": "free"
+          },
+          "subtitle": "Mines 2x faster",
+          "rarity": "rare",
+          "owned": true
+        },
+        {
+          "type": "product",
+          "id": "toolMagnet",
+          "palette": "blue",
+          "icon": "magnet-color",
+          "title": "MEGA MAGNET",
+          "price": {
+            "kind": "free"
+          },
+          "subtitle": "+8 pickup range",
+          "rarity": "epic",
+          "owned": true
+        },
+        {
+          "type": "product",
+          "id": "boostLuck",
+          "palette": "green",
+          "icon": "potion-color",
+          "title": "LUCK POTION",
+          "price": {
+            "kind": "free"
+          },
+          "subtitle": "x2 luck, 15 min",
+          "rarity": "uncommon",
+          "owned": true
+        }
+      ]
+    },
+    {
+      "type": "row",
+      "gap": "sm",
+      "items": [
+        {
+          "type": "button",
+          "id": "equipBest",
+          "text": "EQUIP BEST",
+          "kind": "buy",
+          "icon": "check-color",
+          "action": "Fire:EquipBest"
+        },
+        {
+          "type": "button",
+          "id": "deleteMode",
+          "text": "DELETE",
+          "kind": "danger",
+          "icon": "trash-color",
+          "action": "Fire:DeleteMode"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,176 @@
+{
+  "spec": 1,
+  "id": "Quests",
+  "kind": "window",
+  "style": "cartoon",
+  "description": "Daily and weekly quests with progress bars, GO and CLAIM buttons and a reset timer.",
+  "window": {
+    "title": "QUESTS",
+    "headerPalette": "orange",
+    "sizeClass": "md"
+  },
+  "body": [
+    {
+      "type": "row",
+      "gap": "sm",
+      "align": "left",
+      "items": [
+        {
+          "type": "button",
+          "id": "dailyTab",
+          "text": "DAILY",
+          "kind": "primary",
+          "action": "Fire:Tab,dailyTab"
+        },
+        {
+          "type": "button",
+          "id": "weeklyTab",
+          "text": "WEEKLY",
+          "kind": "neutral",
+          "action": "Fire:Tab,weeklyTab"
+        }
+      ]
+    },
+    {
+      "type": "row",
+      "gap": "sm",
+      "align": "left",
+      "items": [
+        {
+          "type": "text",
+          "text": "New quests in",
+          "size": "caption"
+        },
+        {
+          "type": "timer",
+          "id": "questReset",
+          "seconds": 50400,
+          "format": "short",
+          "icon": "clock-color"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "DAILY QUESTS"
+    },
+    {
+      "type": "listRow",
+      "id": "hatchEggs",
+      "icon": "egg-color",
+      "title": "Hatch 10 eggs",
+      "subtitle": "Reward: 500 Coins",
+      "value": "7/10",
+      "progress": {
+        "value": 7,
+        "max": 10,
+        "palette": "yellow"
+      },
+      "button": {
+        "id": "hatchEggsBtn",
+        "text": "GO",
+        "kind": "primary",
+        "action": "OpenPanel:PetHatch"
+      }
+    },
+    {
+      "type": "listRow",
+      "id": "collectCoins",
+      "icon": "coins-color",
+      "title": "Collect 5,000 coins",
+      "subtitle": "Reward: 3 Gems",
+      "value": "5000/5000",
+      "progress": {
+        "value": 5000,
+        "max": 5000,
+        "palette": "green"
+      },
+      "button": {
+        "id": "collectCoinsBtn",
+        "text": "CLAIM",
+        "kind": "buy",
+        "action": "Fire:ClaimQuest,collectCoins"
+      }
+    },
+    {
+      "type": "listRow",
+      "id": "playTime",
+      "icon": "clock-color",
+      "title": "Play for 15 minutes",
+      "subtitle": "Reward: Luck Potion",
+      "value": "9/15",
+      "progress": {
+        "value": 9,
+        "max": 15,
+        "palette": "yellow"
+      },
+      "button": {
+        "id": "playTimeBtn",
+        "text": "GO",
+        "kind": "primary",
+        "action": "ClosePanel"
+      }
+    },
+    {
+      "type": "heading",
+      "text": "WEEKLY QUESTS"
+    },
+    {
+      "type": "listRow",
+      "id": "rebirths",
+      "icon": "level-up-color",
+      "title": "Rebirth 3 times",
+      "subtitle": "Reward: Rare Egg",
+      "value": "1/3",
+      "progress": {
+        "value": 1,
+        "max": 3,
+        "palette": "yellow"
+      },
+      "button": {
+        "id": "rebirthsBtn",
+        "text": "GO",
+        "kind": "primary",
+        "action": "OpenPanel:Rebirth"
+      }
+    },
+    {
+      "type": "listRow",
+      "id": "tradeFriend",
+      "icon": "users-color",
+      "title": "Finish a trade with a friend",
+      "subtitle": "Reward: 250 Gems",
+      "value": "0/1",
+      "progress": {
+        "value": 0,
+        "max": 1,
+        "palette": "yellow"
+      },
+      "button": {
+        "id": "tradeFriendBtn",
+        "text": "GO",
+        "kind": "primary",
+        "action": "OpenPanel:Trade"
+      }
+    },
+    {
+      "type": "listRow",
+      "id": "mythicChest",
+      "icon": "chest-color",
+      "title": "Open a Mythic Chest",
+      "subtitle": "Reward: Mythic Pet",
+      "value": "0/1",
+      "progress": {
+        "value": 0,
+        "max": 1,
+        "palette": "yellow"
+      },
+      "button": {
+        "id": "mythicChestBtn",
+        "text": "GO",
+        "kind": "primary",
+        "action": "OpenPanel:Shop"
+      }
+    }
+  ]
+}

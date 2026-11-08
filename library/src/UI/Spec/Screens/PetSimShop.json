@@ -1,0 +1,170 @@
+{
+  "spec": 1,
+  "id": "PetSimShop",
+  "kind": "window",
+  "style": "cartoon",
+  "description": "Pet simulator shop: starter pack banner, three gamepasses, three gem packs and a x2 cash banner.",
+  "window": {
+    "title": "SHOP",
+    "headerPalette": "red",
+    "sizeClass": "lg"
+  },
+  "body": [
+    {
+      "type": "banner",
+      "id": "starterPack",
+      "palette": "teal",
+      "icon": "star-color",
+      "title": "STARTER PACK",
+      "subtitle": "3 rare pets, 5,000 coins and a lucky boost. Once per player!",
+      "price": {
+        "kind": "robux",
+        "amount": 99,
+        "productId": 0
+      },
+      "badge": {
+        "kind": "sale",
+        "text": "-60%"
+      },
+      "timer": 86400
+    },
+    {
+      "type": "heading",
+      "text": "GAMEPASSES"
+    },
+    {
+      "type": "grid",
+      "columns": {
+        "phone": 2,
+        "tablet": 3,
+        "desktop": 3
+      },
+      "cellAspect": 1.3,
+      "items": [
+        {
+          "type": "product",
+          "id": "tripleHatch",
+          "palette": "purple",
+          "icon": "egg-color",
+          "title": "TRIPLE HATCH",
+          "price": {
+            "kind": "robux",
+            "amount": 249,
+            "gamePassId": 0
+          },
+          "subtitle": "Open 3 eggs at once"
+        },
+        {
+          "type": "product",
+          "id": "autoHatch",
+          "palette": "blue",
+          "icon": "refresh-color",
+          "title": "AUTO HATCH",
+          "price": {
+            "kind": "robux",
+            "amount": 149,
+            "gamePassId": 0
+          },
+          "subtitle": "Hatch while you relax"
+        },
+        {
+          "type": "product",
+          "id": "extraPet",
+          "palette": "pink",
+          "icon": "paw-color",
+          "title": "+1 PET EQUIPPED",
+          "price": {
+            "kind": "robux",
+            "amount": 199,
+            "gamePassId": 0
+          },
+          "subtitle": "Bring one more buddy",
+          "badge": {
+            "kind": "best"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "GEM PACKS"
+    },
+    {
+      "type": "grid",
+      "columns": {
+        "phone": 2,
+        "tablet": 3,
+        "desktop": 3
+      },
+      "cellAspect": 1.3,
+      "items": [
+        {
+          "type": "product",
+          "id": "gemPouch",
+          "palette": "green",
+          "icon": "gem-color",
+          "title": "POUCH OF GEMS",
+          "price": {
+            "kind": "robux",
+            "amount": 49,
+            "productId": 0
+          },
+          "subtitle": "500 Gems"
+        },
+        {
+          "type": "product",
+          "id": "gemChest",
+          "palette": "orange",
+          "icon": "chest-color",
+          "title": "CHEST OF GEMS",
+          "price": {
+            "kind": "robux",
+            "amount": 249,
+            "productId": 0
+          },
+          "subtitle": "2,750 Gems",
+          "badge": {
+            "kind": "bonus",
+            "text": "+10%"
+          }
+        },
+        {
+          "type": "product",
+          "id": "gemVault",
+          "palette": "gold",
+          "icon": "crown-color",
+          "title": "VAULT OF GEMS",
+          "price": {
+            "kind": "robux",
+            "amount": 899,
+            "productId": 0
+          },
+          "subtitle": "12,000 Gems",
+          "badge": {
+            "kind": "best",
+            "text": "BEST"
+          }
+        }
+      ]
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "banner",
+      "id": "doubleCash",
+      "palette": "yellow",
+      "icon": "cash-color",
+      "title": "x2 CASH",
+      "subtitle": "Double every coin you earn, forever",
+      "price": {
+        "kind": "robux",
+        "amount": 299,
+        "gamePassId": 0
+      },
+      "badge": {
+        "kind": "new"
+      }
+    }
+  ]
+}

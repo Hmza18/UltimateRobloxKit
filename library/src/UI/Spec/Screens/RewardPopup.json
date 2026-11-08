@@ -1,0 +1,15 @@
+{
+  "spec": 1,
+  "id": "RewardPopup",
+  "kind": "popup",
+  "style": "cartoon",
+  "description": "Reward reveal: rays behind a chest icon with the amount, auto-closing.",
+  "popup": {
+    "variant": "reward",
+    "title": "YOU GOT",
+    "icon": "chest-color",
+    "amount": "x1 MYTHIC CHEST",
+    "palette": "gold",
+    "rays": true
+  }
+}

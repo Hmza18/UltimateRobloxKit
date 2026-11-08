@@ -1,0 +1,131 @@
+{
+  "spec": 1,
+  "id": "Profile",
+  "kind": "window",
+  "style": "cartoon",
+  "description": "Player profile: level bar, lifetime stats, earned badges and edit and share buttons.",
+  "window": {
+    "title": "PROFILE",
+    "headerPalette": "blue",
+    "sizeClass": "md"
+  },
+  "body": [
+    {
+      "type": "heading",
+      "text": "YOUR PROFILE"
+    },
+    {
+      "type": "level",
+      "id": "profileLevel",
+      "bind": "Profile.Level",
+      "level": 24,
+      "value": 640,
+      "max": 1000
+    },
+    {
+      "type": "listRow",
+      "id": "statCoins",
+      "icon": "coins-color",
+      "title": "Total coins earned",
+      "value": "18.6M"
+    },
+    {
+      "type": "listRow",
+      "id": "statEggs",
+      "icon": "egg-color",
+      "title": "Eggs hatched",
+      "value": "2,481"
+    },
+    {
+      "type": "listRow",
+      "id": "statPets",
+      "icon": "paw-color",
+      "title": "Pets owned",
+      "value": "137"
+    },
+    {
+      "type": "listRow",
+      "id": "statRebirths",
+      "icon": "refresh-color",
+      "title": "Rebirths",
+      "value": "12"
+    },
+    {
+      "type": "listRow",
+      "id": "statTime",
+      "icon": "clock-color",
+      "title": "Time played",
+      "value": "41h 12m"
+    },
+    {
+      "type": "listRow",
+      "id": "statTrades",
+      "icon": "users-color",
+      "title": "Trades completed",
+      "value": "58"
+    },
+    {
+      "type": "heading",
+      "text": "BADGES"
+    },
+    {
+      "type": "row",
+      "gap": "sm",
+      "items": [
+        {
+          "type": "iconButton",
+          "id": "badgeHatcher",
+          "icon": "egg-color",
+          "label": "Hatcher",
+          "palette": "purple"
+        },
+        {
+          "type": "iconButton",
+          "id": "badgeRich",
+          "icon": "coins-color",
+          "label": "Rich",
+          "palette": "gold"
+        },
+        {
+          "type": "iconButton",
+          "id": "badgeTrader",
+          "icon": "users-color",
+          "label": "Trader",
+          "palette": "blue"
+        },
+        {
+          "type": "iconButton",
+          "id": "badgeVip",
+          "icon": "crown-color",
+          "label": "VIP",
+          "palette": "pink",
+          "badge": {
+            "kind": "new"
+          }
+        }
+      ]
+    },
+    {
+      "type": "row",
+      "gap": "sm",
+      "items": [
+        {
+          "type": "button",
+          "id": "editTitle",
+          "text": "EDIT TITLE",
+          "kind": "neutral",
+          "icon": "edit-color",
+          "action": "Fire:EditTitle"
+        },
+        {
+          "type": "button",
+          "id": "shareProfile",
+          "text": "SHARE",
+          "kind": "primary",
+          "icon": "share-color",
+          "action": "Fire:ShareProfile"
+        }
+      ]
+    }
+  ]
+}

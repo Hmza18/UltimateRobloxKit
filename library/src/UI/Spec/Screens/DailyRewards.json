@@ -1,0 +1,121 @@
+{
+  "spec": 1,
+  "id": "DailyRewards",
+  "kind": "window",
+  "style": "cartoon",
+  "description": "Seven-day login calendar: two claimed days, today's reward highlighted and a premium day 7.",
+  "window": {
+    "title": "DAILY REWARDS",
+    "headerPalette": "orange",
+    "sizeClass": "md"
+  },
+  "body": [
+    {
+      "type": "text",
+      "text": "Log in every day for bigger rewards. Day 7 is huge!",
+      "size": "label"
+    },
+    {
+      "type": "grid",
+      "columns": {
+        "phone": 3,
+        "tablet": 4,
+        "desktop": 4
+      },
+      "cellAspect": 1.2,
+      "gap": "sm",
+      "items": [
+        {
+          "type": "dayCard",
+          "id": "day1",
+          "day": 1,
+          "reward": "100 Coins",
+          "icon": "coin-color",
+          "state": "claimed",
+          "palette": "blue"
+        },
+        {
+          "type": "dayCard",
+          "id": "day2",
+          "day": 2,
+          "reward": "Small Egg",
+          "icon": "egg-color",
+          "state": "claimed",
+          "palette": "blue"
+        },
+        {
+          "type": "dayCard",
+          "id": "day3",
+          "day": 3,
+          "reward": "250 Coins",
+          "icon": "coins-color",
+          "state": "today",
+          "palette": "green"
+        },
+        {
+          "type": "dayCard",
+          "id": "day4",
+          "day": 4,
+          "reward": "5 Gems",
+          "icon": "gem-color",
+          "state": "locked",
+          "palette": "purple"
+        },
+        {
+          "type": "dayCard",
+          "id": "day5",
+          "day": 5,
+          "reward": "Speed Potion",
+          "icon": "potion-color",
+          "state": "locked",
+          "palette": "teal"
+        },
+        {
+          "type": "dayCard",
+          "id": "day6",
+          "day": 6,
+          "reward": "500 Coins",
+          "icon": "coins-color",
+          "state": "locked",
+          "palette": "orange"
+        },
+        {
+          "type": "dayCard",
+          "id": "day7",
+          "day": 7,
+          "reward": "Mythic Chest",
+          "icon": "chest-color",
+          "state": "locked",
+          "palette": "gold",
+          "premium": true
+        }
+      ]
+    },
+    {
+      "type": "row",
+      "gap": "sm",
+      "items": [
+        {
+          "type": "text",
+          "text": "Next reward in",
+          "size": "caption"
+        },
+        {
+          "type": "timer",
+          "id": "nextDay",
+          "seconds": 43200,
+          "format": "short",
+          "icon": "clock-color"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "id": "claimToday",
+      "text": "CLAIM DAY 3",
+      "kind": "buy",
+      "icon": "gift-color",
+      "action": "Fire:ClaimDaily,3"
+    }
+  ]
+}
