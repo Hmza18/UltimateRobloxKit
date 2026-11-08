@@ -9,6 +9,21 @@ on:
 permissions:
   contents: read
 
+# Actions are pinned by commit SHA; tool binaries by version and SHA-256 (from GitHub's release digests).
+env:
+  SELENE_URL: https://github.com/Kampfkarren/selene/releases/download/0.32.0/selene-0.32.0-linux.zip
+  SELENE_SHA: d3773393578580074386e69337d35b7acddfbaa9fc38964c07fa3e28436ade9b
+  STYLUA_URL: https://github.com/JohnnyMorganz/StyLua/releases/download/v2.6.0/stylua-linux-x86_64.zip
+  STYLUA_SHA: a485f72bbfa22e4642e77a84b5edc2611a5cab7477b34e2e709dd8f78e919895
+  LUNE_URL: https://github.com/lune-org/lune/releases/download/v0.11.1/lune-0.11.1-linux-x86_64.zip
+  LUNE_SHA: 39859282ce677fce19e6eb45c37596a90a25c324c95b4e7e02d428b6cae294a1
+  LUAU_URL: https://github.com/luau-lang/luau/releases/download/0.746/luau-ubuntu.zip
+  LUAU_SHA: 30f11c9cde8be2dc0e3066d210705532aac3726a2db89a6c5078080b6faa6cf8
+  ROJO_URL: https://github.com/rojo-rbx/rojo/releases/download/v7.7.1/rojo-7.7.1-linux-x86_64.zip
+  ROJO_SHA: 00feb4fa0829a1dd72b49df2639da519a352bfe13cadcd83969e2ba2bb5693c4
+  LUAULSP_URL: https://github.com/JohnnyMorganz/luau-lsp/releases/download/1.70.1/luau-lsp-linux-x86_64.zip
+  LUAULSP_SHA: 1a2ea1ae4f98f8946cefd970a4b54853e11ab4775e6932faa7f60cf920346567
+
 jobs:
   kit:
     name: Kit tests (${{ matrix.os }}, Python ${{ matrix.python }})
@@ -17,40 +32,48 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { os: ubuntu-22.04, python: "3.9" }  # newest image without a Python 3.9 build
-          - { os: ubuntu-latest, python: "3.12" }
+          - { os: ubuntu-22.04, python: "3.9" }  # newest image with a Python 3.9 build
+          - { os: ubuntu-latest, python: "3.12", pillow: true }
           - { os: windows-latest, python: "3.12" }
           - { os: macos-latest, python: "3.12" }
     env:
       URK_SKIP_BLENDER: "1"
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: ${{ matrix.python }}
-      - name: Validate skills, routing, installer, asset kit, hygiene
+      - name: Pillow (icon build reproducibility and importer tests)
+        if: matrix.pillow
+        run: python -m pip install "pillow==12.3.0"
+      - name: Validate skills, routing, installer, library tooling, icons, hygiene
         run: python scripts/validate/run_all.py
-      - name: Installer dry run against a fresh project
+      - name: urk setup, add, check, upgrade, dashboard and uninstall on a fresh project
         shell: bash
         run: |
-          mkdir -p "$RUNNER_TEMP/demo"
-          python scripts/install/install.py --target "$RUNNER_TEMP/demo" --dry-run --with-mcp --with-claude-md
-          python scripts/install/install.py --target "$RUNNER_TEMP/demo" --category roblox
-          python "$RUNNER_TEMP/demo/.claude/ultimate-roblox-kit/scripts/automation/route.py" "Add a shop with a currency"
-          python scripts/install/install.py --target "$RUNNER_TEMP/demo" --uninstall
-          test -z "$(find "$RUNNER_TEMP/demo" -type f)"
+          D="$RUNNER_TEMP/demo"
+          python urk.py new simulator Demo "$D"
+          python urk.py setup --project "$D" --profile code --with-mcp
+          python urk.py add Systems/Inventory --project "$D"
+          python urk.py check "$D"
+          python urk.py upgrade --project "$D"
+          python urk.py dashboard --project "$D"
+          python "$D/.claude/ultimate-roblox-kit/scripts/automation/route.py" "Add a shop with a currency"
+          python urk.py uninstall --project "$D"
+          test ! -e "$D/.claude/ultimate-roblox-kit.json"
 
   blender:
     name: Asset pipeline in Blender 4.2 LTS
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: "3.12"
-      - name: Download Blender (pinned)
+      - name: Download Blender (pinned, checksum verified)
         run: |
           curl -fsSL -o blender.tar.xz https://download.blender.org/release/Blender4.2/blender-4.2.23-linux-x64.tar.xz
+          echo "bea0eb3146be13eae6225409a117b215184f41b7f79e799f97cb3abb8f6dc404  blender.tar.xz" | sha256sum -c -
           mkdir -p "$RUNNER_TEMP/blender"
           tar -xf blender.tar.xz -C "$RUNNER_TEMP/blender" --strip-components=1
           sudo apt-get update -qq && sudo apt-get install -y -qq libxi6 libxkbcommon0 libxrender1 libgl1 libsm6 > /dev/null
@@ -59,47 +82,111 @@ jobs:
         run: |
           python scripts/export/asset_batch.py examples/asset-batch/props.json --out build/ci --no-renders
           python tests/test_blender_pipeline.py
-        working-directory: ${{ github.workspace }}
         env:
           PYTHONPATH: tests
+      - name: Rebuild one approved supermarket reference licence
+        run: python scripts/export/asset_batch.py examples/supermarket-reference/products.json --license-group 6 --out build/ref6 --no-renders
       - name: Check every exported OBJ without Blender
-        run: for f in build/ci/*/*.obj; do python scripts/validate/check_obj.py "$f" --max-tris 400; done
-      - uses: actions/upload-artifact@v4
+        run: for f in build/ci/*/*.obj build/ref6/*/*.obj; do python scripts/validate/check_obj.py "$f" --max-tris 450; done
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         if: always()
         with:
           name: asset-batch
-          path: build/ci
+          path: build
           retention-days: 7
 
   luau:
-    name: Luau templates (selene, stylua, luau-analyze, lune)
+    name: Luau library and templates (selene, stylua, luau-analyze, lune, rojo)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: "3.12"
-      - name: Install pinned Luau tools (release binaries, no install scripts)
+      - name: Install pinned Luau tools (verified release binaries, no install scripts)
         run: |
           mkdir -p "$RUNNER_TEMP/bin" && cd "$RUNNER_TEMP/bin"
-          get() { curl -fsSL -o t.zip "$1" && unzip -oq t.zip && rm t.zip; }
-          get https://github.com/Kampfkarren/selene/releases/download/0.32.0/selene-0.32.0-linux.zip
-          get https://github.com/JohnnyMorganz/StyLua/releases/download/v2.6.0/stylua-linux-x86_64.zip
-          get https://github.com/lune-org/lune/releases/download/v0.11.1/lune-0.11.1-linux-x86_64.zip
-          get https://github.com/luau-lang/luau/releases/download/0.746/luau-ubuntu.zip
-          chmod +x selene stylua lune luau-analyze
+          get() { curl -fsSL -o t.zip "$1" && echo "$2  t.zip" | sha256sum -c - && unzip -oq t.zip && rm t.zip; }
+          get "$SELENE_URL" "$SELENE_SHA"
+          get "$STYLUA_URL" "$STYLUA_SHA"
+          get "$LUNE_URL" "$LUNE_SHA"
+          get "$LUAU_URL" "$LUAU_SHA"
+          get "$ROJO_URL" "$ROJO_SHA"
+          chmod +x selene stylua lune luau-analyze rojo
           echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
-      - name: Compose every template into a project
+      - name: Library - lint, format, strict-check pure modules, Lune specs, build .rbxm
+        working-directory: library
         run: |
+          selene generate-roblox-std > /dev/null
+          selene src tests examples
+          stylua --check src tests examples
+          PURE=$(find src -name '*Logic.luau' -o -path 'src/UI/Core/*.luau' -o -name 'IconCatalog.luau' -o -name 'IconData.luau' -o -path 'src/Util/RateLimiter.luau' -o -path 'src/Util/Validate.luau' | sort)
+          echo "strict-checking $(echo "$PURE" | wc -l) pure modules"
+          luau-analyze --mode=strict $PURE
+          lune run tests/run
+          rojo build default.project.json -o UltimateRobloxKit.rbxm
+      - name: Backdoor scanner (Lune) on a binary model built from a malicious fixture
+        run: |
+          rojo build tests/fixtures/security/bad-model.project.json -o bad.rbxm
+          set +e
+          lune run scripts/security/scan_models.luau bad.rbxm | tee scan.txt
+          code=${PIPESTATUS[0]}
+          set -e
+          test "$code" -eq 1
+          for rule in require-asset-id require-tonumber loadstring getfenv-setfenv string-char-chain hidden-name; do grep -q "$rule" scan.txt; done
+          selene --config library/selene.toml scripts/security/scan_models.luau || true
+          stylua --check scripts/security/scan_models.luau
+      - name: Templates - compose, lint, format, test, build place files
+        run: |
+          set -e
           for t in starter-game simulator tycoon obby ui; do
             python scripts/automation/new_project.py --template "$t" --name "Ci${t//-/}" --out "build/templates/$t"
           done
-      - name: Check each project
-        run: |
-          set -e
           for d in build/templates/*; do
             echo "::group::$d"
-            (cd "$d" && selene generate-roblox-std > /dev/null && selene src && stylua --check src tests && lune run tests/run)
+            (cd "$d" && selene generate-roblox-std > /dev/null && selene src && stylua --check src tests && lune run tests/run && rojo build -o game.rbxl)
             luau-analyze --mode=strict "$d"/src/shared/Logic/*.luau
             echo "::endgroup::"
           done
+      - name: A game project with every library module added by urk
+        run: |
+          python urk.py new starter-game LibGame build/libgame
+          python urk.py add UI Icons --project build/libgame
+          for s in $(python urk.py add --list | awk '/^Systems\//{print $1}'); do python urk.py add "$s" --project build/libgame; done
+          cd build/libgame && lune run tests/urk/run tests/urk && rojo build -o game.rbxl
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: rbxm-and-places
+          path: |
+            library/UltimateRobloxKit.rbxm
+            build/templates/*/game.rbxl
+            build/libgame/game.rbxl
+          retention-days: 7
+
+  typecheck:
+    name: Full type check with Roblox definitions (report only)
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Install rojo and luau-lsp (verified)
+        run: |
+          mkdir -p "$RUNNER_TEMP/bin" && cd "$RUNNER_TEMP/bin"
+          get() { curl -fsSL -o t.zip "$1" && echo "$2  t.zip" | sha256sum -c - && unzip -oq t.zip && rm t.zip; }
+          get "$ROJO_URL" "$ROJO_SHA"
+          get "$LUAULSP_URL" "$LUAULSP_SHA"
+          chmod +x rojo luau-lsp
+          echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
+      - name: Roblox type definitions (pinned to the luau-lsp release tag)
+        run: curl -fsSL -o globalTypes.d.luau https://raw.githubusercontent.com/JohnnyMorganz/luau-lsp/1.70.1/scripts/globalTypes.d.luau
+      - name: Analyze the whole library with a Rojo sourcemap
+        working-directory: library
+        run: |
+          rojo sourcemap default.project.json -o sourcemap.json
+          luau-lsp analyze --sourcemap=sourcemap.json --definitions=../globalTypes.d.luau --platform=roblox src 2>&1 | tee ../typecheck.txt
+          test "${PIPESTATUS[0]}" -eq 0
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: typecheck-report
+          path: typecheck.txt

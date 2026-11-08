@@ -179,6 +179,50 @@
    "expect": [
     "license-folder-delivery"
    ]
+  },
+  {
+   "task": "Plan the architecture for my new tycoon game",
+   "expect": [
+    "roblox-project-planner"
+   ]
+  },
+  {
+   "task": "I get attempt to index nil in my script",
+   "expect": [
+    "luau-debugging"
+   ]
+  },
+  {
+   "task": "Playtest the shop and write a test plan",
+   "expect": [
+    "gameplay-testing"
+   ]
+  },
+  {
+   "task": "Upgrade the kit and refactor old code",
+   "expect": [
+    "project-maintenance"
+   ]
+  },
+  {
+   "task": "Build a HUD with a toast and a settings panel using tags",
+   "workflow": "ui",
+   "expect": [
+    "urk-ui-framework"
+   ]
+  },
+  {
+   "task": "Add a coin icon and import my icon pack",
+   "expect": [
+    "game-icons"
+   ]
+  },
+  {
+   "task": "Add a hotbar, crafting system and daily rewards",
+   "workflow": "gameplay-system",
+   "expect": [
+    "component-library"
+   ]
   }
  ]
 }

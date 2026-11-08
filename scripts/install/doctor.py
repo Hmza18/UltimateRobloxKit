@@ -52,6 +52,17 @@ def studio_paths():
     return []
 
 
+def studio_mcp_entry():
+    """The built-in Studio MCP launcher documented on create.roblox.com/docs/studio/mcp."""
+    if sys.platform == "darwin":
+        p = Path("/Applications/RobloxStudio.app/Contents/MacOS/StudioMCP")
+    elif sys.platform.startswith("win"):
+        p = Path(os.environ.get("LOCALAPPDATA", "")) / "Roblox" / "mcp.bat"
+    else:
+        return None
+    return p if p.exists() else None
+
+
 def check(project: Path | None):
     items = []
 
@@ -80,6 +91,9 @@ def check(project: Path | None):
     studio = studio_paths()
     add("roblox-studio", "ok" if studio else "missing", str(studio[0]) if studio else "",
         "Install from create.roblox.com (the user signs in; agents never do)")
+    mcp_entry = studio_mcp_entry()
+    add("studio-mcp", "ok" if mcp_entry else "missing", str(mcp_entry or ""),
+        "Studio: Assistant > ... > Manage MCP Servers > Enable Studio as MCP server (needs the latest Studio)")
     for name in ("claude", "uvx"):
         add(name, "ok" if shutil.which(name) else "missing", "", "optional")
     for var in ENV_VARS:

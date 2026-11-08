@@ -42,7 +42,8 @@ from lib.skills import discover, with_dependencies  # noqa: E402
 
 MANIFEST = "ultimate-roblox-kit.json"
 SUPPORT_DIR = "ultimate-roblox-kit"
-SUPPORT_TREES = ["scripts", "tools", "templates", "integrations", "catalog", "examples", "docs/workflows", "VERSION", "LICENSE", "THIRD_PARTY_NOTICES.md"]
+SUPPORT_TREES = ["urk.py", "scripts", "tools", "templates", "integrations", "catalog", "examples", "library", "assets/icons",
+                 "docs/workflows", "docs/architecture", "VERSION", "LICENSE", "THIRD_PARTY_NOTICES.md"]
 ALWAYS = ["roblox-kit-router", "kit-conventions"]
 MD_START, MD_END = "<!-- ULTIMATE-ROBLOX-KIT:START -->", "<!-- ULTIMATE-ROBLOX-KIT:END -->"
 IGNORE = shutil.ignore_patterns("__pycache__", "*.pyc", ".DS_Store")
@@ -78,7 +79,8 @@ class Plan:
             self.copies.append((src, dest))
             return
         for f in sorted(src.rglob("*")):
-            if f.is_file() and "__pycache__" not in f.parts and f.name != ".DS_Store":
+            generated = f.suffix in (".rbxm", ".rbxl", ".pyc") or f.name in ("sourcemap.json", "roblox.yml", ".DS_Store")
+            if f.is_file() and "__pycache__" not in f.parts and not generated:
                 self.copies.append((f, dest / f.relative_to(src)))
 
     def conflicts(self):
@@ -146,7 +148,8 @@ def select_skills(all_skills: dict, names, categories):
 
 
 def merge_mcp(target_root: Path, dry: bool, log: list, backup_root: Path):
-    example = json.loads((KIT_ROOT / "integrations/mcp/mcp.example.json").read_text())["mcpServers"]
+    name = "mcp.windows.example.json" if sys.platform.startswith("win") else "mcp.example.json"
+    example = json.loads((KIT_ROOT / "integrations/mcp" / name).read_text())["mcpServers"]
     path = target_root / ".mcp.json"
     current = json.loads(path.read_text()) if path.exists() else {}
     servers = current.setdefault("mcpServers", {})

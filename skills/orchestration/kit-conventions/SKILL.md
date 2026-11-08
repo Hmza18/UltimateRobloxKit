@@ -40,6 +40,10 @@ After each step write a short progress line to the user: what is done, what was 
 | UI | Checked at phone, tablet and desktop sizes in Studio's device emulator |
 | Release | `production-management` release checklist complete |
 
+## Parallel agents
+
+One owner per file, contracts in `Types.luau`/`Config.luau` first, claim tasks in `PROGRESS.md`, and a read-only reviewer last. Details and the role table: `docs/architecture/agent-cooperation.md`.
+
 ## Error recovery
 
 1. Read the actual error (log file, Output window, exit code). Do not guess.

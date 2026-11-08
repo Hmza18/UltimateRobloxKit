@@ -30,7 +30,7 @@ Record every external item in `CREDITS.md`: name, source URL, author, license, d
 
 ## Free model safety (Creator Store)
 
-Before using any model with scripts, search its descendants for `require(` with a number, `getfenv`, `setfenv`, `loadstring`, `HttpService`, `MarketplaceService:PromptPurchase`, `TeleportService`, obfuscated strings and `Script` objects hidden in odd places. Delete scripts you do not need. Prefer script-free meshes.
+Before using any model with scripts, save it as `.rbxmx` and run `python3 $URK/scripts/security/scan_models.py Model.rbxmx` (or `lune run $URK/scripts/security/scan_models.luau Model.rbxm`); it exits 1 on high-risk findings. Manually, search its descendants for `require(` with a number, `getfenv`, `setfenv`, `loadstring`, `HttpService`, `MarketplaceService:PromptPurchase`, `TeleportService`, obfuscated strings and `Script` objects hidden in odd places. Delete scripts you do not need. Prefer script-free meshes.
 
 ## Code libraries
 

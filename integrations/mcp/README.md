@@ -2,7 +2,7 @@
 
 | Server | Purpose | Status in this kit |
 |---|---|---|
-| Roblox Studio (built in) | Run Luau, read Output, capture the viewport in a live Studio session | Configuration documented. Not exercised: Studio was not installed on the build machine |
+| Roblox Studio (built in) | 26 tools: scripts, data model, play-testing, input simulation, assets, Luau execution | Configuration from the official docs. Not exercised: Studio was not installed on the build machine |
 | Blender (`ahujasid/mcp-for-blender`) | Drive a live Blender | Exercised in the source project; launcher scripts in `../blender/` |
 | `boshyxd/robloxstudio-mcp` (community, MIT) | Fallback Studio MCP with a plugin | Not installed. Review its plugin source before use |
 | `Roblox/studio-rust-mcp-server` | Former official standalone server | Archived upstream; prefer the built-in one |
@@ -12,7 +12,7 @@
 ## Roblox Studio
 
 1. Studio: Assistant → Manage MCP Servers → enable Studio as an MCP server (check current Studio docs if menus moved).
-2. macOS command: `/Applications/RobloxStudio.app/Contents/MacOS/StudioMCP`. Windows: `StudioMCP.exe` in the current folder under `%LOCALAPPDATA%\Roblox\Versions\`; this path changes with every Studio update.
+2. macOS command: `/Applications/RobloxStudio.app/Contents/MacOS/StudioMCP`. Windows: `cmd.exe /c %LOCALAPPDATA%\Roblox\mcp.bat` (both from create.roblox.com/docs/studio/mcp, checked 2026-11-08). See `mcp.windows.example.json`.
 3. Or register globally: `claude mcp add Roblox_Studio -- <path to StudioMCP>`.
 4. New Claude Code session, then ask Claude to list Studio's tools. Usage and test workflow: the `roblox-studio-mcp` skill.
 

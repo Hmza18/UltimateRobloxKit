@@ -1,11 +1,11 @@
 ---
 name: roblox-testing-debugging
-description: Testing and debugging Roblox code - unit tests for pure Luau with Lune, in-engine tests with Jest-Lua or TestEZ, CI runs through run-in-roblox or the Open Cloud Luau Execution API, the Studio debugger and breakpoints, Output, Developer Console (F9), MicroProfiler, ScriptProfiler, assert-based invariants and reproducible bug reports. Use when writing tests, setting up CI, chasing an error or crash, or profiling a slow script.
+description: Testing and debugging Roblox code - unit tests for pure Luau with Lune, in-engine tests with Roblox's maintained Jest (roblox/jest), CI runs through rocale-cli or the Open Cloud Luau Execution API, the Studio debugger and breakpoints, Output, Developer Console (F9), MicroProfiler, ScriptProfiler, assert-based invariants and reproducible bug reports. Use when writing tests, setting up CI, chasing an error or crash, or profiling a slow script.
 license: MIT
 metadata:
   category: roblox
   version: 1.0.0
-  triggers: [unit test, lune, testez, jest-lua, run-in-roblox, luau execution, breakpoint, debugger, microprofiler, scriptprofiler, developer console, bug report]
+  triggers: [unit test, lune, jest, rocale, luau execution, breakpoint, debugger, microprofiler, scriptprofiler, developer console, bug report]
   depends: [luau-language, roblox-toolchain-doctor]
 ---
 
@@ -30,16 +30,16 @@ When not to use: frame-rate and memory budgets are `roblox-performance`; install
 | Layer | Tool | Runs where | What to test |
 |---|---|---|---|
 | Pure logic | Lune (`lune run`) | Any machine, CI, no Studio | Formulas, grids, parsers, state machines |
-| In-engine | Jest-Lua (actively maintained) or TestEZ (older, still common) | Studio, run-in-roblox, Open Cloud | Code using Instances and services |
+| In-engine | Jest for Roblox (`roblox/jest` 3.20.1 + `roblox/jest-globals`, MIT, maintained by Roblox) | Studio, rocale-cli, Open Cloud | Code using Instances and services |
 | End-to-end | Manual or MCP-driven playtest | Studio / published test place | Remotes, UI, teleports, purchases |
 
 ## Workflow
 
 1. **Split pure from engine code.** Keep logic in modules that only take plain values in and return values out. These run under Lune untouched (Roblox datatypes such as `Vector3` are available through `@lune/roblox`; others such as `Random` may not be, so pass a number generator in or verify in the Lune docs).
 2. **Write Lune tests** with a tiny harness (see [references/lune-test-harness.md](references/lune-test-harness.md)) and run `lune run tests/run` locally and in CI.
-3. **In-engine tests**: add Jest-Lua via Wally (package names and setup per the Jest-Lua docs; verify the current package id), put `*.spec.luau` files next to modules, and run them from a Studio test runner script or CI.
+3. **In-engine tests**: add Roblox's Jest as Wally dev-dependencies (`[dev-dependencies]` `Jest = "roblox/jest@3.20.1"`, `JestGlobals = "roblox/jest-globals@3.20.1"`; checked against the Wally registry on 2026-11-08), put `*.spec.luau` files next to modules, and run them from a Studio test runner script or CI. TestEZ is archived and jsdotlua/jest-lua has been inactive since 2024-12, so neither is recommended for new work.
 4. **CI options for in-engine tests:**
-   - `run-in-roblox` (rojo-rbx) opens a local Studio, runs a script, streams Output, then closes. Needs Studio installed on the runner, so it suits self-hosted macOS/Windows runners.
+   - **rocale-cli** (`Roblox/rocale-cli` 0.1.3, MIT, official): builds the place, uploads it and runs Luau through Open Cloud Luau Execution from the command line. Its README installs it through Foreman; check that the Rokit pin `Roblox/rocale-cli@0.1.3` works before relying on it. Use a dedicated test place and a key scoped to that place only. (`run-in-roblox` has been stale since 2024.)
    - **Open Cloud Luau Execution API**: upload a place version, create a Luau execution session task with your test script, poll for the result and logs. Runs on Roblox servers, no Studio needed. Endpoint paths and the required API key scope change occasionally; verify in creator docs (Open Cloud > Luau execution).
 5. **Invariants.** Use `assert(cond, message)` at module boundaries for programmer errors (impossible states), and return `(false, reason)` for expected failures such as invalid player input. Never `assert` on client-sent data in a way that lets a client spam errors; validate and drop instead.
 6. **Debugging in Studio:**
