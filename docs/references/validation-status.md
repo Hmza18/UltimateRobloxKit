@@ -6,11 +6,11 @@ What has been proven, how, and what has not. Updated 2026-11-08 for version 0.1.
 |---|---|---|---|
 | 1 | Skill structure and metadata (44 skills) | `tests/test_skills.py`: frontmatter, unique names, category, triggers, dependencies, size, Limitations section, kit paths exist, no deprecated `wait(` | PASS |
 | 2 | Internal links | `tests/test_links.py`: every relative link in every Markdown file | PASS |
-| 3 | Installer | `tests/test_installer.py`: dry-run writes nothing; full install then uninstall leaves an empty folder; selective install with dependencies; refuse, then force with backup; update protects edits; version pin; installed router runs | PASS (macOS locally; Linux, Windows, macOS in CI) |
+| 3 | Installer | `tests/test_installer.py`: dry-run writes nothing; full install then uninstall leaves an empty folder; selective install with dependencies; refuse, then force with backup; update protects edits; version pin; installed router runs | PASS (macOS locally; Linux with Python 3.9 and 3.12, Windows and macOS in CI) |
 | 4 | Routing | `tests/test_routing.py`: 25 example tasks, bounded load size, every workflow skill exists | PASS |
-| 5 | Script syntax | Python compiles; JSON parses (`test_repo_hygiene.py`); Luau via Selene, StyLua, `luau-analyze` (pure logic) and Lune in the CI `luau` job | Python and JSON PASS. Luau: see CI on the pull request |
+| 5 | Script syntax | Python compiles; JSON parses (`test_repo_hygiene.py`); Luau via Selene, StyLua, `luau-analyze` (pure logic) and Lune in the CI `luau` job | PASS. CI run on commit 4f73054: Selene, StyLua, `luau-analyze --mode=strict` (pure logic) and Lune pass for all 5 templates, with 36 to 41 Lune specs per project |
 | 6 | Dependencies and versions | Template `rokit.toml` pins checked against the reviewed versions (`test_templates.py`); `doctor.py` run on the build machine | PASS |
-| 7 | Blender workflow | `tests/test_blender_pipeline.py` and the two example batches: build, FBX/OBJ/GLB export, re-import, QA | PASS on Blender 5.2.3 (macOS). CI job on Blender 4.2.23 LTS |
+| 7 | Blender workflow | `tests/test_blender_pipeline.py` and the two example batches: build, FBX/OBJ/GLB export, re-import, QA | PASS on Blender 5.2.3 (macOS) and Blender 4.2.23 LTS (Linux CI) |
 | 8 | Asset export | 10 representative assets; every OBJ also passed `check_obj.py` (closed, consistent winding, under 400 triangles, on the ground) | PASS |
 | 8b | License delivery and references | `tests/test_license_delivery.py`: `License<N>/` layout and names, verified zip, unapproved refused, `_previous` archive; all 51 approved supermarket references rebuild closed and within budget; License6 and License10 references rendered in Blender and inspected | PASS |
 | 9 | Roblox Studio | Studio was not installed on the build machine | NOT RUN. Manual procedure: [studio-validation.md](../workflows/studio-validation.md) |
@@ -20,7 +20,9 @@ What has been proven, how, and what has not. Updated 2026-11-08 for version 0.1.
 
 ## Visual inspection
 
-The contact sheet in `docs/images/example-props.png` was inspected by eye. A dark seam on the coin's wrap panel was found and fixed: the texture painter no longer outlines a panel's wrap edges.
+The contact sheet in `docs/images/example-props.png` was inspected by eye.
+
+CI found three real problems on its first run, all fixed: a StyLua formatting difference in the UI template, no Python 3.9 build on the newest Ubuntu image, and uninstall leaving `__pycache__` behind after installed scripts had run. A dark seam on the coin's wrap panel was found and fixed: the texture painter no longer outlines a panel's wrap edges.
 
 ## Not verified
 
