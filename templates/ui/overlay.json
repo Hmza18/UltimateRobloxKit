@@ -1,0 +1,4 @@
+{
+  "base": "starter-game",
+  "description": "UI kit: theme tokens, responsive UIScale, accessible Button, Panel and Label components with contrast checks, and tween helpers. Replaces the base HUD with a kit-built one."
+}

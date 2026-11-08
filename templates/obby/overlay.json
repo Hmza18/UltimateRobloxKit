@@ -1,0 +1,4 @@
+{
+  "base": "starter-game",
+  "description": "Obby: saved stage progress, tagged checkpoints that only advance one stage at a time, kill bricks and respawn at the last checkpoint."
+}
