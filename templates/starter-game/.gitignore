@@ -1,0 +1,24 @@
+# Build output
+*.rbxl
+*.rbxlx
+*.rbxm
+*.rbxmx
+!assets/**/*.rbxm
+
+# Rojo and luau-lsp
+sourcemap.json
+globalTypes.d.luau
+
+# Wally
+Packages/
+ServerPackages/
+DevPackages/
+wally.lock
+
+# Lune type definitions written by `lune setup`
+.lune/
+
+# Editors and OS
+.vscode/settings.json
+.DS_Store
+*.log

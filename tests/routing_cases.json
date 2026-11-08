@@ -1,0 +1,184 @@
+{
+ "cases": [
+  {
+   "task": "Create 20 supermarket products",
+   "workflow": "asset-batch",
+   "expect": [
+    "batch-asset-production",
+    "procedural-mesh-generation",
+    "asset-qa-validation",
+    "product-packaging-assets",
+    "blender-roblox-export",
+    "license-folder-delivery"
+   ]
+  },
+  {
+   "task": "Build a Roblox simulator",
+   "workflow": "new-game",
+   "expect": [
+    "game-design-core",
+    "roblox-architecture",
+    "roblox-data-persistence",
+    "roblox-simulator-tycoon"
+   ]
+  },
+  {
+   "task": "Make a tycoon game from scratch",
+   "workflow": "new-game",
+   "expect": [
+    "roblox-simulator-tycoon",
+    "roblox-architecture"
+   ]
+  },
+  {
+   "task": "Add a pet inventory with equip slots",
+   "workflow": "gameplay-system",
+   "expect": [
+    "roblox-inventory-economy",
+    "roblox-networking",
+    "roblox-security-anti-exploit"
+   ]
+  },
+  {
+   "task": "Add daily rewards and quests",
+   "workflow": "gameplay-system",
+   "expect": [
+    "roblox-quests-progression"
+   ]
+  },
+  {
+   "task": "My NPC gets stuck when pathfinding around walls",
+   "expect": [
+    "roblox-npc-ai"
+   ]
+  },
+  {
+   "task": "Players lose their data sometimes when leaving",
+   "expect": [
+    "roblox-data-persistence"
+   ]
+  },
+  {
+   "task": "Design a lobby HUD and settings menu",
+   "workflow": "ui",
+   "expect": [
+    "roblox-ui-systems"
+   ]
+  },
+  {
+   "task": "Make a creature model with a walk animation",
+   "workflow": "character",
+   "expect": [
+    "characters-rigging",
+    "roblox-animation"
+   ]
+  },
+  {
+   "task": "Generate a forest island map with day night lighting",
+   "workflow": "environment",
+   "expect": [
+    "map-world-building",
+    "lighting-atmosphere"
+   ]
+  },
+  {
+   "task": "The game lags on mobile, optimize it",
+   "workflow": "optimize",
+   "expect": [
+    "roblox-performance"
+   ]
+  },
+  {
+   "task": "Set up rojo and the Studio MCP",
+   "workflow": "setup",
+   "expect": [
+    "roblox-toolchain-doctor",
+    "roblox-studio-mcp"
+   ]
+  },
+  {
+   "task": "Publish the update and write patch notes",
+   "workflow": "release",
+   "expect": [
+    "roblox-publishing-liveops",
+    "production-management"
+   ]
+  },
+  {
+   "task": "Plan the economy and monetization for my tycoon",
+   "workflow": "design",
+   "expect": [
+    "monetization-economy-design"
+   ]
+  },
+  {
+   "task": "Export my Blender model to FBX, it imports 100x too big",
+   "expect": [
+    "blender-roblox-export"
+   ]
+  },
+  {
+   "task": "Teleport players from the lobby into a matchmaking queue",
+   "expect": [
+    "roblox-teleport-matchmaking"
+   ]
+  },
+  {
+   "task": "Add particles and a beam effect to the sword",
+   "expect": [
+    "roblox-vfx"
+   ]
+  },
+  {
+   "task": "Players are exploiting remotes to give themselves coins",
+   "expect": [
+    "roblox-security-anti-exploit"
+   ]
+  },
+  {
+   "task": "Write unit tests with lune for my luau modules",
+   "expect": [
+    "roblox-testing-debugging"
+   ]
+  },
+  {
+   "task": "Build a modular building kit with walls and furniture props",
+   "workflow": "asset-batch",
+   "expect": [
+    "modular-buildings-props"
+   ]
+  },
+  {
+   "task": "Is this free model from the toolbox safe to use",
+   "expect": [
+    "asset-sourcing-licensing"
+   ]
+  },
+  {
+   "task": "Design a game icon and thumbnails for the store page",
+   "expect": [
+    "game-art-presentation"
+   ]
+  },
+  {
+   "task": "Analyze competitor games in the obby genre",
+   "expect": [
+    "competitor-research"
+   ]
+  },
+  {
+   "task": "Package the approved props into the License folder handoff zip",
+   "workflow": "asset-batch",
+   "expect": [
+    "license-folder-delivery",
+    "batch-asset-production"
+   ]
+  },
+  {
+   "task": "What size should a fridge and a shelf be? Use our approved reference objects",
+   "expect": [
+    "license-folder-delivery"
+   ]
+  }
+ ]
+}

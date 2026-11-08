@@ -1,0 +1,4 @@
+{
+  "base": "starter-game",
+  "description": "Clicker simulator: server-validated collect with a cooldown, coin upgrades with growing prices, and rebirths from the base economy."
+}

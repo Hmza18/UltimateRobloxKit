@@ -1,0 +1,105 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  kit:
+    name: Kit tests (${{ matrix.os }}, Python ${{ matrix.python }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: ubuntu-22.04, python: "3.9" }  # newest image without a Python 3.9 build
+          - { os: ubuntu-latest, python: "3.12" }
+          - { os: windows-latest, python: "3.12" }
+          - { os: macos-latest, python: "3.12" }
+    env:
+      URK_SKIP_BLENDER: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Validate skills, routing, installer, asset kit, hygiene
+        run: python scripts/validate/run_all.py
+      - name: Installer dry run against a fresh project
+        shell: bash
+        run: |
+          mkdir -p "$RUNNER_TEMP/demo"
+          python scripts/install/install.py --target "$RUNNER_TEMP/demo" --dry-run --with-mcp --with-claude-md
+          python scripts/install/install.py --target "$RUNNER_TEMP/demo" --category roblox
+          python "$RUNNER_TEMP/demo/.claude/ultimate-roblox-kit/scripts/automation/route.py" "Add a shop with a currency"
+          python scripts/install/install.py --target "$RUNNER_TEMP/demo" --uninstall
+          test -z "$(find "$RUNNER_TEMP/demo" -type f)"
+
+  blender:
+    name: Asset pipeline in Blender 4.2 LTS
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Download Blender (pinned)
+        run: |
+          curl -fsSL -o blender.tar.xz https://download.blender.org/release/Blender4.2/blender-4.2.23-linux-x64.tar.xz
+          mkdir -p "$RUNNER_TEMP/blender"
+          tar -xf blender.tar.xz -C "$RUNNER_TEMP/blender" --strip-components=1
+          sudo apt-get update -qq && sudo apt-get install -y -qq libxi6 libxkbcommon0 libxrender1 libgl1 libsm6 > /dev/null
+          echo "BLENDER=$RUNNER_TEMP/blender/blender" >> "$GITHUB_ENV"
+      - name: Build, export and re-import the example batch (no renders)
+        run: |
+          python scripts/export/asset_batch.py examples/asset-batch/props.json --out build/ci --no-renders
+          python tests/test_blender_pipeline.py
+        working-directory: ${{ github.workspace }}
+        env:
+          PYTHONPATH: tests
+      - name: Check every exported OBJ without Blender
+        run: for f in build/ci/*/*.obj; do python scripts/validate/check_obj.py "$f" --max-tris 400; done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: asset-batch
+          path: build/ci
+          retention-days: 7
+
+  luau:
+    name: Luau templates (selene, stylua, luau-analyze, lune)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install pinned Luau tools (release binaries, no install scripts)
+        run: |
+          mkdir -p "$RUNNER_TEMP/bin" && cd "$RUNNER_TEMP/bin"
+          get() { curl -fsSL -o t.zip "$1" && unzip -oq t.zip && rm t.zip; }
+          get https://github.com/Kampfkarren/selene/releases/download/0.32.0/selene-0.32.0-linux.zip
+          get https://github.com/JohnnyMorganz/StyLua/releases/download/v2.6.0/stylua-linux-x86_64.zip
+          get https://github.com/lune-org/lune/releases/download/v0.11.1/lune-0.11.1-linux-x86_64.zip
+          get https://github.com/luau-lang/luau/releases/download/0.746/luau-ubuntu.zip
+          chmod +x selene stylua lune luau-analyze
+          echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
+      - name: Compose every template into a project
+        run: |
+          for t in starter-game simulator tycoon obby ui; do
+            python scripts/automation/new_project.py --template "$t" --name "Ci${t//-/}" --out "build/templates/$t"
+          done
+      - name: Check each project
+        run: |
+          set -e
+          for d in build/templates/*; do
+            echo "::group::$d"
+            (cd "$d" && selene generate-roblox-std > /dev/null && selene src && stylua --check src tests && lune run tests/run)
+            luau-analyze --mode=strict "$d"/src/shared/Logic/*.luau
+            echo "::endgroup::"
+          done

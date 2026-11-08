@@ -1,0 +1,15 @@
+{
+  "batch": "starter-props",
+  "assets": [
+    {"name": "Crate", "generator": "crate", "size": [2, 2, 2],
+     "colors": {"wood": "#D08A3E", "wood_end": "#A9692B"}},
+    {"name": "Barrel", "generator": "barrel", "size": [1.6, 1.6, 2.2],
+     "colors": {"wood": "#B9773A", "wood_end": "#8E5A2B", "metal": "#5E6670"}},
+    {"name": "ShelfUnit", "generator": "shelf_unit", "size": [4, 1.5, 5], "params": {"shelves": 4},
+     "colors": {"frame": "#3D5A80", "board": "#E0E1DD"}},
+    {"name": "StylizedTree", "generator": "stylized_tree", "size": [4, 4, 7], "params": {"tiers": 3, "seed": 3},
+     "colors": {"trunk": "#7A4E2D", "foliage": "#4CAF50"}},
+    {"name": "CerealBox", "generator": "carton_box", "size": [0.81, 0.3, 1.16], "layout": "guide",
+     "colors": {"front": "#F4A300", "back": "#F4C542", "left": "#E85D04", "right": "#E85D04", "top": "#DC2F02", "bottom": "#DC2F02"}}
+  ]
+}

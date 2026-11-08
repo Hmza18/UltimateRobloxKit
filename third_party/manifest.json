@@ -1,0 +1,32 @@
+{
+  "_doc": "Reviewed external repositories. Nothing here is vendored: scripts/install/third_party.py clones the pinned commit and copies only listed skills with their license. Reviewed 2026-11-06 to 2026-11-08. 'copy' is allowed only for permissive licenses; others are link-only.",
+  "repositories": [
+    {"id": "el4cteo-blender-skills", "url": "https://github.com/EL4CTEO/blender-skills", "commit": "fb92cfb4cc5a238c22113a6a230b09f535bd0656",
+     "license": "MIT", "license_file": "LICENSE", "policy": "copy", "skills_dir": "skills",
+     "skills": ["blender-core", "blender-asset-qa", "blender-export-pipelines", "blender-game-optimization", "blender-hardsurface-modeling", "blender-lighting-lookdev", "blender-pbr-materials", "blender-pipeline-automation", "blender-rendering", "blender-retopology-uv", "blender-scene-setup", "blender-texturing", "blender-workflow-recipes"],
+     "notes": "Used in the supermarket project; blender-asset-qa exercised in every QA run there. install.sh not run. Upstream has since moved to 389f28a (v1.2.0); re-review before bumping."},
+    {"id": "roblox-dev-kit", "url": "https://github.com/WojciechJelen/roblox-dev-kit", "commit": "5da8287710294664aa203455e323d2e500cad8f3",
+     "license": "MIT", "license_file": "LICENSE", "policy": "copy", "skills_dir": "skills",
+     "skills": ["blender-to-roblox", "roblox-doctor", "find-resources"],
+     "notes": "check_mesh and doctor.sh exercised in the supermarket project. Its .mcp.json runs uvx blender-mcp (network install); not used."},
+    {"id": "rbsmithy", "url": "https://github.com/gogolumo/rbsmithy-roblox-claude-skill", "commit": "bee6014f2db32ab66cb4c4492958894cee5b371f",
+     "license": "MIT", "license_file": "LICENSE", "policy": "copy", "skills_dir": "skills", "skills": ["rbsmithy"],
+     "notes": "Large single skill (about 400 files). The GitHub API reports NOASSERTION, but the LICENSE file is MIT. Also see COMMERCIAL.md upstream."},
+    {"id": "roclicks-skills", "url": "https://github.com/zriptic/roclicks-skills", "commit": "a8b66c1bb9cad59cc7c188a0688e80a0637a9f55",
+     "license": "MIT", "license_file": "LICENSE", "policy": "copy", "skills_dir": ".", "skills": ["roblox-ui-maker", "roblox-vfx", "roblox-game-score"],
+     "notes": "RoClicks skills. meshlab needs Lune. Overlaps the kit's own roblox-vfx skill, so install only one."},
+    {"id": "awesome-gamedev-agent-skills", "url": "https://github.com/gamedev-skills/awesome-gamedev-agent-skills", "commit": "19d93f9",
+     "license": "Apache-2.0", "policy": "link", "skills": [], "notes": "78 skills; Roblox subset worth reading. Commit not fully pinned yet: review and pin the full SHA before switching to copy."},
+    {"id": "ashexplained-roblox-skills", "url": "https://github.com/AshExplained/roblox-skills", "commit": "a3a7b94",
+     "license": "MIT", "policy": "link", "skills": [], "notes": "Good security-audit, policy-compliance and playtest-QA skills. Review and pin the full SHA before copying."},
+    {"id": "el4cteo-roblox-skills", "url": "https://github.com/EL4CTEO/roblox-skills", "commit": "f94b0e4",
+     "license": "MIT", "policy": "link", "skills": [], "notes": "Found during research (v1.1.2). Not yet reviewed in depth."},
+    {"id": "roblox-ai-skills", "url": "https://github.com/SyphoDev-yt/roblox-ai-skills", "commit": "5aad881d1e6553cc3671ad549fdf01b8191bdc37",
+     "license": "custom (no resale, link back required)", "policy": "link", "skills": [],
+     "notes": "Concepts only (text-to-3D through a Hugging Face Space). Not redistributed."},
+    {"id": "caveman", "url": "https://github.com/JuliusBrussee/caveman", "commit": "ca3a524022a9f31fb7ae46b66decf622080c2cfa",
+     "license": "Apache-2.0", "policy": "link", "skills": [], "notes": "Token-saving terse mode used in the supermarket project. Not Roblox tooling; optional."},
+    {"id": "mcp-for-blender", "url": "https://github.com/ahujasid/mcp-for-blender", "commit": "2e4b0bc294694b1570d76ed01be657c22e6d02a0",
+     "license": "MIT", "policy": "pip", "skills": [], "notes": "Installed by integrations/blender/setup_blender_mcp.sh into an isolated venv. Telemetry disabled by env vars."}
+  ]
+}

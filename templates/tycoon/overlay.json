@@ -1,0 +1,4 @@
+{
+  "base": "starter-game",
+  "description": "Tycoon: plots claimed per player, purchase buttons with prerequisites, droppers and collectors, and saved purchases."
+}
