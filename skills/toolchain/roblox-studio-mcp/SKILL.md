@@ -15,13 +15,27 @@ Recovered from the supermarket project's `roblox-studio-asset-tester` and `roblo
 
 ## Setup (user does the sign-in)
 
+Source: create.roblox.com/docs/studio/mcp (checked 2026-11-08). Needs the latest Studio.
+
 1. Studio installed and signed in by the user. Never install it or sign in without asking.
-2. In Studio: Assistant panel → Manage MCP Servers → enable "Studio as MCP server" (menu names can change; check current Studio docs).
-3. Register with Claude Code, then restart the session:
+2. In Studio: Assistant → … → Manage MCP Servers → turn on **Enable Studio as MCP server**. Studio's quick connect can register Claude Code directly.
+3. Manual registration, then restart the Claude Code session:
    - macOS: `claude mcp add Roblox_Studio -- /Applications/RobloxStudio.app/Contents/MacOS/StudioMCP`
-   - Windows: the `StudioMCP.exe` inside the current Studio version folder under `%LOCALAPPDATA%\Roblox\Versions\` (verify the path on the machine; it changes with each Studio update).
-   An example entry is in `$URK/integrations/mcp/mcp.example.json`.
-4. Confirm: the session lists tools such as `execute_luau`, `get_console_output`, `screen_capture`. Tool names come from Studio, so read the live list rather than assuming.
+   - Windows: `claude mcp add Roblox_Studio -- cmd.exe /c %LOCALAPPDATA%\Roblox\mcp.bat`
+   JSON examples: `$URK/integrations/mcp/mcp.example.json` (macOS) and `mcp.windows.example.json`. `python3 $URK/urk.py doctor` reports whether the launcher exists.
+4. Confirm by calling `list_roblox_studios`. Every other tool needs the `studio_id` it returns.
+
+## Tools (as documented)
+
+| Group | Tools |
+|---|---|
+| Scripts | `script_read`, `multi_edit`, `script_search` (10 results), `script_grep` (50 matches) |
+| Data model | `search_game_tree`, `inspect_instance`, `execute_luau` (datamodel_type Edit, Client or Server) |
+| Play and test | `get_studio_state`, `start_stop_play`, `get_console_output`, `screen_capture`, `character_navigation`, `user_keyboard_input`, `user_mouse_input` |
+| Assets and generation | `search_asset`, `insert_asset`, `upload_image`, `store_image`, `generate_mesh`, `generate_material`, `generate_procedural_model`, `wait_job_finished` |
+| Other | `subagent`, `http_get` (Roblox docs only), `skill`, `list_roblox_studios` |
+
+`insert_asset` and `upload_image` change or publish content: ask the user first, every time. MCP clients can read and modify open places, so connect only trusted clients.
 
 ## Asset import test workflow
 
