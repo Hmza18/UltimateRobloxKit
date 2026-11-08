@@ -206,23 +206,6 @@
    ]
   },
   {
-   "name": "game-icons",
-   "category": "ui",
-   "path": "skills/ui/game-icons",
-   "description": "Icons for Roblox UI - the kit's 92 original MIT icons (currency, rewards, actions, status, interface, items, stats) as tintable sprite sheets, the Icons API and UrkIcon tag, searching the catalog, uploading sheets, theming with ImageColor3, importing third-party packs you downloaded under their own licence, and drawing new matching icons. Use when a UI needs icons, an icon is missing, or someone wants to add an icon pack.",
-   "triggers": [
-    "icon",
-    "icons",
-    "icon pack",
-    "sprite sheet",
-    "imagelabel icon",
-    "coin icon",
-    "ui icons",
-    "import icons"
-   ],
-   "depends": []
-  },
-  {
    "name": "gameplay-testing",
    "category": "roblox",
    "path": "skills/roblox/gameplay-testing",
@@ -523,12 +506,14 @@
     "animator",
     "animationtrack",
     "loadanimation",
-    "animation priority",
     "keyframe marker",
     "tweenservice",
     "r15",
     "animationcontroller",
-    "procedural animation"
+    "procedural animation",
+    "ui animation",
+    "button animation",
+    "tween ui"
    ],
    "depends": [
     "luau-language",
@@ -556,6 +541,28 @@
    ],
    "depends": [
     "luau-language"
+   ]
+  },
+  {
+   "name": "roblox-asset-pipeline",
+   "category": "ui",
+   "path": "skills/ui/roblox-asset-pipeline",
+   "description": "Prepares 2D UI assets for Roblox - icon and image sizes (1024 px maximum per uploaded image, 1024 px sprite sheets with 128 px cells), PNG RGBA with transparency, padding and naming, validation with validate_icon.py, converting third-party packs with import_pack.py, uploading through the Studio Asset Manager or Open Cloud only with permission, mapping asset ids into Icons.configure, and licence records in assets/icons/LICENSE.md and CREDITS.md. Use when preparing icons, sprite sheets, UI images or decals for upload, or when UI images are blurry, cropped or missing.",
+   "triggers": [
+    "ui assets",
+    "upload icons",
+    "sprite sheet upload",
+    "image asset id",
+    "icons.configure",
+    "ui image size",
+    "decal upload",
+    "asset manager",
+    "sprite sheet",
+    "upload ui"
+   ],
+   "depends": [
+    "roblox-icon-design",
+    "asset-sourcing-licensing"
    ]
   },
   {
@@ -632,6 +639,46 @@
     "luau-language",
     "roblox-architecture"
    ]
+  },
+  {
+   "name": "roblox-design-system",
+   "category": "ui",
+   "path": "skills/ui/roblox-design-system",
+   "description": "The UrkUI game design system - design/tokens/styles.json as the single source of truth for fonts, text sizes, outlines, radius, spacing, surfaces, palettes, buttons, badges, rarity colours, motion and sizes, regenerated into Style/StyleTokens.luau with urk.py ui tokens, the pure Style.luau API, adding a new style with extends, naming and contrast rules. Use when changing colours, fonts, outlines or spacing, adding a style or theme variant, or when a component or spec hardcodes a colour.",
+   "triggers": [
+    "design tokens",
+    "styles.json",
+    "style tokens",
+    "design system",
+    "new style",
+    "palette token",
+    "ui colours",
+    "stroke weight",
+    "styletokens",
+    "midnight style",
+    "pastel style"
+   ],
+   "depends": []
+  },
+  {
+   "name": "roblox-icon-design",
+   "category": "ui",
+   "path": "skills/ui/roblox-icon-design",
+   "description": "Icons for Roblox game UI - the kit's original MIT URK Icons as monochrome glyphs, illustrated -color versions and colour variants in 1024 px sprite sheets, the Icons API (configure, apply with style, create), the UrkIcon tag, the illustrated style rules (thick dark outline, gradient, gloss, shadow, automatic alignment), adding new icons in urk_icons.py with colours and variants, rebuilding and validating, an optional image-generation workflow, and licensing of third-party packs. Use when a UI needs icons, an icon is missing, someone wants a new icon drawn or generated, or wants to import an icon pack.",
+   "triggers": [
+    "icon",
+    "icons",
+    "icon pack",
+    "coin icon",
+    "sprite sheet",
+    "urkicon",
+    "illustrated icon",
+    "draw an icon",
+    "generate icon",
+    "import icons",
+    "ui icons"
+   ],
+   "depends": []
   },
   {
    "name": "roblox-inventory-economy",
@@ -859,6 +906,49 @@
    ]
   },
   {
+   "name": "roblox-reference-recreation",
+   "category": "ui",
+   "path": "skills/ui/roblox-reference-recreation",
+   "description": "Recreates the feel of reference UI screenshots as an original Roblox implementation - analyse layout grid, palette roles, outline weight, typography, card anatomy, iconography and motion cues into a written style brief, map the brief to design tokens and screen specs, build with UrkUI without copying art, names, logos or proprietary icons, compare side by side with preview captures and iterate. Includes a worked analysis of a simulator shop, a premium store and an icon sheet. Use when a user shares screenshots and says make it look like this, match this style, or recreate this shop.",
+   "triggers": [
+    "reference screenshot",
+    "screenshot",
+    "look like this",
+    "match this style",
+    "recreate this ui",
+    "style brief",
+    "ui reference",
+    "like this game",
+    "copy this shop"
+   ],
+   "depends": [
+    "roblox-ui-design",
+    "roblox-design-system",
+    "roblox-icon-design"
+   ]
+  },
+  {
+   "name": "roblox-responsive-layout",
+   "category": "ui",
+   "path": "skills/ui/roblox-responsive-layout",
+   "description": "Responsive Roblox UI for phone, tablet, desktop and console with UrkUI - Core/Breakpoints classification, UIScale per breakpoint, safe areas with ScreenInsets and the GUI inset, Grid columns per breakpoint, TextFit and UITextSizeConstraint, scrolling frames, adaptive navigation (bottom bar on phones, side rail on desktop), 44 px touch targets, controller focus with UrkNav and SpatialNav, and testing with the Studio device emulator. Use when UI is cut off by a notch, too small on phones, overlaps on tablets, or cannot be used with a gamepad.",
+   "triggers": [
+    "responsive ui",
+    "breakpoints",
+    "phone layout",
+    "notch",
+    "screeninsets",
+    "uitextsizeconstraint",
+    "touch target",
+    "device emulator",
+    "console ui",
+    "ui too small"
+   ],
+   "depends": [
+    "roblox-ui-systems"
+   ]
+  },
+  {
    "name": "roblox-security-anti-exploit",
    "category": "roblox",
    "path": "skills/roblox/roblox-security-anti-exploit",
@@ -882,6 +972,29 @@
    "depends": [
     "roblox-networking",
     "roblox-architecture"
+   ]
+  },
+  {
+   "name": "roblox-shop-builder",
+   "category": "ui",
+   "path": "skills/ui/roblox-shop-builder",
+   "description": "Builds Roblox shops and purchasing end to end - choosing game pass vs developer product vs in-game currency item, shop spec patterns (featured banner, product grid, coin packs with honest bonus percentages), the client PurchaseBridge that prompts MarketplaceService, the server Systems/Shop with idempotent ProcessReceipt and game pass ownership through UserOwnsGamePassAsync, gifting notes, ethical pricing and testing purchases in Studio. Use when adding a store, gamepass shop, coin or gem packs, starter pack, Robux button or gift button, or when purchases fail or grant twice.",
+   "triggers": [
+    "gamepass shop",
+    "robux shop",
+    "coin packs",
+    "gem packs",
+    "starter pack",
+    "purchasebridge",
+    "buy button",
+    "gift button",
+    "robux button",
+    "store screen"
+   ],
+   "depends": [
+    "roblox-ui-generator",
+    "roblox-inventory-economy",
+    "roblox-security-anti-exploit"
    ]
   },
   {
@@ -994,6 +1107,93 @@
    "depends": []
   },
   {
+   "name": "roblox-ui-audit",
+   "category": "ui",
+   "path": "skills/ui/roblox-ui-audit",
+   "description": "Checklist-driven audit of a Roblox interface - visual (alignment, outline consistency, text fit, contrast, hierarchy), usability (touch target sizes, focus order, reachable back and close, press feedback, loading and empty states), platform (phone, tablet, desktop, console) and economy honesty (real bonuses, disclosed odds), with the automated parts (urk.py ui validate, preview capture, validate_icon.py) and a severity-ranked report template. Use when asked to review, audit, critique or QA a UI, before shipping a screen, or when players report confusing menus.",
+   "triggers": [
+    "ui audit",
+    "review the ui",
+    "ui review",
+    "critique the ui",
+    "ui qa",
+    "ui checklist",
+    "usability review",
+    "audit the shop",
+    "usability",
+    "audit our",
+    "visual problems"
+   ],
+   "depends": [
+    "roblox-ui-design",
+    "roblox-responsive-layout"
+   ]
+  },
+  {
+   "name": "roblox-ui-design",
+   "category": "ui",
+   "path": "skills/ui/roblox-ui-design",
+   "description": "Professional Roblox game UI design principles - the simulator and cartoon look (chunky outlined titles, thick dark outlines, gradient panels, colour-coded cards, price pills, badges), layout grids, spacing rhythm, visual hierarchy with one primary action, colour roles, readable text minimums on phones, and when not to use the cartoon style. Use when designing or critiquing a shop, HUD, reward or menu screen, choosing palettes and sizes for a spec, or when a screen looks cluttered, flat or amateur.",
+   "triggers": [
+    "ui design",
+    "simulator ui",
+    "cartoon ui",
+    "game ui style",
+    "visual hierarchy",
+    "ui layout",
+    "polished ui",
+    "make the ui look good",
+    "chunky ui",
+    "ui looks bad"
+   ],
+   "depends": [
+    "roblox-design-system"
+   ]
+  },
+  {
+   "name": "roblox-ui-generator",
+   "category": "ui",
+   "path": "skills/ui/roblox-ui-generator",
+   "description": "Turns a natural-language UI request into a validated UrkUI screen spec JSON and real Roblox UI through Spec/Builder - pick a ready template with urk.py ui list, map phrases to elements, choose palettes and -color icons from the catalog, write the spec, validate, preview in the browser, install it into a project with urk.py ui new and wire purchase and select intents. Includes worked shop, HUD and daily-rewards specs. Use when someone asks to create, generate or mock up a shop, store, HUD, daily rewards, inventory, quest or popup screen.",
+   "triggers": [
+    "screen spec",
+    "generate ui",
+    "create a shop ui",
+    "ui spec",
+    "make a hud",
+    "daily rewards ui",
+    "spec builder",
+    "ui from description",
+    "urk.py ui",
+    "mock up a screen"
+   ],
+   "depends": [
+    "roblox-ui-design",
+    "roblox-design-system",
+    "urk-ui-framework"
+   ]
+  },
+  {
+   "name": "roblox-ui-performance",
+   "category": "ui",
+   "path": "skills/ui/roblox-ui-performance",
+   "description": "Rendering, memory and animation costs of Roblox UI - instance counts, ScreenGui count and DisplayOrder, ClipsDescendants, UIGradient and UIStroke cost notes, image atlases and sprite sheets vs many separate images, one shared ticker instead of per-element loops, cancelling tweens, pooling toasts and rows, hiding vs destroying, avoiding per-frame property writes, a low-end mobile budget table, and measuring with the MicroProfiler and the Developer Console Gui memory. Use when menus stutter, opening a shop hitches, UI memory grows, or a HUD costs frames on phones.",
+   "triggers": [
+    "ui lag",
+    "ui performance",
+    "gui memory",
+    "ui stutter",
+    "too many screenguis",
+    "ui instance count",
+    "sprite sheet performance",
+    "tween leak",
+    "ui hitch"
+   ],
+   "depends": [
+    "roblox-performance"
+   ]
+  },
+  {
    "name": "roblox-ui-systems",
    "category": "ui",
    "path": "skills/ui/roblox-ui-systems",
@@ -1016,6 +1216,27 @@
     "luau-language",
     "roblox-networking",
     "roblox-camera-input"
+   ]
+  },
+  {
+   "name": "roblox-ui-testing",
+   "category": "ui",
+   "path": "skills/ui/roblox-ui-testing",
+   "description": "Testing Roblox UI built with UrkUI - what can be automated (Lune specs for pure Core and Spec modules, Python spec validation with shared Luau parity fixtures in tests/fixtures/ui-specs, HTML preview capture for visual regression with capture_server and ?capture) and what needs Studio (the playground checklist, multi-device emulation, a gamepad-only pass, reduced motion, purchase prompt tests), with honest reporting of each. Use when adding tests for UI code, before shipping a screen, after changing tokens, specs or components, or when asked whether the UI works.",
+   "triggers": [
+    "test the ui",
+    "ui tests",
+    "visual regression",
+    "ui snapshot",
+    "spec fixtures",
+    "playground checklist",
+    "gamepad-only test",
+    "ui test plan",
+    "ui interaction",
+    "test our ui"
+   ],
+   "depends": [
+    "gameplay-testing"
    ]
   },
   {
@@ -1078,7 +1299,7 @@
    ],
    "depends": [
     "roblox-ui-systems",
-    "game-icons"
+    "roblox-icon-design"
    ]
   },
   {

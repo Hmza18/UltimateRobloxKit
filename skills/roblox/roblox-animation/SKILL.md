@@ -5,7 +5,7 @@ license: MIT
 metadata:
   category: roblox
   version: 1.0.0
-  triggers: [animation, animator, animationtrack, loadanimation, animation priority, keyframe marker, tweenservice, r15, animationcontroller, procedural animation]
+  triggers: [animation, animator, animationtrack, loadanimation, keyframe marker, tweenservice, r15, animationcontroller, procedural animation, ui animation, button animation, tween ui]
   depends: [luau-language, blender-roblox-export]
 ---
 
@@ -129,6 +129,36 @@ end)
 - R15 has 15 parts and supports layered clothing, IKControl and most catalog animations. R6 has 6 parts and simpler, retro motion. An animation made for one rig type does not play correctly on the other. Set the avatar type in Game Settings > Avatar.
 - An animation only plays in an experience if it is owned by the experience owner (the user, or the group for group games). Upload animations to the group for group games. Animations from other creators fail to load; check Output for asset permission warnings. Rules around sharing animations may change; verify current permission options in creator docs.
 - Blender clips are exported per the `blender-roblox-export` skill and imported with the Animation Editor or the 3D Importer, then published.
+
+### UI motion
+
+UI animation in kit projects goes through presets, not ad-hoc tweens. Presets are pure data in `library/src/UI/Core/MotionPresets.luau` (`MotionPresets.get(name)`, `names()`, `sample(preset, t)` for tests); `Runtime/Motion.play(instance, presetName, options?)` plays one and returns a stop function (options: `onDone`, `fromCurrent`, `speed`, `loop`; `Motion.stop(instance)`, `Motion.isPlaying(instance)`).
+
+| Moment | Preset |
+|---|---|
+| Hover / leave, press / release | `hover`, `unhover`, `press`, `release` |
+| Window or popup open / close | `open`, `close` |
+| Element appears, lands | `popIn`, `bounce` |
+| Number counts up | `count` (CurrencyCounter does this) |
+| Reward reveal, item gained | `reveal`, `acquire` |
+| Purchase confirmed | `purchase` |
+| Card selected, tab change | `select`, `tabSwitch` |
+| Toast in / out | `toastIn`, `toastOut` |
+| Bar fill | `progress` |
+| Needs attention (badge, claim) | `attention`, `wiggle`, `shine` (looping) |
+
+```lua
+local Motion = require(URK.UI.Runtime.Motion)
+local stop = Motion.play(claimButton, "attention")              -- loops until stopped
+claimButton.Activated:Connect(function()
+	stop()
+	Motion.play(rewardIcon, "reveal", { onDone = showAmount })
+end)
+```
+
+- **Reduced motion**: `UrkUI.setReducedMotion(true)` or the engine setting; `Motion.play` jumps to the last key and skips looping presets, so state must be readable from the final frame alone.
+- **Budgets**: feedback within 100 ms (`press` is 0.08 s); transitions 0.12-0.35 s (`fast`, `normal`, `slow` tokens); celebratory reveals under 1 s; at most a few looping `attention` effects per screen.
+- Starting a preset on an instance cancels the previous one; never stack your own tweens on the same object. Component presets are tuned in `design/tokens/styles.json` `motion` (see `roblox-design-system`); performance notes in `roblox-ui-performance`.
 
 ## Outputs
 

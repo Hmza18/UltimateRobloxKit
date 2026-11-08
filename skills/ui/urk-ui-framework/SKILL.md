@@ -6,7 +6,7 @@ metadata:
   category: ui
   version: 1.0.0
   triggers: [urkui, tag based ui, ui framework, hud, panel, toast, tooltip, data binding, theme, drag and drop ui, settings panel]
-  depends: [roblox-ui-systems, game-icons]
+  depends: [roblox-ui-systems, roblox-icon-design]
 ---
 
 # UrkUI framework
@@ -15,7 +15,7 @@ Original framework in `library/src/UI/` (MIT). Full tag, attribute, action and c
 
 ## When to use
 
-Any UI in a project with the kit library. For general Roblox UI principles (scale vs offset, layout objects) see `roblox-ui-systems`. For icons see `game-icons`.
+Any UI in a project with the kit library. For general Roblox UI principles (scale vs offset, layout objects) see `roblox-ui-systems`. For icons see `roblox-icon-design`; for spec-built game screens see `roblox-ui-generator`.
 
 ## Install and start
 

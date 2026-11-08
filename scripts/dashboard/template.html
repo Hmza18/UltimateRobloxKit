@@ -56,6 +56,7 @@ th:first-child, td:first-child { width: 22%; }
   -webkit-mask-size: contain; mask-size: contain; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; }
 .icon .n { font-size: 11px; color: var(--icon-text); word-break: break-word; }
 .icon.sel { outline: 2px solid var(--accent); }
+.icon img.art { width: 48px; height: 48px; display: block; margin: 0 auto 4px; }
 .md h1, .md h2, .md h3 { font-size: 15px; margin: 14px 0 6px; }
 .md table { margin: 8px 0; }
 details > summary { cursor: pointer; }
@@ -107,7 +108,7 @@ const norm = t => " " + (t.toLowerCase().match(/[a-z0-9]+/g) || []).map(stem).jo
 function route(task) {
   const t = norm(task), byName = Object.fromEntries(D.skills.map(s => [s.name, s]));
   const wfs = D.workflows.map(w => [w.keywords.filter(k => t.includes(norm(k))).length, w])
-    .filter(([n, w]) => n >= (w.min_matches || 1)).sort((a, b) => b[0] - a[0]).slice(0, 2).map(x => x[1]);
+    .filter(([n, w]) => n >= (w.min_matches || 1)).sort((a, b) => b[0] - a[0] || (b[1].priority ?? 1) - (a[1].priority ?? 1)).slice(0, 2).map(x => x[1]);
   const chosen = [];
   wfs.forEach(w => w.skills.forEach(s => { if (byName[s] && !chosen.includes(s)) chosen.push(s); }));
   const scored = D.skills.map(s => [s.name, s.triggers.reduce((a, tr) => a + (t.includes(norm(tr)) ? (tr.includes(" ") ? 4 : 3) : 0), 0)])
@@ -142,9 +143,16 @@ const VIEWS = {
     return `<div class="row"><input type="search" id="iq" placeholder="Search ${D.icons.icons.length} icons by name or tag">
       <select id="ic"><option value="">All categories</option>${cats.map(c => `<option>${c}</option>`).join("")}</select>
       <label>Tint <input type="color" id="tint" value="#ffffff"></label>
-      <select id="ibg"><option value="dark">Dark background</option><option value="light">Light background</option></select></div>
+      <select id="ibg"><option value="dark">Dark background</option><option value="light">Light background</option></select>
+      <select id="ist"><option value="color">Illustrated</option><option value="glyph">Glyphs (tintable)</option><option value="">All styles</option></select></div>
       <div id="isel" class="card" style="margin-bottom:12px">Select an icon to see its Luau.</div><div class="icons" id="igrid"></div>
       <p class="muted">${esc(D.icons.name)} · ${esc(D.icons.license)} · ${D.icons.sheets.length} sprite sheets of ${D.icons.sheetSize}px. Upload the sheets once, then call Icons.configure.</p>`;
+  },
+  Screens() {
+    if (!D.screens.length) return `<p class="muted">No screen specs found.</p>`;
+    return `<p class="muted">Built-in screen specs (library/src/UI/Spec/Screens). Copy one into a project with the command, then edit its JSON. Preview with <code>urk.py ui preview</code>.</p>
+      <div class="grid">${D.screens.map(s => `<div class="card"><h3>${esc(s.name)}</h3><span class="tag">${esc(s.kind)}</span><span class="tag">${s.elements} elements</span>
+      <p class="muted">${esc(s.description)}</p>${cmd("python3 urk.py ui new " + s.name + " --name My" + s.name + " --project " + (D.project || "~/games/MyGame"))}${cmd("python3 urk.py ui preview library/src/UI/Spec/Screens/" + s.name + ".json --open")}</div>`).join("")}</div>`;
   },
   Templates() {
     const rojo = D.templates.filter(t => t.rojo);
@@ -199,21 +207,23 @@ const wire = {
   Icons() {
     const grid = $("#igrid");
     const draw = () => {
-      const q = $("#iq").value.toLowerCase(), c = $("#ic").value, dark = $("#ibg").value === "dark";
+      const q = $("#iq").value.toLowerCase(), c = $("#ic").value, dark = $("#ibg").value === "dark", st = $("#ist").value;
       grid.style.setProperty("--icon-tint", $("#tint").value);
       grid.style.setProperty("--icon-bg", dark ? "#22252d" : "#fafbfc");
       grid.style.setProperty("--icon-text", dark ? "#c8cdd6" : "#4a505c");
-      grid.innerHTML = D.icons.icons.filter(i => (!c || i.category === c) && (!q || i.name.includes(q) || i.tags.some(t => t.startsWith(q))))
-        .map(i => `<div class="icon" data-name="${esc(i.name)}"><div class="glyph" style="-webkit-mask-image:url(data:image/png;base64,${i.png});mask-image:url(data:image/png;base64,${i.png})"></div><div class="n">${esc(i.name)}</div></div>`).join("");
+      grid.innerHTML = D.icons.icons.filter(i => (!st || (i.style || "glyph") === st) && (!c || i.category === c) && (!q || i.name.includes(q) || i.tags.some(t => t.startsWith(q))))
+        .map(i => (i.style === "color"
+          ? `<div class="icon" data-name="${esc(i.name)}"><img class="art" alt="" src="data:image/png;base64,${i.png}"><div class="n">${esc(i.name)}</div></div>`
+          : `<div class="icon" data-name="${esc(i.name)}"><div class="glyph" style="-webkit-mask-image:url(data:image/png;base64,${i.png});mask-image:url(data:image/png;base64,${i.png})"></div><div class="n">${esc(i.name)}</div></div>`)).join("");
     };
     grid.onclick = e => { const el = e.target.closest(".icon"); if (!el) return;
       grid.querySelectorAll(".sel").forEach(x => x.classList.remove("sel")); el.classList.add("sel");
       const i = D.icons.icons.find(x => x.name === el.dataset.name), hex = $("#tint").value;
       const rgb = [1, 3, 5].map(k => parseInt(hex.slice(k, k + 2), 16)).join(", ");
-      const luau = `Icons.apply(label, "${i.name}", { color = Color3.fromRGB(${rgb}) })`;
+      const luau = i.style === "color" ? `Icons.apply(label, "${i.name}")` : `Icons.apply(label, "${i.name}", { color = Color3.fromRGB(${rgb}) })`;
       $("#isel").innerHTML = `<b>${esc(i.name)}</b> <span class="tag">${esc(i.category)}</span> ${i.tags.map(t => `<span class="tag">${esc(t)}</span>`).join("")}
         <div class="muted">sheet-${i.sheet}.png at (${i.x}, ${i.y}), ${i.w}×${i.h}</div>${cmd(luau)}${cmd('<ImageLabel UrkIcon Icon="' + i.name + '"> (tag-only: add tag UrkIcon and attribute Icon)')}`; };
-    ["#iq", "#ic", "#tint", "#ibg"].forEach(s => $(s).oninput = draw); draw();
+    ["#iq", "#ic", "#tint", "#ibg", "#ist"].forEach(s => $(s).oninput = draw); draw();
   },
   Templates() {
     const draw = () => $("#tcmd").innerHTML = cmd(`python3 urk.py new ${$("#tpl").value} ${$("#tname").value} ${$("#tdir").value}`) + cmd(`python3 urk.py setup --project ${$("#tdir").value}`);

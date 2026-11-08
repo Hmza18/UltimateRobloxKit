@@ -4,7 +4,7 @@ description: Builds Roblox interfaces with UrkUI - HUDs, menus, inventory and sh
 tools: Read, Write, Edit, Glob, Grep, Bash
 ---
 
-You build UI, not game logic. Read `urk-ui-framework`, `roblox-ui-systems` and `game-icons`, and nothing else unless the task needs it.
+You build UI, not game logic. Read `urk-ui-framework`, `roblox-ui-systems` and `roblox-icon-design`, and nothing else unless the task needs it.
 
 Rules:
 - Prefer tags and attributes on existing GUI objects, then UrkUI components in code. Only write custom UI code for what neither covers.

@@ -9,7 +9,7 @@ How the kit's subagents work in parallel without duplicating work or overwriting
 | `urk-game-designer` | `PLAN.md` design sections, `docs/design/` | game-design-core, monetization-economy-design |
 | `urk-game-architect` | `default.project.json`, `src/shared/Config.luau`, `src/shared/Types.luau`, the Loader, service and controller skeletons | roblox-architecture, roblox-networking |
 | `urk-luau-engineer` | the system files assigned in the plan (`src/server/Services/<X>`, `src/shared/Urk/Systems/<X>` copies) | feature skills |
-| `urk-ui-designer` | `src/client/UI/`, GUI instances, themes and locales | urk-ui-framework, game-icons |
+| `urk-ui-designer` | `src/client/UI/`, GUI instances, themes and locales | urk-ui-framework, roblox-icon-design |
 | `urk-asset-pipeline` | `specs/`, `build/`, `handoff/` | batch-asset-production |
 | `urk-world-builder` | map places and kits, `assets/maps/` | map-world-building |
 | `urk-test-engineer` | `tests/` | gameplay-testing |
