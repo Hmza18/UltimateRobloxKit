@@ -6,6 +6,7 @@
   python3 scripts/export/asset_batch.py --status build/props
   python3 scripts/export/asset_batch.py --approve Crate build/props    # only after the user approved in chat
 
+With --lod, Blender also writes LOD1/LOD2 and a convex collision hull (scripts/blender/lod_collision.py).
 Stages per asset: layout (mesh + UV atlas + texture, no Blender), blender (.blend, FBX, OBJ, GLB,
 renders), verify (re-import every export), qa (checks below), sheet (contact sheet, needs Pillow).
 QA reports PASS, FAIL or NEEDS MANUAL REVIEW per check. Studio import is never marked as passed by
@@ -71,6 +72,20 @@ def qa(spec, layout, asset_dir):
         add("blend_reopens_relative_paths", c["blend"]["reopens"] and c["blend"]["texture_paths_relative"])
     else:
         add("reimport", False, "verify stage did not run", manual=True)
+    lod_path = asset_dir / "lod.json"
+    if lod_path.exists():
+        lod = json.loads(lod_path.read_text())
+        size = max(spec["size"])
+        previous = lod["lod0"]["tris"]
+        for level in lod["levels"]:
+            add(f"lod{level['level']}_fewer_tris", level["tris"] < previous, f"{level['tris']} < {previous}")
+            add(f"lod{level['level']}_keeps_bounds", level["bboxDelta"] <= 0.05 * size,
+                f"bounds moved {level['bboxDelta']} (limit {round(0.05 * size, 3)})")
+            previous = level["tris"]
+        hull = lod["hull"]
+        add("collision_hull_budget", hull["tris"] <= 256, f"{hull['tris']} <= 256")
+        add("collision_hull_encloses", hull["bboxDelta"] <= 0.02 * size and (hull["volumeRatio"] or 0) >= 0.98,
+            f"volume ratio {hull['volumeRatio']}, bounds moved {hull['bboxDelta']}")
     if layout.get("stretched"):
         add("generator_proportions", False, "Built at reference proportions and stretched to size; check art distortion.", manual=True)
     add("visual_inspection", False, "Open views/ and the contact sheet and look at every side.", manual=True)
@@ -123,6 +138,7 @@ def main(argv=None):
                     help="for specs grouped as {\"licenses\": {\"License<N>\": [...]}}, build License<N>")
     ap.add_argument("--skip-blender", action="store_true", help="layout and texture only")
     ap.add_argument("--no-renders", action="store_true")
+    ap.add_argument("--lod", action="store_true", help="also make LOD1/LOD2 and a convex collision hull (Blender)")
     ap.add_argument("--blender", help="path to Blender (default: auto-detect)")
     ap.add_argument("--status", metavar="OUT")
     ap.add_argument("--approve", nargs=2, metavar=("ASSET", "OUT"), help="record the user's approval given in chat")
@@ -172,6 +188,9 @@ def main(argv=None):
                 run_blender(blender, "build_asset.py", asset_dir, ["--no-renders"] if a.no_renders else [])
                 run_blender(blender, "verify_export.py", asset_dir)
                 print("   blender: built, exported, re-imported")
+                if a.lod:
+                    run_blender(blender, "lod_collision.py", asset_dir)
+                    print("   lod: LOD1, LOD2 and collision hull exported")
             else:
                 print("   blender: not found or skipped - geometry checked in Python only")
             checks = qa(spec, layout, asset_dir)

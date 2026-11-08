@@ -40,6 +40,26 @@ class BlenderPipelineTests(unittest.TestCase):
             status = json.loads((out / "status.json").read_text())
             self.assertEqual({e["state"] for e in status["assets"].values()}, {"awaiting-approval"})
 
+    def test_lod_and_collision_hull(self):
+        import importlib.util
+        spec = importlib.util.spec_from_file_location("asset_batch_lod", ROOT / "scripts/export/asset_batch.py")
+        ab = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(ab)
+        with tempfile.TemporaryDirectory() as tmp:
+            batch = Path(tmp) / "spec.json"
+            batch.write_text(json.dumps({"batch": "t", "assets": [{"name": "Barrel", "generator": "barrel", "size": [1.6, 1.6, 2.2]}]}))
+            out = Path(tmp) / "out"
+            with contextlib.redirect_stdout(io.StringIO()):
+                code = ab.main([str(batch), "--out", str(out), "--no-renders", "--lod", "--blender", BLENDER])
+            self.assertEqual(code, 0)
+            for suffix in ("_LOD1.fbx", "_LOD2.fbx", "_Collision.fbx", "_Collision.obj"):
+                self.assertTrue((out / "Barrel" / f"Barrel{suffix}").exists(), suffix)
+            lod = json.loads((out / "Barrel" / "lod.json").read_text())
+            self.assertLess(lod["levels"][-1]["tris"], lod["levels"][0]["tris"])
+            self.assertLessEqual(lod["hull"]["tris"], 256)
+            checks = {c["check"]: c["result"] for c in json.loads((out / "Barrel" / "qa.json").read_text())}
+            self.assertEqual(checks["collision_hull_encloses"], "PASS", checks)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,6 +1,6 @@
 # Roadmap
 
-Prioritized from the V2 gap analysis ([research-v2.md](research-v2.md)) and the original blueprint. Status reflects the `feat/v2-expansion` branch. P0 covers correctness and safety, P1 high-value automation and systems, P2 polish. Effort: S is under a day, M is 1-3 days, L is about a week.
+Prioritized from the V2 gap analysis ([research-v2.md](research-v2.md)) and the original blueprint. Status reflects 0.4.0 (branch `feat/ecosystem-v4`). P0 covers correctness and safety, P1 high-value automation and systems, P2 polish. Effort: S is under a day, M is 1-3 days, L is about a week.
 
 ## Done in V2
 
@@ -20,11 +20,33 @@ Prioritized from the V2 gap analysis ([research-v2.md](research-v2.md)) and the 
 | New | `add_module.py`: copies library modules into a project with dependencies, protects your edits, and supports remove | `scripts/automation/add_module.py` |
 | New | Skills for project planning, Luau debugging, gameplay testing, maintenance, UI framework, icons and the component library. Agents for UI, testing and performance, plus cooperation rules | `skills/`, `.claude/agents/`, `docs/architecture/agent-cooperation.md` |
 
+## Done in V4 (0.4.0)
+
+Audit on 2026-11-08 found these as the highest-impact gaps: no simulator progression systems (pets, rebirths, trading), no licensed art beyond the kit's own icons, persistence without the community standard, no way to measure UI against a reference, no whole-game generation, no economy tooling, and routing never measured on unseen tasks.
+
+| # | Item | Where |
+|---|---|---|
+| P0-2 | Wally overlay: `urk packages` writes pinned Fusion, Promise and ProfileStore (server realm), maps Packages, runs `wally install`. `ProfileStoreAdapter` and `FusionBridge` integrate them | `scripts/automation/packages.py`, `library/src/Integrations/` |
+| V4-1 | Systems: Pets (eggs, rarity, pity, luck, fuse), Rebirth, Upgrades, Worlds, Boosts, Trading (versioned offers, atomic swap), Progression server, VFX tiers, WorldGen | `library/src/Systems/` |
+| V4-2 | CC0 art: Kenney Game Icons (+expansion, coloured set) and UI Pack 2.0, with provenance and hashes | `assets/icons/kenney-*`, `assets/ui/` |
+| V4-3 | Visual UI loop: reference extraction and a scored comparison rubric, skill and agent | `tools/ui/visual.py`, `roblox-visual-ui-loop`, `urk-visual-ui` |
+| V4-4 | Game generator for six genres, verified to build and pass Lune, Selene, StyLua and Rojo | `scripts/automation/generate_game.py` |
+| V4-5 | Economy simulator, asset registry, LOD and collision hulls, audit, build, memory and release gate | `tools/`, `scripts/` |
+| V4-6 | Routing evaluation with two held-out sets; description fallback in the router | `catalog/route_eval.json`, `scripts/automation/skills.py` |
+| V4-7 | Dashboard: Project, UI Playground, Assets, Agents and Tests centres | `scripts/dashboard/` |
+
 ## Next (recommended order)
 
 | # | Item | Effort | Notes |
 |---|---|---|---|
-| P0-2 | Real Wally dependencies: a `packages` overlay with ProfileStore (`lm-loleris/profilestore@1.0.3`) and Jest dev dependencies, a `Packages` mapping, a committed `wally.lock`, and a ProfileStore adapter for the SaveData store interface | M | The registry names and versions were verified in research. CI needs `wally install` with a pinned, checksummed Wally binary |
+| R-1 | Routing on unseen tasks: held-out accuracy is 40-50% while tuned cases are 100%. Grow the evaluation from real requests and try better generalisation (synonym lists per skill, or let Claude's own skill matching decide and treat the router as a hint) | M | Never tune against `heldout2`; add a new held-out set after each change |
+| R-2 | Studio validation of the new server adapters (PetsServer, ProgressionServer, TradingServer) and WorldGenBuilder in a test place | M | Needs Studio; record results in `validation-status.md` |
+| R-3 | Studio capture in the visual loop through the Roblox Studio MCP | S | The path is documented; it needs a connected Studio to verify |
+
+
+| # | Item | Effort | Notes |
+|---|---|---|---|
+| P0-2b | Jest dev dependencies through the same Wally overlay, and a committed `wally.lock` in templates | S | The overlay exists; Jest needs the in-engine runner (P1-8) to be useful |
 | P1-8 | Opt-in in-engine CI through rocale-cli against a dedicated test place | M | Only runs when `ROBLOX_API_KEY` is set, and reports "skipped" otherwise. Needs a key from you |
 | P1-6 | Asphalt asset sync (`jacktabscode/asphalt@2.0.2`) after `package_batch.py` and for icon sheets | M | Uploads need explicit permission each time. Verify its config schema before adding a template |
 | P1-9 | Mantle release flow (`blake-mealey/mantle@0.11.18`): staging deploys automatically, production waits for approval | M | Needs a test experience |
@@ -38,4 +60,4 @@ Prioritized from the V2 gap analysis ([research-v2.md](research-v2.md)) and the 
 
 ## Not planned
 
-Knit, Aftman, Tarmac, run-in-roblox and studio-rust-mcp-server are archived or stale. roblox-ts is a different toolchain. Copying TopbarPlus (custom licence) or the General UI Kit (paid, closed source) is also ruled out: UrkUI is an independent implementation of similar ideas.
+Knit, Aftman, Tarmac, Roact (archived, Apache-2.0), run-in-roblox and studio-rust-mcp-server are archived or stale. roblox-ts is a different toolchain. Copying TopbarPlus (custom licence) or the General UI Kit (paid, closed source) is also ruled out: UrkUI is an independent implementation of similar ideas.

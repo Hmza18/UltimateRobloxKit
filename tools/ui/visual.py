@@ -36,8 +36,8 @@ sys.path.insert(0, str(HERE))
 
 try:
     from PIL import Image, ImageChops, ImageFilter, ImageStat
-except ImportError:  # pragma: no cover
-    sys.exit("Pillow is required: python3 -m pip install pillow")
+except ImportError:  # pragma: no cover - checked in main() so --help works without Pillow
+    Image = None
 
 WEIGHTS = {"palette": 30, "layout": 25, "contrast": 15, "outline": 15, "colour": 15}
 GRID = 24
@@ -248,6 +248,8 @@ def main(argv=None) -> int:
     c.add_argument("--diff", type=Path, help="write reference | capture | difference side by side")
     c.add_argument("--min", type=float, default=None, help="exit 1 when the total is below this")
     a = ap.parse_args(argv)
+    if Image is None:
+        sys.exit("Pillow is required: python3 -m pip install pillow")
     if a.cmd == "extract":
         result = extract(a.image, a.style)
     else:

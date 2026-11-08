@@ -21,6 +21,25 @@
    ]
   },
   {
+   "name": "asset-registry-reuse",
+   "category": "modeling",
+   "path": "skills/modeling/asset-registry-reuse",
+   "description": "Reuse before you make - index every image, mesh, audio file, font, Luau module and spec in the kit or a project with the asset registry, search by name and tags, get reuse suggestions for a request, and find identical files and near-duplicate images (shape hash plus average colour), with the licence found beside each asset. Use before generating or downloading any new asset, when cleaning up an asset library, or when asked whether an asset already exists or is a duplicate.",
+   "triggers": [
+    "asset registry",
+    "reuse an asset",
+    "duplicate assets",
+    "near duplicate",
+    "find an existing asset",
+    "asset library",
+    "do we already have",
+    "asset search"
+   ],
+   "depends": [
+    "asset-sourcing-licensing"
+   ]
+  },
+  {
    "name": "asset-sourcing-licensing",
    "category": "modeling",
    "path": "skills/modeling/asset-sourcing-licensing",
@@ -157,6 +176,26 @@
    "depends": [
     "roblox-architecture",
     "roblox-security-anti-exploit"
+   ]
+  },
+  {
+   "name": "economy-balancing",
+   "category": "gameplay",
+   "path": "skills/gameplay/economy-balancing",
+   "description": "Balance simulator and incremental economies before launch with the kit's economy simulator - write the economy as JSON (income, upgrade and rebirth cost curves, worlds, eggs, targets), simulate many seeded players, read milestone times, find walls, too-fast or too-slow progress, dead content and number overflow, then tune curves and repeat. Curves use the same formulas as the Luau Rebirth and Upgrades systems. Use when tuning prices, rebirth costs, world unlocks or egg odds, or when asked how long progression takes.",
+   "triggers": [
+    "balance the economy",
+    "economy simulation",
+    "tune prices",
+    "progression speed",
+    "rebirth cost",
+    "time to unlock",
+    "economy curve",
+    "too grindy",
+    "inflation"
+   ],
+   "depends": [
+    "monetization-economy-design"
    ]
   },
   {
@@ -497,6 +536,26 @@
    ]
   },
   {
+   "name": "release-management",
+   "category": "production",
+   "path": "skills/production/release-management",
+   "description": "Release gate for Roblox games built with the kit - run `urk release check` (lint, tests, Rojo build, security and licence audit, placeholder product ids, clean git tree) and the manual items (odds disclosure, device sizes), write release notes and rollback steps with `urk release notes`, and hand publishing to the owner. Never publishes, uploads or changes a live place. Use when preparing an update, a launch, a hotfix, or when asked whether a game is ready to ship.",
+   "triggers": [
+    "release check",
+    "ready to ship",
+    "prepare a release",
+    "publish checklist",
+    "release notes",
+    "rollback plan",
+    "hotfix",
+    "launch checklist"
+   ],
+   "depends": [
+    "roblox-publishing-liveops",
+    "roblox-security-anti-exploit"
+   ]
+  },
+  {
    "name": "roblox-animation",
    "category": "roblox",
    "path": "skills/roblox/roblox-animation",
@@ -659,6 +718,27 @@
     "pastel style"
    ],
    "depends": []
+  },
+  {
+   "name": "roblox-game-generator",
+   "category": "orchestration",
+   "path": "skills/orchestration/roblox-game-generator",
+   "description": "Generates a complete, working Roblox game project from one sentence with `urk generate` - picks the template and library systems for the genre (simulator, pet, collection, incremental, tycoon, obby), writes GameConfig (products, currencies, pets, eggs, worlds, upgrades, rebirths, passes), the server wiring, screen specs, a 3D asset plan, a Lune spec that validates the config and an economy report, then guides the follow-up work. Use when the user asks for a whole game, a game from a description, or a starting point like \"supermarket simulator with 50 products\".",
+   "triggers": [
+    "generate a game",
+    "whole game",
+    "complete game",
+    "game from a description",
+    "urk generate",
+    "start a new game",
+    "make me a simulator",
+    "supermarket simulator",
+    "pet simulator game"
+   ],
+   "depends": [
+    "roblox-project-planner",
+    "roblox-simulator-systems"
+   ]
   },
   {
    "name": "roblox-icon-design",
@@ -855,11 +935,8 @@
     "planning",
     "complete game",
     "whole game",
-    "generate a game",
-    "game from a description",
     "generate a complete",
-    "from a short description",
-    "urk generate"
+    "from a short description"
    ],
    "depends": [
     "kit-conventions"
@@ -1001,6 +1078,32 @@
    "depends": [
     "roblox-ui-generator",
     "roblox-inventory-economy",
+    "roblox-security-anti-exploit"
+   ]
+  },
+  {
+   "name": "roblox-simulator-systems",
+   "category": "roblox",
+   "path": "skills/roblox/roblox-simulator-systems",
+   "description": "Use the kit's tested Luau systems for simulator games instead of writing new ones - Pets (eggs, weighted rarity, pity, luck, equip, fuse, lock), Rebirth, Upgrades, Worlds (unlock requirements), Boosts (timed multipliers with stacking modes), Trading (versioned offers, countdown, re-check, atomic swap), Progression (one server for rebirth, upgrades, worlds and boosts), VFX presets with quality tiers, WorldGen layouts, plus the ProfileStore and Fusion integrations. Use when adding pets, eggs, hatching, rebirths, upgrades, world unlocks, boosts, trading or simulator VFX to a game.",
+   "triggers": [
+    "pets and eggs",
+    "hatch",
+    "rarity",
+    "pity",
+    "rebirth system",
+    "upgrades system",
+    "world unlock",
+    "boosts",
+    "potion",
+    "trading system",
+    "trade pets",
+    "simulator systems",
+    "vfx preset",
+    "world layout"
+   ],
+   "depends": [
+    "roblox-architecture",
     "roblox-security-anti-exploit"
    ]
   },
@@ -1276,6 +1379,27 @@
    "depends": [
     "roblox-networking",
     "roblox-performance"
+   ]
+  },
+  {
+   "name": "roblox-visual-ui-loop",
+   "category": "ui",
+   "path": "skills/ui/roblox-visual-ui-loop",
+   "description": "Closed visual loop for Roblox UI - extract palette, outline and layout hints from a reference image, write a screen spec, preview and capture it, compare the capture with the reference using a fixed scored rubric (palette, layout, contrast, outline, colour), and iterate until the score and a human look agree. Covers the HTML capture path, the Roblox Studio MCP screenshot path, and honest reporting of what was actually captured. Use when a user wants a UI to match a reference, asks to score or compare UI screenshots, or wants visual regression on screens.",
+   "triggers": [
+    "visual loop",
+    "compare screenshots",
+    "score the ui",
+    "match the reference",
+    "ui score",
+    "visual regression",
+    "capture and compare",
+    "iterate on the ui"
+   ],
+   "depends": [
+    "roblox-reference-recreation",
+    "roblox-ui-generator",
+    "roblox-ui-testing"
    ]
   },
   {

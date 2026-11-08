@@ -21,6 +21,9 @@ env:
   LUAU_SHA: 30f11c9cde8be2dc0e3066d210705532aac3726a2db89a6c5078080b6faa6cf8
   ROJO_URL: https://github.com/rojo-rbx/rojo/releases/download/v7.7.1/rojo-7.7.1-linux-x86_64.zip
   ROJO_SHA: 00feb4fa0829a1dd72b49df2639da519a352bfe13cadcd83969e2ba2bb5693c4
+  # GitHub lists no digest for Wally 0.3.2; this SHA-256 was computed from the official release asset on 2026-11-08.
+  WALLY_URL: https://github.com/UpliftGames/wally/releases/download/v0.3.2/wally-v0.3.2-linux.zip
+  WALLY_SHA: 21fdbb53dfee397fd21ca7fdd208db65cff0f87f0fd045cdb594b951981bd73f
   LUAULSP_URL: https://github.com/JohnnyMorganz/luau-lsp/releases/download/1.70.1/luau-lsp-linux-x86_64.zip
   LUAULSP_SHA: 1a2ea1ae4f98f8946cefd970a4b54853e11ab4775e6932faa7f60cf920346567
 
@@ -46,8 +49,16 @@ jobs:
       - name: Pillow (icon build reproducibility and importer tests)
         if: matrix.pillow
         run: python -m pip install "pillow==12.3.0"
-      - name: Validate skills, routing, installer, library tooling, icons, UI specs, hygiene
+      - name: Validate skills, routing, installer, library tooling, icons, UI specs, hygiene, 0.4 tools
         run: python scripts/validate/run_all.py
+      - name: Routing evaluation (tuned set must stay at 90%+; held-out sets are reported)
+        run: python urk.py skills eval --min 0.9
+      - name: Economy example stays balanced; insecure fixture fails the audit
+        shell: bash
+        run: |
+          python urk.py economy sim tools/economy/examples/pet-sim.json --players 20 --strict
+          python urk.py audit --kit --strict
+          if python urk.py audit --project tests/fixtures/audit/bad-game --strict; then echo "audit missed the bad fixture"; exit 1; fi
       - name: UI tokens are current and every built-in screen spec is valid
         shell: bash
         run: |
@@ -117,7 +128,8 @@ jobs:
           get "$LUNE_URL" "$LUNE_SHA"
           get "$LUAU_URL" "$LUAU_SHA"
           get "$ROJO_URL" "$ROJO_SHA"
-          chmod +x selene stylua lune luau-analyze rojo
+          get "$WALLY_URL" "$WALLY_SHA"
+          chmod +x selene stylua lune luau-analyze rojo wally
           echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
       - name: Library - lint, format, strict-check pure modules, Lune specs, build .rbxm
         working-directory: library
@@ -128,7 +140,7 @@ jobs:
           selene generate-roblox-std > /dev/null
           check selene selene src tests examples
           check stylua stylua --check src tests examples
-          PURE=$(find src -name '*Logic.luau' -o -path 'src/UI/Core/*.luau' -o -name 'IconCatalog.luau' -o -name 'IconData.luau' -o -path 'src/Util/RateLimiter.luau' -o -path 'src/Util/Validate.luau' -o -path 'src/UI/Style/Style.luau' -o -name 'SpecSchema.luau' | sort)
+          PURE=$(find src -name '*Logic.luau' -o -path 'src/UI/Core/*.luau' -o -name 'IconCatalog.luau' -o -name 'IconData.luau' -o -path 'src/Util/RateLimiter.luau' -o -path 'src/Util/Validate.luau' -o -path 'src/UI/Style/Style.luau' -o -name 'SpecSchema.luau' -o -name 'FusionBridge.luau' -o -path 'src/Icons/Packs/*.luau' | sort)
           echo "strict-checking $(echo "$PURE" | wc -l) pure modules"
           check luau-analyze luau-analyze --mode=strict $PURE
           check lune lune run tests/run
@@ -163,6 +175,25 @@ jobs:
           python urk.py add UI Icons --project build/libgame
           for s in $(python urk.py add --list | awk '/^Systems\//{print $1}'); do python urk.py add "$s" --project build/libgame; done
           cd build/libgame && lune run tests/urk/run tests/urk && rojo build -o game.rbxl
+      - name: Generated games (four genres) build and pass their specs
+        run: |
+          set -e
+          i=0
+          for prompt in "supermarket simulator with 50 products and 3 worlds" "pet simulator with 4 worlds and 24 pets" "obby with 30 stages" "tycoon with 5 upgrades"; do
+            i=$((i+1)); d="build/generated/g$i"
+            echo "::group::$prompt"
+            python urk.py generate "$prompt" --name "Gen$i" --out "$d" --no-economy
+            (cd "$d" && selene generate-roblox-std > /dev/null && selene src && stylua --check src tests && lune run tests/run && lune run tests/urk/run tests/urk && rojo build -o game.rbxl)
+            echo "::endgroup::"
+          done
+      - name: Wally packages overlay (real wally install of Fusion, Promise, ProfileStore)
+        run: |
+          set -e
+          python urk.py packages --project build/generated/g2
+          test -f build/generated/g2/Packages/Fusion.lua
+          test -f build/generated/g2/Packages/Promise.lua
+          test -f build/generated/g2/ServerPackages/ProfileStore.lua
+          (cd build/generated/g2 && rojo build -o with-packages.rbxl)
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: rbxm-and-places

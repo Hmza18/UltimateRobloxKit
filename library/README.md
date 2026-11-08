@@ -21,8 +21,23 @@ Modules are copied to `src/shared/Urk/` with their dependencies and tests. Edits
 | [UI](src/UI/README.md) | UrkUI: tag- and attribute-driven panels, buttons, data binding, tabs, tooltips, toasts, context menus, drag and drop, themes, responsive layouts, gamepad navigation, localisation, animation, and code components |
 | [Game components](src/UI/Game/README.md) | Cartoon or simulator game UI: windows, product cards, promo banners, buttons, badges, counters, timers, controls, reward popups and purchase bridge. Styled from design tokens |
 | [Screen specs](src/UI/Spec/README.md) | JSON screen specs, validation and `Builder.build(spec)`, with 16 ready screens |
-| [Icons](src/Icons/) | 272 original MIT icons (glyphs, illustrated and variants) as sprite sheets, with search, aliases and imported packs (see `assets/icons/`) |
-| Util | Signal, Trove (cleanup), RateLimiter (token bucket), Validate (remote argument checks) |
+| [Icons](src/Icons/) | 272 original MIT icons (glyphs, illustrated and variants) as sprite sheets, with search, aliases and imported packs, plus the CC0 Kenney packs in `Icons/Packs` (see `assets/icons/`) |
+| Util | Signal, Trove (cleanup), RateLimiter (token bucket), Validate (remote argument checks), PlayerState (per-player load, save and remotes for adapters) |
+
+### Simulator progression (0.4)
+
+| System | What it does |
+|---|---|
+| [Pets](src/Systems/Pets/README.md) | Eggs with weighted rarities, pity and luck, multi-hatch, equip slots, equip best, lock, delete, fuse into golden and rainbow tiers, published odds, safe saves |
+| [Rebirth](src/Systems/Rebirth/README.md) | Prestige with linear, exponential or table cost curves, buy one or max, a permanent multiplier, reset keys and rebirth tokens |
+| [Upgrades](src/Systems/Upgrades/README.md) | Leveled upgrades with cost curves, max levels, effects, prerequisites, buy max and rebirth resets |
+| [Worlds](src/Systems/Worlds/README.md) | Ordered world unlocks gated by the previous world, costs, rebirths and stats, with world multipliers |
+| [Boosts](src/Systems/Boosts/README.md) | Timed multipliers that extend, refresh or stack, on a wall or online-only clock |
+| [Trading](src/Systems/Trading/README.md) | Two-player trades with versioned offers, a countdown, ownership re-checks and an atomic pets-and-currency swap |
+| [Progression](src/Systems/Progression/README.md) | One server for rebirth, upgrades, worlds and boosts on top of Currency, with combined multipliers |
+| [VFX](src/Systems/VFX/README.md) | Particle presets with low, medium and high quality tiers, device detection and an emitter budget |
+| [WorldGen](src/Systems/WorldGen/README.md) | Deterministic zone layouts with gates, paths, a spawn and spaced props, plus a Studio blockout builder |
+| [Integrations](src/Integrations/README.md) | `ProfileStoreAdapter` (one ProfileStore session, a section per system) and `FusionBridge` (Store to Fusion values) |
 
 ### Items and economy
 

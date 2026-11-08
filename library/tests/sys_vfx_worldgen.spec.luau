@@ -96,6 +96,27 @@ return {
 		end
 	end,
 
+	["grid layouts keep consecutive zones next to each other"] = function()
+		local l = WorldGenLogic.generate({
+			seed = 1,
+			zones = { "A", "B", "C", "D", "E", "F" },
+			columns = 3,
+			zoneSize = 100,
+			gap = 20,
+		})
+		for i = 2, #l.zones do
+			local a, b = l.zones[i - 1].floor.center, l.zones[i].floor.center
+			t.equal(
+				math.abs(a[1] - b[1]) + math.abs(a[3] - b[3]),
+				120,
+				"zone " .. i .. " is one step from zone " .. (i - 1)
+			)
+		end
+		for _, strip in l.path do
+			t.equal(math.max(strip.size[1], strip.size[3]), 120, "path strips span exactly one step")
+		end
+	end,
+
 	["rng is in [0, 1)"] = function()
 		local r = WorldGenLogic.rng(1)
 		for _ = 1, 1000 do

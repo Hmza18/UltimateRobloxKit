@@ -26,6 +26,10 @@ metadata:
 - Luau: PascalCase modules and services, camelCase locals, `--!strict` at the top, one module per file.
 - Server code in `src/server`, client in `src/client`, shared in `src/shared` (Rojo).
 
+## Project memory
+
+At the start of a task in a game project, read `python3 $URK/urk.py memory context --project <dir>` and follow the recorded decisions and conventions. When the user settles a decision, record it with `urk memory add decision "..."`. Never store secrets or personal data there.
+
 ## Checkpoints
 
 After each step write a short progress line to the user: what is done, what was verified and how, what is next. For multi-hour work keep `PROGRESS.md` in the project with the same three columns, so a new session can resume.

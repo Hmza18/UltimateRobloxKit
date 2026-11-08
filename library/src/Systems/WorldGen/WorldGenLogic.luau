@@ -4,7 +4,7 @@
 -- plain data (boxes, points, gates); WorldGenBuilder turns it into Parts, or a map agent can turn it into
 -- Blender props.
 --
--- Layout: zones in a row (or a grid) along +X with a path between them, a gate at every border, a
+-- Layout: zones in a row (or a serpentine grid) along +X with a path between neighbours, a gate at every border, a
 -- spawn pad in the first zone, and props scattered inside each zone with a minimum spacing that keeps
 -- the path and gate areas clear.
 
@@ -86,8 +86,11 @@ function WorldGenLogic.generate(options: Options): Layout
 	local gates: { Gate } = {}
 	local path: { Box } = {}
 	for i, name in options.zones do
-		local col = (i - 1) % columns
 		local row = (i - 1) // columns
+		local col = (i - 1) % columns
+		if row % 2 == 1 then
+			col = columns - 1 - col -- serpentine rows, so each zone touches the next one
+		end
 		local x = col * (size + gap)
 		local z = row * (size + gap)
 		local zone: Zone = { index = i, name = name, floor = box(x, -1, z, size, 2, size), props = {} }

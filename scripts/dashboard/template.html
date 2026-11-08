@@ -179,9 +179,46 @@ const VIEWS = {
     return `<div class="card"><p class="muted">Captured when this page was built. Refresh with:</p>${cmd("python3 urk.py dashboard --project " + (D.project || "~/games/MyGame") + " --open")}${doc}${chk}
       <p class="muted">Agents: ${D.agents.map(esc).join(", ")} · Commands: ${D.commands.map(c => "/" + esc(c)).join(", ")}</p></div>`;
   },
+  Project() {
+    const pc = D.projectCentre;
+    const gen = `<div class="card"><h3>Generate a game</h3><div class="row"><input type="text" id="gprompt" value="pet simulator with 3 worlds and 24 pets" style="flex:1 1 300px"><input type="text" id="gname" value="PetLand"></div><div id="gcmd"></div></div>`;
+    if (!pc) return gen + `<p class="muted">Rebuild with <code>python3 urk.py dashboard --project &lt;dir&gt;</code> to see that project's memory, game plan and check results.</p>`;
+    return gen + `<div class="grid"><div class="card"><h3>Project memory</h3><pre>${esc(pc.memory)}</pre>${cmd(`python3 urk.py memory add decision "..." --project ${D.project}`)}</div>
+      <div class="card"><h3>Game plan</h3>${pc.plan ? md(pc.plan) : '<span class="muted">No GAME_PLAN.md (made by urk generate).</span>'}</div>
+      <div class="card"><h3>Release gate</h3>${cmd(`python3 urk.py release check --project ${D.project}`)}<p class="muted">Checks only. The kit never publishes; you publish from Studio.</p></div></div>`;
+  },
+  "UI Playground"() {
+    return `<p class="muted">Every built-in screen spec. Thumbnails are HTML previews captured from the same spec, not Studio screenshots.</p><div class="grid">${D.playground.map(s => `<div class="card"><h3>${esc(s.name)} <span class="tag">${esc(s.kind)}</span></h3>
+      ${s.thumb ? `<img alt="${esc(s.name)} preview" style="width:100%;border-radius:8px" src="data:image/jpeg;base64,${s.thumb}">` : '<span class="muted">no preview image</span>'}
+      <p class="muted">${esc(s.description)} (${s.elements} elements)</p>${cmd(`python3 urk.py ui new ${s.name} --name My${s.name} --project <dir>`)}</div>`).join("")}</div>`;
+  },
+  Assets() {
+    const a = D.assetLibrary, rows = o => Object.entries(o).map(([k, v]) => `<tr><td>${esc(k)}</td><td>${v}</td></tr>`).join("");
+    return `<div class="grid"><div class="card"><h3>${a.count} assets indexed</h3><table>${rows(a.kinds)}</table></div>
+      <div class="card"><h3>Licences</h3><table>${rows(a.licences)}</table></div>
+      <div class="card"><h3>Duplicates</h3><p>${a.identical} identical groups, ${a.similar} near-duplicate image pairs</p>${cmd("python3 urk.py assets dupes")}${cmd('python3 urk.py assets suggest "gold coin"')}</div></div>
+      <h3>Packs</h3><div class="grid">${a.packs.map(p => `<div class="card"><h3>${esc(p.path)}</h3>${p.thumb ? `<img alt="" style="width:100%" src="data:image/jpeg;base64,${p.thumb}">` : ""}</div>`).join("")}</div>`;
+  },
+  Agents() {
+    return `<div class="grid">${D.agentsInfo.map(g => `<div class="card"><h3>${esc(g.name)}</h3><p>${esc(g.description)}</p><p>${g.skills.map(s => `<span class="tag">${esc(s)}</span>`).join("")}</p></div>`).join("")}</div>`;
+  },
+  Tests() {
+    const t = D.tests, r = t.routing;
+    const pct = x => (x * 100).toFixed(1) + "%";
+    return `<div class="grid"><div class="card"><h3>Routing evaluation</h3><table><tr><th>Set</th><th>Cases</th><th>Accuracy</th><th>Tokens/task</th></tr>
+      ${Object.entries(r).map(([k, v]) => `<tr><td>${k}</td><td>${v.cases}</td><td>${pct(v.accuracy)}</td><td>~${v.meanTokensLoaded}</td></tr>`).join("")}</table>
+      <p class="muted">"tuned" cases were used to adjust triggers; the held-out sets were not, so they are the honest numbers.</p></div>
+      <div class="card"><h3>Economy example</h3>${t.economy ? `<p>${t.economy.warnings.length ? t.economy.warnings.map(esc).join("<br>") : "No warnings"}</p><p class="muted">Median rebirths ${t.economy.medianRebirths} in ${t.economy.hours} h (simulated players).</p>` : "not available"}</div>
+      <div class="card"><h3>Kit audit</h3>${t.audit ? `<p>${t.audit.HIGH} high, ${t.audit.MEDIUM} medium</p>` : "not available"}${cmd("python3 urk.py audit --kit")}</div>
+      <div class="card"><h3>Suites</h3><p>${t.specs} Lune spec files, ${t.pyTests} Python test files</p>${cmd("python3 urk.py test")}<p class="muted">Results are not cached here: run the suites to see them.</p></div></div>`;
+  },
 };
 
 const wire = {
+  Project() {
+    const draw = () => $("#gcmd").innerHTML = cmd(`python3 urk.py generate "${$("#gprompt").value}" --name ${$("#gname").value} --out ~/games/${$("#gname").value}`);
+    ["#gprompt", "#gname"].forEach(s => $(s).oninput = draw); draw();
+  },
   Skills() {
     const draw = () => {
       const q = $("#q").value.toLowerCase(), c = $("#cat").value;
