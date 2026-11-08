@@ -167,6 +167,7 @@ return {
 		t.equal(unknown, "invalid fields")
 		local _, fourth = AnalyticsLogic.normalizeFields(settings, { "a", "b", "c", "d" })
 		t.equal(fourth, "invalid fields")
+		-- selene: allow(mixed_table)
 		local _, both = AnalyticsLogic.normalizeFields(settings, { "a", CustomField01 = "b" })
 		t.equal(both, "invalid fields")
 		local _, nested = AnalyticsLogic.normalizeFields(settings, { { "x" } })

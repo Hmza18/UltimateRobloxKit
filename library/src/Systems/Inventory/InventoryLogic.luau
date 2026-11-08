@@ -83,7 +83,7 @@ function InventoryLogic.newRegistry(defs: { ItemDefInput }): Registry
 		assert(type(category) == "string", "category must be a string for " .. id)
 		local tags: { string } = {}
 		local tagSet: { [string]: boolean } = {}
-		for _, tag in input.tags or {} do
+		for _, tag in ipairs(input.tags or {}) do
 			assert(type(tag) == "string", "tags must be strings for " .. id)
 			table.insert(tags, tag)
 			tagSet[tag] = true

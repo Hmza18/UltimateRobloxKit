@@ -116,15 +116,19 @@ jobs:
           echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
       - name: Library - lint, format, strict-check pure modules, Lune specs, build .rbxm
         working-directory: library
+        # Every check runs even if an earlier one fails, so one CI run reports all problems.
         run: |
+          failed=""
+          check() { echo "::group::$1"; shift; "$@" || failed="$failed $1"; echo "::endgroup::"; }
           selene generate-roblox-std > /dev/null
-          selene src tests examples
-          stylua --check src tests examples
+          check selene selene src tests examples
+          check stylua stylua --check src tests examples
           PURE=$(find src -name '*Logic.luau' -o -path 'src/UI/Core/*.luau' -o -name 'IconCatalog.luau' -o -name 'IconData.luau' -o -path 'src/Util/RateLimiter.luau' -o -path 'src/Util/Validate.luau' | sort)
           echo "strict-checking $(echo "$PURE" | wc -l) pure modules"
-          luau-analyze --mode=strict $PURE
-          lune run tests/run
-          rojo build default.project.json -o UltimateRobloxKit.rbxm
+          check luau-analyze luau-analyze --mode=strict $PURE
+          check lune lune run tests/run
+          check rojo rojo build default.project.json -o UltimateRobloxKit.rbxm
+          if [ -n "$failed" ]; then echo "::error::failed:$failed"; exit 1; fi
       - name: Backdoor scanner (Lune) on a binary model built from a malicious fixture
         run: |
           rojo build tests/fixtures/security/bad-model.project.json -o bad.rbxm

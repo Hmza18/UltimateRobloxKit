@@ -52,7 +52,7 @@ end
 
 local function copyNumbers(source: { [string]: number }?, label: string): { [string]: number }
 	local result: { [string]: number } = {}
-	for key, value in source or {} do
+	for key, value in pairs(source or {}) do
 		assert(type(key) == "string" and isFinite(value), "invalid " .. label .. " stat")
 		result[key] = value
 	end
@@ -85,7 +85,7 @@ function EquipmentLogic.newCatalog(
 		if single ~= nil then
 			table.insert(fits, single)
 		end
-		for _, slot in input.slots or {} do
+		for _, slot in ipairs(input.slots or {}) do
 			table.insert(fits, slot)
 		end
 		assert(#fits > 0, "item " .. id .. " needs a slot")

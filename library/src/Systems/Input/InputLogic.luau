@@ -154,7 +154,7 @@ end
 function Input.reverseLookup(map: ActionMap, device: BindDevice): { [string]: { string } }
 	local users: { [string]: { string } } = {}
 	for action, def in map do
-		for _, key in keysOf(def, device) or {} do
+		for _, key in ipairs(keysOf(def, device) or {}) do
 			local list = users[key] or {}
 			table.insert(list, action)
 			users[key] = list

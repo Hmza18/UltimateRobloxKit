@@ -70,9 +70,8 @@ local function removeFromOrder(state: State, key: any)
 end
 
 local function defaultDestroy(object: any, _key: any)
-	if type(object) == "table" and type(object.Destroy) == "function" then
-		object:Destroy()
-	elseif typeof(object) == "Instance" then
+	local destroyable = (type(object) == "table" and type(object.Destroy) == "function") or typeof(object) == "Instance"
+	if destroyable then
 		object:Destroy()
 	end
 end

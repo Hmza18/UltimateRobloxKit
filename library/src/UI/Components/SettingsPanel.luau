@@ -84,7 +84,7 @@ function SettingsPanel.new(props: Props)
 		local object = Create.new(className, {
 			Name = "Control",
 			AnchorPoint = Vector2.new(1, 0.5),
-			Position = UDim2.new(1, 0, 0.5, 0),
+			Position = UDim2.fromScale(1, 0.5),
 			Size = UDim2.fromOffset(CONTROL_WIDTH, ROW_HEIGHT - 12),
 			BorderSizePixel = 0,
 			Text = "",
@@ -188,7 +188,7 @@ function SettingsPanel.new(props: Props)
 		end
 		trove:Connect(button.Activated, function()
 			local items = {}
-			for _, option in entry.options or {} do
+			for _, option in ipairs(entry.options or {}) do
 				table.insert(items, {
 					label = context.localize:t(option),
 					callback = function()
