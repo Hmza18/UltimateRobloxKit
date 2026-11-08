@@ -43,6 +43,10 @@ Everything the kit learned from, and how each source was used. "Copy" means file
 
 Recommended libraries (install with Wally, not bundled): ProfileStore (Apache-2.0), roblox-lua-promise (MIT), jecs (MIT), Lyra (MIT), Blink or Zap (MIT), jest-roblox (MIT). Archived and therefore not recommended for new work: TestEZ, Knit, Roblox/studio-rust-mcp-server.
 
+## UI references
+
+The art direction of the UI layer and illustrated icons was studied from three reference images the user supplied: a simulator shop, a premium store and an icon sheet. Only the principles were reproduced, such as outline weights, gradient direction, card anatomy and badge placement. No pixels, names, logos or icons from them were copied. The General UI Kit (RBLX Essentials, paid, closed source) inspired the tag-driven idea in UrkUI, which is an independent implementation.
+
 ## Documentation
 
 Roblox Creator Documentation (https://github.com/Roblox/creator-docs, CC-BY-4.0) was the reference for API facts. No passages were copied. Where an API detail was uncertain, skills say "verify in creator docs".

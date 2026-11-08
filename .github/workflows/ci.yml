@@ -46,8 +46,13 @@ jobs:
       - name: Pillow (icon build reproducibility and importer tests)
         if: matrix.pillow
         run: python -m pip install "pillow==12.3.0"
-      - name: Validate skills, routing, installer, library tooling, icons, hygiene
+      - name: Validate skills, routing, installer, library tooling, icons, UI specs, hygiene
         run: python scripts/validate/run_all.py
+      - name: UI tokens are current and every built-in screen spec is valid
+        shell: bash
+        run: |
+          python urk.py ui tokens --check
+          python urk.py ui validate library/src/UI/Spec/Screens/*.json tests/fixtures/ui-specs/valid/*.json
       - name: urk setup, add, check, upgrade, dashboard and uninstall on a fresh project
         shell: bash
         run: |
@@ -123,7 +128,7 @@ jobs:
           selene generate-roblox-std > /dev/null
           check selene selene src tests examples
           check stylua stylua --check src tests examples
-          PURE=$(find src -name '*Logic.luau' -o -path 'src/UI/Core/*.luau' -o -name 'IconCatalog.luau' -o -name 'IconData.luau' -o -path 'src/Util/RateLimiter.luau' -o -path 'src/Util/Validate.luau' | sort)
+          PURE=$(find src -name '*Logic.luau' -o -path 'src/UI/Core/*.luau' -o -name 'IconCatalog.luau' -o -name 'IconData.luau' -o -path 'src/Util/RateLimiter.luau' -o -path 'src/Util/Validate.luau' -o -path 'src/UI/Style/Style.luau' -o -name 'SpecSchema.luau' | sort)
           echo "strict-checking $(echo "$PURE" | wc -l) pure modules"
           check luau-analyze luau-analyze --mode=strict $PURE
           check lune lune run tests/run
