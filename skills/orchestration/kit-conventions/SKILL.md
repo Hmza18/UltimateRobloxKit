@@ -42,6 +42,7 @@ After each step write a short progress line to the user: what is done, what was 
 | Data | Schema version bumped with a migration; session lock tested with two Studio servers or marked manual |
 | Assets | `asset_batch.py` reports no FAIL; renders inspected by eye; Studio import manual |
 | UI | Checked at phone, tablet and desktop sizes in Studio's device emulator |
+| Visuals | An existing preset or component was searched for in `catalog/visuals.json` before any effect was written; pure logic has a Lune spec; looks, feel and device performance are `NEEDS MANUAL REVIEW` until run in Studio (`uvk-visual-testing`) |
 | Release | `production-management` release checklist complete |
 
 ## Parallel agents

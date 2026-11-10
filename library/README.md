@@ -19,7 +19,8 @@ Modules are copied to `src/shared/Urk/` with their dependencies and tests. Edits
 | Module | What it gives you |
 |---|---|
 | [UI](src/UI/README.md) | UrkUI: tag- and attribute-driven panels, buttons, data binding, tabs, tooltips, toasts, context menus, drag and drop, themes, responsive layouts, gamepad navigation, localisation, animation, and code components |
-| [Game components](src/UI/Game/README.md) | Cartoon or simulator game UI: windows, product cards, promo banners, buttons, badges, counters, timers, controls, reward popups and purchase bridge. Styled from design tokens |
+| [Game components](src/UI/Game/README.md) | Cartoon or simulator game UI: windows, product cards, promo banners, buttons, badges, counters, timers, controls, reward popups and purchase bridge, plus 17 animated components (PremiumButton, TabBar, Modal, Tooltip, XPBar, InventorySlot, PetCard, RarityBadge, RewardPanel, QuestCard, AchievementCard, Notification, LeaderboardRow, LoadingScreen, SelectionCard, HotbarSlot, StatChip). Styled from design tokens |
+| [Visuals](src/Visuals/README.md) | UltimateVisualsKit: one facade for world VFX presets, UI animation, object animation, camera shake and cinematics, pet animation and followers, the egg hatch cinematic, rarity reward reveals, gameplay feedback events, sound cues, themes and imported icon packs, with quality budgets and a preset catalog. Client-side and cosmetic. Pure logic is spec-tested; the Roblox side is NOT run in Studio |
 | [Screen specs](src/UI/Spec/README.md) | JSON screen specs, validation and `Builder.build(spec)`, with 16 ready screens |
 | [Icons](src/Icons/) | 272 original MIT icons (glyphs, illustrated and variants) as sprite sheets, with search, aliases and imported packs, plus the CC0 Kenney packs in `Icons/Packs` (see `assets/icons/`) |
 | Util | Signal, Trove (cleanup), RateLimiter (token bucket), Validate (remote argument checks), PlayerState (per-player load, save and remotes for adapters) |

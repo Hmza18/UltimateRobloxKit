@@ -70,12 +70,36 @@ local CONTRACT_TYPES = {
 	"listRow",
 }
 
+-- The animated Game components (ui_spec_animated.spec.luau covers their rules).
+local ANIMATED_TYPES = {
+	"premiumButton",
+	"tabBar",
+	"modal",
+	"tooltip",
+	"xpBar",
+	"inventorySlot",
+	"petCard",
+	"rarityBadge",
+	"rewardPanel",
+	"questCard",
+	"achievementCard",
+	"notification",
+	"leaderboardRow",
+	"loadingScreen",
+	"selectionCard",
+	"hotbarSlot",
+	"statChip",
+}
+
 return {
 	["ELEMENT_TYPES covers every type in the contract table"] = function()
 		for _, name in ipairs(CONTRACT_TYPES) do
 			t.truthy(SpecSchema.ELEMENT_TYPES[name] ~= nil, name)
 		end
-		t.equal(#SpecSchema.TYPE_NAMES, #CONTRACT_TYPES, "no extra types")
+		for _, name in ipairs(ANIMATED_TYPES) do
+			t.truthy(SpecSchema.ELEMENT_TYPES[name] ~= nil, name)
+		end
+		t.equal(#SpecSchema.TYPE_NAMES, #CONTRACT_TYPES + #ANIMATED_TYPES, "no extra types")
 		t.deepEqual(SpecSchema.ELEMENT_TYPES.banner.required, { "title", "palette", "price" })
 		t.deepEqual(SpecSchema.ELEMENT_TYPES.toggle.required, { "id", "label" })
 	end,

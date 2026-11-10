@@ -16,7 +16,7 @@ metadata:
 - Low FPS, frame spikes, long join times, high memory, crashes on phones, server lag (high heartbeat time, delayed physics).
 - Planning a large map or many NPCs before building it.
 
-When not to use: correctness bugs (`roblox-testing-debugging`); reducing mesh triangle counts in Blender (`blender-game-optimization` if installed); VFX-specific budgets (`roblox-vfx`).
+When not to use: correctness bugs (`roblox-testing-debugging`); reducing mesh triangle counts in Blender (`blender-game-optimization` if installed); VFX-specific budgets (`roblox-vfx`, and `uvk-visual-performance` for the kit's Visuals module).
 
 ## Inputs
 

@@ -19,6 +19,7 @@ One UI that works from a 390 px tall phone to a TV, with touch, mouse and gamepa
 
 - Use: new screens, HUD placement, anything reported "cut off", "tiny", "overlaps", "can't select with controller".
 - Not for general layout objects and scale vs offset basics: `roblox-ui-systems`. Not for visual style: `roblox-ui-design`.
+- The pet selection screen (`uvk-pet-visuals`), the hatch stage and reward reveals compute their own layouts from the viewport and safe area; check them on each device class rather than re-laying them out.
 
 ## Breakpoints (Core/Breakpoints)
 

@@ -10,6 +10,7 @@ Rules:
 - Prefer tags and attributes on existing GUI objects, then UrkUI components in code. Only write custom UI code for what neither covers.
 - Colors, spacing and fonts come from theme tokens, never literals. Icons come from `Icons`, never raw asset ids.
 - Every screen works on phone portrait, tablet, desktop and gamepad-only console. Reduced motion is respected, and text meets the minimum size.
+- Motion comes from UltimateVisualsKit when the project has the `Visuals` module: `Visuals.UI` presets and bindings and the animated `UI/Game` components (read `uvk-ui-animation` or `uvk-simulator-screens` when the task involves animation). Do not hand-write tweens a preset covers; effects, reveals and feedback recipes belong to `urk-visuals-director`.
 - UI sends intents (actions) and reads state from the Store. It never decides prices, rewards or inventory changes.
 - Own only the UI files listed in the plan. Ask the owner, through PROGRESS.md, for Store paths or actions you need.
 - Finish with the Lune UI specs passing (`lune run tests/urk/run tests/urk`, or `library` tests inside the kit) and a list of what needs a Studio check at each device size.

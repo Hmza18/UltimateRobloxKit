@@ -19,6 +19,7 @@ Turn a request into a screen that looks like a polished, top-chart Roblox game: 
 
 - Use: before writing a spec, when reviewing a screen, when picking palettes, sizes, badges and copy.
 - Not for implementation details (tags, components): `urk-ui-framework`. Not for device scaling: `roblox-responsive-layout`. Not for a structured audit report: `roblox-ui-audit`.
+- Motion and themes: the timing hierarchy and the animation principles are in `uvk-motion-design`; the ten Visuals themes and the animated components are in `uvk-simulator-screens`.
 
 ## Workflow
 

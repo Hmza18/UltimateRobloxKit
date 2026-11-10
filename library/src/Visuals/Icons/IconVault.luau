@@ -448,7 +448,8 @@ function IconVault.animated(name: string, presetId: string?, options: ContainerO
 			onStop(function()
 				local stop = handle.stop or handle.cancel
 				if type(stop) == "function" then
-					pcall(stop, handle)
+					-- UI handles take stop(restore?), not a self argument: put the tile back at rest.
+					pcall(stop, true)
 				end
 			end)
 		elseif not ok then
@@ -902,6 +903,19 @@ function IconVault.bridge(): () -> ()
 	end
 	unbridge = remove
 	return remove
+end
+
+-- Theme bridge: when the Visuals theme changes, live containers re-read the new default style.
+-- Themes is optional and loaded guarded, like the other cross-module links.
+do
+	local ok, themes = pcall(function(): any
+		return require("../Themes/Themes")
+	end)
+	if ok and type(themes) == "table" and type(themes.Changed) == "table" then
+		themes.Changed:Connect(function()
+			IconVault.refresh()
+		end)
+	end
 end
 
 return IconVault

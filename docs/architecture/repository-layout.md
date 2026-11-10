@@ -6,9 +6,9 @@
 | `.claude/agents/` | Subagent definitions (canonical) | `.claude/agents/` |
 | `.claude/commands/` | `/urk-*` slash commands (canonical) | `.claude/commands/` |
 | `.claude/settings.json` | Permission allowlist for developing the kit itself | not installed |
-| `catalog/` | Workflow recipes (hand-written) and skill index (generated) | `$URK/catalog/` |
+| `catalog/` | Workflow recipes (hand-written), skill index and visuals preset catalog `visuals.json` (generated) | `$URK/catalog/` |
 | `scripts/install/` | installer, doctor, third-party fetcher | `$URK/scripts/` |
-| `scripts/automation/` | router, catalog builder, project scaffolder | `$URK/scripts/` |
+| `scripts/automation/` | router, catalog builder, visuals preset tables builder, project scaffolder | `$URK/scripts/` |
 | `scripts/export/` | asset batch, packager, Studio checker | `$URK/scripts/` |
 | `scripts/blender/` | Blender-side stages (run inside Blender) | `$URK/scripts/` |
 | `scripts/validate/` | `run_all.py`, `check_obj.py` | `$URK/scripts/` |

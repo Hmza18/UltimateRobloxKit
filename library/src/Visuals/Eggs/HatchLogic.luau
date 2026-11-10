@@ -246,6 +246,16 @@ function HatchLogic.idle(t: number, options: IdleOptions?): IdlePose
 	return { angle = angle, offset = offset, squash = squash }
 end
 
+-- VFX presets (HatchBurst, RarityBurst, RarityBeam, RarityAura) only accept the seven built-in
+-- rarity names for their `rarity` param. A custom rarity uses the built-in tier nearest its rank;
+-- its own colour is still passed alongside.
+local function vfxRarity(rarity: string, rank: number): string
+	if table.find(RewardsLogic.ORDER, rarity) ~= nil then
+		return rarity
+	end
+	return RewardsLogic.ORDER[math.clamp(math.floor(rank + 0.5), 1, #RewardsLogic.ORDER)]
+end
+
 -- Builds the hatch plan for `eggs` (each a table with a `rarity`; unknown rarities are Common).
 function HatchLogic.plan(eggs: { any }, options: Options?): Plan
 	assert(type(eggs) == "table" and #eggs >= 1, "eggs must be a list with at least one egg")
@@ -416,7 +426,11 @@ function HatchLogic.plan(eggs: { any }, options: Options?): Plan
 			spring = if entry.rank >= 4 then "Elastic" else "Overshoot",
 			spin = if reducedMotion then 0 elseif entry.rank >= 5 then 720 else 360,
 			vfx = "HatchBurst",
-			params = { rarity = entry.rarity, color = profile.color, intensity = profile.particles },
+			params = {
+				rarity = vfxRarity(entry.rarity, entry.rank),
+				color = profile.color,
+				intensity = profile.particles,
+			},
 			cue = "egg.reveal",
 			rarityCue = if isLast or not compact then "rarity." .. string.lower(entry.rarity) else nil,
 		}, appear)
@@ -437,6 +451,7 @@ function HatchLogic.plan(eggs: { any }, options: Options?): Plan
 			end
 			add(appearAt + appear * 0.6, "rarity", 9, entry.index, false, {
 				rarity = entry.rarity,
+				vfxRarity = vfxRarity(entry.rarity, entry.rank),
 				label = profile.label,
 				color = profile.color,
 				rays = if entry.rank >= 4 and not compact then profile.rayCount else 0,

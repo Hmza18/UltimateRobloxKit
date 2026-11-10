@@ -56,7 +56,12 @@ type Ctx = {
 	elements: { [string]: any },
 	intent: Signal.Signal,
 	breakpoint: string,
+	overlay: Instance?, -- the screen root: modals and loading screens cover it
+	deferred: { () -> () }, -- run once every element exists (tooltips look up their target)
+	motions: { Motion }, -- elements with a `motion` field, played when the screen opens
 }
+
+type Motion = { instance: GuiObject, preset: string, delay: number? }
 
 local Builder = {}
 
@@ -120,6 +125,57 @@ local loaders: { [string]: () -> any } = {
 	Toggle = function()
 		return require("../Game/Toggle")
 	end,
+	AchievementCard = function()
+		return require("../Game/AchievementCard")
+	end,
+	HotbarSlot = function()
+		return require("../Game/HotbarSlot")
+	end,
+	InventorySlot = function()
+		return require("../Game/InventorySlot")
+	end,
+	LeaderboardRow = function()
+		return require("../Game/LeaderboardRow")
+	end,
+	LoadingScreen = function()
+		return require("../Game/LoadingScreen")
+	end,
+	Modal = function()
+		return require("../Game/Modal")
+	end,
+	Notification = function()
+		return require("../Game/Notification")
+	end,
+	PetCard = function()
+		return require("../Game/PetCard")
+	end,
+	PremiumButton = function()
+		return require("../Game/PremiumButton")
+	end,
+	QuestCard = function()
+		return require("../Game/QuestCard")
+	end,
+	RarityBadge = function()
+		return require("../Game/RarityBadge")
+	end,
+	RewardPanel = function()
+		return require("../Game/RewardPanel")
+	end,
+	SelectionCard = function()
+		return require("../Game/SelectionCard")
+	end,
+	StatChip = function()
+		return require("../Game/StatChip")
+	end,
+	TabBar = function()
+		return require("../Game/TabBar")
+	end,
+	Tooltip = function()
+		return require("../Game/Tooltip")
+	end,
+	XPBar = function()
+		return require("../Game/XPBar")
+	end,
 }
 
 local loaded: { [string]: any } = {}
@@ -144,7 +200,36 @@ local function applyIcon(label: ImageLabel, name: string?)
 	if iconsModule == nil then
 		iconsModule = require("../../Icons/Icons")
 	end
-	iconsModule.apply(label, name)
+	if iconsModule.apply(label, name) then
+		return
+	end
+	-- "pack:name" without Visuals.Icons.bridge(): ask the icon vault directly when it is installed.
+	if string.find(name, ":", 1, true) ~= nil then
+		local ok, vault = pcall(function(): any
+			return require("../../Visuals/Icons/IconVault")
+		end)
+		if ok and type(vault) == "table" and type(vault.apply) == "function" then
+			vault.apply(label, name)
+		end
+	end
+end
+
+-- Visuals/UI/UIAnimations, or nil when the Visuals module is not installed (specs still build,
+-- `motion` fields are then ignored).
+local animations: any = nil
+local animationsTried = false
+
+local function uiAnimations(): any
+	if not animationsTried then
+		animationsTried = true
+		local ok, module = pcall(function(): any
+			return require("../../Visuals/UI/UIAnimations")
+		end)
+		if ok and type(module) == "table" then
+			animations = module
+		end
+	end
+	return animations
 end
 
 -- Sizes ------------------------------------------------------------------------------------------
@@ -184,6 +269,11 @@ local FULL_HEIGHT: { [string]: number } = {
 	slider = 52,
 	dropdown = 52,
 	listRow = 80,
+	tabBar = 52,
+	xpBar = 44,
+	questCard = 104,
+	achievementCard = 96,
+	leaderboardRow = 52,
 }
 
 -- Fixed pixel sizes for elements that keep their own size in columns, rows and rails.
@@ -194,7 +284,18 @@ local FIXED_SIZE: { [string]: Vector2 } = {
 	timer = Vector2.new(170, 42),
 	dayCard = Vector2.new(130, 156),
 	product = Vector2.new(170, 220),
+	premiumButton = Vector2.new(220, 64),
+	inventorySlot = Vector2.new(72, 72),
+	petCard = Vector2.new(156, 208),
+	selectionCard = Vector2.new(220, 280),
+	hotbarSlot = Vector2.new(64, 64),
+	statChip = Vector2.new(120, 36),
+	rewardPanel = Vector2.new(420, 300),
+	notification = Vector2.new(320, 84),
 }
+
+-- Components that size or place themselves (overlays, and badges that fit their text).
+local SELF_SIZED: { [string]: boolean } = { rarityBadge = true, modal = true, tooltip = true, loadingScreen = true }
 
 local RAIL_WIDTH = 320
 local HUD_PADDING = 12
@@ -235,7 +336,7 @@ end
 -- Returns the size and whether the element should grow on Y with its content.
 local function slotSize(ctx: Ctx, element: any, slot: string, count: number): (UDim2?, boolean)
 	local kind: string = element.type
-	if slot == "grid" then
+	if slot == "grid" or SELF_SIZED[kind] then
 		return nil, false
 	end
 	if kind == "grid" and slot == "rail" then
@@ -468,6 +569,13 @@ local function buildElement(ctx: Ctx, element: any, parent: Instance, order: num
 	assert(build ~= nil, "Builder: no builder for element type " .. tostring(element.type))
 	local obj = build(ctx, element, parent, order, slot, count)
 	register(ctx, element, obj)
+	local motion = element.motion
+	local instance = if type(obj) == "table" then obj.Instance else nil
+	if motion ~= nil and typeof(instance) == "Instance" and instance:IsA("GuiObject") then
+		local preset: string = if type(motion) == "table" then motion.preset else motion
+		local delay: number? = if type(motion) == "table" then motion.delay else nil
+		table.insert(ctx.motions, { instance = instance, preset = preset, delay = delay })
+	end
 	return obj
 end
 
@@ -955,6 +1063,257 @@ builders.listRow = function(ctx: Ctx, element: any, parent: Instance, order: num
 	return row
 end
 
+-- Animated components (Game components that take their motion from Visuals/UI) --------------------
+
+builders.premiumButton = simple("PremiumButton", { "text", "icon", "image", "palette", "shine", "glow" }, true)
+
+builders.inventorySlot =
+	simple("InventorySlot", { "icon", "image", "count", "rarity", "selected", "equipped", "locked" }, true)
+
+builders.petCard =
+	simple("PetCard", { "title", "icon", "image", "rarity", "stats", "palette", "selected", "equipped" }, true)
+
+builders.selectionCard =
+	simple("SelectionCard", { "title", "description", "icon", "image", "palette", "selected" }, true)
+
+builders.rarityBadge = simple("RarityBadge", { "rarity", "text" }, false)
+
+local ACHIEVEMENT_FIELDS =
+	{ "title", "description", "icon", "image", "tier", "maxTier", "value", "max", "unlocked", "palette" }
+
+builders.achievementCard = simple("AchievementCard", ACHIEVEMENT_FIELDS, false)
+
+-- The common props of an element whose builder wires its own signals.
+local function plain(ctx: Ctx, element: any, parent: Instance, order: number, slot: string, count: number): any
+	local size = slotSize(ctx, element, slot, count)
+	return common(ctx, element, parent, order, size)
+end
+
+builders.tabBar = function(ctx: Ctx, element: any, parent: Instance, order: number, slot: string, count: number): any
+	local props = plain(ctx, element, parent, order, slot, count)
+	props.tabs = element.tabs
+	props.value = element.value
+	props.palette = element.palette
+	local tabs = own(ctx, component("TabBar").new(props))
+	ctx.trove:Add(tabs.Changed:Connect(function(tabId: string)
+		fire(ctx, "Tab", { id = element.id, value = tabId }, element.id)
+	end))
+	return tabs
+end
+
+builders.xpBar = function(ctx: Ctx, element: any, parent: Instance, order: number, slot: string, count: number): any
+	local props = plain(ctx, element, parent, order, slot, count)
+	props.level = element.level
+	props.value = element.value
+	props.max = element.max
+	props.palette = element.palette
+	local bar = own(ctx, component("XPBar").new(props))
+	bindElement(ctx, element.bind, function(value: any)
+		bar:update(barValues(value))
+	end)
+	return bar
+end
+
+builders.statChip = function(ctx: Ctx, element: any, parent: Instance, order: number, slot: string, count: number): any
+	local props = plain(ctx, element, parent, order, slot, count)
+	for _, field in ipairs({ "icon", "image", "value", "format", "prefix", "suffix", "palette" }) do
+		props[field] = element[field]
+	end
+	local chip = own(ctx, component("StatChip").new(props))
+	bindElement(ctx, element.bind, function(value: any)
+		chip:update({ value = value })
+	end)
+	return chip
+end
+
+builders.leaderboardRow = function(
+	ctx: Ctx,
+	element: any,
+	parent: Instance,
+	order: number,
+	slot: string,
+	count: number
+): any
+	local props = plain(ctx, element, parent, order, slot, count)
+	for _, field in ipairs({ "rank", "title", "value", "format", "avatar", "highlight" }) do
+		props[field] = element[field]
+	end
+	local row = own(ctx, component("LeaderboardRow").new(props))
+	bindElement(ctx, element.bind, function(value: any)
+		row:update({ value = tonumber(value) or 0 })
+	end)
+	return row
+end
+
+-- Reward panels and quest cards raise Claim; the server decides what the claim grants.
+local function claimable(moduleName: string, fields: { string }): ElementBuilder
+	return function(ctx: Ctx, element: any, parent: Instance, order: number, slot: string, count: number): any
+		local props = plain(ctx, element, parent, order, slot, count)
+		for _, field in ipairs(fields) do
+			props[field] = element[field]
+		end
+		local obj = own(ctx, component(moduleName).new(props))
+		ctx.trove:Add(obj.Claimed:Connect(function()
+			if element.action == nil then
+				fire(ctx, "Claim", { id = element.id }, element.id)
+			end
+		end))
+		return obj
+	end
+end
+
+builders.rewardPanel = claimable("RewardPanel", { "title", "rewards", "columns", "claimText", "claimed", "palette" })
+
+builders.questCard =
+	claimable("QuestCard", { "title", "description", "value", "max", "rewards", "state", "claimText", "palette" })
+
+builders.notification = function(
+	ctx: Ctx,
+	element: any,
+	parent: Instance,
+	order: number,
+	slot: string,
+	count: number
+): any
+	local props = plain(ctx, element, parent, order, slot, count)
+	for _, field in ipairs({ "kind", "title", "text", "icon", "image", "palette", "duration" }) do
+		props[field] = element[field]
+	end
+	props.destroyOnClose = false -- the screen owns it, so it can be shown again
+	local toast = own(ctx, component("Notification").new(props))
+	wireActivation(ctx, element, toast)
+	ctx.trove:Add(toast.Closed:Connect(function()
+		fire(ctx, "Close", { id = element.id }, element.id)
+	end))
+	return toast
+end
+
+-- The slot shows `cooldown` seconds after each press while it is ready. That is presentation
+-- only: the Select intent carries `ready`, and the server decides whether the ability ran.
+builders.hotbarSlot = function(
+	ctx: Ctx,
+	element: any,
+	parent: Instance,
+	order: number,
+	slot: string,
+	count: number
+): any
+	local props = plain(ctx, element, parent, order, slot, count)
+	for _, field in ipairs({ "icon", "image", "keybind", "palette" }) do
+		props[field] = element[field]
+	end
+	local hotbar = own(ctx, component("HotbarSlot").new(props))
+	ctx.trove:Add(hotbar.Activated:Connect(function()
+		local ready = hotbar:isReady()
+		if element.action == nil then
+			fire(ctx, "Select", { id = element.id, ready = ready }, element.id)
+		end
+		if ready and type(element.cooldown) == "number" and element.cooldown > 0 then
+			hotbar:startCooldown(element.cooldown)
+		end
+	end))
+	return hotbar
+end
+
+-- Modals and loading screens cover the whole screen, so they are parented to the screen root, not
+-- to the column they are listed in. Open a modal with screen:find(id):open().
+builders.modal = function(ctx: Ctx, element: any, parent: Instance, _order: number, _slot: string, _count: number): any
+	local modal = own(
+		ctx,
+		component("Modal").new({
+			style = ctx.styleName,
+			parent = ctx.overlay or parent,
+			name = element.id,
+			title = element.title,
+			text = element.text,
+			buttons = element.buttons,
+			headerPalette = element.headerPalette,
+			closable = element.closable,
+		})
+	)
+	ctx.trove:Add(modal.Activated:Connect(function(buttonId: string)
+		fire(ctx, "Select", { id = element.id, button = buttonId }, element.id)
+	end))
+	ctx.trove:Add(modal.Closed:Connect(function()
+		fire(ctx, "Close", { id = element.id }, element.id)
+	end))
+	return modal
+end
+
+builders.loadingScreen = function(
+	ctx: Ctx,
+	element: any,
+	parent: Instance,
+	_order: number,
+	_slot: string,
+	_count: number
+): any
+	local loading = own(
+		ctx,
+		component("LoadingScreen").new({
+			style = ctx.styleName,
+			parent = ctx.overlay or parent,
+			name = element.id or "Loading",
+			title = element.title,
+			icon = element.icon,
+			logo = element.image,
+			tips = element.tips,
+			progress = element.progress,
+			palette = element.palette,
+			visible = element.visible,
+			destroyOnClose = false,
+		})
+	)
+	if loading.Closed ~= nil then
+		ctx.trove:Add(loading.Closed:Connect(function()
+			fire(ctx, "Close", { id = element.id }, element.id)
+		end))
+	end
+	return loading
+end
+
+-- A tooltip describes another element, which may be listed after it: it is made once every
+-- element exists. Until then the id maps to a small proxy.
+builders.tooltip = function(
+	ctx: Ctx,
+	element: any,
+	_parent: Instance,
+	_order: number,
+	_slot: string,
+	_count: number
+): any
+	local proxy: { [string]: any } = {}
+	function proxy.update(_self: any, changes: { [string]: any })
+		if proxy.tooltip ~= nil then
+			proxy.tooltip:update(changes)
+		end
+	end
+	function proxy.destroy(_self: any)
+		if proxy.tooltip ~= nil then
+			proxy.tooltip:destroy()
+			proxy.tooltip = nil
+		end
+	end
+	table.insert(ctx.deferred, function()
+		local target = ctx.elements[element.target]
+		local instance = if type(target) == "table" then target.Instance else nil
+		if typeof(instance) ~= "Instance" or not instance:IsA("GuiObject") then
+			return
+		end
+		proxy.tooltip = component("Tooltip").new({
+			style = ctx.styleName,
+			target = instance,
+			text = element.text,
+			side = element.side,
+		})
+		proxy.Instance = proxy.tooltip.Instance
+	end)
+	ctx.trove:Add(function()
+		proxy:destroy()
+	end)
+	return proxy
+end
+
 -- Viewport and breakpoint ------------------------------------------------------------------------
 
 local function viewportOf(options: Options): Vector2
@@ -1273,9 +1632,12 @@ function Builder.build(input: any, options: Options?): Screen
 		elements = {},
 		intent = intent,
 		breakpoint = Builder.breakpoint(viewportOf(opts), opts.breakpoint),
+		deferred = {},
+		motions = {},
 	}
 	local root, holder = makeRoot(ctx)
 	trove:Add(root)
+	ctx.overlay = root
 
 	local shown = false
 	local rootComponent: any = nil
@@ -1311,6 +1673,33 @@ function Builder.build(input: any, options: Options?): Screen
 	if holder ~= nil then
 		holder.Visible = false
 	end
+	for _, run in ipairs(ctx.deferred) do
+		run()
+	end
+	table.clear(ctx.deferred)
+
+	-- `motion` fields: played on every open through Visuals.UI, which honours reduced motion.
+	local function playMotions()
+		local ui = uiAnimations()
+		if ui == nil then
+			return
+		end
+		for _, motion in ipairs(ctx.motions) do
+			if motion.instance.Parent ~= nil then
+				ui.animate(motion.instance, motion.preset, { delay = motion.delay })
+			end
+		end
+	end
+	local function stopMotions()
+		local ui = animations
+		if ui == nil then
+			return
+		end
+		for _, motion in ipairs(ctx.motions) do
+			ui.stop(motion.instance, true)
+		end
+	end
+	trove:Add(stopMotions)
 
 	local function showReward()
 		if rewardPopup ~= nil then
@@ -1365,11 +1754,13 @@ function Builder.build(input: any, options: Options?): Screen
 					playIn(rootComponent.Instance)
 				end
 			end
+			playMotions()
 		end,
 		close = function(_self: Screen)
 			if destroyed or not shown then
 				return
 			end
+			stopMotions()
 			hide()
 		end,
 		destroy = function(_self: Screen)

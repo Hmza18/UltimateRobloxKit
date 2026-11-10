@@ -18,7 +18,7 @@ Use, extend and validate the kit's icon set so every icon in a game shares one l
 ## When to use (and not)
 
 - Use: picking icons for specs and HUDs, theming them, adding a missing icon, generating illustrated art, importing a pack.
-- Not for upload, sizes and id mapping in depth: `roblox-asset-pipeline`. Not for the experience icon and thumbnails: `game-art-presentation`.
+- Not for upload, sizes and id mapping in depth: `roblox-asset-pipeline`. Not for the experience icon and thumbnails: `game-art-presentation`. Not for a purchased or private pack that must stay untouched and out of git: `uvk-icon-pack`.
 
 ## Three kinds of icon
 

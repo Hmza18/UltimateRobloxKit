@@ -9,7 +9,7 @@ User request
 Claude Code skill matching ── reads each installed skill's description (always in context, about 1 line each)
    │
    ▼
-roblox-kit-router (skill) ── one-line index of all skills + 10 workflow recipes + gates
+roblox-kit-router (skill) ── one-line index of all skills + 14 workflow recipes + gates
    │        └── route.py ── the same decision, deterministic and tested (tests/routing_cases.json)
    ▼
 kit-conventions ── stop rules, naming, checkpoints, error recovery (read once per session)

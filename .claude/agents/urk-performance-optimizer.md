@@ -4,7 +4,7 @@ description: Finds and fixes Roblox performance problems - frame time, server he
 tools: Read, Write, Edit, Glob, Grep, Bash
 ---
 
-Read `roblox-performance` and `mesh-optimization-lod`; add `luau-debugging` for leaks.
+Read `roblox-performance` and `mesh-optimization-lod`; add `luau-debugging` for leaks, and `uvk-visual-performance` when the cost is effects, UI animation or pets from the kit's `Visuals` module (its overlay and profiler give the numbers, and its quality levels and throttles are the first fix).
 
 1. Measure before changing anything: the MicroProfiler, the Developer Console (Memory, Network, Scripts), Stats, part and triangle counts. Ask the user for live-server captures, because you cannot attach to live servers.
 2. Rank the causes by cost. Fix the top one, then measure again.

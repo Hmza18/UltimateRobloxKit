@@ -1,0 +1,207 @@
+{
+  "spec": 1,
+  "id": "AnimatedShowcase",
+  "kind": "window",
+  "style": "scifi",
+  "description": "Every animated Game component, a motion preset and a pack icon.",
+  "window": {
+    "title": "SHOWCASE",
+    "headerPalette": "blue",
+    "sizeClass": "lg"
+  },
+  "body": [
+    {
+      "type": "tabBar",
+      "id": "tabs",
+      "tabs": [
+        {
+          "id": "pets",
+          "text": "PETS",
+          "icon": "paw-color"
+        },
+        {
+          "id": "eggs",
+          "text": "EGGS"
+        }
+      ],
+      "value": "pets",
+      "motion": "SlideInDown"
+    },
+    {
+      "type": "xpBar",
+      "level": 3,
+      "value": 40,
+      "max": 100,
+      "palette": "blue",
+      "bind": "player.xp"
+    },
+    {
+      "type": "row",
+      "items": [
+        {
+          "type": "statChip",
+          "icon": "coin-color",
+          "value": 1250,
+          "format": "abbrev"
+        },
+        {
+          "type": "statChip",
+          "icon": "star-color",
+          "value": "x2.5",
+          "prefix": "LUCK"
+        },
+        {
+          "type": "rarityBadge",
+          "rarity": "legendary"
+        }
+      ]
+    },
+    {
+      "type": "grid",
+      "columns": {
+        "phone": 2,
+        "desktop": 4
+      },
+      "items": [
+        {
+          "type": "petCard",
+          "id": "pet_fox",
+          "title": "Ember Fox",
+          "rarity": "epic",
+          "icon": "paw-color",
+          "stats": [
+            {
+              "icon": "coin-color",
+              "text": "x2.5"
+            }
+          ],
+          "equipped": true,
+          "motion": {
+            "preset": "CardReveal",
+            "delay": 0.1
+          }
+        },
+        {
+          "type": "selectionCard",
+          "id": "class_ranger",
+          "title": "RANGER",
+          "description": "Fast and fragile",
+          "icon": "energy-color",
+          "selected": true
+        },
+        {
+          "type": "inventorySlot",
+          "id": "slot_sword",
+          "icon": "mypack:iron-sword",
+          "count": 12,
+          "rarity": "rare"
+        },
+        {
+          "type": "hotbarSlot",
+          "id": "dash",
+          "icon": "energy-color",
+          "keybind": "Q",
+          "cooldown": 8
+        }
+      ]
+    },
+    {
+      "type": "questCard",
+      "id": "quest_hatch",
+      "title": "EGG COLLECTOR",
+      "description": "Hatch 10 eggs",
+      "value": 4,
+      "max": 10,
+      "state": "active",
+      "rewards": [
+        {
+          "icon": "coin-color",
+          "text": "500"
+        }
+      ]
+    },
+    {
+      "type": "achievementCard",
+      "title": "COLLECTOR",
+      "description": "Own 50 pets",
+      "icon": "trophy-color",
+      "tier": 1,
+      "maxTier": 3,
+      "value": 20,
+      "max": 50
+    },
+    {
+      "type": "leaderboardRow",
+      "rank": 1,
+      "title": "Builderman",
+      "value": 1250000,
+      "highlight": true
+    },
+    {
+      "type": "rewardPanel",
+      "id": "daily",
+      "title": "DAILY REWARDS",
+      "columns": 3,
+      "rewards": [
+        {
+          "icon": "coin-color",
+          "amount": "x500"
+        },
+        {
+          "icon": "gift-color",
+          "amount": "x1",
+          "rarity": "rare"
+        }
+      ]
+    },
+    {
+      "type": "notification",
+      "id": "toast",
+      "kind": "success",
+      "title": "QUEST COMPLETE",
+      "text": "+500 coins",
+      "duration": 0
+    },
+    {
+      "type": "premiumButton",
+      "id": "claim",
+      "text": "CLAIM REWARD",
+      "icon": "gift-color",
+      "motion": "Pulse"
+    },
+    {
+      "type": "tooltip",
+      "text": "Doubles coins for 10 minutes",
+      "target": "claim",
+      "side": "bottom"
+    },
+    {
+      "type": "modal",
+      "id": "confirm",
+      "title": "REBIRTH?",
+      "text": "You keep your pets and lose your coins.",
+      "buttons": [
+        {
+          "id": "yes",
+          "text": "REBIRTH",
+          "kind": "buy"
+        },
+        {
+          "id": "no",
+          "text": "CANCEL",
+          "kind": "neutral"
+        }
+      ]
+    },
+    {
+      "type": "loadingScreen",
+      "id": "loading",
+      "visible": false,
+      "title": "PET WORLD",
+      "tips": [
+        "Hatch eggs to find rare pets"
+      ],
+      "progress": 0.5
+    }
+  ]
+}

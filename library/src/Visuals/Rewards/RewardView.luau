@@ -191,7 +191,7 @@ end
 local function showModel(viewport: ViewportFrame, model: Model): (() -> ())?
 	local module = petsModule()
 	if module and type(module.preview) == "function" then
-		local ok, preview = pcall(module.preview, viewport, model, { spin = true })
+		local ok, preview = pcall(module.preview, viewport, model, { turntable = 24 })
 		if ok and preview ~= nil then
 			return function()
 				local handle: any = preview

@@ -831,6 +831,8 @@ local function runBatch(
 		local payload = step.payload
 		local vfx = vfxModule()
 		local at = rig.base.Position
+		-- The VFX `rarity` param is an enum of the built-in tiers; custom rarities map to one.
+		local tier = payload.vfxRarity or payload.rarity
 		if payload.aura then
 			keep(
 				try(
@@ -838,14 +840,14 @@ local function runBatch(
 					"attach",
 					payload.aura,
 					rig.model,
-					{ rarity = payload.rarity, color = payload.color, owner = folder }
+					{ rarity = tier, color = payload.color, owner = folder }
 				)
 			)
 		end
 		if payload.rays > 0 then
-			keep(try(vfx, "play", "RarityBurst", at, { rarity = payload.rarity, color = payload.color }))
+			keep(try(vfx, "play", "RarityBurst", at, { rarity = tier, color = payload.color }))
 			if payload.rays >= 12 then
-				keep(try(vfx, "play", "RarityBeam", at, { rarity = payload.rarity, color = payload.color }))
+				keep(try(vfx, "play", "RarityBeam", at, { rarity = tier, color = payload.color }))
 			end
 		end
 		if payload.shake then

@@ -233,3 +233,44 @@ selene src tests examples
 CI also runs strict `luau-analyze` on pure modules and a report-only `luau-lsp analyze` with Roblox type definitions over the whole library.
 
 What Lune proves: everything in `Core/` and every `*Logic` / data module (timing, cancellation, restoration, budgets, cleanup accounting, preset validity). What it cannot prove: how effects look, and any code that creates Instances. Those are `NEEDS MANUAL REVIEW` until run in Studio.
+
+## Status and deviations
+
+State of the implementation at version 0.5.0 (2026-11-10). The contract above is unchanged; where it and the source differ, the source and each module's README are right. Function reference: [visuals-api.md](../references/visuals-api.md). Preset tables: [visuals-presets.md](../references/visuals-presets.md). Module overview: [library/src/Visuals/README.md](../../library/src/Visuals/README.md). The research the design draws on is in [docs/research/visuals](../research/visuals/README.md).
+
+### What exists
+
+| Module | State |
+|---|---|
+| Core, Runtime | Implemented. Core is pure and spec-tested |
+| VFX | 78 presets in the 8 contract categories, every required id present, plus 5 `Legacy*` presets bridged from `Systems/VFX` (83 registry entries) |
+| UI | 70 presets and every contract function |
+| Camera | 8 shakes, 4 cinematics, 6 move entries |
+| Objects | The 18 contract presets |
+| Pets | 4 reactions, 6 timelines, animator, follower, preview, selection screen, demo pet |
+| Eggs | Hatch for single, triple, multi and auto modes; idle |
+| Rewards | 7 rarity profiles, reveal, batch, custom rarities |
+| Feedback | 24 events in the Simulator, Minimal and Combat packs |
+| Audio | 29 cue names; no sounds bundled |
+| Themes | The 10 contract themes |
+| Icons | Registry, containers, picker and UrkUI bridge for imported packs; no pack bundled |
+| Presets, Debug | One view over the registries; stats overlay and profiler |
+| `UI/Game` | 17 animated components added beside the existing 19 |
+
+### Deviations from the contract
+
+- **`UI.bind` returns a Binding object**, not a bare cleanup function. The binding has `setSelected`, `setDisabled`, `status` and `destroy`, and calling it like a function also cleans up, so contract-style code still works.
+- **`VFX.stop(handle, immediate?)`** takes a second argument: looping effects fade by default and `immediate = true` destroys at once.
+- **Camera handles use `stop(blend?)`** instead of `stop(restore?)`. A camera move always restores, so the argument chooses between blending back and cutting back. `Camera.punchFov` is an addition.
+- **RunService use (rule 3).** `Camera.luau` binds two render steps (`Camera - 1` to remove the shake offset, `Camera + 1` to apply it) while a shake or move is active, because only render-step priorities can order it around the game's camera scripts. This is the one module that takes frame time outside `Host.clock`. For completeness: `Runtime/Host` itself owns the single frame connection that steps the clock, keeps a small frame-time sampler connected while adaptive quality is on, and `Debug` connects to RenderStepped only while its overlay or profiler is open.
+- **Additions beyond the contract**, all documented in the module READMEs: `UI.ripple`, `backdrop`, `rest`, `isAnimating`, `stats` and three extra presets (HoverReset, Spinner, Highlight); `VFX.stopAll`, `textures`, `stats`, `preload`; `Objects.isAnimating`, `count`, `stopAll`; `Pets.find`, `demoPet`, `stats`; `Eggs.demoEgg`, `demoPet`, hatch `finish`, `stop` and `BatchCompleted`; `Rewards.plan`; `Feedback.clear`, `reset`, `recipe`, `packs`, `connect` and the step kinds `flyTo`, `pet`, `reward`, `hatch`; `Audio.registerMany`, `stop`, `stopAll`, `setVolume`, `mute`, `isMuted`, `registered`, `isRegistered`; `Themes.current`, `has`, `register`, `derive`, `token`, `color`, `particleColors`, `style`, `urkThemes`, `validate`.
+- **Accessibility settings are passed in, not detected.** `reducedMotion` and `reducedFlashing` come from `Visuals:Configure`; UVK does not read the device preference itself.
+- **README coverage (rule 12).** `Core/`, `Runtime/`, `Presets/` and `Debug/` are documented in their file headers, in the top-level Visuals README and in the API reference rather than in a README of their own.
+
+### Discoverability
+
+`catalog/visuals.json` lists every preset, rarity profile, feedback event, audio cue, theme and game component with id, name, category, description, params, cost and a usage line. It is generated from the pure modules by `library/tools/export_visuals.luau`; CI fails when it is stale. `scripts/automation/build_visuals_refs.py` generates the preset tables in the skills and in `docs/references/visuals-presets.md` from it. The `uvk-*` skills tell agents to search it before writing any effect.
+
+### Verification status
+
+Proven with Lune and strict `luau-analyze`: everything in `Core/` and every `*Logic`, `*Presets` and `*Data` module. Checked with StyLua, Selene and `luau-lsp` against Roblox type definitions only: every module that creates or changes Instances. **Nothing has been run in Roblox Studio.** How effects, animations, screens, the hatch and reveals look and feel, input on touch and gamepad, safe areas, camera restoration in a live game and performance on devices are all `NEEDS MANUAL REVIEW`. Current numbers are in [PROGRESS.md](../../PROGRESS.md).

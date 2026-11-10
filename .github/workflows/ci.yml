@@ -64,6 +64,12 @@ jobs:
         run: |
           python urk.py ui tokens --check
           python urk.py ui validate library/src/UI/Spec/Screens/*.json tests/fixtures/ui-specs/valid/*.json
+      - name: Visuals - VFX textures are current, preset tables match the catalog, icon vault status runs
+        shell: bash
+        run: |
+          python urk.py visuals textures --check
+          python scripts/automation/build_visuals_refs.py --check
+          python urk.py visuals icons status
       - name: urk setup, add, check, upgrade, dashboard and uninstall on a fresh project
         shell: bash
         run: |
@@ -131,7 +137,7 @@ jobs:
           get "$WALLY_URL" "$WALLY_SHA"
           chmod +x selene stylua lune luau-analyze rojo wally
           echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
-      - name: Library - lint, format, strict-check pure modules, Lune specs, build .rbxm
+      - name: Library - lint, format, strict-check pure modules, Lune specs, build .rbxm, Visuals preset catalog
         working-directory: library
         # Every check runs even if an earlier one fails, so one CI run reports all problems.
         run: |
@@ -140,11 +146,14 @@ jobs:
           selene generate-roblox-std > /dev/null
           check selene selene src tests examples
           check stylua stylua --check src tests examples
-          PURE=$(find src -name '*Logic.luau' -o -path 'src/UI/Core/*.luau' -o -name 'IconCatalog.luau' -o -name 'IconData.luau' -o -path 'src/Util/RateLimiter.luau' -o -path 'src/Util/Validate.luau' -o -path 'src/UI/Style/Style.luau' -o -name 'SpecSchema.luau' -o -name 'FusionBridge.luau' -o -path 'src/Icons/Packs/*.luau' | sort)
+          # Visuals: Core, every *Logic, and the *Presets / *Data modules are pure; Presets/Presets.luau is the runtime catalogue.
+          PURE=$(find src \( -name '*Logic.luau' -o -path 'src/UI/Core/*.luau' -o -name 'IconCatalog.luau' -o -name 'IconData.luau' -o -path 'src/Util/RateLimiter.luau' -o -path 'src/Util/Validate.luau' -o -path 'src/UI/Style/Style.luau' -o -name 'SpecSchema.luau' -o -name 'FusionBridge.luau' -o -path 'src/Icons/Packs/*.luau' -o -path 'src/Visuals/Core/*.luau' -o -path 'src/Visuals/*/*Presets.luau' -o -path 'src/Visuals/*/*Data.luau' \) ! -path 'src/Visuals/Presets/Presets.luau' | sort)
           echo "strict-checking $(echo "$PURE" | wc -l) pure modules"
           check luau-analyze luau-analyze --mode=strict $PURE
           check lune lune run tests/run
           check rojo rojo build default.project.json -o UltimateRobloxKit.rbxm
+          check visuals-catalog lune run tools/export_visuals --check
+          if [ -f examples/visuals/visuals.project.json ]; then check visuals-example rojo build examples/visuals/visuals.project.json -o VisualsExample.rbxl; fi
           if [ -n "$failed" ]; then echo "::error::failed:$failed"; exit 1; fi
       - name: Backdoor scanner (Lune) on a binary model built from a malicious fixture
         run: |

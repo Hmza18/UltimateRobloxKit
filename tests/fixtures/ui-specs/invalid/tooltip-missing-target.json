@@ -1,0 +1,16 @@
+{
+  "spec": 1,
+  "id": "Bad",
+  "kind": "window",
+  "style": "cartoon",
+  "window": {
+    "title": "BAD"
+  },
+  "body": [
+    {
+      "type": "tooltip",
+      "text": "Hello",
+      "target": "nobody"
+    }
+  ]
+}

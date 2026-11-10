@@ -1,5 +1,41 @@
 # Progress
 
+## 0.5.0: UltimateVisualsKit
+
+How to read the "Verified" column: "local" means run on the build machine on 2026-11-10 with the Luau tools at the CI pins (Lune 0.11.1, StyLua 2.6.0, Selene 0.32.0, luau-analyze 0.746, luau-lsp 1.70.1, Rojo 7.7.1). Selene ran locally with a config without the Roblox standard library, because that definition could not be downloaded here; CI uses the real one. **No CI run for this branch has been seen yet, and nothing was run in Roblox Studio.** Spec counts are as of writing; rerun `cd library && lune run tests/run | tail -1`.
+
+| Area | Item | Verified |
+|---|---|---|
+| Core and runtime | Clock, Engine, Springs, Curves, Sequence, Registry, Quality, Effects, Pool; Host, Motion, Props; the `Visuals` facade | Core: Lune specs and strict luau-analyze (local). Host, Motion, Props, facade: StyLua, Selene (local config), luau-lsp with Roblox types. NOT run in Studio |
+| VFX | Effect schema, 78 presets in 8 categories, 5 legacy presets bridged, builders, player | EffectLogic, RecipeLogic, the preset data and CatalogData: Lune (schema, budgets at every quality level, rarity and element rules) and strict luau-analyze. Builders and VFX: lint, format and types only. All tuning was done from numbers, not by eye. NOT run in Studio |
+| UI animation | 70 presets, bindings, show and hide, stagger, counters, typewriter, shine, ripple, flash, backdrop, popups, fly-to-counter | UILogic and UIPresets: Lune and strict luau-analyze. UIAnimations: lint, format and types only. NOT run in Studio |
+| Game components | 17 animated components in `UI/Game`; spec element types, `motion` field and `pack:name` icons | Lint, format and types; the spec validators (Python and Luau) on shared fixtures. Components: NOT run in Studio |
+| Camera, Objects, Pets | Shake, FOV, focus, orbit, pan, cinematics; 18 object presets; animator, follower, preview, selection screen | CameraLogic, ObjectsLogic, PetsLogic, SelectionLogic: Lune and strict luau-analyze. Camera, Objects, PetAnimator, PetFollow, PetPreview, PetSelection, DemoPet: lint, format and types only. NOT run in Studio |
+| Eggs, Rewards, Feedback, Audio | Hatch cinematic, 7 rarity profiles and reveals, 24 feedback events in 3 packs, 29 cue names | HatchLogic, RewardsLogic, FeedbackLogic, AudioLogic: Lune and strict luau-analyze. Eggs, Rewards, RewardView, Feedback, Audio: lint, format and types only. NOT run in Studio. No sounds are bundled |
+| Themes and tokens | 10 themes, 10 new styles in `design/tokens/styles.json` | ThemeData and ThemeLogic: Lune (validity, WCAG contrast, distinctness) and strict luau-analyze; Python token and contrast tests. How each theme looks: not checked |
+| Icons | Private icon vault tool, `Visuals.Icons` registry, containers, picker, bridge | Vault tool: Python tests against a synthetic fixture pack. IconVaultLogic: Lune. IconVault runtime: lint, format and types only. NOT run in Studio. Nothing is uploaded; asset ids are mapped after the owner's manual upload |
+| VFX textures | 25 generated textures and flipbooks, asset-id map, preview | Python tests; `urk.py visuals textures --check` reproduces the committed files. Not uploaded, not seen in Roblox |
+| Presets, Debug | Catalog over the registries; stats overlay and profiler | PresetsLogic and DebugLogic: Lune and strict luau-analyze. Presets and Debug runtime: lint, format and types only |
+| Preset catalog | `catalog/visuals.json` (generated), `library/tools/export_visuals.luau`, `build_visuals_refs.py`, generated preset tables | `lune run tools/export_visuals --check` and `build_visuals_refs.py --check` pass (local); `tests/test_visuals_catalog.py` (shape, sorting, cross-references, tables current) |
+| Skills | 15 `uvk-*` skills in the new `visuals` category, 13 existing skills extended; 82 skills | `tests/test_skills.py`, `test_links.py`; the Luau example in `uvk-visual-testing` was run under Lune. Other code in the skills uses the real API by reading the source but was not executed |
+| Routing | 3 visual workflows, 12 routing cases, 10 tuned eval cases | `test_routing.py`; `urk skills eval`: tuned 100% on 42 cases, held-out 50% and 40% (unchanged, not tuned against). A one-off untuned probe of 12 freshly worded visual requests routed 2 of 12 correctly |
+| Agents and commands | `urk-visuals-director`, `urk-vfx-engineer`; `/urk-visuals`, `/urk-visuals-audit`; 15 agents, 8 commands | Structure only; agent behaviour is not unit-testable |
+| CI | Strict list extended to UVK pure modules; catalog, table and texture staleness checks; vault status smoke test | The strict list was run locally with the pinned luau-analyze: clean. The workflow file itself has NOT run in GitHub Actions for this branch |
+| Docs | Visuals README, quick start, API reference, preset reference, status section in the contract | Links checked by `test_links.py`; signatures taken from the source. Code samples in the docs were not executed |
+
+Local results at the time of writing: **@@LUNE@@** (of which Visuals: @@LUNEV@@); strict luau-analyze clean on @@PURE@@ pure modules (@@PUREV@@ in Visuals); Python suite @@PY@@.
+
+### Remaining for UVK (in order)
+
+1. **Run it in Studio.** Every module that creates Instances is unverified. Work through the "Not verified in Studio" list at the end of each module README and the checklist in `skills/visuals/uvk-visual-testing/references/studio-checklist.md`: effects at Low and High, button feel on mouse, touch and gamepad, the selection screen on each device class, hatch and reveal skip and cancel, camera restoration after respawn, reduced motion and reduced flashing.
+2. **Measure on a phone.** The budgets are design choices checked for consistency, not frame-time measurements.
+3. **See the first CI run** for this branch and fix what the real Selene standard library and the full `luau-lsp` report find.
+4. **Tune by eye.** VFX presets, springs and reveal timings were set from numbers. Expect a tuning pass after the first Studio session.
+5. **Upload textures and icons** (owner, manual), then map the asset ids with `urk.py visuals assetmap` and `tools/icons/vault.py registry --map`.
+6. **Sounds.** None are bundled; a game registers its own for the 29 cue names.
+7. **Routing on unseen phrasing.** The trigger router finds visual skills for the tuned cases and is weak on new wording (2 of 12 in the probe). A better description fallback is the fix, not more triggers.
+8. Known gaps: no radial cooldown sweep in HotbarSlot; models squash uniformly; no hit-stop outside the hatch; no mesh or flipbook-authored effects; followers do not path around walls.
+
 ## 0.4.0: ecosystem upgrade (`feat/ecosystem-v4`)
 
 | Area | Item | Verified |

@@ -12,6 +12,14 @@ local IconData = require("../../Icons/IconData")
 local Path = require("../Core/Path")
 local Style = require("../Style/Style")
 
+-- Visuals/UI/UIPresets is pure data. It is loaded guarded so the schema still works in a project
+-- that installed the UI generator without the Visuals module; `motion` ids are then checked by
+-- shape only.
+local presetsOk, presetsModule = pcall(function(): any
+	return require("../../Visuals/UI/UIPresets")
+end)
+local motionRegistry: any = if presetsOk and type(presetsModule) == "table" then presetsModule.registry else nil
+
 export type Issue = { path: string, message: string }
 
 export type ElementRule = {
@@ -22,14 +30,20 @@ export type ElementRule = {
 	container: boolean, -- holds child elements in `items`
 }
 
-type Ctx = { issues: { Issue }, style: { [string]: any }?, ids: { [string]: string }, count: number }
+type Ctx = {
+	issues: { Issue },
+	style: { [string]: any }?,
+	ids: { [string]: string },
+	count: number,
+	targets: { { path: string, id: string } }, -- tooltip targets, checked once every id is known
+}
 
 local SpecSchema = {}
 
 SpecSchema.VERSION = 1
 
 -- Fields every element may carry besides its own.
-SpecSchema.COMMON_FIELDS = { "type", "id", "visible", "note" }
+SpecSchema.COMMON_FIELDS = { "type", "id", "visible", "note", "motion" }
 
 local function rule(
 	required: { string },
@@ -44,6 +58,12 @@ end
 local CONTROL_OPTIONAL = { "value", "min", "max", "step", "options", "bind" }
 local BUTTON_ANY = { { "text", "icon" } }
 local CURRENCY_ANY = { { "bind", "value" } }
+local SLOT_ANY = { { "icon", "image", "keybind" } }
+local ACHIEVEMENT_OPTIONAL =
+	{ "description", "icon", "image", "tier", "maxTier", "value", "max", "unlocked", "palette" }
+local SLOT_OPTIONAL = { "icon", "image", "count", "rarity", "selected", "equipped", "locked", "action" }
+local PET_OPTIONAL = { "icon", "image", "rarity", "stats", "palette", "selected", "equipped", "action" }
+local QUEST_OPTIONAL = { "description", "value", "max", "rewards", "state", "claimText", "palette" }
 
 -- The contract table: type -> required and optional fields.
 SpecSchema.ELEMENT_TYPES = {
@@ -70,6 +90,36 @@ SpecSchema.ELEMENT_TYPES = {
 	dropdown = rule({ "id", "label" }, CONTROL_OPTIONAL, true, false),
 	dayCard = rule({ "day", "reward" }, { "state", "premium", "icon", "palette" }, true, false),
 	listRow = rule({ "title" }, { "subtitle", "icon", "value", "progress", "button", "rank", "palette" }, true, false),
+	-- The animated components of UI/Game (motion from Visuals/UI).
+	premiumButton = rule(
+		{},
+		{ "text", "icon", "image", "palette", "action", "shine", "glow" },
+		true,
+		false,
+		BUTTON_ANY
+	),
+	tabBar = rule({ "id", "tabs" }, { "value", "palette" }, true, false),
+	modal = rule({ "id", "title" }, { "text", "buttons", "headerPalette", "closable" }, true, false),
+	tooltip = rule({ "text", "target" }, { "side" }, false, false),
+	xpBar = rule({}, { "bind", "level", "value", "max", "palette" }, false, false),
+	inventorySlot = rule({}, SLOT_OPTIONAL, true, false),
+	petCard = rule({ "title" }, PET_OPTIONAL, true, false),
+	rarityBadge = rule({ "rarity" }, { "text" }, false, false),
+	rewardPanel = rule({ "rewards" }, { "title", "columns", "claimText", "claimed", "palette" }, true, false),
+	questCard = rule({ "title" }, QUEST_OPTIONAL, true, false),
+	achievementCard = rule({ "title" }, ACHIEVEMENT_OPTIONAL, false, false),
+	notification = rule({ "title" }, { "text", "kind", "icon", "image", "palette", "duration" }, true, false),
+	leaderboardRow = rule({ "title" }, { "rank", "value", "format", "avatar", "highlight", "bind" }, false, false),
+	loadingScreen = rule({}, { "title", "icon", "image", "tips", "progress", "palette" }, false, false),
+	selectionCard = rule({ "title" }, { "description", "icon", "image", "palette", "selected", "action" }, true, false),
+	hotbarSlot = rule({}, { "icon", "image", "keybind", "palette", "cooldown", "action" }, true, false, SLOT_ANY),
+	statChip = rule(
+		{},
+		{ "icon", "image", "value", "format", "prefix", "suffix", "palette", "bind" },
+		false,
+		false,
+		CURRENCY_ANY
+	),
 } :: { [string]: ElementRule }
 
 local typeNames: { string } = {}
@@ -109,6 +159,23 @@ SpecSchema.RULES = {
 	columnKeys = { "phone", "tablet", "desktop", "console" },
 	progressFields = { "value", "max", "bind", "palette" },
 	badgeFields = { "kind", "text" },
+	questStates = { "active", "claimable", "claimed" },
+	notificationKinds = { "info", "success", "warning", "error" },
+	sides = { "top", "bottom", "left", "right" },
+	tabFields = { "id", "text", "icon" },
+	modalButtonFields = { "id", "text", "kind" },
+	chipFields = { "text", "icon", "image" },
+	rewardFields = { "icon", "image", "amount", "rarity" },
+	motionFields = { "preset", "delay" },
+	maxTabs = 8,
+	maxModalButtons = 3,
+	maxChips = 3,
+	maxRewards = 12,
+	maxTier = 5,
+	maxMotionDelay = 5,
+	-- Icons of an imported pack: "pack:name", lowercase kebab-case on both sides of the colon.
+	packIconPattern = "^[a-z0-9-]+:[a-z0-9-]+$",
+	motionPattern = "^%u%w*$",
 	minColumns = 1,
 	maxColumns = 6,
 	minCellAspect = 0.25,
@@ -137,6 +204,8 @@ SpecSchema.RULES = {
 		amount = 24,
 		option = 24,
 		note = 200,
+		keybind = 4,
+		affix = 8,
 	} :: { [string]: number },
 }
 
@@ -169,7 +238,19 @@ local TEXT_SIZES = toSet(RULES.textSizes)
 local COLUMN_KEYS = toSet(RULES.columnKeys)
 local PROGRESS_FIELDS = toSet(RULES.progressFields)
 local BADGE_FIELDS = toSet(RULES.badgeFields)
+local QUEST_STATES = toSet(RULES.questStates)
+local NOTIFICATION_KINDS = toSet(RULES.notificationKinds)
+local SIDES = toSet(RULES.sides)
+local TAB_FIELDS = toSet(RULES.tabFields)
+local MODAL_BUTTON_FIELDS = toSet(RULES.modalButtonFields)
+local CHIP_FIELDS = toSet(RULES.chipFields)
+local REWARD_FIELDS = toSet(RULES.rewardFields)
+local MOTION_FIELDS = toSet(RULES.motionFields)
 local COMMON = toSet(SpecSchema.COMMON_FIELDS)
+
+-- The Visuals UI preset ids `motion` may name (empty when the Visuals module is not installed).
+-- tools/ui/spec_rules.py mirrors this list; the parity spec keeps the two equal.
+SpecSchema.MOTION_PRESETS = (if motionRegistry ~= nil then motionRegistry:ids() else {}) :: { string }
 
 local ICON_NAMES: { [string]: boolean } = {}
 for _, entry in ipairs(IconData.icons) do
@@ -251,8 +332,38 @@ function SpecSchema.isIcon(name: any): boolean
 	if ICON_NAMES[name] then
 		return true
 	end
+	if SpecSchema.isPackIcon(name) then
+		return true
+	end
 	local base = string.match(name, "^(.+)%-color$")
 	return base ~= nil and ICON_NAMES[base] == true
+end
+
+local function isKebab(text: string): boolean
+	return string.find(text, "^[a-z0-9]+[a-z0-9%-]*$") ~= nil
+		and string.find(text, "--", 1, true) == nil
+		and string.sub(text, -1) ~= "-"
+end
+
+-- "pack:name": an icon of an imported pack (Visuals/Icons). Only the shape is checked here; the
+-- pack itself is registered at runtime, so a missing pack icon shows nothing rather than failing.
+function SpecSchema.isPackIcon(name: any): boolean
+	if type(name) ~= "string" then
+		return false
+	end
+	local pack, icon = string.match(name, "^([^:]+):([^:]+)$")
+	return pack ~= nil and icon ~= nil and isKebab(pack) and isKebab(icon)
+end
+
+-- A Visuals UI preset id. Without the Visuals module any PascalCase id passes.
+function SpecSchema.isMotionPreset(id: any): boolean
+	if type(id) ~= "string" or string.find(id, RULES.motionPattern) == nil then
+		return false
+	end
+	if motionRegistry == nil then
+		return true
+	end
+	return motionRegistry:has(id) == true
 end
 
 function SpecSchema.isId(value: any): boolean
@@ -513,13 +624,215 @@ local function validateList(ctx: Ctx, path: string, list: any, depth: number, la
 	end
 end
 
-local TEXT_LIMITS: { [string]: string } = { heading = "heading", text = "text", button = "buttonText" }
+local TEXT_LIMITS: { [string]: string } = {
+	heading = "heading",
+	text = "text",
+	button = "buttonText",
+	premiumButton = "buttonText",
+	rarityBadge = "badgeText",
+	notification = "subtitle",
+}
+
+local function checkMotion(ctx: Ctx, path: string, value: any)
+	local function preset(p: string, id: any)
+		if not SpecSchema.isMotionPreset(id) then
+			add(ctx, p, "unknown motion preset " .. tostring(id))
+		end
+	end
+	if type(value) == "string" then
+		preset(path, value)
+		return
+	end
+	if not isObject(value) then
+		add(ctx, path, "motion must be a preset id or { preset, delay }")
+		return
+	end
+	checkUnknown(ctx, path, value, MOTION_FIELDS, "motion")
+	if value.preset == nil then
+		add(ctx, join(path, "preset"), "preset is required for motion")
+	else
+		preset(join(path, "preset"), value.preset)
+	end
+	if value.delay ~= nil then
+		checkNumber(ctx, join(path, "delay"), value.delay, "delay", 0, RULES.maxMotionDelay)
+	end
+end
+
+-- A list of 1..limit objects; `each` checks one entry.
+local function checkObjects(
+	ctx: Ctx,
+	path: string,
+	value: any,
+	label: string,
+	limit: number,
+	fields: { [string]: boolean },
+	each: (p: string, entry: { [string]: any }) -> ()
+)
+	if type(value) ~= "table" or not isArray(value) or #value == 0 then
+		add(ctx, path, label .. " must be a non-empty list")
+		return
+	end
+	if #value > limit then
+		add(ctx, path, label .. " has more than " .. tostring(limit) .. " entries")
+		return
+	end
+	for i, entry in ipairs(value) do
+		local here = index(path, i)
+		if not isObject(entry) then
+			add(ctx, here, label .. " entries must be objects")
+		else
+			checkUnknown(ctx, here, entry, fields, label)
+			each(here, entry :: { [string]: any })
+		end
+	end
+end
+
+local function checkTabs(ctx: Ctx, path: string, value: any)
+	local seen: { [string]: boolean } = {}
+	checkObjects(ctx, path, value, "tabs", RULES.maxTabs, TAB_FIELDS, function(here: string, tab: { [string]: any })
+		if tab.id == nil then
+			add(ctx, join(here, "id"), "id is required for tabs")
+		elseif not SpecSchema.isId(tab.id) then
+			add(ctx, join(here, "id"), "id must be an identifier (letters, digits, _ or -)")
+		elseif seen[tab.id] then
+			add(ctx, join(here, "id"), "duplicate tab id " .. tab.id)
+		else
+			seen[tab.id] = true
+		end
+		if tab.text == nil and tab.icon == nil then
+			add(ctx, here, "tabs needs text or icon")
+		end
+		if tab.text ~= nil then
+			checkText(ctx, join(here, "text"), tab.text, "buttonText", "text")
+		end
+		if tab.icon ~= nil then
+			checkIcon(ctx, join(here, "icon"), tab.icon)
+		end
+	end)
+end
+
+local function checkModalButtons(ctx: Ctx, path: string, value: any)
+	local function each(here: string, button: { [string]: any })
+		if button.id == nil then
+			add(ctx, join(here, "id"), "id is required for buttons")
+		elseif not SpecSchema.isId(button.id) then
+			add(ctx, join(here, "id"), "id must be an identifier (letters, digits, _ or -)")
+		end
+		if button.text == nil then
+			add(ctx, join(here, "text"), "text is required for buttons")
+		else
+			checkText(ctx, join(here, "text"), button.text, "buttonText", "text")
+		end
+		if button.kind ~= nil then
+			checkStyleKey(ctx, join(here, "kind"), button.kind, "buttons", "button kind")
+		end
+	end
+	checkObjects(ctx, path, value, "buttons", RULES.maxModalButtons, MODAL_BUTTON_FIELDS, each)
+end
+
+-- Stat and reward chips: { text, icon?, image? }.
+local function checkChips(ctx: Ctx, path: string, value: any, label: string)
+	checkObjects(ctx, path, value, label, RULES.maxChips, CHIP_FIELDS, function(here: string, chip: { [string]: any })
+		if chip.text == nil then
+			add(ctx, join(here, "text"), "text is required for " .. label)
+		else
+			checkText(ctx, join(here, "text"), chip.text, "option", "text")
+		end
+		if chip.icon ~= nil then
+			checkIcon(ctx, join(here, "icon"), chip.icon)
+		end
+		if chip.image ~= nil then
+			checkImage(ctx, join(here, "image"), chip.image)
+		end
+	end)
+end
+
+-- Reward tiles: { icon?, image?, amount?, rarity? }.
+local function checkRewards(ctx: Ctx, path: string, value: any)
+	local function each(here: string, reward: { [string]: any })
+		if reward.icon == nil and reward.image == nil then
+			add(ctx, here, "rewards needs icon or image")
+		end
+		if reward.icon ~= nil then
+			checkIcon(ctx, join(here, "icon"), reward.icon)
+		end
+		if reward.image ~= nil then
+			checkImage(ctx, join(here, "image"), reward.image)
+		end
+		if reward.amount ~= nil then
+			checkText(ctx, join(here, "amount"), reward.amount, "amount", "amount")
+		end
+		if reward.rarity ~= nil then
+			checkStyleKey(ctx, join(here, "rarity"), reward.rarity, "rarity", "rarity")
+		end
+	end
+	checkObjects(ctx, path, value, "rewards", RULES.maxRewards, REWARD_FIELDS, each)
+end
+
+local BOOLEAN_FIELDS = toSet({
+	"visible",
+	"gift",
+	"owned",
+	"premium",
+	"plus",
+	"shine",
+	"glow",
+	"closable",
+	"selected",
+	"equipped",
+	"locked",
+	"claimed",
+	"unlocked",
+	"highlight",
+})
 
 local function checkField(ctx: Ctx, kind: string, key: string, path: string, value: any, depth: number)
 	if key == "type" or key == "id" then
 		return -- checked by validateElement
 	elseif key == "note" then
 		checkText(ctx, path, value, "note", key)
+	elseif key == "motion" then
+		checkMotion(ctx, path, value)
+	elseif key == "description" then
+		checkText(ctx, path, value, "subtitle", "description")
+	elseif key == "claimText" then
+		checkText(ctx, path, value, "buttonText", "claimText")
+	elseif key == "keybind" then
+		checkText(ctx, path, value, "keybind", "keybind")
+	elseif key == "prefix" or key == "suffix" then
+		checkText(ctx, path, value, "affix", key)
+	elseif key == "tabs" then
+		checkTabs(ctx, path, value)
+	elseif key == "buttons" then
+		checkModalButtons(ctx, path, value)
+	elseif key == "stats" then
+		checkChips(ctx, path, value, "stats")
+	elseif key == "rewards" then
+		if kind == "rewardPanel" then
+			checkRewards(ctx, path, value)
+		else
+			checkChips(ctx, path, value, "rewards")
+		end
+	elseif key == "target" then
+		if not SpecSchema.isId(value) then
+			add(ctx, path, "target must be the id of another element")
+		else
+			table.insert(ctx.targets, { path = path, id = value })
+		end
+	elseif key == "side" then
+		checkEnum(ctx, path, value, SIDES, "side")
+	elseif key == "tier" or key == "maxTier" then
+		checkInteger(ctx, path, value, key, 0, RULES.maxTier)
+	elseif key == "tips" then
+		if type(value) ~= "table" or not isArray(value) or #value == 0 then
+			add(ctx, path, "tips must be a non-empty list of strings")
+		elseif #value > RULES.maxOptions then
+			add(ctx, path, "tips has more than " .. tostring(RULES.maxOptions) .. " entries")
+		else
+			for i, tip in ipairs(value) do
+				checkText(ctx, index(path, i), tip, "text", "tip")
+			end
+		end
 	elseif key == "title" then
 		checkText(ctx, path, value, "title", "title")
 	elseif key == "subtitle" then
@@ -530,19 +843,19 @@ local function checkField(ctx: Ctx, kind: string, key: string, path: string, val
 		checkText(ctx, path, value, if kind == "iconButton" then "iconLabel" else "label", "label")
 	elseif key == "reward" then
 		checkText(ctx, path, value, "reward", "reward")
-	elseif key == "palette" then
+	elseif key == "palette" or key == "headerPalette" then
 		checkPalette(ctx, path, value)
 	elseif key == "price" then
 		checkPrice(ctx, path, value)
 	elseif key == "icon" then
 		checkIcon(ctx, path, value)
-	elseif key == "image" then
+	elseif key == "image" or key == "avatar" then
 		checkImage(ctx, path, value)
 	elseif key == "badge" then
 		checkBadge(ctx, path, value)
-	elseif key == "timer" or key == "seconds" then
+	elseif key == "timer" or key == "seconds" or key == "duration" or key == "cooldown" then
 		checkNumber(ctx, path, value, key, 0)
-	elseif key == "visible" or key == "gift" or key == "owned" or key == "premium" or key == "plus" then
+	elseif BOOLEAN_FIELDS[key] then
 		checkBoolean(ctx, path, value, key)
 	elseif key == "rarity" then
 		checkStyleKey(ctx, path, value, "rarity", "rarity")
@@ -553,11 +866,19 @@ local function checkField(ctx: Ctx, kind: string, key: string, path: string, val
 	elseif key == "shape" then
 		checkEnum(ctx, path, value, SHAPES, "shape")
 	elseif key == "state" then
-		checkEnum(ctx, path, value, DAY_STATES, "dayCard state")
+		if kind == "questCard" then
+			checkEnum(ctx, path, value, QUEST_STATES, "questCard state")
+		else
+			checkEnum(ctx, path, value, DAY_STATES, "dayCard state")
+		end
 	elseif key == "items" then
 		validateList(ctx, path, value, depth + 1, "items", false)
 	elseif key == "columns" then
-		checkColumns(ctx, path, value)
+		if kind == "rewardPanel" then
+			checkInteger(ctx, path, value, key, RULES.minColumns, RULES.maxColumns)
+		else
+			checkColumns(ctx, path, value)
+		end
 	elseif key == "cellAspect" then
 		checkNumber(ctx, path, value, key, RULES.minCellAspect, RULES.maxCellAspect)
 	elseif key == "gap" then
@@ -569,7 +890,11 @@ local function checkField(ctx: Ctx, kind: string, key: string, path: string, val
 			add(ctx, path, "color must be #RRGGBB")
 		end
 	elseif key == "kind" then
-		checkStyleKey(ctx, path, value, "buttons", "button kind")
+		if kind == "notification" then
+			checkEnum(ctx, path, value, NOTIFICATION_KINDS, "notification kind")
+		else
+			checkStyleKey(ctx, path, value, "buttons", "button kind")
+		end
 	elseif key == "action" then
 		checkAction(ctx, path, value)
 	elseif key == "bind" then
@@ -580,7 +905,7 @@ local function checkField(ctx: Ctx, kind: string, key: string, path: string, val
 		elseif type(value) ~= "string" or not Format.has((Format.parseSpec(value))) then
 			add(ctx, path, "unknown format " .. tostring(value))
 		end
-	elseif key == "level" then
+	elseif key == "level" or key == "count" then
 		checkInteger(ctx, path, value, key, 0)
 	elseif key == "max" then
 		if kind == "slider" then
@@ -609,7 +934,17 @@ local function checkField(ctx: Ctx, kind: string, key: string, path: string, val
 			elseif not isFiniteNumber(value) then
 				add(ctx, path, "value must be a string or a number")
 			end
-		elseif kind == "slider" then
+		elseif kind == "statChip" then
+			if type(value) == "string" then
+				checkText(ctx, path, value, "option", "value")
+			elseif not isFiniteNumber(value) then
+				add(ctx, path, "value must be a string or a number")
+			end
+		elseif kind == "tabBar" then
+			if not SpecSchema.isId(value) then
+				add(ctx, path, "value must be a tab id")
+			end
+		elseif kind == "slider" or kind == "leaderboardRow" then
 			checkNumber(ctx, path, value, key)
 		else
 			checkNumber(ctx, path, value, key, 0)
@@ -629,7 +964,9 @@ local function checkField(ctx: Ctx, kind: string, key: string, path: string, val
 	elseif key == "rank" then
 		checkInteger(ctx, path, value, key, 1)
 	elseif key == "progress" then
-		if not isObject(value) then
+		if kind == "loadingScreen" then
+			checkNumber(ctx, path, value, key, 0, 1)
+		elseif not isObject(value) then
 			add(ctx, path, "progress must be an object { value, max, bind, palette }")
 		else
 			checkUnknown(ctx, path, value, PROGRESS_FIELDS, "progress")
@@ -679,10 +1016,29 @@ local function crossChecks(ctx: Ctx, kind: string, path: string, element: { [str
 				add(ctx, join(path, "value"), "value must be one of the options")
 			end
 		end
-	elseif kind == "level" or kind == "progress" then
+	elseif kind == "level" or kind == "progress" or kind == "xpBar" then
 		local value, max = element.value, element.max
 		if isFiniteNumber(value) and isFiniteNumber(max) and value > max then
 			add(ctx, join(path, "value"), "value must not exceed max")
+		end
+	elseif kind == "tabBar" then
+		local tabs, value = element.tabs, element.value
+		if type(value) == "string" and type(tabs) == "table" and isArray(tabs) then
+			local found = false
+			for _, tab in ipairs(tabs) do
+				if type(tab) == "table" and tab.id == value then
+					found = true
+				end
+			end
+			if not found then
+				add(ctx, join(path, "value"), "value must be one of the tab ids")
+			end
+		end
+	elseif kind == "achievementCard" then
+		local tier, maxTier = element.tier, element.maxTier
+		local limit = if isInteger(maxTier) then maxTier else 3
+		if isInteger(tier) and tier > limit then
+			add(ctx, join(path, "tier"), "tier must not exceed maxTier")
 		end
 	end
 	if kind ~= "slider" and kind ~= "dropdown" and kind ~= "toggle" then
@@ -863,7 +1219,7 @@ end
 
 -- Returns every problem as { path, message }. An empty list means the spec is valid.
 function SpecSchema.validate(spec: any): { Issue }
-	local ctx: Ctx = { issues = {}, ids = {}, count = 0 }
+	local ctx: Ctx = { issues = {}, ids = {}, count = 0, targets = {} }
 	if not isObject(spec) then
 		add(ctx, "", "spec must be an object")
 		return ctx.issues
@@ -940,6 +1296,12 @@ function SpecSchema.validate(spec: any): { Issue }
 		end
 	end
 
+	for _, target in ipairs(ctx.targets) do
+		if ctx.ids[target.id] == nil then
+			add(ctx, target.path, "no element has the id " .. target.id)
+		end
+	end
+
 	if ctx.count > RULES.maxElements then
 		add(ctx, "", string.format("screen has %d elements; the limit is %d", ctx.count, RULES.maxElements))
 	end
@@ -1006,6 +1368,10 @@ local ELEMENT_DEFAULTS: { [string]: { [string]: any } } = {
 	toggle = { value = false },
 	slider = { min = 0, max = 1, step = 0.1 },
 	dayCard = { state = "locked", premium = false },
+	tooltip = { side = "top" },
+	xpBar = { level = 1, value = 0, max = 100 },
+	notification = { kind = "info" },
+	modal = { closable = true },
 }
 
 local function buttonKindFor(price: any): string
@@ -1080,6 +1446,11 @@ defaultElement = function(dctx: DefaultsCtx, element: any, key: string)
 	elseif kind == "dropdown" then
 		if element.value == nil and type(element.options) == "table" then
 			element.value = element.options[1]
+		end
+	elseif kind == "tabBar" then
+		local first = if type(element.tabs) == "table" then element.tabs[1] else nil
+		if element.value == nil and type(first) == "table" then
+			element.value = first.id
 		end
 	elseif kind == "listRow" then
 		local button = element.button

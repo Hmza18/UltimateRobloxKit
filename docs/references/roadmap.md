@@ -35,6 +35,10 @@ Audit on 2026-11-08 found these as the highest-impact gaps: no simulator progres
 | V4-6 | Routing evaluation with two held-out sets; description fallback in the router | `catalog/route_eval.json`, `scripts/automation/skills.py` |
 | V4-7 | Dashboard: Project, UI Playground, Assets, Agents and Tests centres | `scripts/dashboard/` |
 
+## Done in 0.5.0
+
+UltimateVisualsKit: the visual layer (`library/src/Visuals/`), 17 animated game components, ten themes, generated VFX textures, a private icon vault, a generated preset catalog (`catalog/visuals.json`), 15 `uvk-*` skills, two agents and two commands. Status, what was verified and what remains (first of all a Studio pass, since nothing in it has been run in Roblox) are in [PROGRESS.md](../../PROGRESS.md) and [the status section of the architecture document](../architecture/visuals.md#status-and-deviations).
+
 ## Next (recommended order)
 
 | # | Item | Effort | Notes |

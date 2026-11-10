@@ -1,0 +1,23 @@
+{
+  "spec": 1,
+  "id": "Bad",
+  "kind": "window",
+  "style": "cartoon",
+  "window": {
+    "title": "BAD"
+  },
+  "body": [
+    {
+      "type": "rewardPanel",
+      "rewards": [
+        {
+          "amount": "x1"
+        }
+      ],
+      "columns": 9
+    },
+    {
+      "type": "hotbarSlot"
+    }
+  ]
+}

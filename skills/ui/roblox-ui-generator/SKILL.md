@@ -20,6 +20,7 @@ Produce game UI without hand-placing instances: a JSON screen spec (contract: `d
 - Use: new shops, stores, HUDs, reward calendars, quest lists, upgrade lists, confirm and reward popups.
 - Not for screens the element table cannot express (custom minigames, maps): build those with UrkUI tags (`urk-ui-framework`) and Game components directly.
 - Purchase server logic: `roblox-shop-builder`. Device behaviour: `roblox-responsive-layout`.
+- The spec format also has element types for the 17 animated game components (`premiumButton`, `tabBar`, `modal`, `xpBar`, `petCard`, `rewardPanel` and the rest) and a `motion` field naming a Visuals UI preset; the field tables are in `$URK/library/src/UI/Spec/README.md`. For those components in code, and for motion on hand-built UI, read `uvk-simulator-screens` and `uvk-ui-animation`.
 
 ## Workflow
 

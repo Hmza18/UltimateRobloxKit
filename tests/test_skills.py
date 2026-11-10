@@ -7,7 +7,7 @@ from lib.frontmatter import load
 from lib.skills import discover
 
 NAME = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
-CATEGORIES = {"orchestration", "roblox", "toolchain", "blender", "modeling", "environments", "ui", "gameplay", "production"}
+CATEGORIES = {"orchestration", "roblox", "toolchain", "blender", "modeling", "environments", "ui", "gameplay", "production", "visuals"}
 KIT_PATH = re.compile(r"`(?:\$URK/)?((?:scripts|tools|templates|integrations|catalog|examples|docs/(?:workflows|architecture|references|getting-started|troubleshooting))/[^`\s*<>]+)`")
 
 

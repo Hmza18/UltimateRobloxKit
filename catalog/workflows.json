@@ -315,6 +315,96 @@
     "design reviewed by the user"
    ],
    "priority": 1
+  },
+  {
+   "id": "visual-polish",
+   "keywords": [
+    "effect",
+    "vfx",
+    "particle",
+    "juice",
+    "juicy",
+    "satisfying",
+    "polish",
+    "game feel",
+    "visual impact",
+    "feedback",
+    "camera shake",
+    "screen shake",
+    "reward reveal",
+    "celebration"
+   ],
+   "min_matches": 1,
+   "skills": [
+    "uvk-visuals-kit",
+    "uvk-gameplay-feedback",
+    "uvk-vfx-presets"
+   ],
+   "gates": [
+    "an existing preset was searched for in catalog/visuals.json before any effect was written",
+    "visuals fire only after the server has decided the result",
+    "pure logic covered by a Lune spec; every handle is stopped with its owner",
+    "looks, feel and device performance are NEEDS MANUAL REVIEW until run in Studio"
+   ],
+   "priority": 3
+  },
+  {
+   "id": "pet-egg-visuals",
+   "keywords": [
+    "pet selection",
+    "starter pet",
+    "pet animation",
+    "pet follow",
+    "pet reaction",
+    "choose your pet",
+    "hatch animation",
+    "hatch cinematic",
+    "hatch effect",
+    "egg opening",
+    "egg animation"
+   ],
+   "min_matches": 1,
+   "skills": [
+    "uvk-visuals-kit",
+    "uvk-pet-visuals",
+    "uvk-egg-hatching"
+   ],
+   "gates": [
+    "the server rolls and grants before any hatch or reveal plays",
+    "long sequences can be skipped and cancel restores the camera and the HUD",
+    "selection screen checked at phone, tablet, desktop and gamepad-only (manual)",
+    "Studio playtest NEEDS MANUAL REVIEW until done"
+   ],
+   "priority": 4
+  },
+  {
+   "id": "ui-animation",
+   "keywords": [
+    "ui animation",
+    "animated ui",
+    "button animation",
+    "animated button",
+    "feel",
+    "premium",
+    "hover",
+    "transition",
+    "count up",
+    "floating number",
+    "popup animation"
+   ],
+   "min_matches": 1,
+   "skills": [
+    "uvk-visuals-kit",
+    "uvk-ui-animation",
+    "uvk-simulator-screens"
+   ],
+   "gates": [
+    "buttons respond on the input frame and exits are faster than entrances",
+    "at most one attention loop on the HUD; reduced motion still works",
+    "handles and bindings are cleaned up when the screen closes",
+    "feel on mouse, touch and gamepad is NEEDS MANUAL REVIEW until run in Studio"
+   ],
+   "priority": 3
   }
  ]
 }
