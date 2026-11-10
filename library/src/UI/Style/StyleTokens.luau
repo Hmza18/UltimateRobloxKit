@@ -3,6 +3,708 @@
 -- Resolved game styles (extends already merged). Read through Style/Style.luau.
 
 return {
+	adventure = {
+		badges = {
+			attention = {
+				palette = "red",
+				shape = "circle",
+				text = "!",
+			},
+			best = {
+				palette = "gold",
+				shape = "ribbon",
+			},
+			bonus = {
+				palette = "yellow",
+				shape = "pill",
+			},
+			new = {
+				palette = "blue",
+				shape = "pill",
+			},
+			sale = {
+				palette = "red",
+				shape = "pill",
+			},
+		},
+		buttons = {
+			buy = {
+				palette = "green",
+			},
+			close = {
+				icon = "close",
+				palette = "red",
+			},
+			danger = {
+				palette = "red",
+			},
+			gift = {
+				icon = "gift",
+				palette = "purple",
+			},
+			neutral = {
+				palette = "gray",
+			},
+			price = {
+				icon = "token",
+				surface = "dark",
+			},
+			primary = {
+				palette = "blue",
+			},
+			robux = {
+				icon = "robux",
+				palette = "green",
+			},
+		},
+		description = "Adventure: forest-green canvas panels with leather-brown insets, sturdy dark outlines, condensed expedition type, sunset and jungle colours.",
+		fonts = {
+			body = "Ubuntu",
+			fallback = "GothamBold",
+			number = "Oswald",
+			title = "Oswald",
+		},
+		gloss = {
+			heightFraction = 0.34,
+			transparency = 0.88,
+		},
+		motion = {
+			count = 0.7,
+			fast = 0.1,
+			hoverScale = 1.05,
+			normal = 0.2,
+			popOvershoot = 1.1,
+			pressScale = 0.93,
+			reveal = 1.1,
+			slow = 0.36,
+		},
+		name = "adventure",
+		outline = {
+			color = "#0C1A15",
+			heavy = 6,
+			regular = 3,
+			thick = 4,
+			thin = 2,
+		},
+		palette = {
+			blue = {
+				bottom = "#2A85D1",
+				text = "#FFFFFF",
+				top = "#58B4F0",
+			},
+			gold = {
+				bottom = "#E5A420",
+				text = "#FFFFFF",
+				top = "#FFD470",
+			},
+			gray = {
+				bottom = "#A0A892",
+				text = "#FFFFFF",
+				top = "#D0D6C4",
+			},
+			green = {
+				bottom = "#57B02A",
+				text = "#FFFFFF",
+				top = "#8FD94A",
+			},
+			orange = {
+				bottom = "#E8751A",
+				text = "#FFFFFF",
+				top = "#FF9D3D",
+			},
+			pink = {
+				bottom = "#D6557F",
+				text = "#FFFFFF",
+				top = "#F083A8",
+			},
+			purple = {
+				bottom = "#7655CF",
+				text = "#FFFFFF",
+				top = "#A584E8",
+			},
+			red = {
+				bottom = "#CF3B2A",
+				text = "#FFFFFF",
+				top = "#F0624A",
+			},
+			teal = {
+				bottom = "#1FA890",
+				text = "#FFFFFF",
+				top = "#4FD1B8",
+			},
+			yellow = {
+				bottom = "#F0B41F",
+				text = "#FFFFFF",
+				top = "#FFD95C",
+			},
+		},
+		pattern = {
+			cell = 40,
+			kind = "topo",
+			transparency = 0.92,
+		},
+		radius = {
+			lg = 14,
+			md = 10,
+			pill = 999,
+			sm = 6,
+			xl = 20,
+		},
+		rarity = {
+			common = {
+				color = "#B5BDA5",
+			},
+			epic = {
+				color = "#9063E0",
+			},
+			legendary = {
+				color = "#F0AE25",
+			},
+			mythic = {
+				color = "#E8483F",
+			},
+			rare = {
+				color = "#3A95E0",
+			},
+			secret = {
+				color = "#FFF6DC",
+				rainbow = true,
+			},
+			uncommon = {
+				color = "#6BC23A",
+			},
+		},
+		shadow = {
+			color = "#06100C",
+			offsetY = 5,
+			transparency = 0.4,
+		},
+		sizes = {
+			banner = {
+				height = 112,
+			},
+			card = {
+				height = 156,
+				width = 152,
+			},
+			hudButton = {
+				size = 66,
+			},
+			icon = {
+				lg = 74,
+				md = 40,
+				sm = 24,
+				xl = 112,
+			},
+		},
+		spacing = {
+			lg = 16,
+			md = 12,
+			sm = 8,
+			xl = 24,
+			xs = 4,
+			xxl = 32,
+		},
+		surfaces = {
+			dark = {
+				bottom = "#2C1E12",
+				text = "#FFF6DC",
+				top = "#4A3320",
+			},
+			inset = {
+				bottom = "#152C24",
+				text = "#FFF6DC",
+				top = "#214336",
+			},
+			window = {
+				bottom = "#1A372D",
+				text = "#FFF6DC",
+				top = "#2B5445",
+			},
+		},
+		text = {
+			caption = 14,
+			display = 44,
+			heading = 24,
+			label = 18,
+			minimum = 12,
+			price = 20,
+			title = 32,
+		},
+		textStroke = {
+			color = "#0C1A15",
+			smallThickness = 2,
+			thickness = 2,
+		},
+	},
+	anime = {
+		badges = {
+			attention = {
+				palette = "red",
+				shape = "circle",
+				text = "!",
+			},
+			best = {
+				palette = "gold",
+				shape = "ribbon",
+			},
+			bonus = {
+				palette = "yellow",
+				shape = "pill",
+			},
+			new = {
+				palette = "blue",
+				shape = "pill",
+			},
+			sale = {
+				palette = "red",
+				shape = "pill",
+			},
+		},
+		buttons = {
+			buy = {
+				palette = "green",
+			},
+			close = {
+				icon = "close",
+				palette = "red",
+			},
+			danger = {
+				palette = "red",
+			},
+			gift = {
+				icon = "gift",
+				palette = "purple",
+			},
+			neutral = {
+				palette = "gray",
+			},
+			price = {
+				icon = "token",
+				surface = "dark",
+			},
+			primary = {
+				palette = "blue",
+			},
+			robux = {
+				icon = "robux",
+				palette = "green",
+			},
+		},
+		description = "Anime: stark white panels and ink-black line art, angular corners, hard offset shadows, halftone dots, hot pink and cyan accents.",
+		fonts = {
+			body = "Nunito",
+			fallback = "GothamBlack",
+			number = "Bangers",
+			title = "Bangers",
+		},
+		gloss = {
+			heightFraction = 0.5,
+			transparency = 0.94,
+		},
+		motion = {
+			count = 0.45,
+			fast = 0.07,
+			hoverScale = 1.07,
+			normal = 0.13,
+			popOvershoot = 1.2,
+			pressScale = 0.9,
+			reveal = 0.75,
+			slow = 0.24,
+		},
+		name = "anime",
+		outline = {
+			color = "#0E0F1A",
+			heavy = 6,
+			regular = 3,
+			thick = 4,
+			thin = 2,
+		},
+		palette = {
+			blue = {
+				bottom = "#1466FF",
+				text = "#FFFFFF",
+				top = "#4DA6FF",
+			},
+			gold = {
+				bottom = "#FFB000",
+				text = "#FFFFFF",
+				top = "#FFE066",
+			},
+			gray = {
+				bottom = "#A6ABBF",
+				text = "#FFFFFF",
+				top = "#D9DCE8",
+			},
+			green = {
+				bottom = "#00C853",
+				text = "#FFFFFF",
+				top = "#5CF08A",
+			},
+			orange = {
+				bottom = "#FF6A00",
+				text = "#FFFFFF",
+				top = "#FF9E3D",
+			},
+			pink = {
+				bottom = "#FF1493",
+				text = "#FFFFFF",
+				top = "#FF5CB8",
+			},
+			purple = {
+				bottom = "#6A2BFF",
+				text = "#FFFFFF",
+				top = "#A66BFF",
+			},
+			red = {
+				bottom = "#F0143C",
+				text = "#FFFFFF",
+				top = "#FF4D5E",
+			},
+			teal = {
+				bottom = "#00C2D6",
+				text = "#FFFFFF",
+				top = "#4DF0F0",
+			},
+			yellow = {
+				bottom = "#FFD400",
+				text = "#FFFFFF",
+				top = "#FFF066",
+			},
+		},
+		pattern = {
+			cell = 10,
+			kind = "halftone",
+			transparency = 0.86,
+		},
+		radius = {
+			lg = 8,
+			md = 5,
+			pill = 999,
+			sm = 2,
+			xl = 12,
+		},
+		rarity = {
+			common = {
+				color = "#B4B8C8",
+			},
+			epic = {
+				color = "#8A3DFF",
+			},
+			legendary = {
+				color = "#FFC400",
+			},
+			mythic = {
+				color = "#FF1F6B",
+			},
+			rare = {
+				color = "#1E7BFF",
+			},
+			secret = {
+				color = "#FFFFFF",
+				rainbow = true,
+			},
+			uncommon = {
+				color = "#00D25A",
+			},
+		},
+		shadow = {
+			color = "#0E0F1A",
+			offsetY = 6,
+			transparency = 0.15,
+		},
+		sizes = {
+			banner = {
+				height = 112,
+			},
+			card = {
+				height = 164,
+				width = 148,
+			},
+			hudButton = {
+				size = 64,
+			},
+			icon = {
+				lg = 76,
+				md = 40,
+				sm = 24,
+				xl = 116,
+			},
+		},
+		spacing = {
+			lg = 16,
+			md = 10,
+			sm = 6,
+			xl = 24,
+			xs = 4,
+			xxl = 36,
+		},
+		surfaces = {
+			dark = {
+				bottom = "#0E0F1A",
+				text = "#FFFFFF",
+				top = "#22233A",
+			},
+			inset = {
+				bottom = "#DCE1F0",
+				text = "#0E0F1A",
+				top = "#ECEFF8",
+			},
+			window = {
+				bottom = "#F0F2FA",
+				text = "#0E0F1A",
+				top = "#FFFFFF",
+			},
+		},
+		text = {
+			caption = 14,
+			display = 50,
+			heading = 26,
+			label = 18,
+			minimum = 12,
+			price = 22,
+			title = 36,
+		},
+		textStroke = {
+			color = "#0E0F1A",
+			smallThickness = 2,
+			thickness = 3,
+		},
+	},
+	arcade = {
+		badges = {
+			attention = {
+				palette = "red",
+				shape = "circle",
+				text = "!",
+			},
+			best = {
+				palette = "gold",
+				shape = "ribbon",
+			},
+			bonus = {
+				palette = "yellow",
+				shape = "pill",
+			},
+			new = {
+				palette = "blue",
+				shape = "pill",
+			},
+			sale = {
+				palette = "red",
+				shape = "pill",
+			},
+		},
+		buttons = {
+			buy = {
+				palette = "green",
+			},
+			close = {
+				icon = "close",
+				palette = "red",
+			},
+			danger = {
+				palette = "red",
+			},
+			gift = {
+				icon = "gift",
+				palette = "purple",
+			},
+			neutral = {
+				palette = "gray",
+			},
+			price = {
+				icon = "token",
+				surface = "dark",
+			},
+			primary = {
+				palette = "blue",
+			},
+			robux = {
+				icon = "robux",
+				palette = "green",
+			},
+		},
+		description = "Arcade: near-black cabinet panels, pixel type, square corners, hard block shadows, scanlines and loud neon blocks.",
+		fonts = {
+			body = "RobotoMono",
+			fallback = "Code",
+			number = "Arcade",
+			title = "Arcade",
+		},
+		gloss = {
+			heightFraction = 0.5,
+			transparency = 0.9,
+		},
+		motion = {
+			count = 0.35,
+			fast = 0.05,
+			hoverScale = 1.1,
+			normal = 0.1,
+			popOvershoot = 1.22,
+			pressScale = 0.86,
+			reveal = 0.6,
+			slow = 0.18,
+		},
+		name = "arcade",
+		outline = {
+			color = "#07041A",
+			heavy = 6,
+			regular = 4,
+			thick = 4,
+			thin = 2,
+		},
+		palette = {
+			blue = {
+				bottom = "#0070F2",
+				text = "#FFFFFF",
+				top = "#1A9CFF",
+			},
+			gold = {
+				bottom = "#F2B200",
+				text = "#FFFFFF",
+				top = "#FFD11A",
+			},
+			gray = {
+				bottom = "#9189BF",
+				text = "#FFFFFF",
+				top = "#C8C2E6",
+			},
+			green = {
+				bottom = "#12D900",
+				text = "#FFFFFF",
+				top = "#39FF14",
+			},
+			orange = {
+				bottom = "#F26A00",
+				text = "#FFFFFF",
+				top = "#FF8C1A",
+			},
+			pink = {
+				bottom = "#F200A6",
+				text = "#FFFFFF",
+				top = "#FF1ACC",
+			},
+			purple = {
+				bottom = "#8A00E6",
+				text = "#FFFFFF",
+				top = "#B31AFF",
+			},
+			red = {
+				bottom = "#E6002E",
+				text = "#FFFFFF",
+				top = "#FF3355",
+			},
+			teal = {
+				bottom = "#00D9C4",
+				text = "#FFFFFF",
+				top = "#1AFFE8",
+			},
+			yellow = {
+				bottom = "#F2D600",
+				text = "#FFFFFF",
+				top = "#FFF21A",
+			},
+		},
+		pattern = {
+			cell = 6,
+			kind = "scanlines",
+			transparency = 0.9,
+		},
+		radius = {
+			lg = 4,
+			md = 2,
+			pill = 999,
+			sm = 0,
+			xl = 6,
+		},
+		rarity = {
+			common = {
+				color = "#A9A3CC",
+			},
+			epic = {
+				color = "#C61AFF",
+			},
+			legendary = {
+				color = "#FFD11A",
+			},
+			mythic = {
+				color = "#FF1A5E",
+			},
+			rare = {
+				color = "#1A9CFF",
+			},
+			secret = {
+				color = "#FFFFFF",
+				rainbow = true,
+			},
+			uncommon = {
+				color = "#39FF14",
+			},
+		},
+		shadow = {
+			color = "#07041A",
+			offsetY = 6,
+			transparency = 0,
+		},
+		sizes = {
+			banner = {
+				height = 104,
+			},
+			card = {
+				height = 144,
+				width = 144,
+			},
+			hudButton = {
+				size = 64,
+			},
+			icon = {
+				lg = 72,
+				md = 40,
+				sm = 24,
+				xl = 104,
+			},
+		},
+		spacing = {
+			lg = 16,
+			md = 12,
+			sm = 8,
+			xl = 24,
+			xs = 4,
+			xxl = 32,
+		},
+		surfaces = {
+			dark = {
+				bottom = "#07041A",
+				text = "#FFFFFF",
+				top = "#0E0826",
+			},
+			inset = {
+				bottom = "#0F0828",
+				text = "#F2EEFF",
+				top = "#1B1144",
+			},
+			window = {
+				bottom = "#170D3A",
+				text = "#FFFFFF",
+				top = "#2A1B5C",
+			},
+		},
+		text = {
+			caption = 13,
+			display = 34,
+			heading = 18,
+			label = 15,
+			minimum = 12,
+			price = 16,
+			title = 24,
+		},
+		textStroke = {
+			color = "#07041A",
+			smallThickness = 2,
+			thickness = 2,
+		},
+	},
 	cartoon = {
 		badges = {
 			attention = {
@@ -235,6 +937,708 @@ return {
 			color = "#1B1530",
 			smallThickness = 2,
 			thickness = 3,
+		},
+	},
+	cozy = {
+		badges = {
+			attention = {
+				palette = "red",
+				shape = "circle",
+				text = "!",
+			},
+			best = {
+				palette = "gold",
+				shape = "ribbon",
+			},
+			bonus = {
+				palette = "yellow",
+				shape = "pill",
+			},
+			new = {
+				palette = "blue",
+				shape = "pill",
+			},
+			sale = {
+				palette = "red",
+				shape = "pill",
+			},
+		},
+		buttons = {
+			buy = {
+				palette = "green",
+			},
+			close = {
+				icon = "close",
+				palette = "red",
+			},
+			danger = {
+				palette = "red",
+			},
+			gift = {
+				icon = "gift",
+				palette = "purple",
+			},
+			neutral = {
+				palette = "gray",
+			},
+			price = {
+				icon = "token",
+				surface = "dark",
+			},
+			primary = {
+				palette = "blue",
+			},
+			robux = {
+				icon = "robux",
+				palette = "green",
+			},
+		},
+		description = "Cozy: warm cream paper, soft cocoa outlines, very round corners, muted garden colours, hand-written headings and gentle shadows.",
+		fonts = {
+			body = "Nunito",
+			fallback = "Gotham",
+			number = "PatrickHand",
+			title = "PatrickHand",
+		},
+		gloss = {
+			heightFraction = 0.4,
+			transparency = 0.9,
+		},
+		motion = {
+			count = 0.9,
+			fast = 0.14,
+			hoverScale = 1.04,
+			normal = 0.26,
+			popOvershoot = 1.06,
+			pressScale = 0.95,
+			reveal = 1.3,
+			slow = 0.44,
+		},
+		name = "cozy",
+		outline = {
+			color = "#5A4232",
+			heavy = 4,
+			regular = 2,
+			thick = 3,
+			thin = 2,
+		},
+		palette = {
+			blue = {
+				bottom = "#7FAEDB",
+				text = "#FFFFFF",
+				top = "#A9CDEB",
+			},
+			gold = {
+				bottom = "#E3B84F",
+				text = "#FFFFFF",
+				top = "#F5D98A",
+			},
+			gray = {
+				bottom = "#B8AB98",
+				text = "#FFFFFF",
+				top = "#DDD3C4",
+			},
+			green = {
+				bottom = "#93BE74",
+				text = "#FFFFFF",
+				top = "#BBD8A0",
+			},
+			orange = {
+				bottom = "#EBA05C",
+				text = "#FFFFFF",
+				top = "#F7C08A",
+			},
+			pink = {
+				bottom = "#E890AE",
+				text = "#FFFFFF",
+				top = "#F5B8CC",
+			},
+			purple = {
+				bottom = "#A990D6",
+				text = "#FFFFFF",
+				top = "#CDB8E8",
+			},
+			red = {
+				bottom = "#E07A62",
+				text = "#FFFFFF",
+				top = "#F2A08C",
+			},
+			teal = {
+				bottom = "#7BC0AE",
+				text = "#FFFFFF",
+				top = "#A6D9CC",
+			},
+			yellow = {
+				bottom = "#F0CB6A",
+				text = "#FFFFFF",
+				top = "#F9E3A0",
+			},
+		},
+		pattern = {
+			cell = 28,
+			kind = "gingham",
+			transparency = 0.94,
+		},
+		radius = {
+			lg = 28,
+			md = 20,
+			pill = 999,
+			sm = 14,
+			xl = 36,
+		},
+		rarity = {
+			common = {
+				color = "#C4B8A6",
+			},
+			epic = {
+				color = "#A98AD6",
+			},
+			legendary = {
+				color = "#E8B24A",
+			},
+			mythic = {
+				color = "#E57C8E",
+			},
+			rare = {
+				color = "#78A9DB",
+			},
+			secret = {
+				color = "#FFF9EE",
+				rainbow = true,
+			},
+			uncommon = {
+				color = "#8FBE6E",
+			},
+		},
+		shadow = {
+			color = "#5A4232",
+			offsetY = 3,
+			transparency = 0.78,
+		},
+		sizes = {
+			banner = {
+				height = 112,
+			},
+			card = {
+				height = 160,
+				width = 156,
+			},
+			hudButton = {
+				size = 68,
+			},
+			icon = {
+				lg = 76,
+				md = 42,
+				sm = 26,
+				xl = 112,
+			},
+		},
+		spacing = {
+			lg = 20,
+			md = 14,
+			sm = 10,
+			xl = 28,
+			xs = 6,
+			xxl = 36,
+		},
+		surfaces = {
+			dark = {
+				bottom = "#4A3628",
+				text = "#FFF4E0",
+				top = "#6B4F3C",
+			},
+			inset = {
+				bottom = "#EEDCBE",
+				text = "#3D2B1F",
+				top = "#F8EBD6",
+			},
+			window = {
+				bottom = "#F7E9D2",
+				text = "#3D2B1F",
+				top = "#FFF9EE",
+			},
+		},
+		text = {
+			caption = 15,
+			display = 44,
+			heading = 24,
+			label = 18,
+			minimum = 13,
+			price = 20,
+			title = 32,
+		},
+		textStroke = {
+			color = "#3D2B1F",
+			smallThickness = 2,
+			thickness = 2,
+		},
+	},
+	fantasy = {
+		badges = {
+			attention = {
+				palette = "red",
+				shape = "circle",
+				text = "!",
+			},
+			best = {
+				palette = "gold",
+				shape = "ribbon",
+			},
+			bonus = {
+				palette = "yellow",
+				shape = "pill",
+			},
+			new = {
+				palette = "blue",
+				shape = "pill",
+			},
+			sale = {
+				palette = "red",
+				shape = "pill",
+			},
+		},
+		buttons = {
+			buy = {
+				palette = "green",
+			},
+			close = {
+				icon = "close",
+				palette = "red",
+			},
+			danger = {
+				palette = "red",
+			},
+			gift = {
+				icon = "gift",
+				palette = "purple",
+			},
+			neutral = {
+				palette = "gray",
+			},
+			price = {
+				icon = "token",
+				surface = "dark",
+			},
+			primary = {
+				palette = "blue",
+			},
+			robux = {
+				icon = "robux",
+				palette = "green",
+			},
+		},
+		description = "Fantasy: aged parchment panels, dark-oak outlines, jewel and earth tones, blackletter titles, small chiselled corners.",
+		fonts = {
+			body = "Fondamento",
+			fallback = "Garamond",
+			number = "Merriweather",
+			title = "GrenzeGotisch",
+		},
+		gloss = {
+			heightFraction = 0.3,
+			transparency = 0.9,
+		},
+		motion = {
+			count = 0.8,
+			fast = 0.12,
+			hoverScale = 1.04,
+			normal = 0.22,
+			popOvershoot = 1.08,
+			pressScale = 0.95,
+			reveal = 1.2,
+			slow = 0.4,
+		},
+		name = "fantasy",
+		outline = {
+			color = "#2A1608",
+			heavy = 5,
+			regular = 3,
+			thick = 4,
+			thin = 2,
+		},
+		palette = {
+			blue = {
+				bottom = "#3F6FBF",
+				text = "#FFFFFF",
+				top = "#6C9BE0",
+			},
+			gold = {
+				bottom = "#C9992A",
+				text = "#FFFFFF",
+				top = "#F2D377",
+			},
+			gray = {
+				bottom = "#A1967F",
+				text = "#FFFFFF",
+				top = "#CFC6B4",
+			},
+			green = {
+				bottom = "#4E9438",
+				text = "#FFFFFF",
+				top = "#7FBF5A",
+			},
+			orange = {
+				bottom = "#C97421",
+				text = "#FFFFFF",
+				top = "#E99A4A",
+			},
+			pink = {
+				bottom = "#BF4A88",
+				text = "#FFFFFF",
+				top = "#E07BB0",
+			},
+			purple = {
+				bottom = "#7D50C1",
+				text = "#FFFFFF",
+				top = "#A77BE0",
+			},
+			red = {
+				bottom = "#BB3A34",
+				text = "#FFFFFF",
+				top = "#E0564A",
+			},
+			teal = {
+				bottom = "#2F9483",
+				text = "#FFFFFF",
+				top = "#5FC2B0",
+			},
+			yellow = {
+				bottom = "#D1A82B",
+				text = "#FFFFFF",
+				top = "#F0D46A",
+			},
+		},
+		pattern = {
+			cell = 22,
+			kind = "diamond",
+			transparency = 0.9,
+		},
+		radius = {
+			lg = 10,
+			md = 6,
+			pill = 999,
+			sm = 3,
+			xl = 14,
+		},
+		rarity = {
+			common = {
+				color = "#B9AE99",
+			},
+			epic = {
+				color = "#9156D6",
+			},
+			legendary = {
+				color = "#E0A52B",
+			},
+			mythic = {
+				color = "#D63A55",
+			},
+			rare = {
+				color = "#4C7FD6",
+			},
+			secret = {
+				color = "#FFF3D1",
+				rainbow = true,
+			},
+			uncommon = {
+				color = "#5FA845",
+			},
+		},
+		shadow = {
+			color = "#1A0D04",
+			offsetY = 5,
+			transparency = 0.45,
+		},
+		sizes = {
+			banner = {
+				height = 110,
+			},
+			card = {
+				height = 160,
+				width = 150,
+			},
+			hudButton = {
+				size = 64,
+			},
+			icon = {
+				lg = 72,
+				md = 40,
+				sm = 24,
+				xl = 110,
+			},
+		},
+		spacing = {
+			lg = 16,
+			md = 12,
+			sm = 8,
+			xl = 24,
+			xs = 4,
+			xxl = 32,
+		},
+		surfaces = {
+			dark = {
+				bottom = "#26143A",
+				text = "#FFE9B8",
+				top = "#43285A",
+			},
+			inset = {
+				bottom = "#D9C290",
+				text = "#2A1608",
+				top = "#EBDDB8",
+			},
+			window = {
+				bottom = "#E5D0A3",
+				text = "#2A1608",
+				top = "#F8EDD3",
+			},
+		},
+		text = {
+			caption = 14,
+			display = 46,
+			heading = 25,
+			label = 18,
+			minimum = 12,
+			price = 20,
+			title = 34,
+		},
+		textStroke = {
+			color = "#2A1608",
+			smallThickness = 2,
+			thickness = 2,
+		},
+	},
+	luxury = {
+		badges = {
+			attention = {
+				palette = "red",
+				shape = "circle",
+				text = "!",
+			},
+			best = {
+				palette = "gold",
+				shape = "ribbon",
+			},
+			bonus = {
+				palette = "yellow",
+				shape = "pill",
+			},
+			new = {
+				palette = "blue",
+				shape = "pill",
+			},
+			sale = {
+				palette = "red",
+				shape = "pill",
+			},
+		},
+		buttons = {
+			buy = {
+				palette = "green",
+			},
+			close = {
+				icon = "close",
+				palette = "red",
+			},
+			danger = {
+				palette = "red",
+			},
+			gift = {
+				icon = "gift",
+				palette = "purple",
+			},
+			neutral = {
+				palette = "gray",
+			},
+			price = {
+				icon = "token",
+				surface = "dark",
+			},
+			primary = {
+				palette = "blue",
+			},
+			robux = {
+				icon = "robux",
+				palette = "green",
+			},
+		},
+		description = "Luxury: charcoal and black lacquer, fine gold rules, serif titles, deep jewel fills, very subtle sheen, long soft shadows.",
+		fonts = {
+			body = "JosefinSans",
+			fallback = "Garamond",
+			number = "Merriweather",
+			title = "Bodoni",
+		},
+		gloss = {
+			heightFraction = 0.22,
+			transparency = 0.92,
+		},
+		motion = {
+			count = 1.1,
+			fast = 0.16,
+			hoverScale = 1.025,
+			normal = 0.3,
+			popOvershoot = 1.03,
+			pressScale = 0.97,
+			reveal = 1.8,
+			slow = 0.55,
+		},
+		name = "luxury",
+		outline = {
+			color = "#C9A24B",
+			heavy = 3,
+			regular = 2,
+			thick = 2,
+			thin = 1,
+		},
+		palette = {
+			blue = {
+				bottom = "#3F5F9B",
+				text = "#FFFFFF",
+				top = "#4C6AA2",
+			},
+			gold = {
+				bottom = "#C9A24B",
+				text = "#0A0806",
+				top = "#F0D58A",
+			},
+			gray = {
+				bottom = "#A89F8E",
+				text = "#0A0806",
+				top = "#CFC7B8",
+			},
+			green = {
+				bottom = "#246A4D",
+				text = "#FFFFFF",
+				top = "#1F7A55",
+			},
+			orange = {
+				bottom = "#A04E12",
+				text = "#FFFFFF",
+				top = "#B65E1C",
+			},
+			pink = {
+				bottom = "#993D6E",
+				text = "#FFFFFF",
+				top = "#B03A78",
+			},
+			purple = {
+				bottom = "#70509A",
+				text = "#FFFFFF",
+				top = "#7A5CA1",
+			},
+			red = {
+				bottom = "#A13C48",
+				text = "#FFFFFF",
+				top = "#B52432",
+			},
+			teal = {
+				bottom = "#1D696B",
+				text = "#FFFFFF",
+				top = "#177A7A",
+			},
+			yellow = {
+				bottom = "#D4B24C",
+				text = "#0A0806",
+				top = "#E8CF7A",
+			},
+		},
+		pattern = {
+			cell = 36,
+			kind = "diamond",
+			transparency = 0.96,
+		},
+		radius = {
+			lg = 10,
+			md = 6,
+			pill = 999,
+			sm = 4,
+			xl = 14,
+		},
+		rarity = {
+			common = {
+				color = "#A89F8E",
+			},
+			epic = {
+				color = "#8A56C9",
+			},
+			legendary = {
+				color = "#D9B24C",
+			},
+			mythic = {
+				color = "#C93452",
+			},
+			rare = {
+				color = "#3F74D6",
+			},
+			secret = {
+				color = "#F6EBD2",
+				rainbow = true,
+			},
+			uncommon = {
+				color = "#2F9E6E",
+			},
+		},
+		shadow = {
+			color = "#000000",
+			offsetY = 10,
+			transparency = 0.5,
+		},
+		sizes = {
+			banner = {
+				height = 120,
+			},
+			card = {
+				height = 172,
+				width = 160,
+			},
+			hudButton = {
+				size = 64,
+			},
+			icon = {
+				lg = 76,
+				md = 38,
+				sm = 22,
+				xl = 120,
+			},
+		},
+		spacing = {
+			lg = 22,
+			md = 16,
+			sm = 10,
+			xl = 30,
+			xs = 6,
+			xxl = 44,
+		},
+		surfaces = {
+			dark = {
+				bottom = "#050404",
+				text = "#F6EBD2",
+				top = "#0C0A09",
+			},
+			inset = {
+				bottom = "#0E0C0B",
+				text = "#EADCBC",
+				top = "#191614",
+			},
+			window = {
+				bottom = "#12100E",
+				text = "#F6EBD2",
+				top = "#211D1A",
+			},
+		},
+		text = {
+			caption = 13,
+			display = 44,
+			heading = 22,
+			label = 17,
+			minimum = 12,
+			price = 19,
+			title = 30,
+		},
+		textStroke = {
+			color = "#0A0806",
+			smallThickness = 1,
+			thickness = 1,
 		},
 	},
 	midnight = {
@@ -471,6 +1875,240 @@ return {
 			thickness = 3,
 		},
 	},
+	minimal = {
+		badges = {
+			attention = {
+				palette = "red",
+				shape = "circle",
+				text = "!",
+			},
+			best = {
+				palette = "gold",
+				shape = "ribbon",
+			},
+			bonus = {
+				palette = "yellow",
+				shape = "pill",
+			},
+			new = {
+				palette = "blue",
+				shape = "pill",
+			},
+			sale = {
+				palette = "red",
+				shape = "pill",
+			},
+		},
+		buttons = {
+			buy = {
+				palette = "green",
+			},
+			close = {
+				icon = "close",
+				palette = "red",
+			},
+			danger = {
+				palette = "red",
+			},
+			gift = {
+				icon = "gift",
+				palette = "purple",
+			},
+			neutral = {
+				palette = "gray",
+			},
+			price = {
+				icon = "token",
+				surface = "dark",
+			},
+			primary = {
+				palette = "blue",
+			},
+			robux = {
+				icon = "robux",
+				palette = "green",
+			},
+		},
+		description = "Modern Minimal: flat white surfaces, hairline slate borders, restrained solid accents with white text, no gloss, almost no pattern.",
+		fonts = {
+			body = "BuilderSans",
+			fallback = "GothamMedium",
+			number = "BuilderSansMedium",
+			title = "BuilderSansBold",
+		},
+		gloss = {
+			heightFraction = 0.5,
+			transparency = 1,
+		},
+		motion = {
+			count = 0.5,
+			fast = 0.08,
+			hoverScale = 1.02,
+			normal = 0.15,
+			popOvershoot = 1.02,
+			pressScale = 0.98,
+			reveal = 0.7,
+			slow = 0.25,
+		},
+		name = "minimal",
+		outline = {
+			color = "#0B1220",
+			heavy = 2,
+			regular = 1,
+			thick = 2,
+			thin = 1,
+		},
+		palette = {
+			blue = {
+				bottom = "#2563EB",
+				text = "#FFFFFF",
+				top = "#3472D8",
+			},
+			gold = {
+				bottom = "#E5B93A",
+				text = "#0B1220",
+				top = "#F2C94C",
+			},
+			gray = {
+				bottom = "#D1D5DB",
+				text = "#0B1220",
+				top = "#E5E7EB",
+			},
+			green = {
+				bottom = "#218358",
+				text = "#FFFFFF",
+				top = "#258458",
+			},
+			orange = {
+				bottom = "#D2460F",
+				text = "#FFFFFF",
+				top = "#D2460F",
+			},
+			pink = {
+				bottom = "#DB2777",
+				text = "#FFFFFF",
+				top = "#DB2777",
+			},
+			purple = {
+				bottom = "#7C3AED",
+				text = "#FFFFFF",
+				top = "#8558EC",
+			},
+			red = {
+				bottom = "#D83A40",
+				text = "#FFFFFF",
+				top = "#D83A40",
+			},
+			teal = {
+				bottom = "#0C8479",
+				text = "#FFFFFF",
+				top = "#0C8479",
+			},
+			yellow = {
+				bottom = "#EBCB00",
+				text = "#0B1220",
+				top = "#F5D90A",
+			},
+		},
+		pattern = {
+			cell = 24,
+			kind = "none",
+			transparency = 1,
+		},
+		radius = {
+			lg = 12,
+			md = 8,
+			pill = 999,
+			sm = 6,
+			xl = 16,
+		},
+		rarity = {
+			common = {
+				color = "#9CA3AF",
+			},
+			epic = {
+				color = "#8250DF",
+			},
+			legendary = {
+				color = "#E0A100",
+			},
+			mythic = {
+				color = "#E5484D",
+			},
+			rare = {
+				color = "#2F6FED",
+			},
+			secret = {
+				color = "#0B1220",
+				rainbow = true,
+			},
+			uncommon = {
+				color = "#22A06B",
+			},
+		},
+		shadow = {
+			color = "#0B1220",
+			offsetY = 2,
+			transparency = 0.86,
+		},
+		sizes = {
+			banner = {
+				height = 100,
+			},
+			card = {
+				height = 148,
+				width = 144,
+			},
+			hudButton = {
+				size = 56,
+			},
+			icon = {
+				lg = 64,
+				md = 32,
+				sm = 20,
+				xl = 96,
+			},
+		},
+		spacing = {
+			lg = 16,
+			md = 12,
+			sm = 8,
+			xl = 24,
+			xs = 4,
+			xxl = 40,
+		},
+		surfaces = {
+			dark = {
+				bottom = "#111827",
+				text = "#FFFFFF",
+				top = "#1F2937",
+			},
+			inset = {
+				bottom = "#ECEEF2",
+				text = "#0B1220",
+				top = "#F3F4F6",
+			},
+			window = {
+				bottom = "#FAFBFC",
+				text = "#0B1220",
+				top = "#FFFFFF",
+			},
+		},
+		text = {
+			caption = 13,
+			display = 36,
+			heading = 20,
+			label = 16,
+			minimum = 12,
+			price = 18,
+			title = 26,
+		},
+		textStroke = {
+			color = "#0B1220",
+			smallThickness = 1,
+			thickness = 1,
+		},
+	},
 	pastel = {
 		badges = {
 			attention = {
@@ -701,6 +2339,708 @@ return {
 		},
 		textStroke = {
 			color = "#1B1530",
+			smallThickness = 2,
+			thickness = 3,
+		},
+	},
+	premium = {
+		badges = {
+			attention = {
+				palette = "red",
+				shape = "circle",
+				text = "!",
+			},
+			best = {
+				palette = "gold",
+				shape = "ribbon",
+			},
+			bonus = {
+				palette = "yellow",
+				shape = "pill",
+			},
+			new = {
+				palette = "blue",
+				shape = "pill",
+			},
+			sale = {
+				palette = "red",
+				shape = "pill",
+			},
+		},
+		buttons = {
+			buy = {
+				palette = "green",
+			},
+			close = {
+				icon = "close",
+				palette = "red",
+			},
+			danger = {
+				palette = "red",
+			},
+			gift = {
+				icon = "gift",
+				palette = "purple",
+			},
+			neutral = {
+				palette = "gray",
+			},
+			price = {
+				icon = "token",
+				surface = "dark",
+			},
+			primary = {
+				palette = "blue",
+			},
+			robux = {
+				icon = "robux",
+				palette = "green",
+			},
+		},
+		description = "Premium Cartoon: polished storefront look. Warm cream panels, navy outlines of medium weight, rich two-tone gradients, soft long shadows.",
+		fonts = {
+			body = "Nunito",
+			fallback = "GothamBold",
+			number = "FredokaOne",
+			title = "DenkOne",
+		},
+		gloss = {
+			heightFraction = 0.38,
+			transparency = 0.84,
+		},
+		motion = {
+			count = 0.7,
+			fast = 0.11,
+			hoverScale = 1.05,
+			normal = 0.2,
+			popOvershoot = 1.1,
+			pressScale = 0.94,
+			reveal = 1.0,
+			slow = 0.34,
+		},
+		name = "premium",
+		outline = {
+			color = "#1B2440",
+			heavy = 5,
+			regular = 3,
+			thick = 4,
+			thin = 2,
+		},
+		palette = {
+			blue = {
+				bottom = "#3B7DDB",
+				text = "#FFFFFF",
+				top = "#6CB6FF",
+			},
+			gold = {
+				bottom = "#E5A823",
+				text = "#FFFFFF",
+				top = "#FFDE85",
+			},
+			gray = {
+				bottom = "#A4ABBD",
+				text = "#FFFFFF",
+				top = "#D5D9E3",
+			},
+			green = {
+				bottom = "#2FAE5B",
+				text = "#FFFFFF",
+				top = "#6FE08A",
+			},
+			orange = {
+				bottom = "#F07F2A",
+				text = "#FFFFFF",
+				top = "#FFAE5C",
+			},
+			pink = {
+				bottom = "#E0569A",
+				text = "#FFFFFF",
+				top = "#FF8FC4",
+			},
+			purple = {
+				bottom = "#7C5BD9",
+				text = "#FFFFFF",
+				top = "#B79CFF",
+			},
+			red = {
+				bottom = "#D93A4A",
+				text = "#FFFFFF",
+				top = "#FF6B6B",
+			},
+			teal = {
+				bottom = "#27A99B",
+				text = "#FFFFFF",
+				top = "#5FDCCB",
+			},
+			yellow = {
+				bottom = "#F2B824",
+				text = "#FFFFFF",
+				top = "#FFE17A",
+			},
+		},
+		pattern = {
+			cell = 32,
+			kind = "stripes",
+			transparency = 0.93,
+		},
+		radius = {
+			lg = 22,
+			md = 16,
+			pill = 999,
+			sm = 10,
+			xl = 30,
+		},
+		rarity = {
+			common = {
+				color = "#B9C0CF",
+			},
+			epic = {
+				color = "#9B6BEB",
+			},
+			legendary = {
+				color = "#F2A93B",
+			},
+			mythic = {
+				color = "#EC4B7A",
+			},
+			rare = {
+				color = "#4A90F0",
+			},
+			secret = {
+				color = "#FFFFFF",
+				rainbow = true,
+			},
+			uncommon = {
+				color = "#4FCB73",
+			},
+		},
+		shadow = {
+			color = "#1B2440",
+			offsetY = 8,
+			transparency = 0.68,
+		},
+		sizes = {
+			banner = {
+				height = 112,
+			},
+			card = {
+				height = 156,
+				width = 152,
+			},
+			hudButton = {
+				size = 64,
+			},
+			icon = {
+				lg = 72,
+				md = 40,
+				sm = 24,
+				xl = 110,
+			},
+		},
+		spacing = {
+			lg = 18,
+			md = 14,
+			sm = 8,
+			xl = 24,
+			xs = 4,
+			xxl = 34,
+		},
+		surfaces = {
+			dark = {
+				bottom = "#1B2440",
+				text = "#FFFFFF",
+				top = "#2E3A66",
+			},
+			inset = {
+				bottom = "#E8DCC3",
+				text = "#1B2440",
+				top = "#F6EEDD",
+			},
+			window = {
+				bottom = "#F3E9D6",
+				text = "#1B2440",
+				top = "#FFFBF2",
+			},
+		},
+		text = {
+			caption = 14,
+			display = 42,
+			heading = 23,
+			label = 17,
+			minimum = 12,
+			price = 20,
+			title = 30,
+		},
+		textStroke = {
+			color = "#1B2440",
+			smallThickness = 2,
+			thickness = 2,
+		},
+	},
+	scifi = {
+		badges = {
+			attention = {
+				palette = "red",
+				shape = "circle",
+				text = "!",
+			},
+			best = {
+				palette = "gold",
+				shape = "ribbon",
+			},
+			bonus = {
+				palette = "yellow",
+				shape = "pill",
+			},
+			new = {
+				palette = "blue",
+				shape = "pill",
+			},
+			sale = {
+				palette = "red",
+				shape = "pill",
+			},
+		},
+		buttons = {
+			buy = {
+				palette = "green",
+			},
+			close = {
+				icon = "close",
+				palette = "red",
+			},
+			danger = {
+				palette = "red",
+			},
+			gift = {
+				icon = "gift",
+				palette = "purple",
+			},
+			neutral = {
+				palette = "gray",
+			},
+			price = {
+				icon = "token",
+				surface = "dark",
+			},
+			primary = {
+				palette = "blue",
+			},
+			robux = {
+				icon = "robux",
+				palette = "green",
+			},
+		},
+		description = "Sci-Fi: deep navy glass panels with thin glowing cyan edges, square corners, grid overlay, neon accents and wide technical type.",
+		fonts = {
+			body = "TitilliumWeb",
+			fallback = "GothamMedium",
+			number = "Sarpanch",
+			title = "Michroma",
+		},
+		gloss = {
+			heightFraction = 0.12,
+			transparency = 0.93,
+		},
+		motion = {
+			count = 0.5,
+			fast = 0.08,
+			hoverScale = 1.03,
+			normal = 0.16,
+			popOvershoot = 1.05,
+			pressScale = 0.96,
+			reveal = 0.9,
+			slow = 0.3,
+		},
+		name = "scifi",
+		outline = {
+			color = "#5CE1FF",
+			heavy = 3,
+			regular = 2,
+			thick = 2,
+			thin = 1,
+		},
+		palette = {
+			blue = {
+				bottom = "#0F62E6",
+				text = "#FFFFFF",
+				top = "#2F77C4",
+			},
+			gold = {
+				bottom = "#E0A000",
+				text = "#030A14",
+				top = "#FFD24D",
+			},
+			gray = {
+				bottom = "#8094AB",
+				text = "#030A14",
+				top = "#B4C6D9",
+			},
+			green = {
+				bottom = "#00C26E",
+				text = "#030A14",
+				top = "#3DFFA2",
+			},
+			orange = {
+				bottom = "#C1550C",
+				text = "#FFFFFF",
+				top = "#C1550C",
+			},
+			pink = {
+				bottom = "#D11FB0",
+				text = "#FFFFFF",
+				top = "#BD44A6",
+			},
+			purple = {
+				bottom = "#673CE1",
+				text = "#FFFFFF",
+				top = "#855CDB",
+			},
+			red = {
+				bottom = "#D11F45",
+				text = "#FFFFFF",
+				top = "#D13F57",
+			},
+			teal = {
+				bottom = "#00B8D4",
+				text = "#030A14",
+				top = "#3DF5FF",
+			},
+			yellow = {
+				bottom = "#E6B800",
+				text = "#030A14",
+				top = "#FFE14D",
+			},
+		},
+		pattern = {
+			cell = 32,
+			kind = "grid",
+			transparency = 0.93,
+		},
+		radius = {
+			lg = 6,
+			md = 4,
+			pill = 999,
+			sm = 2,
+			xl = 10,
+		},
+		rarity = {
+			common = {
+				color = "#8FA6BF",
+			},
+			epic = {
+				color = "#A45CFF",
+			},
+			legendary = {
+				color = "#FFC42D",
+			},
+			mythic = {
+				color = "#FF2D6F",
+			},
+			rare = {
+				color = "#2D9BFF",
+			},
+			secret = {
+				color = "#E6F7FF",
+				rainbow = true,
+			},
+			uncommon = {
+				color = "#2DF59A",
+			},
+		},
+		shadow = {
+			color = "#00B4FF",
+			offsetY = 0,
+			transparency = 0.6,
+		},
+		sizes = {
+			banner = {
+				height = 104,
+			},
+			card = {
+				height = 148,
+				width = 148,
+			},
+			hudButton = {
+				size = 60,
+			},
+			icon = {
+				lg = 68,
+				md = 36,
+				sm = 22,
+				xl = 104,
+			},
+		},
+		spacing = {
+			lg = 16,
+			md = 12,
+			sm = 8,
+			xl = 20,
+			xs = 4,
+			xxl = 28,
+		},
+		surfaces = {
+			dark = {
+				bottom = "#03070E",
+				text = "#E6F7FF",
+				top = "#070D18",
+			},
+			inset = {
+				bottom = "#08111E",
+				text = "#D5F0FF",
+				top = "#0E1A2C",
+			},
+			window = {
+				bottom = "#0B1524",
+				text = "#E6F7FF",
+				top = "#15243C",
+			},
+		},
+		text = {
+			caption = 13,
+			display = 38,
+			heading = 20,
+			label = 16,
+			minimum = 12,
+			price = 18,
+			title = 26,
+		},
+		textStroke = {
+			color = "#030A14",
+			smallThickness = 1,
+			thickness = 1,
+		},
+	},
+	vibrant = {
+		badges = {
+			attention = {
+				palette = "red",
+				shape = "circle",
+				text = "!",
+			},
+			best = {
+				palette = "gold",
+				shape = "ribbon",
+			},
+			bonus = {
+				palette = "yellow",
+				shape = "pill",
+			},
+			new = {
+				palette = "blue",
+				shape = "pill",
+			},
+			sale = {
+				palette = "red",
+				shape = "pill",
+			},
+		},
+		buttons = {
+			buy = {
+				palette = "green",
+			},
+			close = {
+				icon = "close",
+				palette = "red",
+			},
+			danger = {
+				palette = "red",
+			},
+			gift = {
+				icon = "gift",
+				palette = "purple",
+			},
+			neutral = {
+				palette = "gray",
+			},
+			price = {
+				icon = "token",
+				surface = "dark",
+			},
+			primary = {
+				palette = "blue",
+			},
+			robux = {
+				icon = "robux",
+				palette = "green",
+			},
+		},
+		description = "Vibrant Simulator: saturated candy colours on sky-blue glass, very chunky indigo outlines, big rounded shapes, dotted cards.",
+		fonts = {
+			body = "FredokaOne",
+			fallback = "GothamBlack",
+			number = "LuckiestGuy",
+			title = "LuckiestGuy",
+		},
+		gloss = {
+			heightFraction = 0.5,
+			transparency = 0.68,
+		},
+		motion = {
+			count = 0.6,
+			fast = 0.09,
+			hoverScale = 1.08,
+			normal = 0.16,
+			popOvershoot = 1.16,
+			pressScale = 0.9,
+			reveal = 0.9,
+			slow = 0.3,
+		},
+		name = "vibrant",
+		outline = {
+			color = "#160F45",
+			heavy = 7,
+			regular = 4,
+			thick = 5,
+			thin = 2,
+		},
+		palette = {
+			blue = {
+				bottom = "#0A84FF",
+				text = "#FFFFFF",
+				top = "#4DC3FF",
+			},
+			gold = {
+				bottom = "#FFB300",
+				text = "#FFFFFF",
+				top = "#FFE866",
+			},
+			gray = {
+				bottom = "#A3AFD6",
+				text = "#FFFFFF",
+				top = "#D6DEF5",
+			},
+			green = {
+				bottom = "#1FD12B",
+				text = "#FFFFFF",
+				top = "#8CFF4D",
+			},
+			orange = {
+				bottom = "#FF7A00",
+				text = "#FFFFFF",
+				top = "#FFAA33",
+			},
+			pink = {
+				bottom = "#FF1FA8",
+				text = "#FFFFFF",
+				top = "#FF6BD6",
+			},
+			purple = {
+				bottom = "#8A2BFF",
+				text = "#FFFFFF",
+				top = "#C56BFF",
+			},
+			red = {
+				bottom = "#FF1F4B",
+				text = "#FFFFFF",
+				top = "#FF5C7A",
+			},
+			teal = {
+				bottom = "#00CFC0",
+				text = "#FFFFFF",
+				top = "#4DFFE4",
+			},
+			yellow = {
+				bottom = "#FFC800",
+				text = "#FFFFFF",
+				top = "#FFF04D",
+			},
+		},
+		pattern = {
+			cell = 20,
+			kind = "dots",
+			transparency = 0.84,
+		},
+		radius = {
+			lg = 26,
+			md = 18,
+			pill = 999,
+			sm = 10,
+			xl = 34,
+		},
+		rarity = {
+			common = {
+				color = "#C4CCE8",
+			},
+			epic = {
+				color = "#B347FF",
+			},
+			legendary = {
+				color = "#FFB800",
+			},
+			mythic = {
+				color = "#FF2E7E",
+			},
+			rare = {
+				color = "#1F9BFF",
+			},
+			secret = {
+				color = "#FFFFFF",
+				rainbow = true,
+			},
+			uncommon = {
+				color = "#3DE04F",
+			},
+		},
+		shadow = {
+			color = "#160F45",
+			offsetY = 6,
+			transparency = 0.5,
+		},
+		sizes = {
+			banner = {
+				height = 116,
+			},
+			card = {
+				height = 156,
+				width = 156,
+			},
+			hudButton = {
+				size = 68,
+			},
+			icon = {
+				lg = 76,
+				md = 42,
+				sm = 26,
+				xl = 116,
+			},
+		},
+		spacing = {
+			lg = 18,
+			md = 12,
+			sm = 8,
+			xl = 26,
+			xs = 4,
+			xxl = 36,
+		},
+		surfaces = {
+			dark = {
+				bottom = "#2A1A8A",
+				text = "#FFFFFF",
+				top = "#4B33C9",
+			},
+			inset = {
+				bottom = "#BBDCFF",
+				text = "#160F45",
+				top = "#DCEFFF",
+			},
+			window = {
+				bottom = "#CFE8FF",
+				text = "#160F45",
+				top = "#F4FBFF",
+			},
+		},
+		text = {
+			caption = 15,
+			display = 48,
+			heading = 26,
+			label = 19,
+			minimum = 12,
+			price = 22,
+			title = 34,
+		},
+		textStroke = {
+			color = "#160F45",
 			smallThickness = 2,
 			thickness = 3,
 		},
