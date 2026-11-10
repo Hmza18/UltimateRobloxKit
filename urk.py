@@ -120,9 +120,11 @@ def icons(args):
     sys.path.insert(0, str(ROOT))
     catalog = json.loads((ROOT / "assets/icons/urk/icons.json").read_text())
     if not args or args[0] in ("-h", "--help"):
-        print("urk.py icons list [category] | search <query> | build | import <dir> --pack ... (see tools/icons)")
+        print("urk.py icons list [category] | search <query> | build | import <dir> --pack ... | vault <status|import|verify|registry|...> (see tools/icons)")
         return 0
     cmd, rest = args[0], args[1:]
+    if cmd == "vault":  # private / paid packs: byte-for-byte import, verify, registry (tools/icons/vault.py)
+        return subprocess.run([PY, str(ROOT / "tools/icons/vault.py"), *rest]).returncode
     if cmd == "list":
         for i in catalog["icons"]:
             if not rest or i["category"] == rest[0]:

@@ -52,7 +52,7 @@ export type ContainerOptions = {
 	position: UDim2?,
 	anchor: Vector2?,
 	animation: { [string]: any }?, -- animated(): options passed to UI.animate
-	bind: (string | boolean)?, -- animated(): also wire hover / press states with UI.bind
+	bind: (string | boolean)?, -- animated(): also wire hover / press states with UI.bind (true or a style name)
 }
 
 export type Container = {
@@ -457,13 +457,19 @@ function IconVault.animated(name: string, presetId: string?, options: ContainerO
 	end
 	if opts.bind and type(ui.bind) == "function" then
 		local bindStyle = if type(opts.bind) == "string" then opts.bind else nil
-		local ok, cleanup = pcall(ui.bind, container.Instance, bindStyle, opts.animation)
-		if ok and type(cleanup) == "function" then
+		-- UI.bind returns a binding (a table with destroy that can also be called); older shapes
+		-- returned a plain cleanup function. Both are handled.
+		local ok, binding = pcall(ui.bind, container.Instance, bindStyle)
+		if ok and binding ~= nil then
 			onStop(function()
-				pcall(cleanup)
+				if type(binding) == "table" and type(binding.destroy) == "function" then
+					pcall(binding.destroy, binding)
+				else
+					pcall(binding)
+				end
 			end)
 		elseif not ok then
-			warnOnce("bind", "UI.bind failed: " .. tostring(cleanup))
+			warnOnce("bind", "UI.bind failed: " .. tostring(binding))
 		end
 	end
 	return container

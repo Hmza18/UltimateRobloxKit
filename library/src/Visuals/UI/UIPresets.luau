@@ -60,6 +60,11 @@ local function after(seconds: number, step: Step): Step
 	return step
 end
 
+-- Layers are loosely typed data; this keeps mixed lists from being inferred as one exact shape.
+local function overlays(list: { any }): { Layer }
+	return list
+end
+
 local COSTS: { [string]: string } = {
 	shine = "medium",
 	border = "medium",
@@ -78,7 +83,8 @@ local function define(
 	tags: { string }?
 )
 	local cost = "low"
-	for _, layer in recipe.layers or {} do
+	local layers: { Layer } = recipe.layers or {}
+	for _, layer in layers do
 		if COSTS[layer.kind] == "medium" then
 			cost = "medium"
 		end
@@ -90,7 +96,8 @@ local function define(
 	if recipe.out then
 		table.insert(allTags, "exit")
 	end
-	for _, tag in tags or {} do
+	local extra: { string } = tags or {}
+	for _, tag in extra do
 		table.insert(allTags, tag)
 	end
 	registry:register({
@@ -164,25 +171,25 @@ define("buttons", "Pulse", "Pulse", "Slow breathing scale loop for the one butto
 
 define("buttons", "Shine", "Shine", "A bright streak sweeps across the surface once.", {
 	steps = {},
-	layers = { { kind = "shine", duration = 0.6, angle = 20, width = 0.22, alpha = 0.45 } },
+	layers = overlays({ { kind = "shine", duration = 0.6, angle = 20, width = 0.22, alpha = 0.45 } }),
 	reduced = false,
 }, { "premium" })
 
 define("buttons", "Glow", "Glow", "Outline glow that breathes until stopped.", {
 	steps = {},
-	layers = { { kind = "glow", mode = "pulse", period = 1.2, thickness = 3, min = 0.2, max = 0.85 } },
+	layers = overlays({ { kind = "glow", mode = "pulse", period = 1.2, thickness = 3, min = 0.2, max = 0.85 } }),
 	loop = true,
 }, { "premium", "attention" })
 
 define("buttons", "Ripple", "Ripple", "A circle expands from the press point and fades inside the button.", {
 	steps = {},
-	layers = { { kind = "ripple", duration = 0.45, alpha = 0.72 } },
+	layers = overlays({ { kind = "ripple", duration = 0.45, alpha = 0.72 } }),
 	reduced = false,
 }, { "press", "feedback" })
 
 define("buttons", "Confirm", "Confirm", "Dips, overshoots and flashes a green outline: the action went through.", {
 	steps = { to({ Scale = 0.94 }, 0.06, "quadOut"), spring({ Scale = 1 }, "Overshoot") },
-	layers = { { kind = "glow", mode = "flash", duration = 0.45, thickness = 4, color = "#5BE37D" } },
+	layers = overlays({ { kind = "glow", mode = "flash", duration = 0.45, thickness = 4, color = "#5BE37D" } }),
 }, { "feedback" })
 
 define("buttons", "Error", "Error", "Sharp horizontal shake with a red flash: the action was refused.", {
@@ -194,10 +201,10 @@ define("buttons", "Error", "Error", "Sharp horizontal shake with a red flash: th
 		to({ OffsetX = -3 }, 0.04, "sineInOut"),
 		to({ OffsetX = 0 }, 0.04, "quadOut"),
 	},
-	layers = {
+	layers = overlays({
 		{ kind = "tint", duration = 0.32, alpha = 0.5, color = "#FF3B4E" },
 		{ kind = "glow", mode = "flash", duration = 0.4, thickness = 4, color = "#FF3B4E" },
-	},
+	}),
 }, { "feedback" })
 
 define("buttons", "Loading", "Loading", "Dims and breathes while work is in flight; stop it when the work ends.", {
@@ -215,12 +222,12 @@ define("buttons", "Spinner", "Spinner", "Constant rotation for a loading icon.",
 
 define("buttons", "Selected", "Selected", "Pops up to a larger resting size and turns its outline glow on.", {
 	steps = { spring({ Scale = 1.08 }, "Overshoot") },
-	layers = { { kind = "glow", mode = "on", thickness = 3 } },
+	layers = overlays({ { kind = "glow", mode = "on", thickness = 3 } }),
 }, { "state" })
 
 define("buttons", "Deselected", "Deselected", "Returns to rest and turns the selection glow off.", {
 	steps = { spring({ Scale = 1 }, "Snappy") },
-	layers = { { kind = "glow", mode = "off" } },
+	layers = overlays({ { kind = "glow", mode = "off" } }),
 }, { "state" })
 
 define("buttons", "Disabled", "Disabled", "Dims and shrinks slightly so it reads as unavailable.", {
@@ -364,7 +371,7 @@ define("text", "TextPulse", "Text pulse", "Gentle breathing scale loop for call-
 
 define("text", "TextGlow", "Text glow", "The text outline brightens and thickens in a slow loop.", {
 	steps = {},
-	layers = { { kind = "textGlow", mode = "pulse", period = 1.4, color = "#FFF2A8" } },
+	layers = overlays({ { kind = "textGlow", mode = "pulse", period = 1.4, color = "#FFF2A8" } }),
 	loop = true,
 }, { "premium" })
 
@@ -417,7 +424,7 @@ define(
 	"Turns the selection glow on with a small pop; the card stays slightly raised.",
 	{
 		steps = { spring({ Scale = 1.04 }, "Overshoot") },
-		layers = { { kind = "glow", mode = "on", thickness = 4 } },
+		layers = overlays({ { kind = "glow", mode = "on", thickness = 4 } }),
 	},
 	{ "state" }
 )
@@ -437,7 +444,7 @@ define("cards", "CardReveal", "Card reveal", "Tumbles up from below with a loose
 		),
 		fadeIn(0.14),
 	},
-	layers = { { kind = "shine", delay = 0.25, duration = 0.55, angle = 20, width = 0.22, alpha = 0.45 } },
+	layers = overlays({ { kind = "shine", delay = 0.25, duration = 0.55, angle = 20, width = 0.22, alpha = 0.45 } }),
 	reduced = "FadeIn",
 }, { "enter", "reveal", "reward" })
 
@@ -448,7 +455,7 @@ define(
 	"A highlight travels around the outline in a loop; for high rarities.",
 	{
 		steps = {},
-		layers = { { kind = "border", loop = true, period = 2.4 } },
+		layers = overlays({ { kind = "border", loop = true, period = 2.4 } }),
 		loop = true,
 	},
 	{ "premium", "rarity" }
@@ -461,10 +468,10 @@ define(
 	"Swells, bounces back and flashes gold with a shine: the item got better.",
 	{
 		steps = { to({ Scale = 1.12 }, 0.1, "quadOut"), spring({ Scale = 1 }, "Bouncy") },
-		layers = {
+		layers = overlays({
 			{ kind = "glow", mode = "flash", duration = 0.5, thickness = 5, color = "#FFD75A" },
 			{ kind = "shine", delay = 0.08, duration = 0.5, angle = 20, width = 0.25, alpha = 0.4 },
-		},
+		}),
 	},
 	{ "feedback", "reward" }
 )
@@ -476,9 +483,21 @@ define(
 	"Quick dip, then pops to a raised resting size with the glow on.",
 	{
 		steps = { to({ Scale = 0.94 }, 0.05, "quadOut"), spring({ Scale = 1.05 }, "Overshoot") },
-		layers = { { kind = "glow", mode = "on", thickness = 3 } },
+		layers = overlays({ { kind = "glow", mode = "on", thickness = 3 } }),
 	},
 	{ "state" }
+)
+
+define(
+	"cards",
+	"Highlight",
+	"Highlight",
+	"A white tint flashes over the surface and fades: something was just added here.",
+	{
+		steps = {},
+		layers = overlays({ { kind = "tint", duration = 0.35, alpha = 0.55 } }),
+	},
+	{ "feedback" }
 )
 
 -- Navigation ------------------------------------------------------------------------------------

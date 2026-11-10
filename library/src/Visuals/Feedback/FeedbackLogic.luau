@@ -298,7 +298,8 @@ function FeedbackLogic.validate(recipe: any): (boolean, string?)
 				return false, where .. " needs target for a cinematic"
 			end
 		end
-		for _, field in required or {} do
+		local fields: { string } = required or {}
+		for _, field in fields do
 			if step[field] == nil then
 				return false, where .. " (" .. kind .. ") needs " .. field
 			end
@@ -412,12 +413,13 @@ end
 -- runtime, so a game can register its own under these names.
 FeedbackLogic.UI_PRESETS = table.freeze({
 	"BouncyPress",
-	"SelectionPulse",
+	"InventorySelect",
 	"Pulse",
 	"UpgradePulse",
 	"Confirm",
 	"Error",
 	"ToastIn",
+	"LevelUpText",
 })
 
 local function simulator(): { [string]: Recipe }
@@ -428,7 +430,7 @@ local function simulator(): { [string]: Recipe }
 				kind = "popup",
 				text = "+$amount",
 				at = "$position",
-				options = { style = "tap" },
+				options = { style = "currency" },
 				throttle = { max = 8, window = 1, coalesce = "amount" },
 			},
 			{ kind = "vfx", id = "TapPop", at = "$position", throttle = { max = 12, window = 1 } },
@@ -437,18 +439,18 @@ local function simulator(): { [string]: Recipe }
 		},
 		CollectCoin = {
 			{ kind = "vfx", id = "CoinBurst", at = "$position", throttle = { max = 10, window = 1 } },
-			{ kind = "flyTo", from = "$position", to = "$counter", options = { icon = "coin", count = 5 } },
+			{ kind = "flyTo", from = "$position", to = "$counter", options = { color = "#FFD43B", count = 5 } },
 			{ kind = "ui", action = "countTo", target = "$counter", to = "$total", delay = 0.45 },
 			{ kind = "sound", cue = "coin", options = { pitchVariance = 0.08 }, throttle = { max = 12, window = 1 } },
 		},
 		CollectGem = {
 			{ kind = "vfx", id = "GemBurst", at = "$position", throttle = { max = 10, window = 1 } },
-			{ kind = "flyTo", from = "$position", to = "$counter", options = { icon = "gem", count = 3 } },
+			{ kind = "flyTo", from = "$position", to = "$counter", options = { color = "#5CE1FF", count = 3 } },
 			{ kind = "ui", action = "countTo", target = "$counter", to = "$total", delay = 0.45 },
 			{ kind = "sound", cue = "gem", options = { pitchVariance = 0.06 }, throttle = { max = 12, window = 1 } },
 		},
 		EquipPet = {
-			{ kind = "ui", preset = "SelectionPulse", target = "$gui" },
+			{ kind = "ui", preset = "InventorySelect", target = "$gui" },
 			{ kind = "pet", reaction = "Equip", target = "$pet" },
 			{ kind = "vfx", id = "PetEquip", at = "$pet" },
 			{ kind = "sound", cue = "pet.happy" },
@@ -468,7 +470,8 @@ local function simulator(): { [string]: Recipe }
 		},
 		LevelUp = {
 			{ kind = "vfx", id = "LevelUp", at = "$position" },
-			{ kind = "popup", text = "LEVEL UP!", at = "$position", options = { style = "LevelUpText" } },
+			{ kind = "ui", preset = "LevelUpText", target = "$text" },
+			{ kind = "popup", text = "LEVEL UP!", at = "$position", options = { color = "#FFD43B", size = 40 } },
 			{ kind = "ui", preset = "Pulse", target = "$bar" },
 			{ kind = "camera", shake = "SoftImpact" },
 			{ kind = "sound", cue = "level.up" },
@@ -493,7 +496,14 @@ local function simulator(): { [string]: Recipe }
 			{ kind = "object", preset = "Interact", target = "$animal", delay = "$travel", optional = { "delay" } },
 			{ kind = "pet", reaction = "HappyReaction", target = "$pet", delay = "$travel", optional = { "delay" } },
 			{ kind = "vfx", id = "HeartBurst", at = "$position", delay = "$travel", optional = { "delay" } },
-			{ kind = "popup", text = "+$amount", at = "$position", delay = "$travel", optional = { "delay" } },
+			{
+				kind = "popup",
+				text = "+$amount",
+				at = "$position",
+				options = { style = "heal" },
+				delay = "$travel",
+				optional = { "delay" },
+			},
 			{ kind = "sound", cue = "food.hit", delay = "$travel", optional = { "delay" } },
 		},
 		Purchase = {
@@ -523,7 +533,8 @@ local function simulator(): { [string]: Recipe }
 		},
 		RankUp = {
 			{ kind = "vfx", id = "RankUp", at = "$position" },
-			{ kind = "popup", text = "RANK UP!", at = "$position", options = { style = "LevelUpText" } },
+			{ kind = "ui", preset = "LevelUpText", target = "$text" },
+			{ kind = "popup", text = "RANK UP!", at = "$position", options = { color = "#FFD43B", size = 40 } },
 			{ kind = "camera", shake = "SoftImpact" },
 			{ kind = "sound", cue = "level.up" },
 		},
@@ -560,12 +571,12 @@ local function minimal(): { [string]: Recipe }
 			{ kind = "sound", cue = "tap", throttle = { max = 10, window = 1 } },
 		},
 		CollectCoin = {
-			{ kind = "flyTo", from = "$position", to = "$counter", options = { icon = "coin", count = 2 } },
+			{ kind = "flyTo", from = "$position", to = "$counter", options = { color = "#FFD43B", count = 2 } },
 			{ kind = "ui", action = "countTo", target = "$counter", to = "$total", delay = 0.45 },
 			{ kind = "sound", cue = "coin", throttle = { max = 8, window = 1 } },
 		},
 		CollectGem = {
-			{ kind = "flyTo", from = "$position", to = "$counter", options = { icon = "gem", count = 2 } },
+			{ kind = "flyTo", from = "$position", to = "$counter", options = { color = "#5CE1FF", count = 2 } },
 			{ kind = "ui", action = "countTo", target = "$counter", to = "$total", delay = 0.45 },
 			{ kind = "sound", cue = "gem", throttle = { max = 8, window = 1 } },
 		},
@@ -634,7 +645,7 @@ local function combat(): { [string]: Recipe }
 		Critical = {
 			{ kind = "vfx", id = "HitConfirm", at = "$position" },
 			{ kind = "vfx", id = "Shockwave", at = "$position" },
-			{ kind = "popup", text = "CRIT -$amount", at = "$position", options = { style = "critical" } },
+			{ kind = "popup", text = "CRIT -$amount", at = "$position", options = { style = "crit" } },
 			{ kind = "camera", shake = "Impact", throttle = { max = 2, window = 1 } },
 			{ kind = "sound", cue = "impact", options = { pitch = 0.85 } },
 		},

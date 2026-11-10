@@ -628,7 +628,7 @@ def assign_names(items: List[Dict[str, Any]], kept: Dict[str, str]) -> None:
         used.add(item["name"])
 
 
-ASSET_ID = re.compile(r"(?:^|rbxassetid://|[?&]id=|/(?:library|catalog|asset|assets|store/asset|decals)/)(\d{3,20})(?:$|[/?&#])")
+ASSET_ID = re.compile(r"(?:^|rbxassetid://|[?&]id=|/(?:library|catalog|asset|assets|store/asset|decals)/)(\d{1,20})(?:$|[/?&#])")
 
 
 def parse_asset_id(value: Any) -> Optional[int]:

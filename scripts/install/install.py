@@ -80,7 +80,10 @@ class Plan:
             return
         for f in sorted(src.rglob("*")):
             generated = f.suffix in (".rbxm", ".rbxl", ".pyc") or f.name in ("sourcemap.json", "roblox.yml", ".DS_Store")
-            if f.is_file() and "__pycache__" not in f.parts and not generated:
+            # Private (paid) icon packs imported with tools/icons/vault.py never leave the kit.
+            rel = f.relative_to(KIT_ROOT).as_posix() if KIT_ROOT in f.parents else ""
+            private = rel.startswith("assets/icons/private/") and rel != "assets/icons/private/README.md"
+            if f.is_file() and "__pycache__" not in f.parts and not generated and not private:
                 self.copies.append((f, dest / f.relative_to(src)))
 
     def conflicts(self):

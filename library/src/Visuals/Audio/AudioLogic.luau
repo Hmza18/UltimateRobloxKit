@@ -221,8 +221,13 @@ end
 -- Marks one copy of `cue` as finished.
 function AudioLogic.ended(state: State, cue: string)
 	local live = state.live[cue]
-	if live ~= nil then
-		state.live[cue] = if live > 1 then live - 1 else nil
+	if live == nil then
+		return
+	end
+	if live > 1 then
+		state.live[cue] = live - 1
+	else
+		state.live[cue] = nil
 	end
 end
 

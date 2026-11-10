@@ -192,7 +192,8 @@ function UILogic.schedule(recipe: Recipe): Schedule
 	if recipe.travel then
 		total = math.max(total, offset + Springs.settleTime(recipe.travel.spring, UILogic.SETTLE))
 	end
-	for _, layer in recipe.layers or {} do
+	local layers: { Layer } = recipe.layers or {}
+	for _, layer in layers do
 		total = math.max(total, offset + layerEnd(layer))
 	end
 	return { entries = entries, total = total }
@@ -434,7 +435,8 @@ function UILogic.channels(recipe: Recipe): { [string]: boolean }
 			end
 		end
 	end
-	for _, layer in recipe.layers or {} do
+	local layers: { Layer } = recipe.layers or {}
+	for _, layer in layers do
 		set["layer:" .. layer.kind] = true
 	end
 	if recipe.travel then
@@ -805,6 +807,68 @@ function UILogic.rippleSample(t: number, startAlpha: number?): { size: number, t
 		size = 0.12 + 0.88 * Easing.ease("cubicOut", u),
 		transparency = base + (1 - base) * u * u,
 	}
+end
+
+-- Progress ----------------------------------------------------------------------------------------
+
+export type XPSegment = { level: number, from: number, to: number, max: number, levelUp: boolean }
+export type XPPlan = { segments: { XPSegment }, level: number, value: number, max: number, levelUps: number }
+
+-- Splits an XP gain into bar fills. A gain that overflows the bar fills it, levels up and
+-- continues on the next bar (whose size comes from maxFor(level), else stays the same), for as
+-- many levels as the gain covers (at most 50 per call).
+function UILogic.xpPlan(
+	level: number,
+	value: number,
+	max: number,
+	gain: number,
+	maxFor: ((level: number) -> number)?
+): XPPlan
+	local segments: { XPSegment } = {}
+	local currentLevel = level
+	local currentMax = math.max(1, max)
+	local current = math.clamp(value, 0, currentMax)
+	local left = math.max(0, gain)
+	local levelUps = 0
+	while left > 0 do
+		local room = currentMax - current
+		if left < room or levelUps >= 50 then
+			local to = math.min(currentMax, current + left)
+			table.insert(segments, { level = currentLevel, from = current, to = to, max = currentMax, levelUp = false })
+			current = to
+			break
+		end
+		table.insert(
+			segments,
+			{ level = currentLevel, from = current, to = currentMax, max = currentMax, levelUp = true }
+		)
+		left -= room
+		levelUps += 1
+		currentLevel += 1
+		current = 0
+		if maxFor then
+			currentMax = math.max(1, maxFor(currentLevel))
+		end
+	end
+	return { segments = segments, level = currentLevel, value = current, max = currentMax, levelUps = levelUps }
+end
+
+-- Share of a cooldown still to run, 0..1 (0 = ready).
+function UILogic.cooldownRatio(remaining: number, duration: number): number
+	if duration <= 0 then
+		return 0
+	end
+	return math.clamp(remaining / duration, 0, 1)
+end
+
+-- Cooldown text: whole seconds above 3 s, one decimal below, empty when ready.
+function UILogic.cooldownText(remaining: number): string
+	if remaining <= 0 then
+		return ""
+	elseif remaining >= 3 then
+		return tostring(math.ceil(remaining))
+	end
+	return string.format("%.1f", remaining)
 end
 
 -- Button states ---------------------------------------------------------------------------------

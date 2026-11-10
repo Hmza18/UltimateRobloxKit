@@ -333,15 +333,37 @@ function Recipe.multicolor(layer: Layer, colors: { string }): { Layer }
 	return out
 end
 
--- low: up to 40 live particles and one light; medium: up to 120 and two lights; high: above that.
+-- An honest cost label. Particles are not the whole story: lights, beams, post-processing and a
+-- long layer list all cost something, so they push the label up too.
+--   low:    up to 40 live particles, at most one light, fewer than 7 layers, no beam or postfx
+--   medium: up to 120 live particles, at most two lights, fewer than 12 layers, no postfx
+--   high:   anything above that
 function Recipe.costLabel(def: Definition): string
 	local cost = EffectLogic.cost(def)
-	if cost.particles <= 40 and cost.lights <= 1 then
-		return "low"
-	elseif cost.particles <= 120 and cost.lights <= 2 then
+	local layers, beams, postfx = 0, 0, 0
+	local function scan(chosen: Definition)
+		local count, beamCount, postCount = 0, 0, 0
+		for _, layer in chosen.layers do
+			count += 1
+			if layer.kind == "beam" then
+				beamCount += 1
+			elseif layer.kind == "postfx" then
+				postCount += 1
+			end
+		end
+		layers, beams, postfx = math.max(layers, count), math.max(beams, beamCount), math.max(postfx, postCount)
+	end
+	scan(def)
+	local variants: { [string]: Definition } = def.variants or {}
+	for _, variant in variants do
+		scan(variant)
+	end
+	if cost.particles > 120 or cost.lights > 2 or layers >= 12 or postfx > 0 then
+		return "high"
+	elseif cost.particles > 40 or cost.lights > 1 or layers >= 7 or beams > 0 then
 		return "medium"
 	end
-	return "high"
+	return "low"
 end
 
 export type Spec = {

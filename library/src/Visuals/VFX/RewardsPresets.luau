@@ -58,76 +58,83 @@ local function rarityBurst(t: Recipe.Tier): EffectLogic.Definition
 			R.glow(p.main, { sizes = { 0.6, 2.6 * t.size, 2 * t.size } }),
 			rank >= 2 and R.sparkles(p.accent, { burst = n(6 * t.count), lifetime = { 0.8, 0.8 + 0.25 * rank } }),
 			rank >= 3 and R.ring(p.main, { radius = { 0.6, 4 + 1.2 * rank }, time = 0.45 + 0.03 * rank }),
-			rank >= 3 and R.light(p.main, {
-				range = 10 + 2 * rank,
-				brightness = 1.5 + 0.4 * rank,
-				fadeOut = 0.3 + 0.1 * rank,
-			}),
+			rank >= 3
+				and R.light(p.main, {
+					range = 10 + 2 * rank,
+					brightness = 1.5 + 0.4 * rank,
+					fadeOut = 0.3 + 0.1 * rank,
+				}),
 			rank >= 4 and R.streaks(p.light, { burst = n(5 * t.count) }),
-			rank >= 4 and R.ring(p.accent, {
-				name = "ring2",
-				delay = 0.12,
-				radius = { 0.6, 6 + 1.5 * rank },
-				thickness = 0.25,
-				time = 0.6,
-				optional = true,
-			}),
+			rank >= 4
+				and R.ring(p.accent, {
+					name = "ring2",
+					delay = 0.12,
+					radius = { 0.6, 6 + 1.5 * rank },
+					thickness = 0.25,
+					time = 0.6,
+					optional = true,
+				}),
 			rank >= 5 and R.beam(p.main, { length = 18 + 6 * rank, hold = t.duration * 0.35 }),
-			rank >= 5 and P({
-				name = "embers",
-				delay = 0.1,
-				colors = { p.core, p.main, p.dark },
-				sizes = { 0, 0.3, 0.2, 0 },
-				lifetime = { 1.4, 2.2 },
-				speed = { 2, 6 },
-				burst = n(5 * t.count),
-				gravity = 3,
-				drag = 2,
-				lightEmission = 1,
-			}),
-			rank >= 5 and R.shake("SoftImpact", { amount = 0.6 + 0.2 * (rank - 5) }),
-			rank >= 6 and R.flash(p.core, { sizes = { 1, 8 } }),
-			rank >= 6 and P({
-				name = "secondWave",
-				delay = 0.25,
-				colors = { "#FFFFFF", p.accent },
-				sizes = { 0, 0.55 * t.size, 0 },
-				lifetime = { 0.6, 1 },
-				speed = { 14, 26 },
-				drag = 4,
-				burst = n(8 * t.count),
-				lightEmission = 1,
-			}),
-			rank >= 6 and R.beam("#FFFFFF", {
-				name = "beamCore",
-				width = { 0.8, 0.3 },
-				length = 18 + 6 * rank,
-				hold = t.duration * 0.3,
-				optional = true,
-			}),
-			rank >= 7 and R.multicolor(
-				P({
-					name = "prism",
-					delay = 0.4,
-					sizes = { 0, 0.5, 0.35, 0 },
-					lifetime = { 1, 1.6 },
-					speed = { 6, 14 },
-					drag = 2.5,
-					gravity = 2,
-					burst = 24,
-					rotSpeed = { -200, 200 },
+			rank >= 5
+				and P({
+					name = "embers",
+					delay = 0.1,
+					colors = { p.core, p.main, p.dark },
+					sizes = { 0, 0.3, 0.2, 0 },
+					lifetime = { 1.4, 2.2 },
+					speed = { 2, 6 },
+					burst = n(5 * t.count),
+					gravity = 3,
+					drag = 2,
 					lightEmission = 1,
 				}),
-				{ "#2CF5E0", "#FF5CF4", "#FFF27A" }
-			),
-			rank >= 7 and R.ring("#FFFFFF", {
-				name = "ring3",
-				delay = 0.3,
-				radius = { 1, 20 },
-				thickness = 0.3,
-				time = 0.9,
-				optional = true,
-			}),
+			rank >= 5 and R.shake("SoftImpact", { amount = 0.6 + 0.2 * (rank - 5) }),
+			rank >= 6 and R.flash(p.core, { sizes = { 1, 8 } }),
+			rank >= 6
+				and P({
+					name = "secondWave",
+					delay = 0.25,
+					colors = { "#FFFFFF", p.accent },
+					sizes = { 0, 0.55 * t.size, 0 },
+					lifetime = { 0.6, 1 },
+					speed = { 14, 26 },
+					drag = 4,
+					burst = n(8 * t.count),
+					lightEmission = 1,
+				}),
+			rank >= 6
+				and R.beam("#FFFFFF", {
+					name = "beamCore",
+					width = { 0.8, 0.3 },
+					length = 18 + 6 * rank,
+					hold = t.duration * 0.3,
+					optional = true,
+				}),
+			rank >= 7
+				and R.multicolor(
+					P({
+						name = "prism",
+						delay = 0.4,
+						sizes = { 0, 0.5, 0.35, 0 },
+						lifetime = { 1, 1.6 },
+						speed = { 6, 14 },
+						drag = 2.5,
+						gravity = 2,
+						burst = 24,
+						rotSpeed = { -200, 200 },
+						lightEmission = 1,
+					}),
+					{ "#2CF5E0", "#FF5CF4", "#FFF27A" }
+				),
+			rank >= 7
+				and R.ring("#FFFFFF", {
+					name = "ring3",
+					delay = 0.3,
+					radius = { 1, 20 },
+					thickness = 0.3,
+					time = 0.9,
+					optional = true,
+				}),
 			rank >= 7 and R.postfx("bloom", { amount = 0.6, fadeOut = 0.8 })
 		),
 	}
@@ -172,42 +179,46 @@ local function rarityBeam(t: Recipe.Tier): EffectLogic.Definition
 				shapeSize = { 1 + 0.3 * rank, 0.2, 1 + 0.3 * rank },
 				lightEmission = 1,
 			}),
-			rank >= 3 and R.light(p.main, {
-				range = 8 + 2 * rank,
-				brightness = 1 + 0.25 * rank,
-				fadeIn = 0.4,
-				pulse = { 2.2, 0.3 },
-			}),
+			rank >= 3
+				and R.light(p.main, {
+					range = 8 + 2 * rank,
+					brightness = 1 + 0.25 * rank,
+					fadeIn = 0.4,
+					pulse = { 2.2, 0.3 },
+				}),
 			rank >= 3 and R.ring(p.main, { radius = { 0.5, 3 + rank }, time = 0.6 }),
-			rank >= 5 and R.beam("#FFFFFF", {
-				name = "beamCore",
-				width = { 0.5, 0.2 },
-				length = height,
-				transparency = { 0.1, 0.5, 1 },
-				fadeIn = 0.35,
-				optional = true,
-			}),
-			rank >= 6 and R.sparkles(p.accent, {
-				name = "halo",
-				burst = false,
-				rate = 8,
-				speed = { 0.5, 2 },
-				shape = "Cylinder",
-				shapeStyle = "Surface",
-				shapeSize = { 5, 3, 5 },
-				offset = { 0, 1.5, 0 },
-			}),
-			rank >= 7 and P({
-				name = "prism",
-				colors = { "#2CF5E0", "#FF5CF4", "#FFF27A" },
-				sizes = { 0, 0.4, 0 },
-				lifetime = { 1.5, 2.2 },
-				speed = { 6, 10 },
-				spread = { 6, 6 },
-				rate = 8,
-				lightEmission = 1,
-				optional = true,
-			})
+			rank >= 5
+				and R.beam("#FFFFFF", {
+					name = "beamCore",
+					width = { 0.5, 0.2 },
+					length = height,
+					transparency = { 0.1, 0.5, 1 },
+					fadeIn = 0.35,
+					optional = true,
+				}),
+			rank >= 6
+				and R.sparkles(p.accent, {
+					name = "halo",
+					burst = false,
+					rate = 8,
+					speed = { 0.5, 2 },
+					shape = "Cylinder",
+					shapeStyle = "Surface",
+					shapeSize = { 5, 3, 5 },
+					offset = { 0, 1.5, 0 },
+				}),
+			rank >= 7
+				and P({
+					name = "prism",
+					colors = { "#2CF5E0", "#FF5CF4", "#FFF27A" },
+					sizes = { 0, 0.4, 0 },
+					lifetime = { 1.5, 2.2 },
+					speed = { 6, 10 },
+					spread = { 6, 6 },
+					rate = 8,
+					lightEmission = 1,
+					optional = true,
+				})
 		),
 	}
 end
@@ -563,7 +574,13 @@ local presets: { Registry.Preset } = {
 					}),
 					{ "#FF5A5A", "#FFE45C", "#4FC3FF", "#7CFF6B", "#C77DFF" }
 				),
-				R.dust({ name = "pop", burst = 5, colors = { "#FFFFFF", "#F2F2F2" }, speed = { 6, 12 }, spread = { 30, 30 } })
+				R.dust({
+					name = "pop",
+					burst = 5,
+					colors = { "#FFFFFF", "#F2F2F2" },
+					speed = { 6, 12 },
+					spread = { 30, 30 },
+				})
 			),
 		},
 	}),

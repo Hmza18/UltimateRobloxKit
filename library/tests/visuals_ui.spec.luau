@@ -85,6 +85,7 @@ return {
 	["presets: every recipe validates and carries full registry metadata"] = function()
 		t.equal(registry.kind, "ui")
 		t.truthy(registry:count() >= 67, "67 or more presets")
+		t.equal(registry:count(), 70)
 		for _, preset in registry:list() do
 			t.deepEqual(Registry.validate(preset), {}, preset.id .. " metadata")
 			t.deepEqual(UILogic.validate(preset.data), {}, preset.id .. " recipe")
@@ -689,6 +690,54 @@ return {
 		t.equal((UILogic.buttonAction("Arcade", "press") :: UILogic.ButtonAction).effect, "ripple")
 		t.falsy(UILogic.hasButtonStyle("Unknown"))
 		t.equal(UILogic.buttonAction("BouncyPress", "bogus"), nil)
+	end,
+
+	["xp: gains overflow across levels"] = function()
+		local plan = UILogic.xpPlan(3, 40, 100, 30)
+		t.deepEqual(plan.segments, { { level = 3, from = 40, to = 70, max = 100, levelUp = false } })
+		t.equal(plan.level, 3)
+		t.equal(plan.value, 70)
+		t.equal(plan.levelUps, 0)
+
+		local exact = UILogic.xpPlan(3, 40, 100, 60)
+		t.deepEqual(exact.segments, { { level = 3, from = 40, to = 100, max = 100, levelUp = true } })
+		t.equal(exact.level, 4)
+		t.equal(exact.value, 0)
+
+		local big = UILogic.xpPlan(1, 50, 100, 400, function(level: number): number
+			return level * 100
+		end)
+		t.deepEqual(big.segments, {
+			{ level = 1, from = 50, to = 100, max = 100, levelUp = true },
+			{ level = 2, from = 0, to = 200, max = 200, levelUp = true },
+			{ level = 3, from = 0, to = 150, max = 300, levelUp = false },
+		})
+		t.equal(big.level, 3)
+		t.equal(big.value, 150)
+		t.equal(big.max, 300)
+		t.equal(big.levelUps, 2)
+
+		t.deepEqual(UILogic.xpPlan(1, 10, 100, 0).segments, {})
+		t.deepEqual(UILogic.xpPlan(1, 10, 100, -5).segments, {})
+		local capped = UILogic.xpPlan(1, 0, 1, 1e6)
+		t.equal(capped.levelUps, 50, "at most 50 level-ups per call")
+		t.equal(capped.value, 1)
+		local guarded = UILogic.xpPlan(1, 0, 0, 3, function(): number
+			return 0
+		end)
+		t.equal(guarded.levelUps, 3, "a zero-sized bar counts as 1")
+	end,
+
+	["cooldown: ratio and text"] = function()
+		t.equal(UILogic.cooldownRatio(5, 10), 0.5)
+		t.equal(UILogic.cooldownRatio(0, 10), 0)
+		t.equal(UILogic.cooldownRatio(20, 10), 1)
+		t.equal(UILogic.cooldownRatio(-1, 10), 0)
+		t.equal(UILogic.cooldownRatio(5, 0), 0)
+		t.equal(UILogic.cooldownText(12.2), "13")
+		t.equal(UILogic.cooldownText(3), "3")
+		t.equal(UILogic.cooldownText(2.44), "2.4")
+		t.equal(UILogic.cooldownText(0), "")
 	end,
 
 	["random: deterministic and inside 0..1"] = function()

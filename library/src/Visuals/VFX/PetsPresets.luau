@@ -27,77 +27,84 @@ local function rarityAura(t: Recipe.Tier): EffectLogic.Definition
 				shapeSize = { 3, 0.4, 3 },
 				lightEmission = 1,
 			}),
-			rank >= 2 and P({
-				name = "breath",
-				texture = "glow",
-				colors = { p.light, p.main },
-				sizes = { 1.5, 2.6 * t.size, 1.5 },
-				transparency = { 1, 0.8, 1 },
-				lifetime = { 1.6, 2.2 },
-				speed = { 0, 0 },
-				rate = 1,
-				lightEmission = 1,
-				lockedToPart = true,
-			}),
-			rank >= 3 and R.light(p.main, {
-				range = 7 + rank,
-				brightness = 0.8 + 0.2 * rank,
-				fadeIn = 0.4,
-				pulse = { 2.6 - 0.2 * rank, 0.3 },
-			}),
-			rank >= 3 and R.sparkles(p.accent, {
-				name = "orbit",
-				burst = false,
-				rate = 2 * rank,
-				speed = { 0.2, 1 },
-				shape = "Cylinder",
-				shapeStyle = "Surface",
-				shapeSize = { 4.5, 2, 4.5 },
-			}),
-			rank >= 4 and R.streaks(p.light, {
-				name = "wisps",
-				burst = false,
-				rate = 2 * rank,
-				speed = { 5, 8 },
-				spread = { 6, 6 },
-				lifetime = { 0.5, 0.8 },
-				drag = 1,
-				shape = "Cylinder",
-				shapeSize = { 3.5, 0.3, 3.5 },
-				optional = true,
-			}),
-			rank >= 5 and R.beam(p.main, {
-				width = { 2.2, 0.4 },
-				length = 6 + rank,
-				transparency = { 0.6, 0.85, 1 },
-				fadeIn = 0.5,
-			}),
+			rank >= 2
+				and P({
+					name = "breath",
+					texture = "glow",
+					colors = { p.light, p.main },
+					sizes = { 1.5, 2.6 * t.size, 1.5 },
+					transparency = { 1, 0.8, 1 },
+					lifetime = { 1.6, 2.2 },
+					speed = { 0, 0 },
+					rate = 1,
+					lightEmission = 1,
+					lockedToPart = true,
+				}),
+			rank >= 3
+				and R.light(p.main, {
+					range = 7 + rank,
+					brightness = 0.8 + 0.2 * rank,
+					fadeIn = 0.4,
+					pulse = { 2.6 - 0.2 * rank, 0.3 },
+				}),
+			rank >= 3
+				and R.sparkles(p.accent, {
+					name = "orbit",
+					burst = false,
+					rate = 2 * rank,
+					speed = { 0.2, 1 },
+					shape = "Cylinder",
+					shapeStyle = "Surface",
+					shapeSize = { 4.5, 2, 4.5 },
+				}),
+			rank >= 4
+				and R.streaks(p.light, {
+					name = "wisps",
+					burst = false,
+					rate = 2 * rank,
+					speed = { 5, 8 },
+					spread = { 6, 6 },
+					lifetime = { 0.5, 0.8 },
+					drag = 1,
+					shape = "Cylinder",
+					shapeSize = { 3.5, 0.3, 3.5 },
+					optional = true,
+				}),
+			rank >= 5
+				and R.beam(p.main, {
+					width = { 2.2, 0.4 },
+					length = 6 + rank,
+					transparency = { 0.6, 0.85, 1 },
+					fadeIn = 0.5,
+				}),
 			rank >= 5 and R.highlight(p.main, { fillTransparency = 0.85, fadeIn = 0.4 }),
-			rank >= 6 and P({
-				name = "embers",
-				colors = { p.accent, EffectLogic.darken(p.accent, 0.3) },
-				sizes = { 0.2, 0.12, 0 },
-				lifetime = { 1.4, 2.2 },
-				speed = { 1.5, 3.5 },
-				spread = { 50, 50 },
-				rate = 7,
-				gravity = 2,
-				drag = 1,
-				lightEmission = 1,
-			}),
-			rank >= 7 and P({
-				name = "prism",
-				colors = { "#2CF5E0", "#FF5CF4", "#FFF27A" },
-				sizes = { 0, 0.4, 0 },
-				lifetime = { 1.2, 1.8 },
-				speed = { 1, 3 },
-				rate = 6,
-				shape = "Sphere",
-				shapeSize = { 5, 5, 5 },
-				rotSpeed = { -120, 120 },
-				lightEmission = 1,
-				optional = true,
-			})
+			rank >= 6
+				and P({
+					name = "embers",
+					colors = { p.accent, EffectLogic.darken(p.accent, 0.3) },
+					sizes = { 0.2, 0.12, 0 },
+					lifetime = { 1.4, 2.2 },
+					speed = { 1.5, 3.5 },
+					spread = { 50, 50 },
+					rate = 7,
+					gravity = 2,
+					drag = 1,
+					lightEmission = 1,
+				}),
+			rank >= 7
+				and P({
+					name = "prism",
+					colors = { "#2CF5E0", "#FF5CF4", "#FFF27A" },
+					sizes = { 0, 0.4, 0 },
+					lifetime = { 1.2, 1.8 },
+					speed = { 1, 3 },
+					rate = 6,
+					shape = "Sphere",
+					shapeSize = { 5, 5, 5 },
+					rotSpeed = { -120, 120 },
+					lightEmission = 1,
+					optional = true,
+				})
 		),
 	}
 end
@@ -387,7 +394,10 @@ local presets: { Registry.Preset } = {
 					optional = true,
 				}),
 				R.beam("#C77DFF", { delay = 1, length = 30, hold = 0.5, fadeOut = 0.6 }),
-				R.light("#C77DFF", { delay = 0.2, range = 20, brightness = 3.5, fadeIn = 0.8, hold = 0.2, fadeOut = 0.8 }),
+				R.light(
+					"#C77DFF",
+					{ delay = 0.2, range = 20, brightness = 3.5, fadeIn = 0.8, hold = 0.2, fadeOut = 0.8 }
+				),
 				R.sparkles("#C77DFF", { delay = 1.1, burst = 16, lifetime = { 1, 1.7 } }),
 				R.postfx("bloom", { delay = 0.95, amount = 0.5 }),
 				R.shake("SoftImpact", { delay = 1 })
@@ -522,7 +532,10 @@ local presets: { Registry.Preset } = {
 			minInterval = 0.3,
 			priority = 5,
 			layers = R.join(
-				R.ring("#6FE0FF", { radius = { 0.5, 4.5 }, transparency = { 0.1, 0.5 }, time = 0.5, easing = "cubicOut" }),
+				R.ring(
+					"#6FE0FF",
+					{ radius = { 0.5, 4.5 }, transparency = { 0.1, 0.5 }, time = 0.5, easing = "cubicOut" }
+				),
 				R.ring("#FFFFFF", {
 					name = "closing",
 					delay = 0.35,
@@ -566,7 +579,10 @@ local presets: { Registry.Preset } = {
 					burst = 16,
 					lightEmission = 1,
 				}),
-				R.light("#6FE0FF", { delay = 0.3, range = 14, brightness = 2.4, fadeIn = 0.5, hold = 0.1, fadeOut = 0.5 })
+				R.light(
+					"#6FE0FF",
+					{ delay = 0.3, range = 14, brightness = 2.4, fadeIn = 0.5, hold = 0.1, fadeOut = 0.5 }
+				)
 			),
 		},
 	}),
