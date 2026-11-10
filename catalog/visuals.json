@@ -8,7 +8,7 @@
   "object": 18,
   "pet": 10,
   "rarity": 7,
-  "screen": 12,
+  "screen": 25,
   "theme": 10,
   "ui": 70,
   "vfx": 83
@@ -3169,6 +3169,23 @@
   ],
   "screen": [
    {
+    "category": "combat",
+    "dependencies": [],
+    "description": "Row of ability slots with cooldowns, keybind labels and a ready pulse.",
+    "id": "AbilityHotbar",
+    "name": "Ability hotbar",
+    "params": {},
+    "quality": {
+     "cost": "medium",
+     "min": "Low"
+    },
+    "tags": [
+     "hud",
+     "screen"
+    ],
+    "usage": "local bar = Screens.create(\"AbilityHotbar\", { parent = playerGui, slots = abilities, startOpen = true })"
+   },
+   {
     "category": "progression",
     "dependencies": [],
     "description": "Achievement cards with a progress summary.",
@@ -3223,6 +3240,90 @@
      "sheet"
     ],
     "usage": "local feed = Screens.create(\"AnimalInteraction\", { parent = playerGui, animal = cow, foods = foods })"
+   },
+   {
+    "category": "progression",
+    "dependencies": [],
+    "description": "Area banner with its cost and an unlock button.",
+    "id": "AreaUnlock",
+    "name": "Area unlock",
+    "params": {
+     "cost": {
+      "default": 0,
+      "description": "Price shown on the unlock button",
+      "type": "number"
+     },
+     "currencyIcon": {
+      "default": "coin-color",
+      "description": "Icon on the unlock button",
+      "type": "string"
+     },
+     "palette": {
+      "default": "teal",
+      "description": "Banner colour",
+      "type": "string"
+     },
+     "unlockText": {
+      "default": "UNLOCK",
+      "description": "Unlock button text",
+      "type": "string"
+     }
+    },
+    "quality": {
+     "cost": "medium",
+     "min": "Low"
+    },
+    "tags": [
+     "banner",
+     "screen"
+    ],
+    "usage": "Screens.create(\"AreaUnlock\", { parent = playerGui, area = { name = \"Volcano\" }, cost = 5000, balance = coins }):open()"
+   },
+   {
+    "category": "pets",
+    "dependencies": [],
+    "description": "Index grid with discovered and undiscovered entries and a completion percentage.",
+    "id": "Collection",
+    "name": "Collection",
+    "params": {
+     "title": {
+      "default": "COLLECTION",
+      "description": "Window title",
+      "type": "string"
+     }
+    },
+    "quality": {
+     "cost": "medium",
+     "min": "Low"
+    },
+    "tags": [
+     "screen",
+     "window"
+    ],
+    "usage": "Screens.create(\"Collection\", { parent = playerGui, entries = petIndex }):open()"
+   },
+   {
+    "category": "combat",
+    "dependencies": [],
+    "description": "Level and XP, stat chips and the skill unlock list.",
+    "id": "CombatProgression",
+    "name": "Combat progression",
+    "params": {
+     "title": {
+      "default": "PROGRESSION",
+      "description": "Window title",
+      "type": "string"
+     }
+    },
+    "quality": {
+     "cost": "medium",
+     "min": "Low"
+    },
+    "tags": [
+     "screen",
+     "window"
+    ],
+    "usage": "Screens.create(\"CombatProgression\", { parent = playerGui, level = 6, xp = { value = 40, max = 200 }, skills = skills }):open()"
    },
    {
     "category": "rewards",
@@ -3299,6 +3400,105 @@
      "window"
     ],
     "usage": "local stand = Screens.create(\"EggHatching\", { parent = playerGui, eggs = eggs })"
+   },
+   {
+    "category": "social",
+    "dependencies": [],
+    "description": "Ranked rows with tabs and the local player pinned.",
+    "id": "Leaderboard",
+    "name": "Leaderboard",
+    "params": {
+     "format": {
+      "default": "abbrev",
+      "description": "Core/Format spec for the values",
+      "type": "string"
+     },
+     "limit": {
+      "default": 50,
+      "description": "Rows shown",
+      "type": "number"
+     },
+     "title": {
+      "default": "LEADERBOARD",
+      "description": "Window title",
+      "type": "string"
+     }
+    },
+    "quality": {
+     "cost": "medium",
+     "min": "Low"
+    },
+    "tags": [
+     "screen",
+     "window"
+    ],
+    "usage": "Screens.create(\"Leaderboard\", { parent = playerGui, entries = topCoins, localId = player.UserId }):open()"
+   },
+   {
+    "category": "progression",
+    "dependencies": [],
+    "description": "Level-up overlay with animated text, an XP bar fill and a rewards row.",
+    "id": "LevelUp",
+    "name": "Level up",
+    "params": {
+     "claimText": {
+      "default": "AWESOME",
+      "description": "Claim button text",
+      "type": "string"
+     },
+     "duration": {
+      "default": 2.5,
+      "description": "Seconds before the overlay closes itself when there are no rewards (0 keeps it)",
+      "type": "number"
+     },
+     "title": {
+      "default": "LEVEL UP!",
+      "description": "Headline",
+      "type": "string"
+     }
+    },
+    "quality": {
+     "cost": "medium",
+     "min": "Low"
+    },
+    "tags": [
+     "overlay",
+     "screen"
+    ],
+    "usage": "Screens.create(\"LevelUp\", { parent = playerGui, level = 12, rewards = { { icon = \"coin-color\", amount = \"x500\" } } }):open()"
+   },
+   {
+    "category": "system",
+    "dependencies": [],
+    "description": "Loading screen with a progress bar and rotating tips.",
+    "id": "Loading",
+    "name": "Loading",
+    "params": {
+     "palette": {
+      "default": "green",
+      "description": "Bar colour",
+      "type": "string"
+     },
+     "progress": {
+      "default": 0,
+      "description": "Bar fill from 0 to 1",
+      "type": "number"
+     },
+     "tipInterval": {
+      "default": 4,
+      "description": "Seconds per tip",
+      "type": "number"
+     }
+    },
+    "quality": {
+     "cost": "medium",
+     "min": "Low"
+    },
+    "tags": [
+     "fullscreen",
+     "screen"
+    ],
+    "usage": "local loading = Screens.create(\"Loading\", { parent = playerGui, title = \"PET WORLD\", tips = tips, startOpen = true })"
    },
    {
     "category": "pets",
@@ -3423,6 +3623,49 @@
     "usage": "Screens.create(\"QuestLog\", { parent = playerGui, quests = quests }):open()"
    },
    {
+    "category": "progression",
+    "dependencies": [],
+    "description": "Rebirth cost and progress, multiplier preview and a hold or double confirm.",
+    "id": "Rebirth",
+    "name": "Rebirth",
+    "params": {
+     "confirm": {
+      "default": "hold",
+      "description": "hold (hold the button) or double (press twice)",
+      "type": "string"
+     },
+     "confirmText": {
+      "default": "REBIRTH",
+      "description": "Confirm button text",
+      "type": "string"
+     },
+     "holdSeconds": {
+      "default": 1.2,
+      "description": "How long the button must be held",
+      "type": "number"
+     },
+     "multiplier": {
+      "default": 1,
+      "description": "The multiplier now",
+      "type": "number"
+     },
+     "title": {
+      "default": "REBIRTH",
+      "description": "Window title",
+      "type": "string"
+     }
+    },
+    "quality": {
+     "cost": "medium",
+     "min": "Low"
+    },
+    "tags": [
+     "dialog",
+     "screen"
+    ],
+    "usage": "Screens.create(\"Rebirth\", { parent = playerGui, current = coins, cost = 1e6, multiplier = 2 }):open()"
+   },
+   {
     "category": "rewards",
     "dependencies": [],
     "description": "Reward reveal overlay: wraps Rewards.reveal for one reward and Rewards.batch for several.",
@@ -3459,6 +3702,34 @@
      "screen"
     ],
     "usage": "Screens.create(\"RewardReveal\", { parent = playerGui, rewards = { { rarity = \"Legendary\", name = \"Sun Fox\" } } }):open()"
+   },
+   {
+    "category": "system",
+    "dependencies": [],
+    "description": "Game settings plus the Visuals quality, reduced motion, reduced flashing and intensity controls.",
+    "id": "Settings",
+    "name": "Settings",
+    "params": {
+     "title": {
+      "default": "SETTINGS",
+      "description": "Window title",
+      "type": "string"
+     },
+     "visuals": {
+      "default": true,
+      "description": "Add the Visuals section (quality, intensity, reduced motion, reduced flashing)",
+      "type": "boolean"
+     }
+    },
+    "quality": {
+     "cost": "medium",
+     "min": "Low"
+    },
+    "tags": [
+     "screen",
+     "window"
+    ],
+    "usage": "Screens.create(\"Settings\", { parent = playerGui, schema = settingsSchema, values = saved }):open()"
    },
    {
     "category": "shop",
@@ -3553,6 +3824,138 @@
      "screen"
     ],
     "usage": "local hud = Screens.create(\"TappingHud\", { parent = playerGui, currencies = { { id = \"coins\", icon = \"coin-color\", value = 0 } } })"
+   },
+   {
+    "category": "social",
+    "dependencies": [],
+    "description": "Two offer panels with ready states and a countdown confirm (presentation only).",
+    "id": "Trading",
+    "name": "Trading",
+    "params": {
+     "countdown": {
+      "default": 0,
+      "description": "Seconds to wait once both are ready before confirm is offered",
+      "type": "number"
+     },
+     "myReady": {
+      "default": false,
+      "description": "Your ready flag, as the server reports it",
+      "type": "boolean"
+     },
+     "theirReady": {
+      "default": false,
+      "description": "Their ready flag",
+      "type": "boolean"
+     },
+     "title": {
+      "default": "TRADE",
+      "description": "Window title",
+      "type": "string"
+     }
+    },
+    "quality": {
+     "cost": "medium",
+     "min": "Low"
+    },
+    "tags": [
+     "screen",
+     "window"
+    ],
+    "usage": "local trade = Screens.create(\"Trading\", { parent = playerGui, partner = { name = other.DisplayName }, mine = {}, theirs = {} })"
+   },
+   {
+    "category": "system",
+    "dependencies": [],
+    "description": "Step-by-step coach marks with a highlight cutout, next and skip.",
+    "id": "Tutorial",
+    "name": "Tutorial",
+    "params": {
+     "doneText": {
+      "default": "GOT IT",
+      "description": "Next button text on the last step",
+      "type": "string"
+     },
+     "nextText": {
+      "default": "NEXT",
+      "description": "Next button text",
+      "type": "string"
+     },
+     "skipText": {
+      "default": "SKIP",
+      "description": "Skip button text",
+      "type": "string"
+     },
+     "step": {
+      "default": 1,
+      "description": "The step shown first",
+      "type": "number"
+     }
+    },
+    "quality": {
+     "cost": "medium",
+     "min": "Low"
+    },
+    "tags": [
+     "overlay",
+     "screen"
+    ],
+    "usage": "Screens.create(\"Tutorial\", { parent = playerGui, steps = { { text = \"Tap here to earn coins\", target = hud:counter(\"coins\") } } }):open()"
+   },
+   {
+    "category": "shop",
+    "dependencies": [],
+    "description": "Upgrade rows with level pips, cost and an upgrade button.",
+    "id": "UpgradeShop",
+    "name": "Upgrade shop",
+    "params": {
+     "currencyIcon": {
+      "default": "coin-color",
+      "description": "Icon on the cost buttons",
+      "type": "string"
+     },
+     "title": {
+      "default": "UPGRADES",
+      "description": "Window title",
+      "type": "string"
+     }
+    },
+    "quality": {
+     "cost": "medium",
+     "min": "Low"
+    },
+    "tags": [
+     "screen",
+     "window"
+    ],
+    "usage": "Screens.create(\"UpgradeShop\", { parent = playerGui, upgrades = upgrades, balance = coins }):open()"
+   },
+   {
+    "category": "system",
+    "dependencies": [],
+    "description": "Title screen with a play button and news cards.",
+    "id": "Welcome",
+    "name": "Welcome",
+    "params": {
+     "playText": {
+      "default": "PLAY",
+      "description": "Play button text",
+      "type": "string"
+     },
+     "title": {
+      "default": "WELCOME",
+      "description": "The game's title",
+      "type": "string"
+     }
+    },
+    "quality": {
+     "cost": "medium",
+     "min": "Low"
+    },
+    "tags": [
+     "fullscreen",
+     "screen"
+    ],
+    "usage": "Screens.create(\"Welcome\", { parent = playerGui, title = \"PET WORLD\", news = news, startOpen = true })"
    }
   ],
   "theme": [
@@ -10165,6 +10568,6 @@
    "uiShine": true
   }
  },
- "total": 318,
+ "total": 331,
  "version": 1
 }

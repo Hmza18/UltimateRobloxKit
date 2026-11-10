@@ -200,7 +200,7 @@ Numbers at the time of writing (2026-11-10); rerun the commands for current ones
 |---|---|---|
 | `Core/` (Clock, Engine, Springs, Curves, Sequence, Registry, Quality, Effects, Pool) | Lune specs; `luau-analyze --mode=strict` | passing |
 | Every `*Logic`, `*Presets` and `*Data` module | Lune specs; `luau-analyze --mode=strict` (37 Visuals modules) | passing |
-| All Visuals specs | `lune run tests/run tests visuals_` from `library/` | 348 passed, 0 failed, 20 spec files |
+| All Visuals specs | `lune run tests/run tests visuals_` from `library/` | 351 passed, 0 failed, 20 spec files |
 | Runtime modules that create Instances (`VFX`, `Builders`, `UIAnimations`, `Camera`, `Objects`, `PetAnimator`, `PetFollow`, `PetPreview`, `PetSelection`, `Eggs`, `Rewards`, `RewardView`, `Feedback`, `Audio`, `Themes`, `IconVault`, `Debug`, `Host`, `Motion`, `Props`) | StyLua, Selene, `luau-lsp analyze` with Roblox type definitions | lint, format and types only. **NOT run in Studio** |
 | How effects, animations, screens and reveals look and feel | not checked | `NEEDS MANUAL REVIEW` |
 | Input on touch and gamepad, safe areas, device performance | not checked | `NEEDS MANUAL REVIEW` |

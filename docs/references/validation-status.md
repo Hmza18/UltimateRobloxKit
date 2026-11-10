@@ -39,8 +39,8 @@ UltimateVisualsKit. No CI run for this branch had been seen when this was writte
 
 | Check | How | Result |
 |---|---|---|
-| Visuals pure logic | Lune specs for Core and every `*Logic`, `*Presets` and `*Data` module (`lune run tests/run tests visuals_`) | PASS (348 passed, 0 failed, 20 spec files) |
-| Whole library | `lune run tests/run` | PASS (1038 passed, 0 failed, 74 spec files) |
+| Visuals pure logic | Lune specs for Core and every `*Logic`, `*Presets` and `*Data` module (`lune run tests/run tests visuals_`) | PASS (351 passed, 0 failed, 20 spec files) |
+| Whole library | `lune run tests/run` | PASS (1041 passed, 0 failed, 74 spec files) |
 | Strict types | `luau-analyze --mode=strict` on the CI `PURE` list, extended to UVK | PASS (100 modules, 37 in Visuals) |
 | Lint and format | StyLua 2.6.0; Selene 0.32.0 with a local config without the Roblox standard library | See [PROGRESS.md](../../PROGRESS.md); Selene with the real standard library runs only in CI |
 | Visuals runtime (every module that creates Instances, and the 17 animated components) | `luau-lsp analyze` with Roblox type definitions | Types only. NOT RUN in Roblox (needs Studio) |

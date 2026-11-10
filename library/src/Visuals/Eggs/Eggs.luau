@@ -834,15 +834,7 @@ local function runBatch(
 		-- The VFX `rarity` param is an enum of the built-in tiers; custom rarities map to one.
 		local tier = payload.vfxRarity or payload.rarity
 		if payload.aura then
-			keep(
-				try(
-					vfx,
-					"attach",
-					payload.aura,
-					rig.model,
-					{ rarity = tier, color = payload.color, owner = folder }
-				)
-			)
+			keep(try(vfx, "attach", payload.aura, rig.model, { rarity = tier, color = payload.color, owner = folder }))
 		end
 		if payload.rays > 0 then
 			keep(try(vfx, "play", "RarityBurst", at, { rarity = tier, color = payload.color }))
