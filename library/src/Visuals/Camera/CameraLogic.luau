@@ -289,10 +289,8 @@ function CameraLogic.noise(t: number, frequency: number, seed: number, axis: num
 		+ 0.2 * math.sin(w * 3.71 + phase(seed, axis, 3))
 end
 
-local ZERO_OFFSET: Offset = table.freeze({ x = 0, y = 0, z = 0, pitch = 0, yaw = 0, roll = 0 })
-
 function CameraLogic.zeroOffset(): Offset
-	return table.clone(ZERO_OFFSET)
+	return { x = 0, y = 0, z = 0, pitch = 0, yaw = 0, roll = 0 }
 end
 
 -- The camera offset of one shake at time t (seconds since it started).
@@ -452,7 +450,8 @@ end
 
 -- Stack ---------------------------------------------------------------------------------------
 
-export type PoseSource = Pose | (age: number) -> Pose
+-- A fixed pose, or a function of the entry's age and the pose beneath it (for relative moves).
+export type PoseSource = Pose | (age: number, under: Pose) -> Pose
 
 export type EntrySpec = {
 	priority: number?, -- higher wins (default 0)
@@ -504,9 +503,9 @@ export type Stack = {
 	release: (self: Stack, keys: { string }?) -> { [string]: any },
 }
 
-local function resolvePose(source: PoseSource, age: number): Pose
+local function resolvePose(source: PoseSource, age: number, under: Pose): Pose
 	if type(source) == "function" then
-		return source(age)
+		return source(age, under)
 	end
 	return source
 end
@@ -617,7 +616,7 @@ function CameraLogic.newStack(): Stack
 		local takeover = false
 		for _, entry in entries do
 			local weight = Curves.ease(entry.easing, entry.weight)
-			pose = CameraLogic.blendPose(pose, resolvePose(entry.pose, entry.age), weight)
+			pose = CameraLogic.blendPose(pose, resolvePose(entry.pose, entry.age, pose), weight)
 			takeover = takeover or entry.takeover
 		end
 		return { pose = pose, active = #entries > 0, takeover = takeover, finished = finished }
@@ -836,7 +835,10 @@ function CameraLogic.validateCinematic(recipe: Cinematic): { string }
 		need(key.time <= recipe.duration + 1e-9, label .. ": after the end")
 		need(key.easing == nil or Curves.has(key.easing), label .. ": unknown easing")
 		need(key.distance == nil or (finite(key.distance) and key.distance > 0), label .. ": distance must be positive")
-		need(key.fov == nil or (finite(key.fov) and key.fov > 0.2 and key.fov < 3), label .. ": fov multiplier out of range")
+		need(
+			key.fov == nil or (finite(key.fov) and key.fov > 0.2 and key.fov < 3),
+			label .. ": fov multiplier out of range"
+		)
 		if not recipe.takeover then
 			need(
 				key.distance == nil and key.angle == nil and key.elevation == nil,
@@ -1012,12 +1014,27 @@ for _, name in CameraLogic.CINEMATIC_NAMES do
 end
 
 local MOVES: { { string } } = {
-	{ "Focus", "Focus", "Hold the camera at a distance, yaw and elevation from a target, looking at it.", "focus(target)" },
+	{
+		"Focus",
+		"Focus",
+		"Hold the camera at a distance, yaw and elevation from a target, looking at it.",
+		"focus(target)",
+	},
 	{ "Orbit", "Orbit", "Circle a target at a steady speed until stopped.", "orbit(target, { speed = 20 })" },
 	{ "Pan", "Pan", "Travel from one camera CFrame to another with easing.", "pan(fromCFrame, toCFrame)" },
-	{ "Zoom", "Zoom", "Magnify the view by a factor through the field of view; the game camera keeps control.", "zoom(1.5)" },
+	{
+		"Zoom",
+		"Zoom",
+		"Magnify the view by a factor through the field of view; the game camera keeps control.",
+		"zoom(1.5)",
+	},
 	{ "Fov", "Field of view", "Ease the field of view to a value until stopped.", "fov(50)" },
-	{ "PunchFov", "FOV punch", "A quick field-of-view kick that springs back; skipped under reduced motion.", "punchFov(6)" },
+	{
+		"PunchFov",
+		"FOV punch",
+		"A quick field-of-view kick that springs back; skipped under reduced motion.",
+		"punchFov(6)",
+	},
 }
 
 for _, move in MOVES do

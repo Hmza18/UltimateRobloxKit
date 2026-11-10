@@ -19,3 +19,8 @@ __pycache__/
 
 # Generated dashboard
 /dashboard/
+
+# Paid / private icon packs imported with tools/icons/vault.py: originals, manifests, registries,
+# derived images, sprite sheets and previews all live here. Only the README is tracked.
+assets/icons/private/*
+!assets/icons/private/README.md
