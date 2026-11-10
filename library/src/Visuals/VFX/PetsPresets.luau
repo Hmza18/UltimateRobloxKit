@@ -27,6 +27,19 @@ local function rarityAura(t: Recipe.Tier): EffectLogic.Definition
 				shapeSize = { 3, 0.4, 3 },
 				lightEmission = 1,
 			}),
+			P({
+				name = "glint",
+				texture = "star",
+				colors = { "#FFFFFF", p.light },
+				sizes = { 0, 0.5 * t.size, 0 },
+				lifetime = { 0.35, 0.5 },
+				speed = { 0, 0 },
+				rate = 0.5 + 0.25 * rank,
+				rotSpeed = { 90, 200 },
+				shape = "Sphere",
+				shapeSize = { 3, 3, 3 },
+				lightEmission = 1,
+			}),
 			rank >= 2
 				and P({
 					name = "breath",

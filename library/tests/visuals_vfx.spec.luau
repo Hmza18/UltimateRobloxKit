@@ -171,8 +171,11 @@ return {
 			end
 		end
 		t.equal(total, 78, "required ids in the contract table")
-		t.equal(registry:count(), 83, "78 built-in presets plus 5 legacy")
-		t.equal(#registry:ids({ category = "legacy" }), 5)
+		-- Legacy presets are whatever Systems/VFX holds when the catalog loads: the five built-ins,
+		-- plus any a game (or another spec in this run) registered there first.
+		local legacy = #registry:ids({ category = "legacy" })
+		t.truthy(legacy >= 5, "the five legacy presets are bridged")
+		t.equal(registry:count(), 78 + legacy, "78 built-in presets plus the legacy ones")
 	end,
 
 	["catalog: every preset and every variant validates"] = function()
@@ -222,7 +225,7 @@ return {
 		for _, ids in REQUIRED do
 			for _, id in ids do
 				local def = data(id)
-				t.truthy(#def.layers >= 2 or id == "Dust", id .. " has at least two layers")
+				t.truthy(#def.layers >= 2, id .. " has at least two layers")
 			end
 		end
 	end,

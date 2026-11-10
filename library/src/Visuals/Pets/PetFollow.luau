@@ -173,7 +173,10 @@ local function stepFollower(record: Record, dt: number, frame: number)
 		end
 		local world = flat:PointToWorldSpace(Vector3.new(slot[1], 0, slot[3]))
 
-		if opts.ground ~= false and PetsLogic.groundStale(pet.cache, world.X, world.Z, record.time, opts.groundInterval) then
+		if
+			opts.ground ~= false
+			and PetsLogic.groundStale(pet.cache, world.X, world.Z, record.time, opts.groundInterval)
+		then
 			pet.cache = { x = world.X, z = world.Z, time = record.time }
 			local depth = opts.groundDepth or 40
 			local origin = Vector3.new(world.X, ownerCFrame.Position.Y + depth * 0.25, world.Z)

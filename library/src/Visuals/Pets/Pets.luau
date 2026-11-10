@@ -84,6 +84,16 @@ function Pets.play(id: string, model: Model, options: PlayOptions?): Handle
 			cancel()
 		end
 		table.clear(cancels)
+		if not completed then
+			-- A cancelled timeline takes its bursts with it.
+			local vfx = PetAnimator.vfx()
+			for _, handle in effects do
+				if vfx and type(vfx.stop) == "function" then
+					pcall(vfx.stop, handle)
+				end
+			end
+		end
+		table.clear(effects)
 		if temporary and not pet:isDestroyed() then
 			pet:destroy(not (completed and endsHidden))
 		elseif not completed and not pet:isDestroyed() then

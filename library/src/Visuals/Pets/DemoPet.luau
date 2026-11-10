@@ -49,24 +49,73 @@ function DemoPet.build(options: Options?): Model
 	local white = Color3.new(1, 1, 1)
 
 	local body = ball("Body", Vector3.new(d, d * 0.92, d), Vector3.zero, color, model, centre)
-	ball("Belly", Vector3.new(d * 0.62, d * 0.56, d * 0.4), Vector3.new(0, -d * 0.14, -d * 0.33), shade(color, 0.55), model, centre)
+	ball(
+		"Belly",
+		Vector3.new(d * 0.62, d * 0.56, d * 0.4),
+		Vector3.new(0, -d * 0.14, -d * 0.33),
+		shade(color, 0.55),
+		model,
+		centre
+	)
 	for _, side in { -1, 1 } do
 		local x = side * d * 0.2
 		ball("Eye", Vector3.new(d * 0.16, d * 0.22, d * 0.1), Vector3.new(x, d * 0.12, -d * 0.45), dark, model, centre)
 		ball("EyeShine", Vector3.one * d * 0.06, Vector3.new(x - d * 0.03, d * 0.17, -d * 0.49), white, model, centre)
-		ball("Cheek", Vector3.new(d * 0.14, d * 0.09, d * 0.06), Vector3.new(side * d * 0.34, -d * 0.02, -d * 0.4), shade(color, 0.35), model, centre)
-		ball("Foot", Vector3.new(d * 0.3, d * 0.18, d * 0.36), Vector3.new(side * d * 0.24, -d * 0.46, -d * 0.06), shade(color, -0.18), model, centre)
+		ball(
+			"Cheek",
+			Vector3.new(d * 0.14, d * 0.09, d * 0.06),
+			Vector3.new(side * d * 0.34, -d * 0.02, -d * 0.4),
+			shade(color, 0.35),
+			model,
+			centre
+		)
+		ball(
+			"Foot",
+			Vector3.new(d * 0.3, d * 0.18, d * 0.36),
+			Vector3.new(side * d * 0.24, -d * 0.46, -d * 0.06),
+			shade(color, -0.18),
+			model,
+			centre
+		)
 		if variant == 1 then
-			ball("Ear", Vector3.one * d * 0.34, Vector3.new(side * d * 0.36, d * 0.42, 0), shade(color, -0.1), model, centre)
+			ball(
+				"Ear",
+				Vector3.one * d * 0.34,
+				Vector3.new(side * d * 0.36, d * 0.42, 0),
+				shade(color, -0.1),
+				model,
+				centre
+			)
 		elseif variant == 2 then
-			local ear = ball("Ear", Vector3.new(d * 0.2, d * 0.6, d * 0.16), Vector3.new(side * d * 0.26, d * 0.62, 0), shade(color, -0.1), model, centre)
+			local ear = ball(
+				"Ear",
+				Vector3.new(d * 0.2, d * 0.6, d * 0.16),
+				Vector3.new(side * d * 0.26, d * 0.62, 0),
+				shade(color, -0.1),
+				model,
+				centre
+			)
 			ear.CFrame *= CFrame.Angles(0, 0, math.rad(-side * 14))
 		end
 	end
 	if variant == 3 then
-		ball("Stem", Vector3.new(d * 0.07, d * 0.3, d * 0.07), Vector3.new(0, d * 0.56, 0), Color3.fromRGB(88, 160, 84), model, centre)
+		ball(
+			"Stem",
+			Vector3.new(d * 0.07, d * 0.3, d * 0.07),
+			Vector3.new(0, d * 0.56, 0),
+			Color3.fromRGB(88, 160, 84),
+			model,
+			centre
+		)
 		for _, side in { -1, 1 } do
-			local leaf = ball("Leaf", Vector3.new(d * 0.34, d * 0.1, d * 0.2), Vector3.new(side * d * 0.15, d * 0.72, 0), Color3.fromRGB(120, 204, 104), model, centre)
+			local leaf = ball(
+				"Leaf",
+				Vector3.new(d * 0.34, d * 0.1, d * 0.2),
+				Vector3.new(side * d * 0.15, d * 0.72, 0),
+				Color3.fromRGB(120, 204, 104),
+				model,
+				centre
+			)
 			leaf.CFrame *= CFrame.Angles(0, 0, math.rad(side * 24))
 		end
 	end
