@@ -8,10 +8,14 @@ local process = require("@lune/process")
 
 -- Optional first argument: the folder holding the specs (e.g. `lune run tests/urk/run tests/urk`).
 local TESTS_DIR = process.args[1] or (if fs.isDir("tests") then "tests" else ".")
+-- Optional second argument: only run spec files whose name starts with this prefix
+-- (e.g. `lune run tests/run tests visuals_`).
+local FILTER = process.args[2]
 
 local specFiles: { string } = {}
 for _, fileName in fs.readDir(TESTS_DIR) do
-	if string.sub(fileName, -10) == ".spec.luau" then
+	local wanted = FILTER == nil or string.sub(fileName, 1, #FILTER) == FILTER
+	if wanted and string.sub(fileName, -10) == ".spec.luau" then
 		table.insert(specFiles, fileName)
 	end
 end
