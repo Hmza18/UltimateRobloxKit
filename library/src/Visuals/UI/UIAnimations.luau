@@ -237,7 +237,7 @@ local function copyCorner(gui: GuiObject, onto: Instance, grow: number?)
 	corner.Parent = onto
 end
 
-local function overlayFrame(gui: GuiObject, name: string, zIndex: number): Frame
+local function overlayFrame(_gui: GuiObject, name: string, zIndex: number): Frame
 	local frame = Instance.new("Frame")
 	frame.Name = name
 	frame.BorderSizePixel = 0

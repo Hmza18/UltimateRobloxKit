@@ -92,20 +92,14 @@ local function build(object: any)
 
 	object.text = nil
 	if props.showText ~= false then
-		object.text = Extra.label(
-			object,
-			track,
-			"Text",
-			{
-				text = XPBar.text(props.value, props.max),
-				role = "caption",
-			},
-			{
-				zIndex = 5,
-				position = UDim2.fromOffset(math.floor(badgeSize * 0.2), 0),
-				size = UDim2.new(1, -math.floor(badgeSize * 0.2), 1, 0),
-			}
-		)
+		object.text = Extra.label(object, track, "Text", {
+			text = XPBar.text(props.value, props.max),
+			role = "caption",
+		}, {
+			zIndex = 5,
+			position = UDim2.fromOffset(math.floor(badgeSize * 0.2), 0),
+			size = UDim2.new(1, -math.floor(badgeSize * 0.2), 1, 0),
+		})
 	end
 
 	local badge = Extra.frame(root, "Badge", {
