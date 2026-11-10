@@ -206,10 +206,13 @@ local function build(shared: Shared, start: number): (Sequence, () -> number)
 				if animate == nil then
 					return nil
 				end
-				local handle = animate(target, spec)
-				if ctx.skipped and type(handle) == "table" and type(handle.finish) == "function" then
-					handle.finish()
-					return nil
+				local handle: any = animate(target, spec)
+				if ctx.skipped and type(handle) == "table" then
+					local finishNow = handle.finish :: (() -> ())?
+					if finishNow then
+						finishNow()
+						return nil
+					end
 				end
 				return handle
 			end)

@@ -87,7 +87,7 @@ local loaders: { [string]: () -> any } = {
 	end,
 }
 
-local Visuals = {}
+local Visuals: any = {}
 
 local started = false
 
