@@ -228,7 +228,9 @@ local function build(shared: Shared, start: number): (Sequence, () -> number)
 			local latest = cursor
 			local builders: { (branch: Sequence) -> () } = { ... }
 			for _, builder in builders do
-				local branch, branchEnd = build(shared, cursor)(builder :: any)(branch)
+				local branch, branchEnd = build(shared, cursor)
+				local call: any = builder
+				call(branch)
 				latest = math.max(latest, branchEnd())
 			end
 			cursor = latest
