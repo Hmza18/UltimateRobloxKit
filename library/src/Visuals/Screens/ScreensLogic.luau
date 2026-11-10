@@ -525,6 +525,29 @@ function ScreensLogic.tapLayout(env: Env, menuCount: number?, currencyCount: num
 	}
 end
 
+-- The ability hotbar: `count` square slots in a centred row at the bottom of the HUD (between the
+-- touch controls on phones). Slots shrink to fit but never below the touch target; when they
+-- still do not fit, the row scrolls.
+function ScreensLogic.hotbarLayout(env: Env, count: number): { row: Rect, slot: number, gap: number, scroll: boolean }
+	local bottom = ScreensLogic.hud(env).regions.bottom
+	local n = math.max(1, math.floor(count))
+	local gap = 6
+	local slot = math.floor(math.clamp(math.min((bottom.w - (n - 1) * gap) / n, bottom.h), MIN_TOUCH, 64))
+	local needed = n * slot + (n - 1) * gap
+	local width = math.min(needed, bottom.w)
+	return {
+		row = {
+			x = math.floor(bottom.x + (bottom.w - width) / 2),
+			y = math.floor(bottom.y + bottom.h - slot),
+			w = width,
+			h = slot,
+		},
+		slot = slot,
+		gap = gap,
+		scroll = needed > bottom.w,
+	}
+end
+
 -- How the animal card reacts: the Visuals.UI preset played on the portrait, the floating text
 -- and its popup style, and the Feedback event fired when the caller passes a context.
 export type Reaction = { preset: string, text: string, popup: string, event: string? }

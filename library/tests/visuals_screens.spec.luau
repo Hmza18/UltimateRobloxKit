@@ -136,6 +136,34 @@ local EXAMPLES: { [string]: { [string]: any } } = {
 			{ id = "dragon", name = "Dragon" },
 		},
 	},
+	UpgradeShop = {
+		upgrades = {
+			{ id = "speed", title = "SPEED", level = 2, maxLevel = 5, cost = 300 },
+			{ id = "luck", title = "LUCK", level = 5, maxLevel = 5 },
+		},
+		balance = 500,
+	},
+	Trading = {
+		mine = { { id = "cat", icon = "paw-color" } },
+		theirs = { { id = "gem", count = 5 } },
+		partner = { name = "Amy" },
+		myReady = true,
+	},
+	AbilityHotbar = {
+		slots = {
+			{ id = "dash", icon = "energy-color", keybind = "Q" },
+			{ id = "heal", keybind = "E", remaining = 2, duration = 8 },
+		},
+	},
+	CombatProgression = {
+		level = 6,
+		xp = { value = 40, max = 200 },
+		stats = { { id = "atk", value = 12, prefix = "ATK" } },
+		skills = {
+			{ id = "dash", title = "DASH", level = 1, unlocked = true },
+			{ id = "heal", title = "HEAL", level = 5 },
+		},
+	},
 }
 
 return {

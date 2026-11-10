@@ -70,7 +70,7 @@ return function(shell: ScreenKit.Shell, props: { [string]: any })
 			size = size,
 		})
 		local inner: Instance = panel.Content or panel.Instance
-		local ink = if item.palette == nil then ScreenKit.ink(shell.style, "inset", "left") else { align = "left" }
+		local ink: { [string]: any } = if item.palette == nil then ScreenKit.ink(shell.style, "inset", "left") else {}
 		local parts: { any } = {
 			Game.GameText.new({
 				style = shell.styleName,

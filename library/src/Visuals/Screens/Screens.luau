@@ -120,6 +120,18 @@ local loaders: { [string]: () -> any } = {
 	Collection = function(): any
 		return require("./Collection")
 	end,
+	UpgradeShop = function(): any
+		return require("./UpgradeShop")
+	end,
+	Trading = function(): any
+		return require("./Trading")
+	end,
+	AbilityHotbar = function(): any
+		return require("./AbilityHotbar")
+	end,
+	CombatProgression = function(): any
+		return require("./CombatProgression")
+	end,
 }
 
 local builders: { [string]: Builder } = {}
