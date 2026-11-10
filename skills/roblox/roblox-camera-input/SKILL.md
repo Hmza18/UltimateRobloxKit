@@ -18,7 +18,7 @@ metadata:
 - Showing the right button prompts for the device the player is using.
 - Shift lock or forced first person.
 
-When not to use: on-screen HUD layout (use `roblox-ui-systems`), server validation of what the input triggers (use `roblox-networking`).
+When not to use: camera shake, FOV punches, focus, orbit and reveal cinematics that must restore the camera afterwards (use `uvk-camera-effects` when the kit's `Visuals` module is installed); on-screen HUD layout (use `roblox-ui-systems`), server validation of what the input triggers (use `roblox-networking`).
 
 ## Inputs
 

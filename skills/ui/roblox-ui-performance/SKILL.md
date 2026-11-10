@@ -18,7 +18,7 @@ Keep UI cheap: no per-frame work while idle, few instances, few textures, no lea
 ## When to use (and not)
 
 - Use: hitches when opening windows, frame drops with the HUD visible, UI memory climbing over a session, long inventory lists.
-- Not for world rendering, streaming or scripts unrelated to UI: `roblox-performance`.
+- Not for world rendering, streaming or scripts unrelated to UI: `roblox-performance`. Not for particle, effect and animation budgets or quality levels in the kit's `Visuals` module: `uvk-visual-performance`.
 
 ## Workflow
 

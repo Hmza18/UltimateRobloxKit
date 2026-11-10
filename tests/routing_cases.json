@@ -292,6 +292,97 @@
    "expect": [
     "roblox-icon-design"
    ]
+  },
+  {
+   "task": "Make a pet selection screen with polished animations.",
+   "workflow": "pet-egg-visuals",
+   "expect": [
+    "uvk-pet-visuals",
+    "uvk-ui-animation",
+    "uvk-visuals-kit"
+   ]
+  },
+  {
+   "task": "Create a legendary egg hatching animation.",
+   "workflow": "pet-egg-visuals",
+   "expect": [
+    "uvk-egg-hatching",
+    "uvk-visuals-kit"
+   ]
+  },
+  {
+   "task": "Add satisfying coin collection effects.",
+   "workflow": "visual-polish",
+   "expect": [
+    "uvk-gameplay-feedback",
+    "uvk-vfx-presets",
+    "uvk-visuals-kit"
+   ]
+  },
+  {
+   "task": "Make the shop UI feel like a premium simulator.",
+   "workflow": "ui-animation",
+   "expect": [
+    "uvk-ui-animation",
+    "uvk-simulator-screens",
+    "roblox-shop-builder"
+   ]
+  },
+  {
+   "task": "Create a Blox Fruits-style level of visual impact using original effects.",
+   "workflow": "visual-polish",
+   "expect": [
+    "uvk-combat-visuals",
+    "uvk-vfx-presets",
+    "uvk-visuals-kit"
+   ]
+  },
+  {
+   "task": "Add camera shake when the player lands a heavy hit.",
+   "workflow": "visual-polish",
+   "expect": [
+    "uvk-camera-effects"
+   ]
+  },
+  {
+   "task": "Show a reward reveal when a chest opens.",
+   "workflow": "visual-polish",
+   "expect": [
+    "uvk-reward-reveals"
+   ]
+  },
+  {
+   "task": "Add tapping feedback with floating numbers to my clicker.",
+   "workflow": "visual-polish",
+   "expect": [
+    "uvk-gameplay-feedback"
+   ]
+  },
+  {
+   "task": "The particle effects lag on low-end phones.",
+   "workflow": "optimize",
+   "expect": [
+    "uvk-visual-performance",
+    "roblox-performance"
+   ]
+  },
+  {
+   "task": "Import my paid icon pack and use the icons in the HUD.",
+   "expect": [
+    "uvk-icon-pack"
+   ]
+  },
+  {
+   "task": "Make my pets follow the player in a formation.",
+   "expect": [
+    "uvk-pet-visuals"
+   ]
+  },
+  {
+   "task": "The level up effect is not showing, debug it.",
+   "expect": [
+    "uvk-visual-debugging"
+   ]
   }
  ]
 }

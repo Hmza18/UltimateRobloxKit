@@ -1,6 +1,7 @@
 """Screen specs: shared fixtures, every built-in screen, the token generator and the preview renderer."""
 import importlib.util
 import json
+import re
 import sys
 import tempfile
 import unittest
@@ -64,7 +65,49 @@ class SpecRuleTests(unittest.TestCase):
         for f in files:
             for where, name in walk(json.loads(f.read_text()), f.name):
                 with self.subTest(where=where):
+                    if spec_rules.ispackicon(name):
+                        continue  # "pack:name" icons live in a game's own imported pack
                     self.assertTrue(name in icons or f"{name}-color" in icons, f"unknown icon {name}")
+
+
+class MotionAndIconTests(unittest.TestCase):
+    """`motion` ids mirror library/src/Visuals/UI/UIPresets.luau; pack icons are checked by shape."""
+
+    def test_motion_list_holds_every_required_luau_preset(self):
+        source = (ROOT / "library" / "src" / "Visuals" / "UI" / "UIPresets.luau").read_text()
+        block = re.search(r"UIPresets\.REQUIRED = table\.freeze\(\{(.*?)\n\}\)", source, re.S)
+        self.assertIsNotNone(block, "UIPresets.REQUIRED not found")
+        required = set(re.findall(r'"([A-Za-z0-9]+)"', block.group(1)))
+        self.assertGreaterEqual(len(required), 60)
+        self.assertEqual(required - set(spec_rules.MOTION_PRESETS), set())
+        # Every mirrored id is registered somewhere in the Luau file (the Lune parity spec checks equality).
+        for name in spec_rules.MOTION_PRESETS:
+            with self.subTest(preset=name):
+                self.assertIn(f'"{name}"', source)
+        self.assertEqual(len(spec_rules.MOTION_PRESETS), len(set(spec_rules.MOTION_PRESETS)))
+
+    def test_motion_field(self):
+        def issues(motion):
+            spec = {"spec": 1, "id": "M", "kind": "window", "window": {"title": "M"},
+                    "body": [{"type": "divider", "motion": motion}]}
+            return {e["path"] for e in spec_rules.validate(spec)}
+        self.assertEqual(issues("PopIn"), set())
+        self.assertEqual(issues({"preset": "BouncyPress", "delay": 0.5}), set())
+        self.assertEqual(issues("popIn"), {"body[1].motion"})
+        self.assertEqual(issues({"delay": 1}), {"body[1].motion.preset"})
+        self.assertEqual(issues({"preset": "PopIn", "delay": 6}), {"body[1].motion.delay"})
+
+    def test_pack_icon_names(self):
+        for name in ("mypack:sword", "ui-pack-2:iron-sword", "a:b"):
+            self.assertTrue(spec_rules.ispackicon(name) and spec_rules.isicon(name), name)
+        for name in ("MyPack:sword", "mypack:Sword", "mypack:", ":sword", "a:b:c", "a--b:c", "a:b-", "-a:b", "sword", None):
+            self.assertFalse(spec_rules.ispackicon(name), name)
+
+    def test_tracked_specs_name_no_real_pack(self):
+        """Fixtures and built-in screens only use the placeholder pack id."""
+        for f in list((FIX / "valid").glob("*.json")) + list(SCREENS.glob("*.json")):
+            for pack in re.findall(r'"([a-z0-9-]+):[a-z0-9-]+"', f.read_text()):
+                self.assertEqual(pack, "mypack", f.name)
 
 
 class TokenTests(unittest.TestCase):
@@ -112,6 +155,44 @@ class PreviewTests(unittest.TestCase):
             self.assertNotIn("https://", page.split("<body>")[0], "no external fetches in <head>")
             with self.assertRaises(SystemExit):
                 preview.render_spec(json.loads((FIX / "invalid" / "bad-palette.json").read_text()))
+
+    def test_preview_renders_every_style_and_animated_component(self):
+        preview = load_tool("preview_spec")
+        spec = json.loads((FIX / "valid" / "animated-components.json").read_text())
+        for name in sorted(spec_rules.STYLES):
+            with self.subTest(style=name):
+                style = spec_rules.resolved_style(name)
+                page = preview.render_spec({**spec, "style": name})
+                self.assertNotIn('class="missing"', page, "every element type has a renderer and every icon resolves")
+                for text in ("CLAIM REWARD", "Ember Fox", "EGG COLLECTOR", "Builderman", "QUEST COMPLETE", "REBIRTH?"):
+                    self.assertIn(text, page)
+                self.assertIn('title="motion: SlideInDown"', page)
+                self.assertIn("pack icon mypack:iron-sword", page)
+                # Text on a surface takes that surface's text colour (dark styles have light text).
+                self.assertIn(f"--wt:{style['surfaces']['window']['text']}", page)
+                self.assertIn(f"--it:{style['surfaces']['inset']['text']}", page)
+                self.assertNotIn("PET WORLD", page, "hidden elements are not drawn")
+
+    def test_preview_has_no_hard_coded_dark_ink(self):
+        """Dark styles must not get dark text on dark surfaces: ink comes from the style's surfaces."""
+        preview = load_tool("preview_spec")
+        sheet = preview.css(spec_rules.resolved_style("scifi"))
+        text_rules = re.findall(r"[;{]color:(#[0-9A-Fa-f]{3,8})", sheet)
+        # Allowed fixed colours: white outlined text, the medal ink, the page note (on its own white pill)
+        # and the gold of earned stars. Everything else must come from the style.
+        fixed = [c for c in text_rules if c.lower() not in ("#fff", "#ffffff", "#1b1530", "#22324a", "#ffc83d")]
+        self.assertEqual(fixed, [])
+        # #1B1530 is only allowed on the fixed-colour medals.
+        self.assertEqual(sheet.count("#1B1530"), 1)
+        for surface in ("window", "inset", "dark"):
+            self.assertIn(spec_rules.resolved_style("scifi")["surfaces"][surface]["text"], sheet)
+
+    def test_preview_all_builtin_screens_in_a_dark_style(self):
+        preview = load_tool("preview_spec")
+        for f in sorted(SCREENS.glob("*.json")):
+            with self.subTest(screen=f.name):
+                page = preview.render_spec({**json.loads(f.read_text()), "style": "scifi"})
+                self.assertNotIn('class="missing"', page)
 
 
 if __name__ == "__main__":

@@ -46,5 +46,29 @@
  ],
  "empty-body": [
   "body"
+ ],
+ "bad-motion": [
+  "body[1].motion",
+  "body[2].motion.delay"
+ ],
+ "bad-pack-icon": [
+  "body[1].icon",
+  "body[2].icon"
+ ],
+ "bad-tab-value": [
+  "body[1].tabs[2].id",
+  "body[1].value"
+ ],
+ "tooltip-missing-target": [
+  "body[1].target"
+ ],
+ "bad-quest-state": [
+  "body[1].state",
+  "body[2].tier"
+ ],
+ "bad-reward-panel": [
+  "body[1].rewards[1]",
+  "body[1].columns",
+  "body[2]"
  ]
 }

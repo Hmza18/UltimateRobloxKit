@@ -94,6 +94,626 @@
         "purple": { "top": "#D7C2FF", "bottom": "#B497F0", "text": "#FFFFFF" },
         "yellow": { "top": "#FFF1A8", "bottom": "#FFD966", "text": "#3B2E5A" }
       }
+    },
+    "vibrant": {
+      "description": "Vibrant Simulator: saturated candy colours on sky-blue glass, very chunky indigo outlines, big rounded shapes, dotted cards.",
+      "fonts": { "title": "LuckiestGuy", "body": "FredokaOne", "number": "LuckiestGuy", "fallback": "GothamBlack" },
+      "text": { "display": 48, "title": 34, "heading": 26, "label": 19, "caption": 15, "price": 22, "minimum": 12 },
+      "textStroke": { "color": "#160F45", "thickness": 3, "smallThickness": 2 },
+      "outline": { "color": "#160F45", "thin": 2, "regular": 4, "thick": 5, "heavy": 7 },
+      "radius": { "sm": 10, "md": 18, "lg": 26, "xl": 34, "pill": 999 },
+      "spacing": { "xs": 4, "sm": 8, "md": 12, "lg": 18, "xl": 26, "xxl": 36 },
+      "shadow": { "offsetY": 6, "transparency": 0.5, "color": "#160F45" },
+      "gloss": { "transparency": 0.68, "heightFraction": 0.5 },
+      "pattern": { "kind": "dots", "transparency": 0.84, "cell": 20 },
+      "surfaces": {
+        "window": { "top": "#F4FBFF", "bottom": "#CFE8FF", "text": "#160F45" },
+        "inset":  { "top": "#DCEFFF", "bottom": "#BBDCFF", "text": "#160F45" },
+        "dark":   { "top": "#4B33C9", "bottom": "#2A1A8A", "text": "#FFFFFF" }
+      },
+      "palette": {
+        "red":    { "top": "#FF5C7A", "bottom": "#FF1F4B", "text": "#FFFFFF" },
+        "orange": { "top": "#FFAA33", "bottom": "#FF7A00", "text": "#FFFFFF" },
+        "yellow": { "top": "#FFF04D", "bottom": "#FFC800", "text": "#FFFFFF" },
+        "green":  { "top": "#8CFF4D", "bottom": "#1FD12B", "text": "#FFFFFF" },
+        "teal":   { "top": "#4DFFE4", "bottom": "#00CFC0", "text": "#FFFFFF" },
+        "blue":   { "top": "#4DC3FF", "bottom": "#0A84FF", "text": "#FFFFFF" },
+        "purple": { "top": "#C56BFF", "bottom": "#8A2BFF", "text": "#FFFFFF" },
+        "pink":   { "top": "#FF6BD6", "bottom": "#FF1FA8", "text": "#FFFFFF" },
+        "gold":   { "top": "#FFE866", "bottom": "#FFB300", "text": "#FFFFFF" },
+        "gray":   { "top": "#D6DEF5", "bottom": "#A3AFD6", "text": "#FFFFFF" }
+      },
+      "buttons": {
+        "buy":     { "palette": "green" },
+        "robux":   { "palette": "green", "icon": "robux" },
+        "gift":    { "palette": "purple", "icon": "gift" },
+        "close":   { "palette": "red", "icon": "close" },
+        "primary": { "palette": "blue" },
+        "danger":  { "palette": "red" },
+        "neutral": { "palette": "gray" },
+        "price":   { "surface": "dark", "icon": "token" }
+      },
+      "badges": {
+        "sale":      { "palette": "red", "shape": "pill" },
+        "bonus":     { "palette": "yellow", "shape": "pill" },
+        "attention": { "palette": "red", "shape": "circle", "text": "!" },
+        "new":       { "palette": "blue", "shape": "pill" },
+        "best":      { "palette": "gold", "shape": "ribbon" }
+      },
+      "rarity": {
+        "common":    { "color": "#C4CCE8" },
+        "uncommon":  { "color": "#3DE04F" },
+        "rare":      { "color": "#1F9BFF" },
+        "epic":      { "color": "#B347FF" },
+        "legendary": { "color": "#FFB800" },
+        "mythic":    { "color": "#FF2E7E" },
+        "secret":    { "color": "#FFFFFF", "rainbow": true }
+      },
+      "motion": { "hoverScale": 1.08, "pressScale": 0.9, "popOvershoot": 1.16, "fast": 0.09, "normal": 0.16, "slow": 0.3, "count": 0.6, "reveal": 0.9 },
+      "sizes": {
+        "card":      { "width": 156, "height": 156 },
+        "banner":    { "height": 116 },
+        "hudButton": { "size": 68 },
+        "icon":      { "sm": 26, "md": 42, "lg": 76, "xl": 116 }
+      }
+    },
+    "premium": {
+      "description": "Premium Cartoon: polished storefront look. Warm cream panels, navy outlines of medium weight, rich two-tone gradients, soft long shadows.",
+      "fonts": { "title": "DenkOne", "body": "Nunito", "number": "FredokaOne", "fallback": "GothamBold" },
+      "text": { "display": 42, "title": 30, "heading": 23, "label": 17, "caption": 14, "price": 20, "minimum": 12 },
+      "textStroke": { "color": "#1B2440", "thickness": 2, "smallThickness": 2 },
+      "outline": { "color": "#1B2440", "thin": 2, "regular": 3, "thick": 4, "heavy": 5 },
+      "radius": { "sm": 10, "md": 16, "lg": 22, "xl": 30, "pill": 999 },
+      "spacing": { "xs": 4, "sm": 8, "md": 14, "lg": 18, "xl": 24, "xxl": 34 },
+      "shadow": { "offsetY": 8, "transparency": 0.68, "color": "#1B2440" },
+      "gloss": { "transparency": 0.84, "heightFraction": 0.38 },
+      "pattern": { "kind": "stripes", "transparency": 0.93, "cell": 32 },
+      "surfaces": {
+        "window": { "top": "#FFFBF2", "bottom": "#F3E9D6", "text": "#1B2440" },
+        "inset":  { "top": "#F6EEDD", "bottom": "#E8DCC3", "text": "#1B2440" },
+        "dark":   { "top": "#2E3A66", "bottom": "#1B2440", "text": "#FFFFFF" }
+      },
+      "palette": {
+        "red":    { "top": "#FF6B6B", "bottom": "#D93A4A", "text": "#FFFFFF" },
+        "orange": { "top": "#FFAE5C", "bottom": "#F07F2A", "text": "#FFFFFF" },
+        "yellow": { "top": "#FFE17A", "bottom": "#F2B824", "text": "#FFFFFF" },
+        "green":  { "top": "#6FE08A", "bottom": "#2FAE5B", "text": "#FFFFFF" },
+        "teal":   { "top": "#5FDCCB", "bottom": "#27A99B", "text": "#FFFFFF" },
+        "blue":   { "top": "#6CB6FF", "bottom": "#3B7DDB", "text": "#FFFFFF" },
+        "purple": { "top": "#B79CFF", "bottom": "#7C5BD9", "text": "#FFFFFF" },
+        "pink":   { "top": "#FF8FC4", "bottom": "#E0569A", "text": "#FFFFFF" },
+        "gold":   { "top": "#FFDE85", "bottom": "#E5A823", "text": "#FFFFFF" },
+        "gray":   { "top": "#D5D9E3", "bottom": "#A4ABBD", "text": "#FFFFFF" }
+      },
+      "buttons": {
+        "buy":     { "palette": "green" },
+        "robux":   { "palette": "green", "icon": "robux" },
+        "gift":    { "palette": "purple", "icon": "gift" },
+        "close":   { "palette": "red", "icon": "close" },
+        "primary": { "palette": "blue" },
+        "danger":  { "palette": "red" },
+        "neutral": { "palette": "gray" },
+        "price":   { "surface": "dark", "icon": "token" }
+      },
+      "badges": {
+        "sale":      { "palette": "red", "shape": "pill" },
+        "bonus":     { "palette": "yellow", "shape": "pill" },
+        "attention": { "palette": "red", "shape": "circle", "text": "!" },
+        "new":       { "palette": "blue", "shape": "pill" },
+        "best":      { "palette": "gold", "shape": "ribbon" }
+      },
+      "rarity": {
+        "common":    { "color": "#B9C0CF" },
+        "uncommon":  { "color": "#4FCB73" },
+        "rare":      { "color": "#4A90F0" },
+        "epic":      { "color": "#9B6BEB" },
+        "legendary": { "color": "#F2A93B" },
+        "mythic":    { "color": "#EC4B7A" },
+        "secret":    { "color": "#FFFFFF", "rainbow": true }
+      },
+      "motion": { "hoverScale": 1.05, "pressScale": 0.94, "popOvershoot": 1.1, "fast": 0.11, "normal": 0.2, "slow": 0.34, "count": 0.7, "reveal": 1.0 },
+      "sizes": {
+        "card":      { "width": 152, "height": 156 },
+        "banner":    { "height": 112 },
+        "hudButton": { "size": 64 },
+        "icon":      { "sm": 24, "md": 40, "lg": 72, "xl": 110 }
+      }
+    },
+    "fantasy": {
+      "description": "Fantasy: aged parchment panels, dark-oak outlines, jewel and earth tones, blackletter titles, small chiselled corners.",
+      "fonts": { "title": "GrenzeGotisch", "body": "Fondamento", "number": "Merriweather", "fallback": "Garamond" },
+      "text": { "display": 46, "title": 34, "heading": 25, "label": 18, "caption": 14, "price": 20, "minimum": 12 },
+      "textStroke": { "color": "#2A1608", "thickness": 2, "smallThickness": 2 },
+      "outline": { "color": "#2A1608", "thin": 2, "regular": 3, "thick": 4, "heavy": 5 },
+      "radius": { "sm": 3, "md": 6, "lg": 10, "xl": 14, "pill": 999 },
+      "spacing": { "xs": 4, "sm": 8, "md": 12, "lg": 16, "xl": 24, "xxl": 32 },
+      "shadow": { "offsetY": 5, "transparency": 0.45, "color": "#1A0D04" },
+      "gloss": { "transparency": 0.9, "heightFraction": 0.3 },
+      "pattern": { "kind": "diamond", "transparency": 0.9, "cell": 22 },
+      "surfaces": {
+        "window": { "top": "#F8EDD3", "bottom": "#E5D0A3", "text": "#2A1608" },
+        "inset":  { "top": "#EBDDB8", "bottom": "#D9C290", "text": "#2A1608" },
+        "dark":   { "top": "#43285A", "bottom": "#26143A", "text": "#FFE9B8" }
+      },
+      "palette": {
+        "red":    { "top": "#E0564A", "bottom": "#BB3A34", "text": "#FFFFFF" },
+        "orange": { "top": "#E99A4A", "bottom": "#C97421", "text": "#FFFFFF" },
+        "yellow": { "top": "#F0D46A", "bottom": "#D1A82B", "text": "#FFFFFF" },
+        "green":  { "top": "#7FBF5A", "bottom": "#4E9438", "text": "#FFFFFF" },
+        "teal":   { "top": "#5FC2B0", "bottom": "#2F9483", "text": "#FFFFFF" },
+        "blue":   { "top": "#6C9BE0", "bottom": "#3F6FBF", "text": "#FFFFFF" },
+        "purple": { "top": "#A77BE0", "bottom": "#7D50C1", "text": "#FFFFFF" },
+        "pink":   { "top": "#E07BB0", "bottom": "#BF4A88", "text": "#FFFFFF" },
+        "gold":   { "top": "#F2D377", "bottom": "#C9992A", "text": "#FFFFFF" },
+        "gray":   { "top": "#CFC6B4", "bottom": "#A1967F", "text": "#FFFFFF" }
+      },
+      "buttons": {
+        "buy":     { "palette": "green" },
+        "robux":   { "palette": "green", "icon": "robux" },
+        "gift":    { "palette": "purple", "icon": "gift" },
+        "close":   { "palette": "red", "icon": "close" },
+        "primary": { "palette": "blue" },
+        "danger":  { "palette": "red" },
+        "neutral": { "palette": "gray" },
+        "price":   { "surface": "dark", "icon": "token" }
+      },
+      "badges": {
+        "sale":      { "palette": "red", "shape": "pill" },
+        "bonus":     { "palette": "yellow", "shape": "pill" },
+        "attention": { "palette": "red", "shape": "circle", "text": "!" },
+        "new":       { "palette": "blue", "shape": "pill" },
+        "best":      { "palette": "gold", "shape": "ribbon" }
+      },
+      "rarity": {
+        "common":    { "color": "#B9AE99" },
+        "uncommon":  { "color": "#5FA845" },
+        "rare":      { "color": "#4C7FD6" },
+        "epic":      { "color": "#9156D6" },
+        "legendary": { "color": "#E0A52B" },
+        "mythic":    { "color": "#D63A55" },
+        "secret":    { "color": "#FFF3D1", "rainbow": true }
+      },
+      "motion": { "hoverScale": 1.04, "pressScale": 0.95, "popOvershoot": 1.08, "fast": 0.12, "normal": 0.22, "slow": 0.4, "count": 0.8, "reveal": 1.2 },
+      "sizes": {
+        "card":      { "width": 150, "height": 160 },
+        "banner":    { "height": 110 },
+        "hudButton": { "size": 64 },
+        "icon":      { "sm": 24, "md": 40, "lg": 72, "xl": 110 }
+      }
+    },
+    "anime": {
+      "description": "Anime: stark white panels and ink-black line art, angular corners, hard offset shadows, halftone dots, hot pink and cyan accents.",
+      "fonts": { "title": "Bangers", "body": "Nunito", "number": "Bangers", "fallback": "GothamBlack" },
+      "text": { "display": 50, "title": 36, "heading": 26, "label": 18, "caption": 14, "price": 22, "minimum": 12 },
+      "textStroke": { "color": "#0E0F1A", "thickness": 3, "smallThickness": 2 },
+      "outline": { "color": "#0E0F1A", "thin": 2, "regular": 3, "thick": 4, "heavy": 6 },
+      "radius": { "sm": 2, "md": 5, "lg": 8, "xl": 12, "pill": 999 },
+      "spacing": { "xs": 4, "sm": 6, "md": 10, "lg": 16, "xl": 24, "xxl": 36 },
+      "shadow": { "offsetY": 6, "transparency": 0.15, "color": "#0E0F1A" },
+      "gloss": { "transparency": 0.94, "heightFraction": 0.5 },
+      "pattern": { "kind": "halftone", "transparency": 0.86, "cell": 10 },
+      "surfaces": {
+        "window": { "top": "#FFFFFF", "bottom": "#F0F2FA", "text": "#0E0F1A" },
+        "inset":  { "top": "#ECEFF8", "bottom": "#DCE1F0", "text": "#0E0F1A" },
+        "dark":   { "top": "#22233A", "bottom": "#0E0F1A", "text": "#FFFFFF" }
+      },
+      "palette": {
+        "red":    { "top": "#FF4D5E", "bottom": "#F0143C", "text": "#FFFFFF" },
+        "orange": { "top": "#FF9E3D", "bottom": "#FF6A00", "text": "#FFFFFF" },
+        "yellow": { "top": "#FFF066", "bottom": "#FFD400", "text": "#FFFFFF" },
+        "green":  { "top": "#5CF08A", "bottom": "#00C853", "text": "#FFFFFF" },
+        "teal":   { "top": "#4DF0F0", "bottom": "#00C2D6", "text": "#FFFFFF" },
+        "blue":   { "top": "#4DA6FF", "bottom": "#1466FF", "text": "#FFFFFF" },
+        "purple": { "top": "#A66BFF", "bottom": "#6A2BFF", "text": "#FFFFFF" },
+        "pink":   { "top": "#FF5CB8", "bottom": "#FF1493", "text": "#FFFFFF" },
+        "gold":   { "top": "#FFE066", "bottom": "#FFB000", "text": "#FFFFFF" },
+        "gray":   { "top": "#D9DCE8", "bottom": "#A6ABBF", "text": "#FFFFFF" }
+      },
+      "buttons": {
+        "buy":     { "palette": "green" },
+        "robux":   { "palette": "green", "icon": "robux" },
+        "gift":    { "palette": "purple", "icon": "gift" },
+        "close":   { "palette": "red", "icon": "close" },
+        "primary": { "palette": "blue" },
+        "danger":  { "palette": "red" },
+        "neutral": { "palette": "gray" },
+        "price":   { "surface": "dark", "icon": "token" }
+      },
+      "badges": {
+        "sale":      { "palette": "red", "shape": "pill" },
+        "bonus":     { "palette": "yellow", "shape": "pill" },
+        "attention": { "palette": "red", "shape": "circle", "text": "!" },
+        "new":       { "palette": "blue", "shape": "pill" },
+        "best":      { "palette": "gold", "shape": "ribbon" }
+      },
+      "rarity": {
+        "common":    { "color": "#B4B8C8" },
+        "uncommon":  { "color": "#00D25A" },
+        "rare":      { "color": "#1E7BFF" },
+        "epic":      { "color": "#8A3DFF" },
+        "legendary": { "color": "#FFC400" },
+        "mythic":    { "color": "#FF1F6B" },
+        "secret":    { "color": "#FFFFFF", "rainbow": true }
+      },
+      "motion": { "hoverScale": 1.07, "pressScale": 0.9, "popOvershoot": 1.2, "fast": 0.07, "normal": 0.13, "slow": 0.24, "count": 0.45, "reveal": 0.75 },
+      "sizes": {
+        "card":      { "width": 148, "height": 164 },
+        "banner":    { "height": 112 },
+        "hudButton": { "size": 64 },
+        "icon":      { "sm": 24, "md": 40, "lg": 76, "xl": 116 }
+      }
+    },
+    "scifi": {
+      "description": "Sci-Fi: deep navy glass panels with thin glowing cyan edges, square corners, grid overlay, neon accents and wide technical type.",
+      "fonts": { "title": "Michroma", "body": "TitilliumWeb", "number": "Sarpanch", "fallback": "GothamMedium" },
+      "text": { "display": 38, "title": 26, "heading": 20, "label": 16, "caption": 13, "price": 18, "minimum": 12 },
+      "textStroke": { "color": "#030A14", "thickness": 1, "smallThickness": 1 },
+      "outline": { "color": "#5CE1FF", "thin": 1, "regular": 2, "thick": 2, "heavy": 3 },
+      "radius": { "sm": 2, "md": 4, "lg": 6, "xl": 10, "pill": 999 },
+      "spacing": { "xs": 4, "sm": 8, "md": 12, "lg": 16, "xl": 20, "xxl": 28 },
+      "shadow": { "offsetY": 0, "transparency": 0.6, "color": "#00B4FF" },
+      "gloss": { "transparency": 0.93, "heightFraction": 0.12 },
+      "pattern": { "kind": "grid", "transparency": 0.93, "cell": 32 },
+      "surfaces": {
+        "window": { "top": "#15243C", "bottom": "#0B1524", "text": "#E6F7FF" },
+        "inset":  { "top": "#0E1A2C", "bottom": "#08111E", "text": "#D5F0FF" },
+        "dark":   { "top": "#070D18", "bottom": "#03070E", "text": "#E6F7FF" }
+      },
+      "palette": {
+        "red":    { "top": "#D13F57", "bottom": "#D11F45", "text": "#FFFFFF" },
+        "orange": { "top": "#C1550C", "bottom": "#C1550C", "text": "#FFFFFF" },
+        "yellow": { "top": "#FFE14D", "bottom": "#E6B800", "text": "#030A14" },
+        "green":  { "top": "#3DFFA2", "bottom": "#00C26E", "text": "#030A14" },
+        "teal":   { "top": "#3DF5FF", "bottom": "#00B8D4", "text": "#030A14" },
+        "blue":   { "top": "#2F77C4", "bottom": "#0F62E6", "text": "#FFFFFF" },
+        "purple": { "top": "#855CDB", "bottom": "#673CE1", "text": "#FFFFFF" },
+        "pink":   { "top": "#BD44A6", "bottom": "#D11FB0", "text": "#FFFFFF" },
+        "gold":   { "top": "#FFD24D", "bottom": "#E0A000", "text": "#030A14" },
+        "gray":   { "top": "#B4C6D9", "bottom": "#8094AB", "text": "#030A14" }
+      },
+      "buttons": {
+        "buy":     { "palette": "green" },
+        "robux":   { "palette": "green", "icon": "robux" },
+        "gift":    { "palette": "purple", "icon": "gift" },
+        "close":   { "palette": "red", "icon": "close" },
+        "primary": { "palette": "blue" },
+        "danger":  { "palette": "red" },
+        "neutral": { "palette": "gray" },
+        "price":   { "surface": "dark", "icon": "token" }
+      },
+      "badges": {
+        "sale":      { "palette": "red", "shape": "pill" },
+        "bonus":     { "palette": "yellow", "shape": "pill" },
+        "attention": { "palette": "red", "shape": "circle", "text": "!" },
+        "new":       { "palette": "blue", "shape": "pill" },
+        "best":      { "palette": "gold", "shape": "ribbon" }
+      },
+      "rarity": {
+        "common":    { "color": "#8FA6BF" },
+        "uncommon":  { "color": "#2DF59A" },
+        "rare":      { "color": "#2D9BFF" },
+        "epic":      { "color": "#A45CFF" },
+        "legendary": { "color": "#FFC42D" },
+        "mythic":    { "color": "#FF2D6F" },
+        "secret":    { "color": "#E6F7FF", "rainbow": true }
+      },
+      "motion": { "hoverScale": 1.03, "pressScale": 0.96, "popOvershoot": 1.05, "fast": 0.08, "normal": 0.16, "slow": 0.3, "count": 0.5, "reveal": 0.9 },
+      "sizes": {
+        "card":      { "width": 148, "height": 148 },
+        "banner":    { "height": 104 },
+        "hudButton": { "size": 60 },
+        "icon":      { "sm": 22, "md": 36, "lg": 68, "xl": 104 }
+      }
+    },
+    "cozy": {
+      "description": "Cozy: warm cream paper, soft cocoa outlines, very round corners, muted garden colours, hand-written headings and gentle shadows.",
+      "fonts": { "title": "PatrickHand", "body": "Nunito", "number": "PatrickHand", "fallback": "Gotham" },
+      "text": { "display": 44, "title": 32, "heading": 24, "label": 18, "caption": 15, "price": 20, "minimum": 13 },
+      "textStroke": { "color": "#3D2B1F", "thickness": 2, "smallThickness": 2 },
+      "outline": { "color": "#5A4232", "thin": 2, "regular": 2, "thick": 3, "heavy": 4 },
+      "radius": { "sm": 14, "md": 20, "lg": 28, "xl": 36, "pill": 999 },
+      "spacing": { "xs": 6, "sm": 10, "md": 14, "lg": 20, "xl": 28, "xxl": 36 },
+      "shadow": { "offsetY": 3, "transparency": 0.78, "color": "#5A4232" },
+      "gloss": { "transparency": 0.9, "heightFraction": 0.4 },
+      "pattern": { "kind": "gingham", "transparency": 0.94, "cell": 28 },
+      "surfaces": {
+        "window": { "top": "#FFF9EE", "bottom": "#F7E9D2", "text": "#3D2B1F" },
+        "inset":  { "top": "#F8EBD6", "bottom": "#EEDCBE", "text": "#3D2B1F" },
+        "dark":   { "top": "#6B4F3C", "bottom": "#4A3628", "text": "#FFF4E0" }
+      },
+      "palette": {
+        "red":    { "top": "#F2A08C", "bottom": "#E07A62", "text": "#FFFFFF" },
+        "orange": { "top": "#F7C08A", "bottom": "#EBA05C", "text": "#FFFFFF" },
+        "yellow": { "top": "#F9E3A0", "bottom": "#F0CB6A", "text": "#FFFFFF" },
+        "green":  { "top": "#BBD8A0", "bottom": "#93BE74", "text": "#FFFFFF" },
+        "teal":   { "top": "#A6D9CC", "bottom": "#7BC0AE", "text": "#FFFFFF" },
+        "blue":   { "top": "#A9CDEB", "bottom": "#7FAEDB", "text": "#FFFFFF" },
+        "purple": { "top": "#CDB8E8", "bottom": "#A990D6", "text": "#FFFFFF" },
+        "pink":   { "top": "#F5B8CC", "bottom": "#E890AE", "text": "#FFFFFF" },
+        "gold":   { "top": "#F5D98A", "bottom": "#E3B84F", "text": "#FFFFFF" },
+        "gray":   { "top": "#DDD3C4", "bottom": "#B8AB98", "text": "#FFFFFF" }
+      },
+      "buttons": {
+        "buy":     { "palette": "green" },
+        "robux":   { "palette": "green", "icon": "robux" },
+        "gift":    { "palette": "purple", "icon": "gift" },
+        "close":   { "palette": "red", "icon": "close" },
+        "primary": { "palette": "blue" },
+        "danger":  { "palette": "red" },
+        "neutral": { "palette": "gray" },
+        "price":   { "surface": "dark", "icon": "token" }
+      },
+      "badges": {
+        "sale":      { "palette": "red", "shape": "pill" },
+        "bonus":     { "palette": "yellow", "shape": "pill" },
+        "attention": { "palette": "red", "shape": "circle", "text": "!" },
+        "new":       { "palette": "blue", "shape": "pill" },
+        "best":      { "palette": "gold", "shape": "ribbon" }
+      },
+      "rarity": {
+        "common":    { "color": "#C4B8A6" },
+        "uncommon":  { "color": "#8FBE6E" },
+        "rare":      { "color": "#78A9DB" },
+        "epic":      { "color": "#A98AD6" },
+        "legendary": { "color": "#E8B24A" },
+        "mythic":    { "color": "#E57C8E" },
+        "secret":    { "color": "#FFF9EE", "rainbow": true }
+      },
+      "motion": { "hoverScale": 1.04, "pressScale": 0.95, "popOvershoot": 1.06, "fast": 0.14, "normal": 0.26, "slow": 0.44, "count": 0.9, "reveal": 1.3 },
+      "sizes": {
+        "card":      { "width": 156, "height": 160 },
+        "banner":    { "height": 112 },
+        "hudButton": { "size": 68 },
+        "icon":      { "sm": 26, "md": 42, "lg": 76, "xl": 112 }
+      }
+    },
+    "minimal": {
+      "description": "Modern Minimal: flat white surfaces, hairline slate borders, restrained solid accents with white text, no gloss, almost no pattern.",
+      "fonts": { "title": "BuilderSansBold", "body": "BuilderSans", "number": "BuilderSansMedium", "fallback": "GothamMedium" },
+      "text": { "display": 36, "title": 26, "heading": 20, "label": 16, "caption": 13, "price": 18, "minimum": 12 },
+      "textStroke": { "color": "#0B1220", "thickness": 1, "smallThickness": 1 },
+      "outline": { "color": "#0B1220", "thin": 1, "regular": 1, "thick": 2, "heavy": 2 },
+      "radius": { "sm": 6, "md": 8, "lg": 12, "xl": 16, "pill": 999 },
+      "spacing": { "xs": 4, "sm": 8, "md": 12, "lg": 16, "xl": 24, "xxl": 40 },
+      "shadow": { "offsetY": 2, "transparency": 0.86, "color": "#0B1220" },
+      "gloss": { "transparency": 1, "heightFraction": 0.5 },
+      "pattern": { "kind": "none", "transparency": 1, "cell": 24 },
+      "surfaces": {
+        "window": { "top": "#FFFFFF", "bottom": "#FAFBFC", "text": "#0B1220" },
+        "inset":  { "top": "#F3F4F6", "bottom": "#ECEEF2", "text": "#0B1220" },
+        "dark":   { "top": "#1F2937", "bottom": "#111827", "text": "#FFFFFF" }
+      },
+      "palette": {
+        "red":    { "top": "#D83A40", "bottom": "#D83A40", "text": "#FFFFFF" },
+        "orange": { "top": "#D2460F", "bottom": "#D2460F", "text": "#FFFFFF" },
+        "yellow": { "top": "#F5D90A", "bottom": "#EBCB00", "text": "#0B1220" },
+        "green":  { "top": "#258458", "bottom": "#218358", "text": "#FFFFFF" },
+        "teal":   { "top": "#0C8479", "bottom": "#0C8479", "text": "#FFFFFF" },
+        "blue":   { "top": "#3472D8", "bottom": "#2563EB", "text": "#FFFFFF" },
+        "purple": { "top": "#8558EC", "bottom": "#7C3AED", "text": "#FFFFFF" },
+        "pink":   { "top": "#DB2777", "bottom": "#DB2777", "text": "#FFFFFF" },
+        "gold":   { "top": "#F2C94C", "bottom": "#E5B93A", "text": "#0B1220" },
+        "gray":   { "top": "#E5E7EB", "bottom": "#D1D5DB", "text": "#0B1220" }
+      },
+      "buttons": {
+        "buy":     { "palette": "green" },
+        "robux":   { "palette": "green", "icon": "robux" },
+        "gift":    { "palette": "purple", "icon": "gift" },
+        "close":   { "palette": "red", "icon": "close" },
+        "primary": { "palette": "blue" },
+        "danger":  { "palette": "red" },
+        "neutral": { "palette": "gray" },
+        "price":   { "surface": "dark", "icon": "token" }
+      },
+      "badges": {
+        "sale":      { "palette": "red", "shape": "pill" },
+        "bonus":     { "palette": "yellow", "shape": "pill" },
+        "attention": { "palette": "red", "shape": "circle", "text": "!" },
+        "new":       { "palette": "blue", "shape": "pill" },
+        "best":      { "palette": "gold", "shape": "ribbon" }
+      },
+      "rarity": {
+        "common":    { "color": "#9CA3AF" },
+        "uncommon":  { "color": "#22A06B" },
+        "rare":      { "color": "#2F6FED" },
+        "epic":      { "color": "#8250DF" },
+        "legendary": { "color": "#E0A100" },
+        "mythic":    { "color": "#E5484D" },
+        "secret":    { "color": "#0B1220", "rainbow": true }
+      },
+      "motion": { "hoverScale": 1.02, "pressScale": 0.98, "popOvershoot": 1.02, "fast": 0.08, "normal": 0.15, "slow": 0.25, "count": 0.5, "reveal": 0.7 },
+      "sizes": {
+        "card":      { "width": 144, "height": 148 },
+        "banner":    { "height": 100 },
+        "hudButton": { "size": 56 },
+        "icon":      { "sm": 20, "md": 32, "lg": 64, "xl": 96 }
+      }
+    },
+    "arcade": {
+      "description": "Arcade: near-black cabinet panels, pixel type, square corners, hard block shadows, scanlines and loud neon blocks.",
+      "fonts": { "title": "Arcade", "body": "RobotoMono", "number": "Arcade", "fallback": "Code" },
+      "text": { "display": 34, "title": 24, "heading": 18, "label": 15, "caption": 13, "price": 16, "minimum": 12 },
+      "textStroke": { "color": "#07041A", "thickness": 2, "smallThickness": 2 },
+      "outline": { "color": "#07041A", "thin": 2, "regular": 4, "thick": 4, "heavy": 6 },
+      "radius": { "sm": 0, "md": 2, "lg": 4, "xl": 6, "pill": 999 },
+      "spacing": { "xs": 4, "sm": 8, "md": 12, "lg": 16, "xl": 24, "xxl": 32 },
+      "shadow": { "offsetY": 6, "transparency": 0, "color": "#07041A" },
+      "gloss": { "transparency": 0.9, "heightFraction": 0.5 },
+      "pattern": { "kind": "scanlines", "transparency": 0.9, "cell": 6 },
+      "surfaces": {
+        "window": { "top": "#2A1B5C", "bottom": "#170D3A", "text": "#FFFFFF" },
+        "inset":  { "top": "#1B1144", "bottom": "#0F0828", "text": "#F2EEFF" },
+        "dark":   { "top": "#0E0826", "bottom": "#07041A", "text": "#FFFFFF" }
+      },
+      "palette": {
+        "red":    { "top": "#FF3355", "bottom": "#E6002E", "text": "#FFFFFF" },
+        "orange": { "top": "#FF8C1A", "bottom": "#F26A00", "text": "#FFFFFF" },
+        "yellow": { "top": "#FFF21A", "bottom": "#F2D600", "text": "#FFFFFF" },
+        "green":  { "top": "#39FF14", "bottom": "#12D900", "text": "#FFFFFF" },
+        "teal":   { "top": "#1AFFE8", "bottom": "#00D9C4", "text": "#FFFFFF" },
+        "blue":   { "top": "#1A9CFF", "bottom": "#0070F2", "text": "#FFFFFF" },
+        "purple": { "top": "#B31AFF", "bottom": "#8A00E6", "text": "#FFFFFF" },
+        "pink":   { "top": "#FF1ACC", "bottom": "#F200A6", "text": "#FFFFFF" },
+        "gold":   { "top": "#FFD11A", "bottom": "#F2B200", "text": "#FFFFFF" },
+        "gray":   { "top": "#C8C2E6", "bottom": "#9189BF", "text": "#FFFFFF" }
+      },
+      "buttons": {
+        "buy":     { "palette": "green" },
+        "robux":   { "palette": "green", "icon": "robux" },
+        "gift":    { "palette": "purple", "icon": "gift" },
+        "close":   { "palette": "red", "icon": "close" },
+        "primary": { "palette": "blue" },
+        "danger":  { "palette": "red" },
+        "neutral": { "palette": "gray" },
+        "price":   { "surface": "dark", "icon": "token" }
+      },
+      "badges": {
+        "sale":      { "palette": "red", "shape": "pill" },
+        "bonus":     { "palette": "yellow", "shape": "pill" },
+        "attention": { "palette": "red", "shape": "circle", "text": "!" },
+        "new":       { "palette": "blue", "shape": "pill" },
+        "best":      { "palette": "gold", "shape": "ribbon" }
+      },
+      "rarity": {
+        "common":    { "color": "#A9A3CC" },
+        "uncommon":  { "color": "#39FF14" },
+        "rare":      { "color": "#1A9CFF" },
+        "epic":      { "color": "#C61AFF" },
+        "legendary": { "color": "#FFD11A" },
+        "mythic":    { "color": "#FF1A5E" },
+        "secret":    { "color": "#FFFFFF", "rainbow": true }
+      },
+      "motion": { "hoverScale": 1.1, "pressScale": 0.86, "popOvershoot": 1.22, "fast": 0.05, "normal": 0.1, "slow": 0.18, "count": 0.35, "reveal": 0.6 },
+      "sizes": {
+        "card":      { "width": 144, "height": 144 },
+        "banner":    { "height": 104 },
+        "hudButton": { "size": 64 },
+        "icon":      { "sm": 24, "md": 40, "lg": 72, "xl": 104 }
+      }
+    },
+    "luxury": {
+      "description": "Luxury: charcoal and black lacquer, fine gold rules, serif titles, deep jewel fills, very subtle sheen, long soft shadows.",
+      "fonts": { "title": "Bodoni", "body": "JosefinSans", "number": "Merriweather", "fallback": "Garamond" },
+      "text": { "display": 44, "title": 30, "heading": 22, "label": 17, "caption": 13, "price": 19, "minimum": 12 },
+      "textStroke": { "color": "#0A0806", "thickness": 1, "smallThickness": 1 },
+      "outline": { "color": "#C9A24B", "thin": 1, "regular": 2, "thick": 2, "heavy": 3 },
+      "radius": { "sm": 4, "md": 6, "lg": 10, "xl": 14, "pill": 999 },
+      "spacing": { "xs": 6, "sm": 10, "md": 16, "lg": 22, "xl": 30, "xxl": 44 },
+      "shadow": { "offsetY": 10, "transparency": 0.5, "color": "#000000" },
+      "gloss": { "transparency": 0.92, "heightFraction": 0.22 },
+      "pattern": { "kind": "diamond", "transparency": 0.96, "cell": 36 },
+      "surfaces": {
+        "window": { "top": "#211D1A", "bottom": "#12100E", "text": "#F6EBD2" },
+        "inset":  { "top": "#191614", "bottom": "#0E0C0B", "text": "#EADCBC" },
+        "dark":   { "top": "#0C0A09", "bottom": "#050404", "text": "#F6EBD2" }
+      },
+      "palette": {
+        "red":    { "top": "#B52432", "bottom": "#A13C48", "text": "#FFFFFF" },
+        "orange": { "top": "#B65E1C", "bottom": "#A04E12", "text": "#FFFFFF" },
+        "yellow": { "top": "#E8CF7A", "bottom": "#D4B24C", "text": "#0A0806" },
+        "green":  { "top": "#1F7A55", "bottom": "#246A4D", "text": "#FFFFFF" },
+        "teal":   { "top": "#177A7A", "bottom": "#1D696B", "text": "#FFFFFF" },
+        "blue":   { "top": "#4C6AA2", "bottom": "#3F5F9B", "text": "#FFFFFF" },
+        "purple": { "top": "#7A5CA1", "bottom": "#70509A", "text": "#FFFFFF" },
+        "pink":   { "top": "#B03A78", "bottom": "#993D6E", "text": "#FFFFFF" },
+        "gold":   { "top": "#F0D58A", "bottom": "#C9A24B", "text": "#0A0806" },
+        "gray":   { "top": "#CFC7B8", "bottom": "#A89F8E", "text": "#0A0806" }
+      },
+      "buttons": {
+        "buy":     { "palette": "green" },
+        "robux":   { "palette": "green", "icon": "robux" },
+        "gift":    { "palette": "purple", "icon": "gift" },
+        "close":   { "palette": "red", "icon": "close" },
+        "primary": { "palette": "blue" },
+        "danger":  { "palette": "red" },
+        "neutral": { "palette": "gray" },
+        "price":   { "surface": "dark", "icon": "token" }
+      },
+      "badges": {
+        "sale":      { "palette": "red", "shape": "pill" },
+        "bonus":     { "palette": "yellow", "shape": "pill" },
+        "attention": { "palette": "red", "shape": "circle", "text": "!" },
+        "new":       { "palette": "blue", "shape": "pill" },
+        "best":      { "palette": "gold", "shape": "ribbon" }
+      },
+      "rarity": {
+        "common":    { "color": "#A89F8E" },
+        "uncommon":  { "color": "#2F9E6E" },
+        "rare":      { "color": "#3F74D6" },
+        "epic":      { "color": "#8A56C9" },
+        "legendary": { "color": "#D9B24C" },
+        "mythic":    { "color": "#C93452" },
+        "secret":    { "color": "#F6EBD2", "rainbow": true }
+      },
+      "motion": { "hoverScale": 1.025, "pressScale": 0.97, "popOvershoot": 1.03, "fast": 0.16, "normal": 0.3, "slow": 0.55, "count": 1.1, "reveal": 1.8 },
+      "sizes": {
+        "card":      { "width": 160, "height": 172 },
+        "banner":    { "height": 120 },
+        "hudButton": { "size": 64 },
+        "icon":      { "sm": 22, "md": 38, "lg": 76, "xl": 120 }
+      }
+    },
+    "adventure": {
+      "description": "Adventure: forest-green canvas panels with leather-brown insets, sturdy dark outlines, condensed expedition type, sunset and jungle colours.",
+      "fonts": { "title": "Oswald", "body": "Ubuntu", "number": "Oswald", "fallback": "GothamBold" },
+      "text": { "display": 44, "title": 32, "heading": 24, "label": 18, "caption": 14, "price": 20, "minimum": 12 },
+      "textStroke": { "color": "#0C1A15", "thickness": 2, "smallThickness": 2 },
+      "outline": { "color": "#0C1A15", "thin": 2, "regular": 3, "thick": 4, "heavy": 6 },
+      "radius": { "sm": 6, "md": 10, "lg": 14, "xl": 20, "pill": 999 },
+      "spacing": { "xs": 4, "sm": 8, "md": 12, "lg": 16, "xl": 24, "xxl": 32 },
+      "shadow": { "offsetY": 5, "transparency": 0.4, "color": "#06100C" },
+      "gloss": { "transparency": 0.88, "heightFraction": 0.34 },
+      "pattern": { "kind": "topo", "transparency": 0.92, "cell": 40 },
+      "surfaces": {
+        "window": { "top": "#2B5445", "bottom": "#1A372D", "text": "#FFF6DC" },
+        "inset":  { "top": "#214336", "bottom": "#152C24", "text": "#FFF6DC" },
+        "dark":   { "top": "#4A3320", "bottom": "#2C1E12", "text": "#FFF6DC" }
+      },
+      "palette": {
+        "red":    { "top": "#F0624A", "bottom": "#CF3B2A", "text": "#FFFFFF" },
+        "orange": { "top": "#FF9D3D", "bottom": "#E8751A", "text": "#FFFFFF" },
+        "yellow": { "top": "#FFD95C", "bottom": "#F0B41F", "text": "#FFFFFF" },
+        "green":  { "top": "#8FD94A", "bottom": "#57B02A", "text": "#FFFFFF" },
+        "teal":   { "top": "#4FD1B8", "bottom": "#1FA890", "text": "#FFFFFF" },
+        "blue":   { "top": "#58B4F0", "bottom": "#2A85D1", "text": "#FFFFFF" },
+        "purple": { "top": "#A584E8", "bottom": "#7655CF", "text": "#FFFFFF" },
+        "pink":   { "top": "#F083A8", "bottom": "#D6557F", "text": "#FFFFFF" },
+        "gold":   { "top": "#FFD470", "bottom": "#E5A420", "text": "#FFFFFF" },
+        "gray":   { "top": "#D0D6C4", "bottom": "#A0A892", "text": "#FFFFFF" }
+      },
+      "buttons": {
+        "buy":     { "palette": "green" },
+        "robux":   { "palette": "green", "icon": "robux" },
+        "gift":    { "palette": "purple", "icon": "gift" },
+        "close":   { "palette": "red", "icon": "close" },
+        "primary": { "palette": "blue" },
+        "danger":  { "palette": "red" },
+        "neutral": { "palette": "gray" },
+        "price":   { "surface": "dark", "icon": "token" }
+      },
+      "badges": {
+        "sale":      { "palette": "red", "shape": "pill" },
+        "bonus":     { "palette": "yellow", "shape": "pill" },
+        "attention": { "palette": "red", "shape": "circle", "text": "!" },
+        "new":       { "palette": "blue", "shape": "pill" },
+        "best":      { "palette": "gold", "shape": "ribbon" }
+      },
+      "rarity": {
+        "common":    { "color": "#B5BDA5" },
+        "uncommon":  { "color": "#6BC23A" },
+        "rare":      { "color": "#3A95E0" },
+        "epic":      { "color": "#9063E0" },
+        "legendary": { "color": "#F0AE25" },
+        "mythic":    { "color": "#E8483F" },
+        "secret":    { "color": "#FFF6DC", "rainbow": true }
+      },
+      "motion": { "hoverScale": 1.05, "pressScale": 0.93, "popOvershoot": 1.1, "fast": 0.1, "normal": 0.2, "slow": 0.36, "count": 0.7, "reveal": 1.1 },
+      "sizes": {
+        "card":      { "width": 152, "height": 156 },
+        "banner":    { "height": 112 },
+        "hudButton": { "size": 66 },
+        "icon":      { "sm": 24, "md": 40, "lg": 74, "xl": 112 }
+      }
     }
   }
 }

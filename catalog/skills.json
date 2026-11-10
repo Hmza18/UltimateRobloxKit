@@ -1458,6 +1458,357 @@
     "label stretched"
    ],
    "depends": []
+  },
+  {
+   "name": "uvk-camera-effects",
+   "category": "visuals",
+   "path": "skills/visuals/uvk-camera-effects",
+   "description": "Camera effects with UltimateVisualsKit's Visuals.Camera - additive trauma-based shake presets (Tap, SoftImpact, Impact, HeavyImpact, Landing, Explosion, Hatch, Rumble), FOV moves and punches, zoom, focus, orbit, pan and cinematic recipes (PetReveal, RewardReveal, AreaUnlock, Teleport) on a priority stack that always restores CameraType, CFrame and FieldOfView. Use when adding camera shake, screen shake, impact kicks, zoom or FOV effects, a reveal or area-unlock cinematic, or when a camera effect leaves the camera stuck.",
+   "triggers": [
+    "camera shake",
+    "screen shake",
+    "camera effect",
+    "fov punch",
+    "fov effect",
+    "camera zoom",
+    "camera focus",
+    "camera orbit",
+    "cinematic camera",
+    "reveal cinematic",
+    "camera stuck",
+    "impact shake"
+   ],
+   "depends": [
+    "uvk-visuals-kit"
+   ]
+  },
+  {
+   "name": "uvk-combat-visuals",
+   "category": "visuals",
+   "path": "skills/visuals/uvk-combat-visuals",
+   "description": "Combat and ability visuals with UltimateVisualsKit - the Combat feedback pack (Hit, Critical, ElementHit, AbilityUsed, AbilityCharge, CooldownReady, Dash), combat VFX presets (HitConfirm, ImpactFlash, Shockwave, EnergyBurst, ElementBurst in eight elements, Aura, Transformation, DashTrail), impact camera shake, damage popups and hotbar cooldown feedback, layered for high visual impact with original effects. Use when adding hit effects, ability or skill effects, elemental attacks, auras, transformations, dash trails or anime-style impact to a fighting, RPG or anime game.",
+   "triggers": [
+    "combat visuals",
+    "hit effect",
+    "hit feedback",
+    "ability effect",
+    "skill effect",
+    "elemental effect",
+    "visual impact",
+    "impact effect",
+    "damage numbers",
+    "transformation effect",
+    "dash trail",
+    "anime effects",
+    "combat juice",
+    "attack effect"
+   ],
+   "depends": [
+    "uvk-visuals-kit",
+    "uvk-gameplay-feedback"
+   ]
+  },
+  {
+   "name": "uvk-egg-hatching",
+   "category": "visuals",
+   "path": "skills/visuals/uvk-egg-hatching",
+   "description": "The egg hatch cinematic from UltimateVisualsKit's Visuals.Eggs - eleven beats (drop in, wobble that builds, energy, crack, flash, pet appears, rarity celebration, result) scaled by rarity from common to secret, for one, three or many eggs, with auto-hatch mode, skip, cancel, camera push-in and full cleanup, plus idle eggs for the shop. Use when creating an egg opening, hatching animation, legendary hatch, multi-hatch or auto-hatch presentation, or when a hatch feels flat.",
+   "triggers": [
+    "egg hatching",
+    "hatching animation",
+    "egg hatch",
+    "egg opening",
+    "hatch cinematic",
+    "legendary egg",
+    "multi hatch",
+    "triple hatch",
+    "auto hatch",
+    "egg animation",
+    "open an egg"
+   ],
+   "depends": [
+    "uvk-visuals-kit"
+   ]
+  },
+  {
+   "name": "uvk-gameplay-feedback",
+   "category": "visuals",
+   "path": "skills/visuals/uvk-gameplay-feedback",
+   "description": "Gameplay feedback with UltimateVisualsKit's Visuals.Feedback - one call per game event (Tap, CollectCoin, CollectGem, LevelUp, QuestComplete, Purchase, Error, EquipPet, UnlockArea and more) that runs a recipe of VFX, UI animation, floating popups, fly-to-counter, camera shake and sound cues, with throttling and amount coalescing for rapid input, conditions, and the Simulator, Minimal and Combat packs. Use when adding tapping or clicking feedback, coin and gem collection effects, level-up or purchase celebrations, floating numbers, or when wiring server events to client visuals.",
+   "triggers": [
+    "gameplay feedback",
+    "tapping feedback",
+    "tap feedback",
+    "click feedback",
+    "clicker feedback",
+    "coin collection",
+    "collect coins effect",
+    "collection effects",
+    "floating numbers",
+    "level up celebration",
+    "purchase feedback",
+    "feedback event",
+    "satisfying",
+    "juicy"
+   ],
+   "depends": [
+    "uvk-visuals-kit"
+   ]
+  },
+  {
+   "name": "uvk-icon-pack",
+   "category": "visuals",
+   "path": "skills/visuals/uvk-icon-pack",
+   "description": "Integrating a purchased or private icon pack with UltimateVisualsKit - the vault tool that imports a pack byte-for-byte without altering it, verifies it by SHA-256, builds a searchable registry and a Luau data module, maps Roblox asset ids after the owner's manual upload, and the Visuals.Icons runtime (register, apply, themed and animated containers, picker, UrkUI bridge), with the licence rules that keep paid files out of git. Use when importing my icon pack, a paid or third-party icon pack, mapping icon asset ids, or using pack icons by name in UI.",
+   "triggers": [
+    "icon pack",
+    "import my icon pack",
+    "paid icon pack",
+    "private icons",
+    "icon vault",
+    "icon registry",
+    "icon asset ids",
+    "pack icons",
+    "purchased icons",
+    "vault.py"
+   ],
+   "depends": [
+    "uvk-visuals-kit"
+   ]
+  },
+  {
+   "name": "uvk-motion-design",
+   "category": "visuals",
+   "path": "skills/visuals/uvk-motion-design",
+   "description": "Motion design with UltimateVisualsKit - the animation principles (anticipation, follow-through, secondary motion, squash and stretch, timing hierarchy), springs and easing curves, Visuals.Motion tweens and punches, Visuals.Sequence timelines with skip and cancel, and the Visuals.Objects presets for floating, spinning, bouncing and collecting world objects. Use when choosing timings or springs, sequencing several effects, animating a model or part, or when motion feels stiff, floaty or cheap.",
+   "triggers": [
+    "motion design",
+    "spring animation",
+    "easing curve",
+    "anticipation",
+    "squash and stretch",
+    "follow through",
+    "animation timing",
+    "sequence timeline",
+    "object animation",
+    "floating pickup",
+    "spinning coin",
+    "feels stiff"
+   ],
+   "depends": [
+    "uvk-visuals-kit"
+   ]
+  },
+  {
+   "name": "uvk-pet-visuals",
+   "category": "visuals",
+   "path": "skills/visuals/uvk-pet-visuals",
+   "description": "Pet presentation with UltimateVisualsKit's Visuals.Pets - a rig-agnostic pet animator (idle bob, breathing, sway, hover and selected states, rarity aura), reactions and timelines (HappyReaction, SelectBounce, Spawn, Equip, Evolve), followers in rows, arc, circle or orbit formations with ground alignment, ViewportFrame previews and the flagship pet selection screen with mouse, touch, keyboard and gamepad input. Use when making pets feel alive, building a starter or pet selection screen, making pets follow the player, or showing a pet in the UI.",
+   "triggers": [
+    "pet selection",
+    "pet selection screen",
+    "starter pet",
+    "pet animation",
+    "pet follow",
+    "pets follow the player",
+    "pet reaction",
+    "pet idle",
+    "pet preview",
+    "pet viewport",
+    "choose your pet",
+    "pet formation"
+   ],
+   "depends": [
+    "uvk-visuals-kit"
+   ]
+  },
+  {
+   "name": "uvk-reward-reveals",
+   "category": "visuals",
+   "path": "skills/visuals/uvk-reward-reveals",
+   "description": "Rarity-driven reward reveals with UltimateVisualsKit's Visuals.Rewards - seven built-in rarity profiles (Common to Secret) that scale anticipation, rays, flash, camera and VFX with rank, single reveals and batches (rarest last, lower tiers grouped), skip, dismiss and cancel handles, custom rarities, and the RewardPanel, RewardPopup and RarityBadge components. Use when showing what a player received from a chest, daily reward, quest, purchase or drop, or when defining a game's rarity tiers and making higher tiers feel more exciting.",
+   "triggers": [
+    "reward reveal",
+    "reveal animation",
+    "rarity reveal",
+    "chest opening",
+    "loot reveal",
+    "daily reward reveal",
+    "legendary reveal",
+    "rarity tiers",
+    "custom rarity",
+    "reward popup",
+    "item reveal"
+   ],
+   "depends": [
+    "uvk-visuals-kit"
+   ]
+  },
+  {
+   "name": "uvk-simulator-screens",
+   "category": "visuals",
+   "path": "skills/visuals/uvk-simulator-screens",
+   "description": "Premium simulator UI built from the kit's animated UI/Game components - PremiumButton, TabBar, Modal, Tooltip, XPBar, InventorySlot, PetCard, RarityBadge, RewardPanel, QuestCard, AchievementCard, Notification, LeaderboardRow, LoadingScreen, SelectionCard, HotbarSlot and StatChip, alongside ProductCard, GameWindow, CurrencyCounter and the ten Visuals themes. Use when a shop, HUD, inventory, quest log, reward or loading screen should look and feel like a polished premium simulator, or when choosing which ready component fits a screen.",
+   "triggers": [
+    "premium simulator",
+    "simulator screen",
+    "premium shop",
+    "premium ui",
+    "shop feel",
+    "animated component",
+    "pet card",
+    "xp bar",
+    "quest card",
+    "inventory slot",
+    "hotbar cooldown",
+    "loading screen",
+    "visual theme",
+    "simulator hud"
+   ],
+   "depends": [
+    "uvk-visuals-kit",
+    "uvk-ui-animation"
+   ]
+  },
+  {
+   "name": "uvk-ui-animation",
+   "category": "visuals",
+   "path": "skills/visuals/uvk-ui-animation",
+   "description": "UI animation with UltimateVisualsKit's Visuals.UI - 70 presets for buttons, panels, cards, text, navigation and notifications, button state bindings (hover, press, release, selected, disabled), show and hide, staggered lists, number counters, typewriter text, shine, ripple, screen flash, floating popups and currency that flies to its counter. Use when a button, panel, shop, HUD or menu should feel animated, polished, juicy or premium, or when adding count-up numbers, damage popups or fly-to-counter coins.",
+   "triggers": [
+    "ui animation",
+    "animated button",
+    "button hover",
+    "press animation",
+    "panel transition",
+    "popup animation",
+    "count up",
+    "number counter",
+    "floating number",
+    "damage popup",
+    "fly to counter",
+    "typewriter text",
+    "shine effect",
+    "animated ui",
+    "polished animations",
+    "ui feel"
+   ],
+   "depends": [
+    "uvk-visuals-kit"
+   ]
+  },
+  {
+   "name": "uvk-vfx-presets",
+   "category": "visuals",
+   "path": "skills/visuals/uvk-vfx-presets",
+   "description": "World visual effects from UltimateVisualsKit's preset library - 78 data-driven presets in eight categories (rewards, pets, eggs, combat, movement, environment, progression, feeding) played with Visuals:Play and Visuals:Attach, with colour, scale, intensity, rarity and element params, quality budgets and guaranteed cleanup, plus the layer schema for registering or overriding a preset. Use when adding coin bursts, sparkles, auras, trails, confetti, weather, level-up or collection effects, or when authoring a new particle effect for the kit.",
+   "triggers": [
+    "vfx preset",
+    "coin burst",
+    "collection effect",
+    "coin collection",
+    "sparkle",
+    "confetti",
+    "aura effect",
+    "level up effect",
+    "particle preset",
+    "ambient particles",
+    "weather effect",
+    "original effects",
+    "effect library",
+    "satisfying effects"
+   ],
+   "depends": [
+    "uvk-visuals-kit"
+   ]
+  },
+  {
+   "name": "uvk-visual-debugging",
+   "category": "visuals",
+   "path": "skills/visuals/uvk-visual-debugging",
+   "description": "Debugging UltimateVisualsKit visuals - the Visuals.Debug stats overlay, the effect profiler, Debug.dump of every preset id, Visuals:Stats and per-module stats, and a symptom table for effects that do not appear, play twice, never stop, leave the camera or UI stuck, or leak instances and clock jobs. Use when an effect or animation is missing, wrong, doubled, stuck or leaking, or to inspect what UVK is running right now.",
+   "triggers": [
+    "visual debugging",
+    "effect not showing",
+    "effect is not showing",
+    "effect not playing",
+    "animation stuck",
+    "debug overlay",
+    "visuals stats",
+    "effect leak",
+    "camera stuck after",
+    "ui stuck scaled",
+    "preset not found",
+    "debug vfx"
+   ],
+   "depends": [
+    "uvk-visuals-kit"
+   ]
+  },
+  {
+   "name": "uvk-visual-performance",
+   "category": "visuals",
+   "path": "skills/visuals/uvk-visual-performance",
+   "description": "Performance for UltimateVisualsKit visuals - the four quality levels (Low, Medium, High, Ultra) and their particle, effect, light and distance budgets, adaptive quality, preset cost labels, throttling and eviction, pooling, reduced motion and intensity settings, and measuring an effect's frame cost with the Visuals.Debug profiler. Use when particles or effects cause lag, when choosing budgets for phones, when a new preset must fit the particle budget, or when effects are being skipped and you need to know why.",
+   "triggers": [
+    "particle budget",
+    "particle lag",
+    "effects lag",
+    "vfx performance",
+    "too many particles",
+    "particle optimization",
+    "quality level",
+    "quality settings",
+    "effect budget",
+    "effects skipped",
+    "visual performance",
+    "low end phones"
+   ],
+   "depends": [
+    "uvk-visuals-kit",
+    "uvk-visual-debugging"
+   ]
+  },
+  {
+   "name": "uvk-visual-testing",
+   "category": "visuals",
+   "path": "skills/visuals/uvk-visual-testing",
+   "description": "Testing visuals built with UltimateVisualsKit - Lune specs with a stepped clock for timing, cancellation, restoration, budgets and preset validity, the lint, format and type checks, the catalog freshness checks, and the manual Roblox Studio checklist for everything that cannot be proven without the engine (looks, feel, devices, input, performance). Use when writing a spec for a new preset or recipe, deciding what a visual change needs to be called done, or reporting honestly what was and was not verified.",
+   "triggers": [
+    "visual testing",
+    "test the effect",
+    "test the animation",
+    "visuals spec",
+    "stepped clock",
+    "studio checklist",
+    "manual review",
+    "verify visuals",
+    "test preset",
+    "playtest checklist",
+    "test the visuals"
+   ],
+   "depends": [
+    "uvk-visuals-kit"
+   ]
+  },
+  {
+   "name": "uvk-visuals-kit",
+   "category": "visuals",
+   "path": "skills/visuals/uvk-visuals-kit",
+   "description": "Entry point for UltimateVisualsKit (UVK), the kit's visual layer in library/src/Visuals - one facade for VFX presets, UI animation, object animation, camera moves, pets, egg hatching, reward reveals, feedback events, sound cues, themes and icons, with a searchable preset catalog. Use first for any visual polish, juice, game feel, effects or animation task, to pick existing presets and components instead of writing effects from scratch.",
+   "triggers": [
+    "visuals kit",
+    "uvk",
+    "ultimatevisualskit",
+    "visual polish",
+    "juice",
+    "game feel",
+    "preset catalog",
+    "visuals.json",
+    "which preset",
+    "make it feel good"
+   ],
+   "depends": []
   }
  ]
 }

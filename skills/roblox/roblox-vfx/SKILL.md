@@ -17,6 +17,8 @@ metadata:
 - Beams (lasers, tethers, lightning), Trails (swords, dashes, projectiles).
 - Highlight outlines for selection or targets, and Lighting post-processing for mood.
 
+**Check the kit's preset library first.** If the project has the kit's `Visuals` module (UltimateVisualsKit), most effects below already exist as presets with budgets, quality levels and cleanup: read `uvk-vfx-presets` and search `catalog/visuals.json` before authoring an emitter by hand. Use this skill for effects the library lacks and for understanding the engine objects underneath.
+
 When not to use: sounds belong in `roblox-audio`; animated rigs in `roblox-animation`; camera shake in `roblox-camera-input`; gameplay hit detection in `roblox-physics-interactions` (VFX never decides a hit).
 
 ## Inputs
@@ -138,5 +140,5 @@ More recipes (screen flash, trail toggle, beam lightning, emitter property cheat
 ## Limitations
 
 - Particle counts and costs above are guidance, not engine guarantees; only device profiling proves a budget.
-- This skill does not author textures or flipbook sheets; it consumes uploaded asset ids.
+- This skill does not author textures or flipbook sheets; it consumes uploaded asset ids. The kit's generated VFX textures are described in `docs/workflows/visual-assets.md`.
 - Exact Highlight and particle limits change between engine releases; verify in creator docs.

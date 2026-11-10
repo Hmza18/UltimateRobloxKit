@@ -1,0 +1,26 @@
+{
+  "spec": 1,
+  "id": "Bad",
+  "kind": "window",
+  "style": "cartoon",
+  "window": {
+    "title": "BAD"
+  },
+  "body": [
+    {
+      "type": "tabBar",
+      "id": "tabs",
+      "tabs": [
+        {
+          "id": "a",
+          "text": "A"
+        },
+        {
+          "id": "a",
+          "text": "B"
+        }
+      ],
+      "value": "zzz"
+    }
+  ]
+}

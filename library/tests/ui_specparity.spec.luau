@@ -65,4 +65,63 @@ return {
 		end
 		t.truthy(checked >= 15, "every invalid fixture checked")
 	end,
+
+	-- `motion` ids: the Python twin keeps a copy of UIPresets.registry:ids() in MOTION_PRESETS.
+	["the Python motion preset list mirrors the Luau registry"] = function()
+		local path: string? = nil
+		for _, candidate in { "../tools/ui/spec_rules.py", "tools/ui/spec_rules.py", "../../tools/ui/spec_rules.py" } do
+			if fs.isFile(candidate) then
+				path = candidate
+			end
+		end
+		if path == nil then
+			return
+		end
+		local source = fs.readFile(path)
+		local block = string.match(source, "MOTION_PRESETS = %[(.-)%]")
+		t.truthy(block ~= nil, "MOTION_PRESETS list found in spec_rules.py")
+		local mirrored: { string } = {}
+		for id in string.gmatch(block :: string, '"([%w_]+)"') do
+			table.insert(mirrored, id)
+		end
+		table.sort(mirrored)
+		local ids = table.clone(SpecSchema.MOTION_PRESETS)
+		table.sort(ids)
+		t.truthy(#ids >= 60, "the Visuals UI presets are loaded")
+		t.deepEqual(mirrored, ids)
+	end,
+
+	["element types and their fields match the Python twin"] = function()
+		local path: string? = nil
+		for _, candidate in { "../tools/ui/spec_rules.py", "tools/ui/spec_rules.py", "../../tools/ui/spec_rules.py" } do
+			if fs.isFile(candidate) then
+				path = candidate
+			end
+		end
+		if path == nil then
+			return
+		end
+		local source = fs.readFile(path)
+		local count = 0
+		for name, required, optional in string.gmatch(source, '\n "(%a+)": %((%b[]), (%b[]),') do
+			count += 1
+			local def = SpecSchema.ELEMENT_TYPES[name]
+			t.truthy(def ~= nil, name .. " exists in Luau")
+			local function names(list: string): { string }
+				local out: { string } = {}
+				for field in string.gmatch(list, '"(%a+)"') do
+					table.insert(out, field)
+				end
+				table.sort(out)
+				return out
+			end
+			local wantRequired = table.clone(def.required)
+			table.sort(wantRequired)
+			local wantOptional = table.clone(def.optional)
+			table.sort(wantOptional)
+			t.deepEqual(names(required), wantRequired, name .. " required")
+			t.deepEqual(names(optional), wantOptional, name .. " optional")
+		end
+		t.equal(count, #SpecSchema.TYPE_NAMES, "every element type is in the Python table")
+	end,
 }

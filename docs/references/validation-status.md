@@ -33,6 +33,23 @@ What has been proven, how, and what has not. Updated 2026-11-08 for version 0.1.
 | Audit | Kit audit: 0 HIGH. The insecure fixture triggers client-trusted amount, unvalidated remote, loadstring and require by id | PASS |
 | Dashboard | Built with a generated project; all 13 tabs rendered in a browser with no script errors | PASS (visual check) |
 
+## 0.5.0 checks (2026-11-10, Linux, local toolchain at the CI pins)
+
+UltimateVisualsKit. No CI run for this branch had been seen when this was written, and nothing was run in Roblox Studio.
+
+| Check | How | Result |
+|---|---|---|
+| Visuals pure logic | Lune specs for Core and every `*Logic`, `*Presets` and `*Data` module (`lune run tests/run tests visuals_`) | PASS (351 passed, 0 failed, 20 spec files) |
+| Whole library | `lune run tests/run` | PASS (1041 passed, 0 failed, 74 spec files) |
+| Strict types | `luau-analyze --mode=strict` on the CI `PURE` list, extended to UVK | PASS (100 modules, 37 in Visuals) |
+| Lint and format | StyLua 2.6.0; Selene 0.32.0 with a local config without the Roblox standard library | See [PROGRESS.md](../../PROGRESS.md); Selene with the real standard library runs only in CI |
+| Visuals runtime (every module that creates Instances, and the 17 animated components) | `luau-lsp analyze` with Roblox type definitions | Types only. NOT RUN in Roblox (needs Studio) |
+| Preset catalog | `lune run tools/export_visuals --check`; `python3 scripts/automation/build_visuals_refs.py --check`; `tests/test_visuals_catalog.py` | PASS |
+| VFX textures | `python3 urk.py visuals textures --check` | PASS (25 files reproduce) |
+| Icon vault | `tests/test_visuals_icons.py` against a synthetic pack; `urk.py visuals icons status` | PASS. No upload attempted; in-game use NOT RUN |
+| Skills and routing | `test_skills.py`, `test_routing.py`, `urk skills eval` | PASS; tuned 100% (42 cases), held-out 50% and 40% as before; untuned probe of 12 visual requests: 2 correct |
+| Looks, feel, devices, performance | not possible without Studio | NEEDS MANUAL REVIEW |
+
 ## Visual inspection
 
 The contact sheet in `docs/images/example-props.png` was inspected by eye.

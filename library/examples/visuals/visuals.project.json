@@ -1,0 +1,70 @@
+{
+  "name": "UvkDemos",
+  "tree": {
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "UltimateRobloxKit": {
+        "$path": "../../src"
+      }
+    },
+    "StarterPlayer": {
+      "StarterPlayerScripts": {
+        "UvkDemos": {
+          "$className": "Folder",
+          "Launcher": {
+            "$path": "Launcher.client.luau"
+          },
+          "DemoKit": {
+            "$path": "DemoKit.luau"
+          },
+          "DemoLogic": {
+            "$path": "DemoLogic.luau"
+          },
+          "PetSelectionDemo": {
+            "$path": "PetSelectionDemo.luau"
+          },
+          "EggHatchingDemo": {
+            "$path": "EggHatchingDemo.luau"
+          },
+          "RewardRevealDemo": {
+            "$path": "RewardRevealDemo.luau"
+          },
+          "SimulatorFeedbackDemo": {
+            "$path": "SimulatorFeedbackDemo.luau"
+          },
+          "AnimalFeedingDemo": {
+            "$path": "AnimalFeedingDemo.luau"
+          },
+          "Playground": {
+            "$path": "Playground"
+          }
+        }
+      }
+    },
+    "Workspace": {
+      "$className": "Workspace",
+      "UvkDemoFloor": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [192, 2, 192],
+          "Position": [0, -0.9, 0],
+          "Color": [0.42, 0.62, 0.45],
+          "Material": "Grass",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        }
+      },
+      "UvkDemoSpawn": {
+        "$className": "SpawnLocation",
+        "$properties": {
+          "Anchored": true,
+          "Size": [8, 1, 8],
+          "Position": [0, 0.6, 30],
+          "Transparency": 1,
+          "CanCollide": false
+        }
+      }
+    }
+  }
+}

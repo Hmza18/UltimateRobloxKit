@@ -1,0 +1,19 @@
+{
+  "spec": 1,
+  "id": "Bad",
+  "kind": "window",
+  "style": "cartoon",
+  "window": {
+    "title": "BAD"
+  },
+  "body": [
+    {
+      "type": "iconButton",
+      "icon": "MyPack:Sword"
+    },
+    {
+      "type": "iconButton",
+      "icon": "pack:two--dashes"
+    }
+  ]
+}

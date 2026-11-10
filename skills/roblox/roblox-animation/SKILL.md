@@ -18,6 +18,8 @@ metadata:
 - Moving props (doors, platforms, collectibles) or UI smoothly.
 - Procedural motion: head look-at, bobbing, recoil, spinning pickups.
 
+With the kit's `Visuals` module installed, UI motion has ready presets and button bindings (`uvk-ui-animation`), springs, sequences and object animation are in `uvk-motion-design`, and rig-agnostic pet motion is in `uvk-pet-visuals`. Prefer those over hand-written tweens.
+
 When not to use: authoring or exporting rigs and clips from Blender (use `blender-roblox-export`), physical movement with constraints (use `roblox-physics-interactions`), camera motion (use `roblox-camera-input`).
 
 ## Inputs

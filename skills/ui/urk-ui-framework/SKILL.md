@@ -15,7 +15,7 @@ Original framework in `library/src/UI/` (MIT). Full tag, attribute, action and c
 
 ## When to use
 
-Any UI in a project with the kit library. For general Roblox UI principles (scale vs offset, layout objects) see `roblox-ui-systems`. For icons see `roblox-icon-design`; for spec-built game screens see `roblox-ui-generator`.
+Any UI in a project with the kit library. For general Roblox UI principles (scale vs offset, layout objects) see `roblox-ui-systems`. For icons see `roblox-icon-design`; for spec-built game screens see `roblox-ui-generator`. For animation presets, button bindings, counters and popups on top of UrkUI see `uvk-ui-animation`; for the animated game components see `uvk-simulator-screens`.
 
 ## Install and start
 

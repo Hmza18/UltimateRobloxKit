@@ -10,15 +10,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 styles = json.load(open(f"{ROOT}/design/tokens/styles.json"))["styles"]
 icons = {i["name"] for i in json.load(open(f"{ROOT}/assets/icons/urk/icons.json"))["icons"]}
-cart = styles["cartoon"]
 STYLE_NAMES = set(styles)
 def style_get(name):
-    s = dict(cart)
-    if name != "cartoon":
-        for k, v in styles[name].items():
-            if isinstance(v, dict) and k in s: s[k] = {**s[k], **v}
-            else: s[k] = v
-    return s
+    """The style with its `extends` chain merged, like Style.get in Luau."""
+    return resolved_style(name)
 FORMATS = {"number","abbrev","percent","time","duration","upper","lower"}
 T = {
  "banner": (["title","palette","price"], ["subtitle","icon","image","badge","timer"], None, True),
@@ -39,12 +34,111 @@ T = {
  "dropdown": (["id","label"], ["value","min","max","step","options","bind"], None, True),
  "dayCard": (["day","reward"], ["state","premium","icon","palette"], None, True),
  "listRow": (["title"], ["subtitle","icon","value","progress","button","rank","palette"], None, True),
+ # The animated components of UI/Game (motion from Visuals/UI).
+ "premiumButton": ([], ["text","icon","image","palette","action","shine","glow"], [["text","icon"]], True),
+ "tabBar": (["id","tabs"], ["value","palette"], None, True),
+ "modal": (["id","title"], ["text","buttons","headerPalette","closable"], None, True),
+ "tooltip": (["text","target"], ["side"], None, False),
+ "xpBar": ([], ["bind","level","value","max","palette"], None, False),
+ "inventorySlot": ([], ["icon","image","count","rarity","selected","equipped","locked","action"], None, True),
+ "petCard": (["title"], ["icon","image","rarity","stats","palette","selected","equipped","action"], None, True),
+ "rarityBadge": (["rarity"], ["text"], None, False),
+ "rewardPanel": (["rewards"], ["title","columns","claimText","claimed","palette"], None, True),
+ "questCard": (["title"], ["description","value","max","rewards","state","claimText","palette"], None, True),
+ "achievementCard": (["title"], ["description","icon","image","tier","maxTier","value","max","unlocked","palette"], None, False),
+ "notification": (["title"], ["text","kind","icon","image","palette","duration"], None, True),
+ "leaderboardRow": (["title"], ["rank","value","format","avatar","highlight","bind"], None, False),
+ "loadingScreen": ([], ["title","icon","image","tips","progress","palette"], None, False),
+ "selectionCard": (["title"], ["description","icon","image","palette","selected","action"], None, True),
+ "hotbarSlot": ([], ["icon","image","keybind","palette","cooldown","action"], [["icon","image","keybind"]], True),
+ "statChip": ([], ["icon","image","value","format","prefix","suffix","palette","bind"], [["bind","value"]], False),
 }
-ML = dict(title=60, subtitle=90, heading=60, text=200, message=90, description=200, buttonText=24, label=40, iconLabel=16, badgeText=12, reward=24, amount=24, option=24, note=200)
+# Visuals UI preset ids a `motion` field may name: a mirror of UIPresets.registry:ids() in
+# library/src/Visuals/UI/UIPresets.luau. library/tests/ui_specparity.spec.luau fails when they differ.
+MOTION_PRESETS = [
+ "AccordionClose",
+ "AccordionOpen",
+ "AttentionPing",
+ "BackdropIn",
+ "BackdropOut",
+ "BadgePop",
+ "Bounce",
+ "BouncyPress",
+ "CardFlip",
+ "CardReveal",
+ "Confirm",
+ "Deselected",
+ "Disabled",
+ "DrawerIn",
+ "DrawerOut",
+ "DropdownClose",
+ "DropdownOpen",
+ "ElasticIn",
+ "Enabled",
+ "Error",
+ "FadeIn",
+ "FadeOut",
+ "Glow",
+ "Highlight",
+ "HoverDrop",
+ "HoverLift",
+ "HoverReset",
+ "HoverScale",
+ "IndicatorSlide",
+ "InventorySelect",
+ "LevelUpText",
+ "Loading",
+ "ModalIn",
+ "ModalOut",
+ "PageNext",
+ "PagePrev",
+ "PopIn",
+ "PopOut",
+ "PressDown",
+ "Pulse",
+ "RarityBorder",
+ "ReleaseSpring",
+ "RewardTextReveal",
+ "Ripple",
+ "ScaleIn",
+ "ScaleOut",
+ "ScrollReveal",
+ "SelectGlow",
+ "Selected",
+ "Shine",
+ "SidebarIn",
+ "SidebarOut",
+ "SlideInDown",
+ "SlideInLeft",
+ "SlideInRight",
+ "SlideInUp",
+ "SlideOutDown",
+ "SlideOutLeft",
+ "SlideOutRight",
+ "SlideOutUp",
+ "Spinner",
+ "SpringIn",
+ "TabSwitch",
+ "TextBounce",
+ "TextGlow",
+ "TextPulse",
+ "ToastIn",
+ "ToastOut",
+ "UpgradePulse",
+ "Wiggle",
+]
+_MOTION = set(MOTION_PRESETS)
+BOOLS = {"visible","gift","owned","premium","plus","shine","glow","closable","selected","equipped","locked","claimed","unlocked","highlight"}
+_KEBAB = r"[a-z0-9]+(?:-[a-z0-9]+)*"
+def ispackicon(n):
+    """"pack:name": an icon of an imported pack; lowercase kebab-case on both sides of the colon."""
+    return isinstance(n,str) and re.fullmatch(_KEBAB+":"+_KEBAB, n) is not None
+def ismotion(v): return isinstance(v,str) and v in _MOTION
+ML = dict(title=60, subtitle=90, heading=60, text=200, message=90, description=200, buttonText=24, label=40, iconLabel=16, badgeText=12, reward=24, amount=24, option=24, note=200, keybind=4, affix=8)
 RAILS = {"left","right","top","bottom","topLeft","topRight","bottomLeft","bottomRight"}
 def isnum(v): return isinstance(v,(int,float)) and not isinstance(v,bool) and math.isfinite(v)
 def isint(v): return isnum(v) and float(v).is_integer()
-def isicon(n): return isinstance(n,str) and (n in icons or (n.endswith("-color") and n[:-6] in icons))
+def isicon(n): return isinstance(n,str) and (n in icons or ispackicon(n) or (n.endswith("-color") and n[:-6] in icons))
 def isaction(v):
     if not isinstance(v,str) or len(v)>200: return False
     c=0
@@ -59,7 +153,7 @@ def isid(v): return isinstance(v,str) and len(v)<=48 and re.match(r"^[A-Za-z_][A
 class C: pass
 def _validate(spec):
     """Returns [{'path', 'message'}]; empty means valid."""
-    c=C(); c.issues=[]; c.ids={}; c.count=0; c.style=None
+    c=C(); c.issues=[]; c.ids={}; c.count=0; c.style=None; c.targets=[]
     add=lambda p,m: c.issues.append((p,m))
     J=lambda p,k: k if p=="" else p+"."+k
     def text(p,v,lim,label):
@@ -128,40 +222,122 @@ def _validate(spec):
         unknown(p,v,{"phone","tablet","desktop","console"},"columns")
         for k in ["phone","tablet","desktop","console"]:
             if k in v: one(J(p,k),v[k],"columns."+k)
+    def image(p,v):
+        if not isinstance(v,str) or not re.match(r"^rbx[A-Za-z]*://.+$",v): add(p,"image must be an asset id such as rbxassetid://123")
+    def motion(p,v):
+        def preset(pp,i):
+            if not ismotion(i): add(pp,f"unknown motion preset {i}")
+        if isinstance(v,str): return preset(p,v)
+        if not isinstance(v,dict): return add(p,"motion must be a preset id or { preset, delay }")
+        unknown(p,v,{"preset","delay"},"motion")
+        if "preset" not in v: add(J(p,"preset"),"preset is required for motion")
+        else: preset(J(p,"preset"),v["preset"])
+        if "delay" in v: num(J(p,"delay"),v["delay"],"delay",0,5)
+    def objects(p,v,label,limit,fields,each):
+        if not isinstance(v,list) or not v: return add(p,label+" must be a non-empty list")
+        if len(v)>limit: return add(p,f"{label} has more than {limit} entries")
+        for i,e in enumerate(v,1):
+            here=f"{p}[{i}]"
+            if not isinstance(e,dict): add(here,label+" entries must be objects")
+            else:
+                unknown(here,e,fields,label); each(here,e)
+    def tabs(p,v):
+        seen=set()
+        def each(here,tab):
+            if "id" not in tab: add(J(here,"id"),"id is required for tabs")
+            elif not isid(tab["id"]): add(J(here,"id"),"id must be an identifier (letters, digits, _ or -)")
+            elif tab["id"] in seen: add(J(here,"id"),"duplicate tab id "+tab["id"])
+            else: seen.add(tab["id"])
+            if "text" not in tab and "icon" not in tab: add(here,"tabs needs text or icon")
+            if "text" in tab: text(J(here,"text"),tab["text"],"buttonText","text")
+            if "icon" in tab: icon(J(here,"icon"),tab["icon"])
+        objects(p,v,"tabs",8,{"id","text","icon"},each)
+    def modal_buttons(p,v):
+        def each(here,b):
+            if "id" not in b: add(J(here,"id"),"id is required for buttons")
+            elif not isid(b["id"]): add(J(here,"id"),"id must be an identifier (letters, digits, _ or -)")
+            if "text" not in b: add(J(here,"text"),"text is required for buttons")
+            else: text(J(here,"text"),b["text"],"buttonText","text")
+            if "kind" in b: skey(J(here,"kind"),b["kind"],"buttons","button kind")
+        objects(p,v,"buttons",3,{"id","text","kind"},each)
+    def chips(p,v,label):
+        def each(here,ch):
+            if "text" not in ch: add(J(here,"text"),"text is required for "+label)
+            else: text(J(here,"text"),ch["text"],"option","text")
+            if "icon" in ch: icon(J(here,"icon"),ch["icon"])
+            if "image" in ch: image(J(here,"image"),ch["image"])
+        objects(p,v,label,3,{"text","icon","image"},each)
+    def rewards(p,v):
+        def each(here,r):
+            if "icon" not in r and "image" not in r: add(here,"rewards needs icon or image")
+            if "icon" in r: icon(J(here,"icon"),r["icon"])
+            if "image" in r: image(J(here,"image"),r["image"])
+            if "amount" in r: text(J(here,"amount"),r["amount"],"amount","amount")
+            if "rarity" in r: skey(J(here,"rarity"),r["rarity"],"rarity","rarity")
+        objects(p,v,"rewards",12,{"icon","image","amount","rarity"},each)
     def lst(p,l,depth,label,allow_empty):
         if not isinstance(l,list): return add(p,label+" must be a list of elements")
         if not l and not allow_empty: return add(p,label+" must not be empty")
         for i,e in enumerate(l,1): element(f"{p}[{i}]",e,depth)
     def field(kind,k,p,v,depth):
         if k in ("type","id"): return
-        if k=="visible": boolean(p,v,k)
+        if k in BOOLS: boolean(p,v,k)
         elif k=="note": text(p,v,"note",k)
+        elif k=="motion": motion(p,v)
+        elif k=="description": text(p,v,"subtitle","description")
+        elif k=="claimText": text(p,v,"buttonText","claimText")
+        elif k=="keybind": text(p,v,"keybind","keybind")
+        elif k in ("prefix","suffix"): text(p,v,"affix",k)
+        elif k=="headerPalette": palette(p,v)
+        elif k=="avatar": image(p,v)
+        elif k=="tabs": tabs(p,v)
+        elif k=="buttons": modal_buttons(p,v)
+        elif k=="stats": chips(p,v,"stats")
+        elif k=="rewards":
+            if kind=="rewardPanel": rewards(p,v)
+            else: chips(p,v,"rewards")
+        elif k=="target":
+            if not isid(v): add(p,"target must be the id of another element")
+            else: c.targets.append((p,v))
+        elif k=="side": enum(p,v,{"top","bottom","left","right"},"side")
+        elif k=="count": integer(p,v,k,0)
+        elif k in ("tier","maxTier"): integer(p,v,k,0,5)
+        elif k in ("duration","cooldown"): num(p,v,k,0)
+        elif k=="tips":
+            if not isinstance(v,list) or not v: add(p,"tips must be a non-empty list of strings")
+            elif len(v)>20: add(p,"tips has more than 20 entries")
+            else:
+                for i,o in enumerate(v,1): text(f"{p}[{i}]",o,"text","tip")
         elif k=="title": text(p,v,"title","title")
         elif k=="subtitle": text(p,v,"subtitle","subtitle")
-        elif k=="text": text(p,v,{"heading":"heading","text":"text","button":"buttonText"}.get(kind,"text"),"text")
+        elif k=="text": text(p,v,{"heading":"heading","text":"text","button":"buttonText","premiumButton":"buttonText","rarityBadge":"badgeText","notification":"subtitle"}.get(kind,"text"),"text")
         elif k=="label": text(p,v,"iconLabel" if kind=="iconButton" else "label","label")
         elif k=="reward": text(p,v,"reward","reward")
         elif k=="palette": palette(p,v)
         elif k=="price": price(p,v)
         elif k=="icon": icon(p,v)
-        elif k=="image":
-            if not isinstance(v,str) or not re.match(r"^rbx[A-Za-z]*://.+$",v): add(p,"image must be an asset id such as rbxassetid://123")
+        elif k=="image": image(p,v)
         elif k=="badge": badge(p,v)
         elif k in ("timer","seconds"): num(p,v,k,0)
-        elif k in ("gift","owned","premium","plus"): boolean(p,v,k)
         elif k=="rarity": skey(p,v,"rarity","rarity")
         elif k=="layout": enum(p,v,{"tall","wide"},"layout")
         elif k=="align": enum(p,v,{"left","center","right"},"align")
         elif k=="shape": enum(p,v,{"square","circle"},"shape")
-        elif k=="state": enum(p,v,{"claimed","today","locked"},"dayCard state")
+        elif k=="state":
+            if kind=="questCard": enum(p,v,{"active","claimable","claimed"},"questCard state")
+            else: enum(p,v,{"claimed","today","locked"},"dayCard state")
         elif k=="items": lst(p,v,depth+1,"items",False)
-        elif k=="columns": columns(p,v)
+        elif k=="columns":
+            if kind=="rewardPanel": integer(p,v,k,1,6)
+            else: columns(p,v)
         elif k=="cellAspect": num(p,v,k,0.25,4)
         elif k=="gap": skey(p,v,"spacing","gap")
         elif k=="size": enum(p,v,{"display","title","heading","label","caption","price"},"text size")
         elif k=="color":
             if not isinstance(v,str) or not re.match(r"^#[0-9A-Fa-f]{6}$",v): add(p,"color must be #RRGGBB")
-        elif k=="kind": skey(p,v,"buttons","button kind")
+        elif k=="kind":
+            if kind=="notification": enum(p,v,{"info","success","warning","error"},"notification kind")
+            else: skey(p,v,"buttons","button kind")
         elif k=="action":
             if not isaction(v): add(p,f"invalid action {v}")
         elif k=="bind":
@@ -185,7 +361,12 @@ def _validate(spec):
             elif kind=="listRow":
                 if isinstance(v,str): text(p,v,"label","value")
                 elif not isnum(v): add(p,"value must be a string or a number")
-            elif kind=="slider": num(p,v,k)
+            elif kind=="statChip":
+                if isinstance(v,str): text(p,v,"option","value")
+                elif not isnum(v): add(p,"value must be a string or a number")
+            elif kind=="tabBar":
+                if not isid(v): add(p,"value must be a tab id")
+            elif kind in ("slider","leaderboardRow"): num(p,v,k)
             else: num(p,v,k,0)
         elif k=="options":
             if not isinstance(v,list) or not v: add(p,"options must be a non-empty list of strings")
@@ -195,7 +376,8 @@ def _validate(spec):
         elif k=="day": integer(p,v,k,1,31)
         elif k=="rank": integer(p,v,k,1)
         elif k=="progress":
-            if not isinstance(v,dict): add(p,"progress must be an object { value, max, bind, palette }")
+            if kind=="loadingScreen": num(p,v,k,0,1)
+            elif not isinstance(v,dict): add(p,"progress must be an object { value, max, bind, palette }")
             else:
                 unknown(p,v,{"value","max","bind","palette"},"progress")
                 if "value" in v: num(J(p,"value"),v["value"],"value",0)
@@ -217,8 +399,14 @@ def _validate(spec):
             o=e.get("options")
             if o is None: add(J(p,"options"),"options is required for dropdown")
             elif isinstance(e.get("value"),str) and isinstance(o,list) and e["value"] not in o: add(J(p,"value"),"value must be one of the options")
-        elif kind in ("level","progress"):
+        elif kind in ("level","progress","xpBar"):
             if isnum(e.get("value")) and isnum(e.get("max")) and e["value"]>e["max"]: add(J(p,"value"),"value must not exceed max")
+        elif kind=="tabBar":
+            tb,v=e.get("tabs"),e.get("value")
+            if isinstance(v,str) and isinstance(tb,list) and not any(isinstance(x,dict) and x.get("id")==v for x in tb): add(J(p,"value"),"value must be one of the tab ids")
+        elif kind=="achievementCard":
+            limit=e["maxTier"] if isint(e.get("maxTier")) else 3
+            if isint(e.get("tier")) and e["tier"]>limit: add(J(p,"tier"),"tier must not exceed maxTier")
         un={"toggle":["min","max","step","options"],"slider":["options"],"dropdown":["min","max","step"]}
         for f in un.get(kind,[]):
             if f in e: add(J(p,f),f"{f} is not used by {kind}")
@@ -230,7 +418,7 @@ def _validate(spec):
         if k is None: return add(J(p,"type"),"type is required")
         if k not in T: return add(J(p,"type"),f"unknown element type {k}")
         req,opt,anyof,_=T[k]
-        allowed={"type","id","visible","note",*req,*opt}
+        allowed={"type","id","visible","note","motion",*req,*opt}
         unknown(p,e,allowed,k)
         for f in req:
             if f not in e: add(J(p,f),f"{f} is required for {k}")
@@ -295,6 +483,8 @@ def _validate(spec):
         owned={"window":["window","body"],"hud":["rails"],"popup":["popup","body"]}[kind]
         for f in ("window","body","rails","popup"):
             if f in spec and f not in owned: add(f,f"{f} is not used by {kind} screens")
+    for tp,tid in c.targets:
+        if tid not in c.ids: add(tp,"no element has the id "+tid)
     if c.count>200: add("",f"screen has {c.count} elements; the limit is 200")
     return c.issues
 

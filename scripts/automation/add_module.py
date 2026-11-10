@@ -105,7 +105,11 @@ def tests_for(files):
     wanted = set(files)
     out = []
     for spec in sorted(LIB_TESTS.glob("*.spec.luau")):
-        libs = [resolve(spec, req) for req in REQUIRE.findall(spec.read_text(encoding="utf-8")) if req.startswith("../src/")]
+        reqs = REQUIRE.findall(spec.read_text(encoding="utf-8"))
+        # Specs that also need library files outside src/ (examples) cannot run in a project.
+        if any(req.startswith("../") and not req.startswith("../src/") for req in reqs):
+            continue
+        libs = [resolve(spec, req) for req in reqs if req.startswith("../src/")]
         if libs and all(path in wanted for path in libs):
             out.append(spec)
     return out

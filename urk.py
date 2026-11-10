@@ -25,6 +25,7 @@
   python3 urk.py skills list | search <words> | eval         # skills and routing accuracy
   python3 urk.py memory add decision "Coins never drop on death" --project ~/games/MyGame
   python3 urk.py release check --project ~/games/MyGame      # release gate; never publishes
+  python3 urk.py visuals textures | assetmap status | preview | icons status   # UltimateVisualsKit tooling
 
 Every subcommand wraps a script you can also run directly; `urk.py <cmd> --help` shows its options.
 Profiles pick skill categories: full, code, assets, ui, design.
@@ -120,9 +121,11 @@ def icons(args):
     sys.path.insert(0, str(ROOT))
     catalog = json.loads((ROOT / "assets/icons/urk/icons.json").read_text())
     if not args or args[0] in ("-h", "--help"):
-        print("urk.py icons list [category] | search <query> | build | import <dir> --pack ... (see tools/icons)")
+        print("urk.py icons list [category] | search <query> | build | import <dir> --pack ... | vault <status|import|verify|registry|...> (see tools/icons)")
         return 0
     cmd, rest = args[0], args[1:]
+    if cmd == "vault":  # private / paid packs: byte-for-byte import, verify, registry (tools/icons/vault.py)
+        return subprocess.run([PY, str(ROOT / "tools/icons/vault.py"), *rest]).returncode
     if cmd == "list":
         for i in catalog["icons"]:
             if not rest or i["category"] == rest[0]:
@@ -167,6 +170,15 @@ def main(argv=None):
         return run("install", ["--target", project, "--uninstall", *(["--dry-run"] if "--dry-run" in rest else [])], check=False)
     elif cmd == "icons":
         return icons(rest)
+    elif cmd == "visuals":
+        tools = {"textures": "tools/vfx/textures.py", "assetmap": "tools/vfx/assetmap.py", "preview": "tools/vfx/preview.py",
+                 "icons": "tools/icons/vault.py"}
+        if not rest or rest[0] not in tools:
+            print("urk.py visuals textures [--check] | assetmap <template|apply|status|luau> | preview | icons <vault args>\n"
+                  "UltimateVisualsKit tooling: procedural VFX textures, Roblox asset-id maps, and the private icon vault.\n"
+                  "Library: library/src/Visuals (add to a project with `urk.py add Visuals --project <dir>`); docs/architecture/visuals.md")
+            return 0 if not rest or rest[0] in ("-h", "--help") else 2
+        return subprocess.run([PY, str(ROOT / tools[rest[0]]), *rest[1:]]).returncode
     elif cmd == "ui":
         return subprocess.run([PY, str(ROOT / "tools/ui/ui_cli.py"), *rest]).returncode
     elif cmd == "dashboard":

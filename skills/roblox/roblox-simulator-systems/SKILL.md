@@ -15,6 +15,8 @@ metadata:
 
 Simulator features are where exploits and dupes happen. The kit's versions are pure, tested Luau with thin server adapters; use them and spend your time on what makes the game different.
 
+These systems own the rules. Their presentation (pet idle and followers, the hatch cinematic, rarity reveals, collection feedback) is UltimateVisualsKit: see `uvk-pet-visuals`, `uvk-egg-hatching`, `uvk-reward-reveals` and `uvk-gameplay-feedback`, and call them only after the server has decided the result.
+
 ## Add them
 
 ```bash

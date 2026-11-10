@@ -1,5 +1,5 @@
 {
- "about": "Routing evaluation. `cases` were used while tuning triggers (in-sample); `heldout` were written afterwards and are never tuned against, so their score is the honest one. Run `python3 urk.py skills eval`. `heldout2` was written after the description fallback was added and was never used to change anything.",
+ "about": "Routing evaluation. `cases` were used while tuning triggers (in-sample); `heldout` were written afterwards and are never tuned against, so their score is the honest one. Run `python3 urk.py skills eval`. `heldout2` was written after the description fallback was added and was never used to change anything. The ten UltimateVisualsKit cases at the end of `cases` (0.5.0) are tuned cases too: the uvk-* triggers and the three visual workflows were written with them in view. Neither held-out set was changed or tuned against for 0.5.0.",
  "cases": [
   {
    "task": "Create 20 supermarket products with packaging",
@@ -192,6 +192,70 @@
    "task": "Screenshot my UI and compare it with the reference, then improve it",
    "expect": [
     "roblox-ui-testing"
+   ]
+  },
+  {
+   "task": "Make a pet selection screen with polished animations.",
+   "expect": [
+    "uvk-pet-visuals",
+    "uvk-ui-animation"
+   ]
+  },
+  {
+   "task": "Create a legendary egg hatching animation.",
+   "expect": [
+    "uvk-egg-hatching"
+   ]
+  },
+  {
+   "task": "Add satisfying coin collection effects.",
+   "expect": [
+    "uvk-gameplay-feedback",
+    "uvk-vfx-presets"
+   ]
+  },
+  {
+   "task": "Make the shop UI feel like a premium simulator.",
+   "expect": [
+    "uvk-ui-animation",
+    "uvk-simulator-screens"
+   ]
+  },
+  {
+   "task": "Create a Blox Fruits-style level of visual impact using original effects.",
+   "expect": [
+    "uvk-combat-visuals",
+    "uvk-vfx-presets"
+   ]
+  },
+  {
+   "task": "Add camera shake when the player lands a heavy hit.",
+   "expect": [
+    "uvk-camera-effects"
+   ]
+  },
+  {
+   "task": "Show a reward reveal when a chest opens.",
+   "expect": [
+    "uvk-reward-reveals"
+   ]
+  },
+  {
+   "task": "Add tapping feedback with floating numbers to my clicker.",
+   "expect": [
+    "uvk-gameplay-feedback"
+   ]
+  },
+  {
+   "task": "The particle effects lag on low-end phones.",
+   "expect": [
+    "uvk-visual-performance"
+   ]
+  },
+  {
+   "task": "Import my paid icon pack and use the icons in the HUD.",
+   "expect": [
+    "uvk-icon-pack"
    ]
   }
  ],

@@ -1,0 +1,21 @@
+{
+  "spec": 1,
+  "id": "Bad",
+  "kind": "window",
+  "style": "cartoon",
+  "window": {
+    "title": "BAD"
+  },
+  "body": [
+    {
+      "type": "questCard",
+      "title": "QUEST",
+      "state": "today"
+    },
+    {
+      "type": "achievementCard",
+      "title": "A",
+      "tier": 4
+    }
+  ]
+}
