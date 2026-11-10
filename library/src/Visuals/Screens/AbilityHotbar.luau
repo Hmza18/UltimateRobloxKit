@@ -16,7 +16,7 @@ local ScreensLogic = require("./ScreensLogic")
 local Game = ScreenKit.Game
 local UI = ScreenKit.UI
 
-return function(shell: ScreenKit.Shell, props: { [string]: any })
+return function(shell: ScreenKit.Shell, _props: { [string]: any })
 	local row = ScreenKit.scroller(shell.root, "Hotbar", 6, true)
 	row.ScrollBarThickness = 0
 	local slots: { [string]: any } = {}
@@ -70,7 +70,7 @@ return function(shell: ScreenKit.Shell, props: { [string]: any })
 				shell:fire("Ready", id)
 			end)
 			if typeof(entry.keyCode) == "EnumItem" then
-				keys[entry.keyCode] = id
+				keys[entry.keyCode :: Enum.KeyCode] = id
 			end
 			if type(entry.remaining) == "number" and entry.remaining > 0 then
 				slot:setCooldown(entry.remaining, entry.duration)

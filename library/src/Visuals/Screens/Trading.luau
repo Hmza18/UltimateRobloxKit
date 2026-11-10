@@ -137,7 +137,7 @@ return function(shell: ScreenKit.Shell, props: { [string]: any })
 			end
 			if remaining() <= 0 then
 				stopTick = nil
-				UI.animate(confirm.Instance, "Pulse", { repeatCount = 2 })
+				UI.animate(confirm.Instance, "Bounce")
 				return false
 			end
 			return nil

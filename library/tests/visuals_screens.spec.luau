@@ -456,6 +456,31 @@ return {
 		t.falsy(ScreensLogic.tapLayout(envs()[1], 2, 3).countersVertical)
 	end,
 
+	["the ability hotbar fits the bottom region with touch-sized slots"] = function()
+		for _, env in ipairs(envs()) do
+			local hud = ScreensLogic.hud(env)
+			for _, count in ipairs({ 1, 4, 6, 10 }) do
+				local layout = ScreensLogic.hotbarLayout(env, count)
+				local what = label(env, string.format("%d slots", count))
+				t.truthy(layout.slot >= MIN and layout.slot <= 64, what .. ": slot size")
+				t.truthy(
+					ScreensLogic.contains(hud.regions.bottom, layout.row),
+					what .. ": row inside the bottom region"
+				)
+				t.falsy(ScreensLogic.intersects(layout.row, hud.clear), what .. ": clear of the centre")
+				for corner, reserved in pairs(hud.reserved) do
+					t.falsy(ScreensLogic.intersects(layout.row, reserved), what .. ": avoids " .. corner)
+				end
+				local needed = count * layout.slot + (count - 1) * layout.gap
+				t.equal(layout.scroll, needed > hud.regions.bottom.w, what .. ": scrolls instead of overflowing")
+				if not layout.scroll then
+					t.equal(layout.row.w, needed)
+				end
+			end
+		end
+		t.falsy(ScreensLogic.hotbarLayout(envs()[1], 6).scroll, "six slots fit on a desktop")
+	end,
+
 	-- Animation and focus ----------------------------------------------------------------------
 
 	["every screen kind opens and closes with a registered Visuals UI preset"] = function()

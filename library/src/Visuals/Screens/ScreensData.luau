@@ -587,8 +587,8 @@ local SOURCES: { Source } = {
 		implemented = true,
 		description = "Two offer panels with ready states and a countdown confirm (presentation only).",
 		props = {
-			"mine: list* | Your offer { id, icon?, image?, count?, rarity? } (may be empty)",
-			"theirs: list* | Their offer, same shape (may be empty)",
+			"mine: list | Your offer { id, icon?, image?, count?, rarity? }",
+			"theirs: list | Their offer, same shape",
 			"partner: table | { name }: shown above their offer",
 			"myReady: boolean = false | Your ready flag, as the server reports it",
 			"theirReady: boolean = false | Their ready flag",
