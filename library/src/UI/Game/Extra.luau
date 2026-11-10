@@ -28,6 +28,7 @@ export type WireOptions = {
 	color: any?, -- glow / ripple colour
 	onPress: ((object: any) -> ())?, -- runs first on activation
 	onActivated: ((object: any) -> ())?, -- runs when no `action` prop is set
+	gate: ((object: any) -> boolean)?, -- return false to refuse the activation (locked slots)
 	selected: boolean?,
 }
 
@@ -154,8 +155,11 @@ function Extra.activate(object: any, options: WireOptions?)
 	if object.destroyed or object.props.enabled == false then
 		return
 	end
-	Sounds.play(sounds().click)
 	local opts: WireOptions = options or {}
+	if opts.gate and not opts.gate(object) then
+		return
+	end
+	Sounds.play(sounds().click)
 	Base.activate(object, { onPress = opts.onPress, onActivated = opts.onActivated } :: any)
 end
 

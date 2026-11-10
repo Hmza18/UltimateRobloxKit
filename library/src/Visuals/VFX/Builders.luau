@@ -177,7 +177,8 @@ function Builders.origin(at: any, parent: Instance?): Origin?
 	local holder = holders:acquire()
 	holder.CFrame = cframe
 	holder.Parent = parent or folder()
-	return { part = holder, base = CFrame.identity, adornee = nil, moving = nil, pooled = true }
+	local origin: Origin = { part = holder, base = CFrame.identity, adornee = nil, moving = nil, pooled = true }
+	return origin
 end
 
 -- Sequences ---------------------------------------------------------------------------------------
