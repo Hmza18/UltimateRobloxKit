@@ -17,6 +17,7 @@ This folder implements sections 2 and 3 of
 - [Shared shape and props](#shared-shape-and-props)
 - [Visual anatomy](#visual-anatomy)
 - [Component reference](#component-reference)
+- [Animated components](#animated-components)
 - [Prices and purchases](#prices-and-purchases)
 - [Motion presets](#motion-presets)
 - [Theming](#theming)
@@ -304,6 +305,401 @@ function (ProductCard uses it).
 It opens on creation with the `reveal` preset unless `visible = false`; clicking closes it early.
 `popup:open()`, `popup:close()`, `popup.Closed`.
 
+## Animated components
+
+These seventeen components follow the same contract as the ones above (`Component.new(props)`,
+`.Instance`, `:update(partial)`, `:destroy()`, `Activated` on interactive ones, style tokens,
+`enabled`, gamepad selection) and take their motion from `Visuals/UI`
+([Visuals/UI/README.md](../../Visuals/UI/README.md)) instead of `Core/MotionPresets`, so they
+move with the same presets as `Visuals.UI.animate`. Interactive roots are wired by
+`Game/Extra.wire`: the kit's selection outline, hover and click sounds, `Activated`, and a
+`Visuals.UI.bind` button style for hover, press, release and selected. Their animation follows
+the visuals kit's settings (`Visuals.Configure({ reducedMotion, reducedFlashing, intensity, quality })`),
+not `UrkUI.setReducedMotion`.
+
+| Component | Root | Interactive | Motion used |
+|---|---|---|---|
+| PremiumButton | TextButton | yes | `Premium` style, looping shine, `Glow` |
+| TabBar | Frame | tabs are buttons | `IndicatorSlide`, `TextBounce`, `Snappy` style |
+| Modal | Frame | buttons, backdrop | `ModalIn` / `ModalOut`, `BackdropIn` / `BackdropOut` |
+| Tooltip | CanvasGroup | no | `PopIn`, `FadeOut` |
+| XPBar | Frame | no | fill tween, `Highlight`, `UpgradePulse` |
+| InventorySlot | TextButton | yes | `Snappy` style, `Selected`, `Error` (locked) |
+| PetCard | TextButton | yes | `Soft` style, `Selected` |
+| RarityBadge | Frame | no | looping shine, rainbow outline |
+| RewardPanel | Frame | claim button | staggered `BadgePop`, `PopIn` |
+| QuestCard | Frame | claim button | `Pulse`, `UpgradePulse` |
+| AchievementCard | Frame | no | `UpgradePulse`, staggered `BadgePop` |
+| Notification | CanvasGroup | click to dismiss | `ToastIn` / `ToastOut`, timer bar tween |
+| LeaderboardRow | Frame | no | `countTo` |
+| LoadingScreen | CanvasGroup | no | `Pulse`, `FadeOut` / `FadeIn` tips, `FadeOut` |
+| SelectionCard | TextButton | yes | `Soft` style, `Selected`, `BadgePop` / `ScaleOut` tick |
+| HotbarSlot | TextButton | yes | `Snappy` style, `UpgradePulse` when ready |
+| StatChip | Frame | no | `countTo`, `TextBounce`, `BouncyPress` |
+
+ShopCard is covered by ProductCard.
+
+### PremiumButton
+
+| Prop | Default | Meaning |
+|---|---|---|
+| `text` | | Label |
+| `icon` / `image` | | Icon on the left |
+| `palette` | `gold` | Colour |
+| `enabled` | true | false greys it, stops shine and glow, ignores input |
+| `shine` | true | Looping shine sweep |
+| `shineInterval` | 2.6 | Seconds between sweeps |
+| `glow` | true | Breathing outline glow |
+| `radius` | `lg` | Radius token |
+
+```lua
+local claim = Game.PremiumButton.new({ text = "CLAIM REWARD", icon = "gift-color", parent = panel })
+claim.Activated:Connect(function() Net.fire("Claim") end)
+```
+
+Default size 220 x 64.
+
+### TabBar
+
+| Prop | Default | Meaning |
+|---|---|---|
+| `tabs` | | List of `{ id, text?, icon?, image? }` or plain strings |
+| `value` | first tab | Active tab id; `update({ value })` moves the indicator without a rebuild |
+| `palette` | `blue` | Indicator colour |
+| `enabled` | true | |
+| `onChanged` | | `function(id)` |
+
+`tabs.Changed` (Signal, id) and `Activated` fire when the player picks another tab.
+`tabs:select(id, silent?)`, `tabs:value()`. Pure helpers: `TabBar.normalize(tabs)`,
+`TabBar.indexOf(tabs, id)`.
+
+```lua
+local tabs = Game.TabBar.new({ tabs = { { id = "pets", text = "PETS" }, { id = "eggs", text = "EGGS" } }, parent = shop.Content })
+tabs.Changed:Connect(function(id) showPage(id) end)
+```
+
+Default size full width x 52.
+
+### Modal
+
+| Prop | Default | Meaning |
+|---|---|---|
+| `title` | | Header title |
+| `text` | | Body text (wrapped) |
+| `buttons` | | List of `{ id, text?, kind?, icon?, keepOpen? }`; `kind` is a CartoonButton kind |
+| `headerPalette` | `blue` | Header colour |
+| `width`, `height` | 440, 280 | Window size at 1x |
+| `closable` | true | X button, Escape and gamepad B close it |
+| `closeOnBackdrop` | true | A click on the dim layer closes it |
+| `dim` | 0.45 | Backdrop transparency |
+
+`modal:open()`, `modal:close()`, `modal:isOpen()`; Signals `Opened`, `Closed`; `Activated` fires
+with the pressed button's id (the modal then closes unless `keepOpen`). Starts hidden unless
+`visible = true`. A PlayerGui parent gets a ScreenGui of its own (DisplayOrder 40). Custom
+children go in `modal.Content`. With a gamepad, opening selects the first button.
+
+```lua
+local confirm = Game.Modal.new({ title = "REBIRTH?", text = "You keep your pets and lose your coins.",
+	buttons = { { id = "yes", text = "REBIRTH", kind = "buy" }, { id = "no", text = "CANCEL", kind = "neutral" } },
+	parent = playerGui })
+confirm.Activated:Connect(function(id) if id == "yes" then Net.fire("Rebirth") end end)
+confirm:open()
+```
+
+### Tooltip
+
+| Prop | Default | Meaning |
+|---|---|---|
+| `text` | | Tooltip text (nothing shows when empty) |
+| `target` | | GuiObject it describes |
+| `side` | `top` | `top`, `bottom`, `left`, `right` |
+| `delay` | 0.4 | Seconds of hover or selection before it shows |
+| `maxWidth` | 240 | Pixels at 1x before the text wraps |
+| `gap` | 8 | Pixels between target and bubble |
+| `parent` | target's ScreenGui | Where the bubble lives |
+
+Shows on MouseEnter and SelectionGained, hides on leave; follows the target every frame while
+shown and stays on screen. `tooltip:show()`, `tooltip:hide()`. Pure helpers:
+`Tooltip.measure(text, textSize, maxWidth)`, `Tooltip.place(side, targetPosition, targetSize, size, gap)`.
+
+```lua
+Game.Tooltip.new({ target = boost.Instance, text = "Doubles coins for 10 minutes", side = "bottom" })
+```
+
+### XPBar
+
+| Prop | Default | Meaning |
+|---|---|---|
+| `level` | 1 | Number in the badge |
+| `value`, `max` | 0, 1 | Fill and `40/100` text |
+| `palette` | `blue` | Fill colour |
+| `badgePalette` | `gold` | Level badge colour |
+| `showText` | true | `value/max` over the bar |
+| `maxForLevel` | | `function(level) -> number`: bar size per level |
+
+`bar:gain(amount)` plays the gain and handles overflow: fill to the end, badge pulse,
+`bar.LevelUp:Fire(level)`, reset, continue, across as many levels as the gain covers
+(`UILogic.xpPlan`). `update({ value, max, level })` sets the state directly with a tween.
+
+```lua
+local xp = Game.XPBar.new({ level = 3, value = 40, max = 100, parent = hud })
+xp:gain(250)
+```
+
+Default size 320 x 44.
+
+### InventorySlot
+
+| Prop | Default | Meaning |
+|---|---|---|
+| `icon` / `image` | | Item icon; none draws an empty slot |
+| `count` | | Stack count, shown as `x12` above 1 |
+| `rarity` | | Outline in the rarity colour (`secret` cycles a rainbow) |
+| `selected` | false | Raised with a glowing outline; `update({ selected })` animates without a rebuild |
+| `equipped` | false | Green tick in the corner |
+| `locked` | false | Dimmed with a padlock; a press shakes and does not fire Activated |
+| `enabled` | true | |
+
+```lua
+local slot = Game.InventorySlot.new({ name = "sword_3", icon = "sword-color", count = 12, rarity = "rare" })
+slot.Activated:Connect(function(id) select(id) end)
+```
+
+Default size 72 x 72. `InventorySlot.countText(count)` is the stack text rule.
+
+### PetCard
+
+| Prop | Default | Meaning |
+|---|---|---|
+| `title` | | Pet name |
+| `rarity` | | Outline colour and a RarityBadge |
+| `icon` / `image` | | Portrait; or parent an ImageLabel / ViewportFrame to `card.Content` |
+| `stats` | | Up to three `{ icon?, image?, text }` chips |
+| `palette` | `blue` | Card colour |
+| `selected` | false | Glowing outline, raised; animates without a rebuild |
+| `equipped` | false | Green tick |
+| `enabled` | true | |
+
+```lua
+local card = Game.PetCard.new({ name = "pet_42", title = "Ember Fox", rarity = "epic", image = "rbxassetid://1",
+	stats = { { icon = "coin-color", text = "x2.5" } }, equipped = true })
+```
+
+Default size 156 x 208.
+
+### RarityBadge
+
+| Prop | Default | Meaning |
+|---|---|---|
+| `rarity` | `common` | Colour from the style's rarity table |
+| `text` | rarity in capitals | Badge text |
+| `shimmer` | true for legendary, mythic, secret | Looping shine (every 3.2, 2.4, 1.8 s) |
+
+```lua
+Game.RarityBadge.new({ rarity = "legendary", parent = card.Instance })
+```
+
+### RewardPanel
+
+| Prop | Default | Meaning |
+|---|---|---|
+| `title` | | Panel title |
+| `rewards` | | List of `{ icon?, image?, amount?, rarity? }` |
+| `columns` | up to 4 | Tiles per row |
+| `claimText` | `CLAIM` | Button text |
+| `claimed` | false | Button reads `CLAIMED` and is disabled |
+| `revealed` | true | false hides tiles and button until `panel:reveal()` |
+| `palette` | window surface | Panel colour |
+
+`panel:reveal()` pops the tiles in from the centre out, then the claim button. Pressing the
+button fires `panel.Claimed` and `Activated` once and sets `claimed`. The panel grants nothing.
+
+```lua
+local panel = Game.RewardPanel.new({ title = "DAILY REWARDS", revealed = false, parent = gui,
+	rewards = { { icon = "coin-color", amount = "x500" }, { icon = "gift-color", amount = "x1", rarity = "rare" } } })
+panel.Claimed:Connect(function() Net.fire("ClaimDaily") end)
+panel:reveal()
+```
+
+Default size 420 x 300.
+
+### QuestCard
+
+| Prop | Default | Meaning |
+|---|---|---|
+| `title`, `description` | | Texts |
+| `value`, `max` | 0, 1 | Progress bar |
+| `rewards` | | Up to three `{ icon?, image?, text }` chips |
+| `state` | from value / max | `active`, `claimable`, `claimed` |
+| `claimText` | `CLAIM` | Button text |
+| `palette` | `green` | Progress colour |
+
+The button is enabled and breathing only when claimable; pressing it fires `quest.Claimed(name)`
+and `Activated`. Set `state = "claimed"` after the server confirms. Becoming claimable flashes
+the card once.
+
+```lua
+local quest = Game.QuestCard.new({ name = "hatch10", title = "EGG COLLECTOR", description = "Hatch 10 eggs",
+	value = 4, max = 10, rewards = { { icon = "coin-color", text = "500" } } })
+quest:update({ value = 10 })
+```
+
+Default size full width x 104.
+
+### AchievementCard
+
+| Prop | Default | Meaning |
+|---|---|---|
+| `title`, `description` | | Texts |
+| `icon` / `image` | | Shown in a round badge |
+| `tier`, `maxTier` | 0, 3 | Stars earned and shown (up to 5; 0 hides them) |
+| `value`, `max` | | Progress bar (none without `max`) |
+| `unlocked` | `tier > 0` | Locked cards are dimmed |
+| `palette` | `gold` | Badge colour when unlocked |
+
+Updating to `unlocked = true` or a higher `tier` flashes the card with a shine and pops the new
+stars in.
+
+```lua
+local card = Game.AchievementCard.new({ title = "COLLECTOR", description = "Own 50 pets", icon = "trophy", value = 20, max = 50 })
+card:update({ tier = 1, unlocked = true, value = 50 })
+```
+
+Default size full width x 96.
+
+### Notification
+
+| Prop | Default | Meaning |
+|---|---|---|
+| `kind` | `info` | `info`, `success`, `warning`, `error`: accent colour |
+| `title`, `text` | | Texts |
+| `icon` / `image` | `!` | Icon in the accent badge |
+| `palette` | from kind | Accent override |
+| `duration` | 4 | Seconds before it dismisses itself; 0 keeps it |
+| `destroyOnClose` | true | Destroy after closing |
+
+Shows on creation unless `visible = false` (`toast:show()`). `toast:dismiss()`; a click dismisses
+and fires `Activated`. `toast.Closed(name)` fires after the exit. Stacking is the caller's job
+(a UIListLayout, or positions from `Core/ToastQueue`).
+
+```lua
+Game.Notification.new({ kind = "success", title = "QUEST COMPLETE", text = "+500 coins", parent = toastStack })
+```
+
+Default size 320 x 84 (includes an 8 px margin the CanvasGroup needs for the outline and shadow).
+
+### LeaderboardRow
+
+| Prop | Default | Meaning |
+|---|---|---|
+| `rank` | | 1-3 get a gold, silver or bronze medal |
+| `title` | | Player name |
+| `value` | 0 | `update({ value })` rolls the number |
+| `format` | `abbrev` | Core/Format spec |
+| `avatar` | | Image id or content string; or parent an image to `row.Content` |
+| `highlight` | false | The local player's row |
+
+```lua
+Game.LeaderboardRow.new({ rank = 1, title = "Builderman", value = 1250000, layoutOrder = 1, parent = list })
+```
+
+Default size full width x 52.
+
+### LoadingScreen
+
+| Prop | Default | Meaning |
+|---|---|---|
+| `title` | | Game title |
+| `logo` / `icon` | | Logo image, or parent your own to `loading.Content` |
+| `tips` | | Strings shown in turn |
+| `tipInterval` | 4 | Seconds per tip |
+| `progress` | 0 | 0..1; `loading:setProgress(ratio)` |
+| `palette` | `green` | Bar colour |
+| `background` | `dark` | Surface used for the backdrop gradient |
+| `destroyOnClose` | true | |
+
+`loading:finish()` fills the bar, fades out, fires `loading.Closed` and destroys. A PlayerGui
+parent gets a ScreenGui (DisplayOrder 100, IgnoreGuiInset).
+
+```lua
+local loading = Game.LoadingScreen.new({ title = "PET WORLD", tips = { "Hatch eggs to find rare pets" }, parent = playerGui })
+loading:setProgress(0.5)
+loading:finish()
+```
+
+### SelectionCard
+
+| Prop | Default | Meaning |
+|---|---|---|
+| `title`, `description` | | Texts |
+| `icon` / `image` | | Preview; or parent your own to `card.Content` |
+| `palette` | `blue` | Card colour |
+| `selected` | false | Tick, glow and raised pose; animates without a rebuild |
+| `enabled` | true | |
+
+The card does not select itself: the screen listens to `Activated` and calls
+`update({ selected })`, which makes single and multi select the screen's choice.
+
+```lua
+local card = Game.SelectionCard.new({ name = "ranger", title = "RANGER", description = "Fast and fragile", icon = "bolt" })
+card.Activated:Connect(function(id) pick(id) end)
+```
+
+Default size 220 x 280.
+
+### HotbarSlot
+
+| Prop | Default | Meaning |
+|---|---|---|
+| `icon` / `image` | | Ability icon |
+| `keybind` | | Short label (`Q`, `1`, `RT`) |
+| `palette` | dark surface | Slot colour |
+| `enabled` | true | |
+| `readyPulse` | true | Flash and bounce when the cooldown ends |
+
+`slot:startCooldown(seconds)` counts down on the shared clock; `slot:setCooldown(remaining, duration?)`
+shows a time value you drive; `slot:clearCooldown()`; `slot:isReady()`; `slot.Ready(name)` fires
+when a cooldown ends. `Activated` fires during a cooldown too. The sweep is vertical; a radial
+sweep is not implemented.
+
+```lua
+local dash = Game.HotbarSlot.new({ name = "dash", icon = "bolt", keybind = "Q", parent = hotbar })
+dash.Activated:Connect(function() if dash:isReady() then Net.fire("Dash") end end)
+dash:startCooldown(8)
+```
+
+Default size 64 x 64.
+
+### StatChip
+
+| Prop | Default | Meaning |
+|---|---|---|
+| `icon` / `image` | | Icon on the left |
+| `value` | | Number (formatted, rolls on change) or string |
+| `format` | `abbrev` | Core/Format spec for numbers |
+| `prefix`, `suffix` | | Around the value |
+| `palette` | dark surface | Chip colour |
+
+```lua
+local luck = Game.StatChip.new({ icon = "star-color", value = 120, suffix = "%" })
+luck:update({ value = 135 })
+```
+
+Default size 120 x 36.
+
+### Notes for the animated components
+
+- **Not verified in Studio.** These files pass StyLua, Selene and `luau-lsp` only. Layout
+  fractions, text fitting and every animation NEED MANUAL REVIEW in Studio.
+- Sizes are 1x pixels. Several layouts read the root's offset height at build time, so give
+  these components offset-based sizes (the defaults are) rather than scale-based heights.
+- Fades need a CanvasGroup. Tooltip, Notification and LoadingScreen are CanvasGroups; Modal's
+  window and the cards are frames, so their entrances show scale and travel without a fade.
+- Motion inside UIListLayout / UIGridLayout is scale only (layouts own Position).
+- The selected glow is an outline frame (`UvkGlow`) around the root; it is white unless a
+  colour is passed to the binding.
+- Interactive touch targets default to 44 px or more; do not size them below that.
+
 ## Prices and purchases
 
 `Price` is `{ kind = "robux" | "currency" | "free", amount?, currency? (icon name), productId?, gamePassId? }`.
@@ -411,6 +807,7 @@ UIScale) scales them.
 |---|---|
 | `Core/MotionPresets.luau`, `Core/TextFit.luau`, `Style/Style.luau` | Lune specs `tests/ui_motionpresets`, `ui_textfit`, `ui_gamestyle`; `luau-analyze --mode=strict` in CI |
 | `Game/*`, `Runtime/Motion.play` | Selene and StyLua in CI only. **Needs a Studio playtest** |
+| Animated components (PremiumButton ... StatChip), `Game/Extra.luau` | Selene, StyLua and `luau-lsp` only; their pure maths lives in `Visuals/UI/UILogic` (spec `tests/visuals_ui`). **Needs a Studio playtest** |
 
 Check in Studio (NEEDS MANUAL REVIEW until done):
 
