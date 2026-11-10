@@ -335,4 +335,5 @@ From `catalog/visuals.json` at the time of writing; the generated [visuals-prese
 | Feedback events | 24 | 20 in the Simulator pack; Combat adds 4; Minimal and Combat override some |
 | Audio cues | 29 | names only; no sounds are bundled |
 | Themes | 10 | |
+| Screens | 12 | `Visuals.Screens` templates; ids and props in `catalog/visuals.json` (kind `screen`). Not documented function by function here; see `library/src/Visuals/Screens/` |
 | UI/Game components | 37 | 19 from 0.3.0, 17 animated components added in 0.5.0, and PurchaseBridge |

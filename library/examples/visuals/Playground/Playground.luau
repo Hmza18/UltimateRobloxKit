@@ -1073,7 +1073,8 @@ function Playground.start(parent: Instance): () -> ()
 				dscope.add(area)
 			end
 			local props = table.clone(sample.props)
-			for key, value in sample.layout or {} do
+			local layout: { [string]: any } = sample.layout or {}
+			for key, value in layout do
 				props[key] = value
 			end
 			props.parent = if sample.host == "screen" then gui else area

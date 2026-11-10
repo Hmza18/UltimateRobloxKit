@@ -1350,6 +1350,79 @@ function ScreensLogic.holdFraction(held: number, required: number): (number, boo
 	return fraction, fraction >= 1
 end
 
+-- Settings ---------------------------------------------------------------------------------------
+
+ScreensLogic.QUALITY_OPTIONS = table.freeze({ "Auto", "Low", "Medium", "High", "Ultra" })
+
+-- The Visuals section of the settings screen as UI/Core/SettingsSchema entries, with the current
+-- Visuals settings ({ level, adaptive, reducedMotion, reducedFlashing, intensity }) as defaults.
+function ScreensLogic.visualsSchema(settings: { [string]: any }?): { { [string]: any } }
+	local current: { [string]: any } = settings or {}
+	local level = if type(current.level) == "string"
+			and table.find(ScreensLogic.QUALITY_OPTIONS, current.level) ~= nil
+		then current.level
+		else "High"
+	return {
+		{
+			key = "uvkQuality",
+			kind = "dropdown",
+			label = "Effects quality",
+			section = "Visuals",
+			default = if current.adaptive == true then "Auto" else level,
+			options = table.clone(ScreensLogic.QUALITY_OPTIONS),
+		},
+		{
+			key = "uvkIntensity",
+			kind = "slider",
+			label = "Effects intensity",
+			section = "Visuals",
+			default = math.clamp(number(current.intensity, 1), 0, 1.5),
+			min = 0,
+			max = 1.5,
+			step = 0.05,
+		},
+		{
+			key = "uvkReducedMotion",
+			kind = "toggle",
+			label = "Reduce motion",
+			section = "Visuals",
+			default = current.reducedMotion == true,
+		},
+		{
+			key = "uvkReducedFlashing",
+			kind = "toggle",
+			label = "Reduce flashing",
+			section = "Visuals",
+			default = current.reducedFlashing == true,
+		},
+	}
+end
+
+-- The Visuals.Configure table for a change to one of the visualsSchema keys (nil for other keys
+-- and for values of the wrong type).
+function ScreensLogic.visualsConfig(key: string, value: any): { [string]: any }?
+	if key == "uvkQuality" then
+		if value == "Auto" then
+			return { adaptive = true }
+		elseif type(value) == "string" and table.find(ScreensLogic.QUALITY_OPTIONS, value) ~= nil then
+			return { quality = value, adaptive = false }
+		end
+	elseif key == "uvkIntensity" then
+		if type(value) == "number" and value == value then
+			return { intensity = math.clamp(value, 0, 1.5) }
+		end
+	elseif key == "uvkReducedMotion" then
+		if type(value) == "boolean" then
+			return { reducedMotion = value }
+		end
+	elseif key == "uvkReducedFlashing" then
+		if type(value) == "boolean" then
+			return { reducedFlashing = value }
+		end
+	end
+	return nil
+end
+
 -- Quests and achievements ------------------------------------------------------------------------
 
 local QUEST_ORDER: { [string]: number } = { claimable = 1, active = 2, claimed = 3 }

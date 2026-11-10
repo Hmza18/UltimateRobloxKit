@@ -15,6 +15,7 @@ How to read the "Verified" column: "local" means run on the build machine on 202
 | Themes and tokens | 10 themes, 10 new styles in `design/tokens/styles.json` | ThemeData and ThemeLogic: Lune (validity, WCAG contrast, distinctness) and strict luau-analyze; Python token and contrast tests. How each theme looks: not checked |
 | Icons | Private icon vault tool, `Visuals.Icons` registry, containers, picker, bridge | Vault tool: Python tests against a synthetic fixture pack. IconVaultLogic: Lune. IconVault runtime: lint, format and types only. NOT run in Studio. Nothing is uploaded; asset ids are mapped after the owner's manual upload |
 | VFX textures | 25 generated textures and flipbooks, asset-id map, preview | Python tests; `urk.py visuals textures --check` reproduces the committed files. Not uploaded, not seen in Roblox |
+| Screens | 12 screen templates in `Visuals/Screens` (added by another agent during this release) | ScreensData and ScreensLogic: strict luau-analyze; listed in the catalog. Screen builders: NOT run in Studio. See that module's specs and files for detail |
 | Presets, Debug | Catalog over the registries; stats overlay and profiler | PresetsLogic and DebugLogic: Lune and strict luau-analyze. Presets and Debug runtime: lint, format and types only |
 | Preset catalog | `catalog/visuals.json` (generated), `library/tools/export_visuals.luau`, `build_visuals_refs.py`, generated preset tables | `lune run tools/export_visuals --check` and `build_visuals_refs.py --check` pass (local); `tests/test_visuals_catalog.py` (shape, sorting, cross-references, tables current) |
 | Skills | 15 `uvk-*` skills in the new `visuals` category, 13 existing skills extended; 82 skills | `tests/test_skills.py`, `test_links.py`; the Luau example in `uvk-visual-testing` was run under Lune. Other code in the skills uses the real API by reading the source but was not executed |
@@ -23,7 +24,7 @@ How to read the "Verified" column: "local" means run on the build machine on 202
 | CI | Strict list extended to UVK pure modules; catalog, table and texture staleness checks; vault status smoke test | The strict list was run locally with the pinned luau-analyze: clean. The workflow file itself has NOT run in GitHub Actions for this branch |
 | Docs | Visuals README, quick start, API reference, preset reference, status section in the contract | Links checked by `test_links.py`; signatures taken from the source. Code samples in the docs were not executed |
 
-Local results at the time of writing: **@@LUNE@@** (of which Visuals: @@LUNEV@@); strict luau-analyze clean on @@PURE@@ pure modules (@@PUREV@@ in Visuals); Python suite @@PY@@.
+Local results at the time of writing: **1038 passed, 0 failed, 74 spec files** (of which Visuals: 348 passed, 0 failed, 20 spec files); strict luau-analyze clean on 100 pure modules (37 in Visuals); Python suite (`URK_SKIP_BLENDER=1 python3 scripts/validate/run_all.py`) 212 tests PASS with 4 skipped (Blender skipped by the flag).
 
 ### Remaining for UVK (in order)
 

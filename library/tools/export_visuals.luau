@@ -455,8 +455,8 @@ else
 	for _, kind in
 		sorted((function(): { string }
 			local names: { string } = {}
-			for kind in kinds do
-				table.insert(names, kind)
+			for name in kinds do
+				table.insert(names, name)
 			end
 			return names
 		end)())

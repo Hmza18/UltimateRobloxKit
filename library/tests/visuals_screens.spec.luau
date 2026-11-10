@@ -6,8 +6,11 @@
 
 local fs = require("@lune/fs")
 local Registry = require("../src/Visuals/Core/Registry")
+local IconData = require("../src/Icons/IconData")
+local Quality = require("../src/Visuals/Core/Quality")
 local ScreensData = require("../src/Visuals/Screens/ScreensData")
 local ScreensLogic = require("../src/Visuals/Screens/ScreensLogic")
+local SettingsSchema = require("../src/UI/Core/SettingsSchema")
 local UIPresets = require("../src/Visuals/UI/UIPresets")
 local t = require("./lib/t")
 
@@ -98,6 +101,39 @@ local EXAMPLES: { [string]: { [string]: any } } = {
 		achievements = {
 			{ id = "collector", title = "COLLECTOR", tier = 1, value = 20, max = 50 },
 			{ id = "rich", title = "RICH" },
+		},
+	},
+	Settings = {
+		schema = {
+			{ key = "music", kind = "slider", label = "Music", default = 0.5, min = 0, max = 1, section = "Audio" },
+			{ key = "trades", kind = "toggle", label = "Allow trades", default = true },
+		},
+		values = { music = 0.8 },
+	},
+	Leaderboard = {
+		entries = { { id = 1, name = "Amy", value = 900 }, { id = 2, name = "Bob", value = 400 } },
+		localId = 2,
+		tabs = { { id = "coins", text = "COINS" }, { id = "pets", text = "PETS" } },
+	},
+	Rebirth = { current = 250, cost = 1000, multiplier = 2, keeps = { "Pets" }, loses = { "Coins" } },
+	LevelUp = { level = 12, xp = { value = 20, max = 300 }, rewards = { { icon = "coin-color", amount = "x500" } } },
+	Loading = { title = "PET WORLD", tips = { "Hatch eggs to find rare pets" }, progress = 0.2 },
+	Welcome = {
+		title = "PET WORLD",
+		subtitle = "Season 2",
+		news = { { id = "update", title = "NEW AREA", text = "The volcano is open" } },
+	},
+	Tutorial = {
+		steps = {
+			{ text = "Tap the big button", target = { x = 100, y = 200, w = 80, h = 80 } },
+			{ title = "Done", text = "Have fun" },
+		},
+	},
+	AreaUnlock = { area = { name = "Volcano", description = "Hot pets live here" }, cost = 5000, balance = 9000 },
+	Collection = {
+		entries = {
+			{ id = "cat", name = "Cat", discovered = true, rarity = "common" },
+			{ id = "dragon", name = "Dragon" },
 		},
 	},
 }
@@ -826,6 +862,86 @@ return {
 		t.deepEqual({ ScreensLogic.holdFraction(0.5, 2) }, { 0.25, false })
 		t.deepEqual({ ScreensLogic.holdFraction(3, 2) }, { 1, true })
 		t.deepEqual({ ScreensLogic.holdFraction(0, 0) }, { 1, true })
+	end,
+
+	["the Visuals settings section mirrors the current settings and maps changes to Visuals.Configure"] = function()
+		local schema =
+			ScreensLogic.visualsSchema({ level = "Medium", adaptive = false, reducedMotion = true, intensity = 0.5 })
+		t.equal(#SettingsSchema.validate(schema), 0, table.concat(SettingsSchema.validate(schema), "; "))
+		local defaults = SettingsSchema.defaults(schema :: any)
+		t.deepEqual(
+			defaults,
+			{ uvkQuality = "Medium", uvkIntensity = 0.5, uvkReducedMotion = true, uvkReducedFlashing = false }
+		)
+		t.equal(ScreensLogic.visualsSchema({ level = "Ultra", adaptive = true })[1].default, "Auto")
+		t.equal(ScreensLogic.visualsSchema(nil)[1].default, "High")
+		t.equal(ScreensLogic.visualsSchema({ intensity = 9 })[2].default, 1.5)
+		for _, entry in ipairs(schema) do
+			t.equal(entry.section, "Visuals")
+		end
+		t.deepEqual(ScreensLogic.visualsConfig("uvkQuality", "Low"), { quality = "Low", adaptive = false })
+		t.deepEqual(ScreensLogic.visualsConfig("uvkQuality", "Auto"), { adaptive = true })
+		t.equal(ScreensLogic.visualsConfig("uvkQuality", "Potato"), nil)
+		t.deepEqual(ScreensLogic.visualsConfig("uvkIntensity", 3), { intensity = 1.5 })
+		t.deepEqual(ScreensLogic.visualsConfig("uvkReducedMotion", true), { reducedMotion = true })
+		t.deepEqual(ScreensLogic.visualsConfig("uvkReducedFlashing", false), { reducedFlashing = false })
+		t.equal(ScreensLogic.visualsConfig("uvkReducedMotion", "yes"), nil)
+		t.equal(ScreensLogic.visualsConfig("music", 0.5), nil, "game settings are not Visuals settings")
+		-- Every level the dropdown offers (except Auto) is a real quality level.
+		for _, option in ipairs(ScreensLogic.QUALITY_OPTIONS) do
+			if option ~= "Auto" then
+				t.truthy(table.find(Quality.LEVELS, option) ~= nil, option)
+			end
+		end
+	end,
+
+	["screen files only name registered UI presets and existing kit icons"] = function()
+		local dir: string? = nil
+		for _, candidate in ipairs({ "src/Visuals/Screens", "../src/Visuals/Screens" }) do
+			if fs.isDir(candidate) then
+				dir = candidate
+			end
+		end
+		if dir == nil then
+			return
+		end
+		local icons: { [string]: boolean } = {}
+		for _, entry in ipairs(IconData.icons) do
+			icons[entry.name] = true
+		end
+		local presets, iconCount = 0, 0
+		for _, fileName in ipairs(fs.readDir(dir)) do
+			if string.sub(fileName, -5) == ".luau" then
+				local source = fs.readFile(dir .. "/" .. fileName)
+				for _, pattern in ipairs({
+					'UI%.animate%([^,]+, "(%w+)"',
+					'UI%.show%([^,]+, "(%w+)"',
+					'UI%.hide%([^,]+, "(%w+)"',
+					'UI%.stagger%([^,]+, "(%w+)"',
+					'%.reveal%("(%w+)"%)',
+					'preset = "(%w+)"',
+					'or "(%u%l+%u%w+)", { interval',
+				}) do
+					for id in string.gmatch(source, pattern) do
+						presets += 1
+						t.truthy(UIPresets.registry:has(id), fileName .. " plays the unknown preset " .. id)
+					end
+				end
+				for _, pattern in ipairs({
+					'icon = "([%w%-]+)"',
+					'or "([%l%-]+%-color)"',
+					'then "([%l%-]+%-color)"',
+					'"([%l%-]+%-color)", nil%)',
+				}) do
+					for name in string.gmatch(source, pattern) do
+						iconCount += 1
+						t.truthy(icons[name], fileName .. " uses the unknown icon " .. name)
+					end
+				end
+			end
+		end
+		t.truthy(presets >= 20, "preset names were found")
+		t.truthy(iconCount >= 8, "icon names were found")
 	end,
 
 	["quests sort claimable first, then closest to done, then claimed"] = function()

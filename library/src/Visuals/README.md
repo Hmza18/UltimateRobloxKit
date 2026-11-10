@@ -108,6 +108,7 @@ Visuals:StopAll()         -- every effect
 | `Visuals.Audio` | [Audio](Audio/README.md) | Sound cues by name. No sounds are bundled | 29 cue names |
 | `Visuals.Themes` | [Themes](Themes/README.md) | Ten visual themes: colours, type, layout, motion feel, effect tokens | 10 |
 | `Visuals.Icons` | [Icons](Icons/README.md) | Registry and helpers for imported icon packs, themed and animated containers, picker | none bundled |
+| `Visuals.Screens` | `Screens/` | Ready screen templates built from the game components (see the module's own files and README when present) | 12 |
 | `Visuals.Presets` | `Presets/` | One view over every registry: `search`, `list`, `describe`, `usage`, `register`, `reset`, `export` | |
 | `Visuals.Debug` | `Debug/` | Stats overlay, effect profiler, `dump()` of every preset id | |
 | `Visuals.Motion`, `Visuals.Sequence()` | `Runtime/`, `Core/` | Tweens, springs, punches and skippable timelines on one clock | 10 springs |
@@ -198,8 +199,8 @@ Numbers at the time of writing (2026-11-10); rerun the commands for current ones
 | What | How it was checked | Result |
 |---|---|---|
 | `Core/` (Clock, Engine, Springs, Curves, Sequence, Registry, Quality, Effects, Pool) | Lune specs; `luau-analyze --mode=strict` | passing |
-| Every `*Logic`, `*Presets` and `*Data` module | Lune specs; `luau-analyze --mode=strict` (35 Visuals modules) | passing |
-| All Visuals specs | `lune run tests/run tests visuals_` from `library/` | 285 passed, 0 failed, 18 spec files |
+| Every `*Logic`, `*Presets` and `*Data` module | Lune specs; `luau-analyze --mode=strict` (37 Visuals modules) | passing |
+| All Visuals specs | `lune run tests/run tests visuals_` from `library/` | 348 passed, 0 failed, 20 spec files |
 | Runtime modules that create Instances (`VFX`, `Builders`, `UIAnimations`, `Camera`, `Objects`, `PetAnimator`, `PetFollow`, `PetPreview`, `PetSelection`, `Eggs`, `Rewards`, `RewardView`, `Feedback`, `Audio`, `Themes`, `IconVault`, `Debug`, `Host`, `Motion`, `Props`) | StyLua, Selene, `luau-lsp analyze` with Roblox type definitions | lint, format and types only. **NOT run in Studio** |
 | How effects, animations, screens and reveals look and feel | not checked | `NEEDS MANUAL REVIEW` |
 | Input on touch and gamepad, safe areas, device performance | not checked | `NEEDS MANUAL REVIEW` |

@@ -8,6 +8,7 @@
   "object": 18,
   "pet": 10,
   "rarity": 7,
+  "screen": 12,
   "theme": 10,
   "ui": 70,
   "vfx": 83
@@ -3164,6 +3165,394 @@
      "Fireworks",
      "Confetti"
     ]
+   }
+  ],
+  "screen": [
+   {
+    "category": "progression",
+    "dependencies": [],
+    "description": "Achievement cards with a progress summary.",
+    "id": "Achievements",
+    "name": "Achievements",
+    "params": {
+     "title": {
+      "default": "ACHIEVEMENTS",
+      "description": "Window title",
+      "type": "string"
+     }
+    },
+    "quality": {
+     "cost": "medium",
+     "min": "Low"
+    },
+    "tags": [
+     "screen",
+     "window"
+    ],
+    "usage": "Screens.create(\"Achievements\", { parent = playerGui, achievements = achievements }):open()"
+   },
+   {
+    "category": "animals",
+    "dependencies": [],
+    "description": "Feeding panel: animal card with mood and hunger bars, a food tray, a throw button and a reaction area.",
+    "id": "AnimalInteraction",
+    "name": "Animal interaction",
+    "params": {
+     "canThrow": {
+      "default": true,
+      "description": "false disables the throw button (cooldown, out of range)",
+      "type": "boolean"
+     },
+     "throwText": {
+      "default": "THROW",
+      "description": "Throw button label",
+      "type": "string"
+     },
+     "title": {
+      "default": "FEED",
+      "description": "Panel title",
+      "type": "string"
+     }
+    },
+    "quality": {
+     "cost": "medium",
+     "min": "Low"
+    },
+    "tags": [
+     "screen",
+     "sheet"
+    ],
+    "usage": "local feed = Screens.create(\"AnimalInteraction\", { parent = playerGui, animal = cow, foods = foods })"
+   },
+   {
+    "category": "rewards",
+    "dependencies": [],
+    "description": "Seven-day reward track where today pulses and can be claimed.",
+    "id": "DailyRewards",
+    "name": "Daily rewards",
+    "params": {
+     "claimText": {
+      "default": "CLAIM",
+      "description": "Claim button text",
+      "type": "string"
+     },
+     "claimed": {
+      "default": false,
+      "description": "Whether today's reward was already claimed",
+      "type": "boolean"
+     },
+     "title": {
+      "default": "DAILY REWARDS",
+      "description": "Window title",
+      "type": "string"
+     },
+     "today": {
+      "default": 1,
+      "description": "The day that can be claimed (wraps around the track)",
+      "type": "number"
+     }
+    },
+    "quality": {
+     "cost": "medium",
+     "min": "Low"
+    },
+    "tags": [
+     "screen",
+     "window"
+    ],
+    "usage": "Screens.create(\"DailyRewards\", { parent = playerGui, days = track, today = 3 }):open()"
+   },
+   {
+    "category": "eggs",
+    "dependencies": [],
+    "description": "Egg stand: egg cards, the selected egg's odds and hatch x1 / x3 / auto buttons that raise intents.",
+    "id": "EggHatching",
+    "name": "Egg hatching stand",
+    "params": {
+     "auto": {
+      "default": true,
+      "description": "Show the auto hatch toggle",
+      "type": "boolean"
+     },
+     "autoActive": {
+      "default": false,
+      "description": "Whether auto hatch is on (the caller sets it)",
+      "type": "boolean"
+     },
+     "currencyIcon": {
+      "default": "coin-color",
+      "description": "Icon shown next to prices",
+      "type": "string"
+     },
+     "title": {
+      "default": "EGGS",
+      "description": "Window title",
+      "type": "string"
+     }
+    },
+    "quality": {
+     "cost": "medium",
+     "min": "Low"
+    },
+    "tags": [
+     "screen",
+     "window"
+    ],
+    "usage": "local stand = Screens.create(\"EggHatching\", { parent = playerGui, eggs = eggs })"
+   },
+   {
+    "category": "pets",
+    "dependencies": [],
+    "description": "Pet grid with rarity filters, equip and unequip, and a detail panel with a preview.",
+    "id": "PetInventory",
+    "name": "Pet inventory",
+    "params": {
+     "equipMax": {
+      "default": 3,
+      "description": "Team size: equip is disabled when it is full",
+      "type": "number"
+     },
+     "filter": {
+      "default": "all",
+      "description": "Rarity shown: all, or a rarity present in the list",
+      "type": "string"
+     },
+     "title": {
+      "default": "PETS",
+      "description": "Window title",
+      "type": "string"
+     }
+    },
+    "quality": {
+     "cost": "medium",
+     "min": "Low"
+    },
+    "tags": [
+     "screen",
+     "window"
+    ],
+    "usage": "Screens.create(\"PetInventory\", { parent = playerGui, pets = ownedPets, equipMax = 4 }):open()"
+   },
+   {
+    "category": "pets",
+    "dependencies": [],
+    "description": "Choose-your-starter screen: wraps Pets.selection (live 3D previews, focus, confirm).",
+    "id": "PetSelection",
+    "name": "Pet selection",
+    "params": {
+     "closeOnConfirm": {
+      "default": true,
+      "description": "Close after the confirm intent",
+      "type": "boolean"
+     },
+     "confirmText": {
+      "default": "CHOOSE",
+      "description": "Confirm button text",
+      "type": "string"
+     },
+     "palette": {
+      "default": "purple",
+      "description": "Backdrop palette",
+      "type": "string"
+     },
+     "title": {
+      "default": "Choose your pet",
+      "description": "Title above the cards",
+      "type": "string"
+     }
+    },
+    "quality": {
+     "cost": "medium",
+     "min": "Low"
+    },
+    "tags": [
+     "fullscreen",
+     "screen"
+    ],
+    "usage": "Screens.create(\"PetSelection\", { parent = playerGui, pets = starters }):open()"
+   },
+   {
+    "category": "shop",
+    "dependencies": [],
+    "description": "Robux store with a featured banner, bundles and premium buttons.",
+    "id": "PremiumShop",
+    "name": "Premium shop",
+    "params": {
+     "title": {
+      "default": "PREMIUM",
+      "description": "Window title",
+      "type": "string"
+     }
+    },
+    "quality": {
+     "cost": "medium",
+     "min": "Low"
+    },
+    "tags": [
+     "screen",
+     "window"
+    ],
+    "usage": "Screens.create(\"PremiumShop\", { parent = playerGui, featured = starterPack, bundles = bundles }):open()"
+   },
+   {
+    "category": "progression",
+    "dependencies": [],
+    "description": "Daily and weekly quest lists with claim buttons.",
+    "id": "QuestLog",
+    "name": "Quest log",
+    "params": {
+     "emptyText": {
+      "default": "No quests here yet",
+      "description": "Shown when the tab has no quests",
+      "type": "string"
+     },
+     "title": {
+      "default": "QUESTS",
+      "description": "Window title",
+      "type": "string"
+     }
+    },
+    "quality": {
+     "cost": "medium",
+     "min": "Low"
+    },
+    "tags": [
+     "screen",
+     "window"
+    ],
+    "usage": "Screens.create(\"QuestLog\", { parent = playerGui, quests = quests }):open()"
+   },
+   {
+    "category": "rewards",
+    "dependencies": [],
+    "description": "Reward reveal overlay: wraps Rewards.reveal for one reward and Rewards.batch for several.",
+    "id": "RewardReveal",
+    "name": "Reward reveal",
+    "params": {
+     "autoDismiss": {
+      "default": true,
+      "description": "Dismiss after the rarity's hold time",
+      "type": "boolean"
+     },
+     "compact": {
+      "default": false,
+      "description": "Smaller card",
+      "type": "boolean"
+     },
+     "skippable": {
+      "default": true,
+      "description": "A tap skips to the result",
+      "type": "boolean"
+     },
+     "threshold": {
+      "default": "Epic",
+      "description": "Batches: rarities at or above this get a full reveal",
+      "type": "string"
+     }
+    },
+    "quality": {
+     "cost": "medium",
+     "min": "Low"
+    },
+    "tags": [
+     "overlay",
+     "screen"
+    ],
+    "usage": "Screens.create(\"RewardReveal\", { parent = playerGui, rewards = { { rarity = \"Legendary\", name = \"Sun Fox\" } } }):open()"
+   },
+   {
+    "category": "shop",
+    "dependencies": [],
+    "description": "Tabbed shop with a grid of product cards.",
+    "id": "Shop",
+    "name": "Shop",
+    "params": {
+     "title": {
+      "default": "SHOP",
+      "description": "Window title",
+      "type": "string"
+     }
+    },
+    "quality": {
+     "cost": "medium",
+     "min": "Low"
+    },
+    "tags": [
+     "screen",
+     "window"
+    ],
+    "usage": "Screens.create(\"Shop\", { parent = playerGui, tabs = tabs, products = products }):open()"
+   },
+   {
+    "category": "rewards",
+    "dependencies": [],
+    "description": "Prize wheel that lands on the segment the caller supplies, then reveals the reward.",
+    "id": "SpinWheel",
+    "name": "Spin wheel",
+    "params": {
+     "reveal": {
+      "default": true,
+      "description": "After landing, show the segment's `reward` with Rewards.reveal",
+      "type": "boolean"
+     },
+     "spinText": {
+      "default": "SPIN",
+      "description": "Spin button text",
+      "type": "string"
+     },
+     "title": {
+      "default": "LUCKY WHEEL",
+      "description": "Window title",
+      "type": "string"
+     }
+    },
+    "quality": {
+     "cost": "medium",
+     "min": "Low"
+    },
+    "tags": [
+     "screen",
+     "window"
+    ],
+    "usage": "local wheel = Screens.create(\"SpinWheel\", { parent = playerGui, segments = prizes, spins = 1 })"
+   },
+   {
+    "category": "hud",
+    "dependencies": [],
+    "description": "Clicker HUD: big tap button, currency counters, multiplier chip, rebirth bar and side menu buttons.",
+    "id": "TappingHud",
+    "name": "Tapping HUD",
+    "params": {
+     "multiplier": {
+      "default": 1,
+      "description": "Shown in the multiplier chip",
+      "type": "number"
+     },
+     "popups": {
+      "default": true,
+      "description": "Show a floating number for each reward()",
+      "type": "boolean"
+     },
+     "tapPalette": {
+      "default": "gold",
+      "description": "Tap button colour",
+      "type": "string"
+     },
+     "tapText": {
+      "default": "TAP",
+      "description": "Tap button label",
+      "type": "string"
+     }
+    },
+    "quality": {
+     "cost": "medium",
+     "min": "Low"
+    },
+    "tags": [
+     "hud",
+     "screen"
+    ],
+    "usage": "local hud = Screens.create(\"TappingHud\", { parent = playerGui, currencies = { { id = \"coins\", icon = \"coin-color\", value = 0 } } })"
    }
   ],
   "theme": [
@@ -9776,6 +10165,6 @@
    "uiShine": true
   }
  },
- "total": 306,
+ "total": 318,
  "version": 1
 }

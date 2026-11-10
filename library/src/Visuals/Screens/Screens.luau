@@ -93,6 +93,33 @@ local loaders: { [string]: () -> any } = {
 	Achievements = function(): any
 		return require("./Achievements")
 	end,
+	Settings = function(): any
+		return require("./Settings")
+	end,
+	Leaderboard = function(): any
+		return require("./Leaderboard")
+	end,
+	Rebirth = function(): any
+		return require("./Rebirth")
+	end,
+	LevelUp = function(): any
+		return require("./LevelUp")
+	end,
+	Loading = function(): any
+		return require("./Loading")
+	end,
+	Welcome = function(): any
+		return require("./Welcome")
+	end,
+	Tutorial = function(): any
+		return require("./Tutorial")
+	end,
+	AreaUnlock = function(): any
+		return require("./AreaUnlock")
+	end,
+	Collection = function(): any
+		return require("./Collection")
+	end,
 }
 
 local builders: { [string]: Builder } = {}
