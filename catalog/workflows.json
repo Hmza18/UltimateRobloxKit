@@ -332,7 +332,19 @@
     "camera shake",
     "screen shake",
     "reward reveal",
-    "celebration"
+    "celebration",
+    "sparkle",
+    "glow",
+    "aura",
+    "trail",
+    "confetti",
+    "firework",
+    "damage number",
+    "hit effect",
+    "impact",
+    "shockwave",
+    "explosion effect",
+    "tween"
    ],
    "min_matches": 1,
    "skills": [
@@ -361,7 +373,14 @@
     "hatch cinematic",
     "hatch effect",
     "egg opening",
-    "egg animation"
+    "egg animation",
+    "pet bounce",
+    "pet idle",
+    "pet float",
+    "follow the player",
+    "follow player",
+    "rare pet",
+    "pet glow"
    ],
    "min_matches": 1,
    "skills": [
@@ -390,7 +409,14 @@
     "transition",
     "count up",
     "floating number",
-    "popup animation"
+    "popup animation",
+    "animated",
+    "fancy popup",
+    "loading screen animation",
+    "animated loading",
+    "mythic popup",
+    "rarity popup",
+    "tween"
    ],
    "min_matches": 1,
    "skills": [
