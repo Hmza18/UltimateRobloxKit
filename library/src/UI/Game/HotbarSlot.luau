@@ -91,6 +91,7 @@ local function build(object: any)
 	})
 	shade.BackgroundColor3 = Color3.new(0, 0, 0)
 	shade.BackgroundTransparency = 0.4
+	Kit.corner(radius).Parent = shade
 	object.shade = shade
 
 	object.shownText = nil

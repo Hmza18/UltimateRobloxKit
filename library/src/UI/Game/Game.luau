@@ -5,6 +5,8 @@
 --
 -- Game.Intent carries intents raised while UrkUI is not running (UrkUI.Intent otherwise).
 -- Game.Style is Style/Style; Game.MotionPresets is Core/MotionPresets. See Game/README.md.
+--
+-- The components from PremiumButton on take their motion from Visuals/UI (UIAnimations presets).
 
 local loaders: { [string]: () -> any } = {
 	GameText = function(): any
@@ -64,6 +66,57 @@ local loaders: { [string]: () -> any } = {
 	RewardPopup = function(): any
 		return require("./RewardPopup")
 	end,
+	PremiumButton = function(): any
+		return require("./PremiumButton")
+	end,
+	TabBar = function(): any
+		return require("./TabBar")
+	end,
+	Modal = function(): any
+		return require("./Modal")
+	end,
+	Tooltip = function(): any
+		return require("./Tooltip")
+	end,
+	XPBar = function(): any
+		return require("./XPBar")
+	end,
+	InventorySlot = function(): any
+		return require("./InventorySlot")
+	end,
+	PetCard = function(): any
+		return require("./PetCard")
+	end,
+	RarityBadge = function(): any
+		return require("./RarityBadge")
+	end,
+	RewardPanel = function(): any
+		return require("./RewardPanel")
+	end,
+	QuestCard = function(): any
+		return require("./QuestCard")
+	end,
+	AchievementCard = function(): any
+		return require("./AchievementCard")
+	end,
+	Notification = function(): any
+		return require("./Notification")
+	end,
+	LeaderboardRow = function(): any
+		return require("./LeaderboardRow")
+	end,
+	LoadingScreen = function(): any
+		return require("./LoadingScreen")
+	end,
+	SelectionCard = function(): any
+		return require("./SelectionCard")
+	end,
+	HotbarSlot = function(): any
+		return require("./HotbarSlot")
+	end,
+	StatChip = function(): any
+		return require("./StatChip")
+	end,
 	PurchaseBridge = function(): any
 		return require("./PurchaseBridge")
 	end,
@@ -98,6 +151,23 @@ local COMPONENTS = {
 	"Dropdown",
 	"RarityFrame",
 	"RewardPopup",
+	"PremiumButton",
+	"TabBar",
+	"Modal",
+	"Tooltip",
+	"XPBar",
+	"InventorySlot",
+	"PetCard",
+	"RarityBadge",
+	"RewardPanel",
+	"QuestCard",
+	"AchievementCard",
+	"Notification",
+	"LeaderboardRow",
+	"LoadingScreen",
+	"SelectionCard",
+	"HotbarSlot",
+	"StatChip",
 }
 
 local Game = {}
