@@ -277,16 +277,18 @@ local function runBatch(
 	local profile = Host.profile()
 	local camera = Workspace.CurrentCamera
 	local viewport = if camera then camera.ViewportSize else Vector2.new(16, 9)
-	local plan = HatchLogic.plan(entries, {
+	local aspect: number = if viewport.Y > 0 then viewport.X / viewport.Y else 16 / 9
+	local planOptions: HatchLogic.Options = {
 		mode = mode,
 		speed = config.speed,
-		aspect = if viewport.Y > 0 then viewport.X / viewport.Y else 16 / 9,
+		aspect = aspect,
 		reducedMotion = settings.reducedMotion,
 		reducedFlashing = settings.reducedFlashing,
-		quality = settings.level,
+		quality = settings.level :: string,
 		hold = config.hold,
 		camera = config.camera,
-	})
+	}
+	local plan = HatchLogic.plan(entries, planOptions)
 	local auto = plan.mode == "auto"
 
 	-- The stage: its centre looks at the viewer, so +X of `origin` is the viewer's left.
