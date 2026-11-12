@@ -8,6 +8,12 @@ Everything the kit learned from, and how each source was used. "Copy" means file
 |---|---|
 | Roblox Supermarket 3D asset pipeline (private project, 2026-10 to 2026-11) | `tools/rbxasset/` (meshkit, atlas, safe_area, grid, 61 generators; the 51 approved products as reference specs), the License<N> delivery format, the Blender build, export and verify stages, QA checks, approval-gate workflow, and the modeling skills. Written for the user, so relicensed here under MIT. See [docs/references/recovered-supermarket-pipeline.md](docs/references/recovered-supermarket-pipeline.md). |
 
+## Tools used to author kit content (not vendored)
+
+| Source | Used for |
+|---|---|
+| Cutscene skill pack by fwjelaa (FWJ STUDIOS), shared as a zip bundle: `make-anim`, `make-cutscene`, `animation`, `universal-r15-animation-director`, `cinematic-scene-direction` | The make-anim kit (run headless in Blender 5.0) built, checked and exported the 13 R15 clips in `examples/supermarket-cinematic`; its guidance shaped the scene direction. The pack's credits allow use in your own games with attribution; no pack files are copied into this repository. The pose scripts in `anim_src/` are original and import the kit's helpers at build time. |
+
 ## Reviewed third-party repositories
 
 | Repository | License | Pinned commit | Use in the kit |

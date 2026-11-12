@@ -2,6 +2,10 @@
 
 All notable changes are listed here. Versions follow semantic versioning; the installer records the version in each project's manifest.
 
+## Unreleased
+
+- **Example: Supermarket Simulator intro cinematic** (`examples/supermarket-cinematic`). A 35-second, five-scene, removable Rojo project: a procedural film set, an R15 cast, 13 clips authored with fwjelaa's make-anim kit, a shot-based camera director, VFX, UI, audio hooks, skip, pause and replay, and a full restore of camera, lighting, GUIs and controls. It is tested headless: the real Luau source is played on a Roblox API mock (`tests/sim.py`), with Blender previs renders from the cinematic camera. `tests/test_supermarket_cinematic.py` joins `run_all.py`; its runtime part runs when `lupa` is installed. Not run in Roblox Studio: playback, looks and device performance are `NEEDS MANUAL REVIEW`.
+
 ## 0.5.0 (2026-11-10)
 
 UltimateVisualsKit (UVK): a visual layer for the library, and the skills, agents and catalog that make agents reuse it.

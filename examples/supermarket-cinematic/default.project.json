@@ -1,0 +1,23 @@
+{
+  "name": "SupermarketCinematic",
+  "tree": {
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "SupermarketCinematics": {
+        "$path": "src/ReplicatedStorage/SupermarketCinematics"
+      }
+    },
+    "ServerScriptService": {
+      "SupermarketCinematicServer": {
+        "$path": "src/ServerScriptService/SupermarketCinematicServer.server.luau"
+      }
+    },
+    "StarterPlayer": {
+      "StarterPlayerScripts": {
+        "SupermarketCinematicClient": {
+          "$path": "src/StarterPlayerScripts/SupermarketCinematicClient.client.luau"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,179 @@
+{
+ "play_started": true,
+ "finished_events": 1,
+ "finished_skipped": false,
+ "stats": {
+  "products": 16,
+  "realProducts": 0,
+  "cue_errors": 0,
+  "cast": {
+   "Cashier": "block",
+   "ShopperB": "block",
+   "Employee": "block",
+   "Customer": "block",
+   "ShopperA": "block"
+  },
+  "missingAudio": [
+   "BasketDrop",
+   "BoxHandle",
+   "CheckoutSuccess",
+   "FinalReveal",
+   "Music",
+   "ProductPlace",
+   "ScannerBeep",
+   "StoreOpen"
+  ]
+ },
+ "checks": {
+  "camera_jumps": [],
+  "fov_out_of_range": 0,
+  "nonfinite": 0,
+  "shots_seen": [
+   "Establishing",
+   "WalkToBox",
+   "BoxCloseUp",
+   "CarryToShelf",
+   "Stocking",
+   "ShelfHero",
+   "CustomerEnters",
+   "Browsing",
+   "Selection",
+   "ToCheckout",
+   "Approach",
+   "ScannerClose",
+   "Earnings",
+   "Reveal"
+  ],
+  "box_hand_max": 0.241,
+  "basket_hand_range": [
+   1.3,
+   1.3
+  ]
+ },
+ "restore": {
+  "state": "idle",
+  "camera_type": "Custom",
+  "camera_fov": 70,
+  "camera_subject_is_humanoid": true,
+  "lighting_restored": true,
+  "hud_enabled": true,
+  "controls_enabled": true,
+  "core_gui": {
+   "PlayerList": true,
+   "EmotesMenu": true,
+   "Health": true,
+   "Chat": true,
+   "Backpack": true
+  },
+  "cas_bindings": 0,
+  "render_bindings": 0,
+  "workspace_delta": 0,
+  "connection_delta": 0,
+  "lighting_children": []
+ },
+ "sounds_played": [
+  "Footstep"
+ ],
+ "particles_emitted": 450,
+ "log_warnings": [],
+ "replay_deltas": [
+  [
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   0,
+   0
+  ]
+ ],
+ "finished_events_after_replays": 4,
+ "second_play_refused": true,
+ "skips": [
+  {
+   "at": 3.0,
+   "state": "idle",
+   "camera": "Custom",
+   "fov": 70,
+   "workspace_delta": 0,
+   "connections": 0,
+   "controls": true,
+   "hud": true,
+   "lighting_restored": true
+  },
+  {
+   "at": 9.0,
+   "state": "idle",
+   "camera": "Custom",
+   "fov": 70,
+   "workspace_delta": 0,
+   "connections": 0,
+   "controls": true,
+   "hud": true,
+   "lighting_restored": true
+  },
+  {
+   "at": 15.5,
+   "state": "idle",
+   "camera": "Custom",
+   "fov": 70,
+   "workspace_delta": 0,
+   "connections": 0,
+   "controls": true,
+   "hud": true,
+   "lighting_restored": true
+  },
+  {
+   "at": 24.9,
+   "state": "idle",
+   "camera": "Custom",
+   "fov": 70,
+   "workspace_delta": 0,
+   "connections": 0,
+   "controls": true,
+   "hud": true,
+   "lighting_restored": true
+  },
+  {
+   "at": 31.5,
+   "state": "idle",
+   "camera": "Custom",
+   "fov": 70,
+   "workspace_delta": 0,
+   "connections": 0,
+   "controls": true,
+   "hud": true,
+   "lighting_restored": true
+  }
+ ],
+ "pause": {
+  "before": 10.0,
+  "after_2s_paused": 10.0,
+  "after_resume_1s": 11.0
+ },
+ "templates_folder": true,
+ "test_panel": true,
+ "log_tail": [
+  "[SupermarketCinematic] audio cue 'ScannerBeep' has no SoundId (Configuration.Audio.ScannerBeep): silent hook",
+  "[SupermarketCinematic] audio cue 'CheckoutSuccess' has no SoundId (Configuration.Audio.CheckoutSuccess): silent hook",
+  "[SupermarketCinematic] audio cue 'FinalReveal' has no SoundId (Configuration.Audio.FinalReveal): silent hook",
+  "[SupermarketCinematic] audio cue 'Music' has no SoundId (Configuration.Audio.Music): silent hook",
+  "[SupermarketCinematic] audio cue 'StoreOpen' has no SoundId (Configuration.Audio.StoreOpen): silent hook",
+  "[SupermarketCinematic] audio cue 'BoxHandle' has no SoundId (Configuration.Audio.BoxHandle): silent hook",
+  "WARN [SupermarketCinematic] template Employee not built (SupermarketCinematicServer:53: attempt to call a nil value (method 'CreateHumanoidModelFromDescription')): clients use block rigs",
+  "WARN [SupermarketCinematic] template Shopper2 not built (SupermarketCinematicServer:53: attempt to call a nil value (method 'CreateHumanoidModelFromDescription')): clients use block rigs",
+  "WARN [SupermarketCinematic] template Cashier not built (SupermarketCinematicServer:53: attempt to call a nil value (method 'CreateHumanoidModelFromDescription')): clients use block rigs",
+  "WARN [SupermarketCinematic] template Customer not built (SupermarketCinematicServer:53: attempt to call a nil value (method 'CreateHumanoidModelFromDescription')): clients use block rigs",
+  "WARN [SupermarketCinematic] template Shopper not built (SupermarketCinematicServer:53: attempt to call a nil value (method 'CreateHumanoidModelFromDescription')): clients use block rigs",
+  "[SupermarketCinematic] 0 cast templates ready"
+ ]
+}
